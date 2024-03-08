@@ -2,10 +2,42 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
-import LoadingButton from "@/pattern/common/molecules/loading-button";
+import LoadingButton from "@/pattern/common/controls/loading-button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import EmailInput from "@/pattern/common/inputs/email-input";
+import { FormProvider, useForm } from "react-hook-form";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 export default function Home() {
   const [date, setDate] = useState<Date | undefined>(new Date());
+  const WishlistFormSchema = Yup.object().shape({
+    email: Yup.string()
+      .email("Email must be a valid email address")
+      .required("Please enter an email address"),
+  });
+
+  const methods = useForm({
+    mode: "onBlur",
+    resolver: yupResolver(WishlistFormSchema),
+  });
+
+  const {
+    handleSubmit,
+    formState: { errors },
+  } = methods;
+
+  const onSubmit = () => {
+    console.log("DATA TO SUBMIT: ");
+  };
   return (
     <main className='flex min-h-screen flex-col items-center justify-between p-24'>
       <Button autoFocus>Primary</Button>
@@ -35,9 +67,40 @@ export default function Home() {
         selected={date}
         onSelect={setDate}
         fixedWeeks
-        formatters={{formatWeekdayName: (day) => day?.toLocaleDateString('en-US', { weekday: 'short' }),}}
+        formatters={{
+          formatWeekdayName: (day) =>
+            day?.toLocaleDateString("en-US", { weekday: "short" }),
+        }}
         className='rounded-md border'
       />
+
+      <Card className='w-[350px]'>
+        <CardHeader>
+          <CardTitle>Create project</CardTitle>
+          <CardDescription>
+            Deploy your new project in one-click.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form></form>
+        </CardContent>
+        <CardFooter className='flex justify-between'>
+          <Button variant='outline'>Cancel</Button>
+          <Button>Deploy</Button>
+        </CardFooter>
+      </Card>
+
+      <Input placeholder='loremjkjkj' />
+      <Input variant='error' placeholder='loremjkjkj' />
+      <Input variant='error' placeholder='loremjkjkj' disabled />
+      <FormProvider {...methods}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className='w-full flex flex-col items-center gap-[30px]'
+        >
+          <EmailInput label='Email' name='Email' />
+        </form>
+      </FormProvider>
     </main>
   );
 }

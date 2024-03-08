@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { FieldError } from "react-hook-form";
 
 export interface IIconProps extends React.SVGAttributes<SVGElement> {
   children?: never;
@@ -10,4 +11,13 @@ export interface IIconProps extends React.SVGAttributes<SVGElement> {
 export interface ITypographyProps {
   children: string | ReactNode;
   className?: string;
+}
+export interface IInputIconProps extends IIconProps {
+  focused?: boolean; // input focus state
+  togglePasswordInput?: boolean; // password input visible state
+}
+export interface ICustomInputProps {
+  name: string;
+  label: string;
+  error?: FieldError;
 }

@@ -1,6 +1,6 @@
 import { Button, ButtonProps } from "@/components/ui/button";
 import React, { FC, ReactElement } from "react";
-import Hidden from "../atoms/hidden";
+import Hidden from "../data-display/hidden";
 
 interface IButtonWithIconprops extends ButtonProps {
   prefixIcon?: ReactElement;

@@ -6,9 +6,9 @@ import { DayPicker } from "react-day-picker";
 
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
-import CalendarLeftChevrolet from "@/pattern/common/atoms/icons/calendar-left-chevrolet";
-import CalendarRightChevrolet from "@/pattern/common/atoms/icons/calendar-right-chevrolet";
-import CalendarDropdown from "@/pattern/common/molecules/calendar-dropdown";
+import CalendarLeftChevrolet from "@/pattern/common/icons/calendar-left-chevrolet";
+import CalendarRightChevrolet from "@/pattern/common/icons/calendar-right-chevrolet";
+import CalendarDropdown from "@/pattern/common/inputs/calendar-dropdown";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
@@ -33,31 +33,29 @@ function Calendar({
         dropdown: "flex items-center",
         dropdown_year: "flex items-center",
         nav: "space-x-[16px] flex items-center mr-[12px]",
-        nav_button: cn(
-          "h-7 w-7 bg-transparent p-0 hover:opacity-100"
-        ),
+        nav_button: cn("h-7 w-7 bg-transparent p-0 hover:opacity-100"),
         // nav_button_previous: "absolute left-1",
         // nav_button_next: "absolute right-1",
         table: "w-full border-collapse space-y-1",
         head_row: "w-full flex justify-between",
         head_cell:
           "rounded-md w-[50px] font-medium text-[hsla(216,30%,18%,1)] text-[0.8rem]",
-        row: "w-full flex justify-between mt-2",
+        row: "w-full flex justify-between mt-2 focus-within:outline-primary",
         tbody: "w-full",
         head: "w-full",
         cell: cn(
-          "relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected].day-range-end)]:rounded-r-md",
+          "relative p-0 text-center text-sm focus-within:relative focus-within:outline-primary focus-within:outline-primary focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected].day-range-end)]:rounded-r-md",
           props.mode === "range"
             ? "[&:has(>.day-range-end)]:rounded-r-md [&:has(>.day-range-start)]:rounded-l-md first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md"
             : "[&:has([aria-selected])]:rounded-md"
         ),
         day: cn(
-          "h-[50px] w-[50px] p-0 text-[hsla(215,16%,47%,1)] font-normal rounded-[8px] aria-selected:opacity-100"
+          "h-[50px] w-[50px] p-0 text-[hsla(215,16%,47%,1)] font-normal rounded-[8px] aria-selected:opacity-100 focus-within:outline-primary"
         ),
         day_range_start: "day-range-start",
         day_range_end: "day-range-end",
         day_selected:
-          "bg-[hsla(146,100%,97%,1)] !text-primary hover:text-primary focus:bg-[hsla(146,100%,97%,1)] focus:text-primary",
+          "bg-[hsla(146,100%,97%,1)] !text-primary hover:text-primary focus-within:outline-primary focus:bg-[hsla(146,100%,97%,1)] focus:text-primary focus:font-bold",
         day_today: "bg-accent text-accent-foreground",
         day_outside:
           "day-outside text-muted-foreground opacity-50  aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30",
