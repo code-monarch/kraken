@@ -9,15 +9,13 @@ import PasswordInput from "@/pattern/common/inputs/password-input";
 import { LinkButton } from "@/pattern/common/controls/link-button";
 import LoadingButton from "@/pattern/common/controls/loading-button";
 
-const LoginFormSchema = Yup.object().shape({
+const ResetPasswordFormSchema = Yup.object().shape({
   email: Yup.string()
     .email("Email must be a valid email address")
-    .required("Please enter your email address"),
-  password: Yup.string()
-    .required("Password is required"),
+    .required("Please enter an email address"),
 });
 
-const LoginTemplate = () => {
+const ResetPasswordTemplate = () => {
   const defaultValues = {
     email: "",
     password: "",
@@ -25,7 +23,7 @@ const LoginTemplate = () => {
 
   const methods = useForm({
     mode: "onChange",
-    resolver: yupResolver(LoginFormSchema),
+    resolver: yupResolver(ResetPasswordFormSchema),
     reValidateMode: "onChange",
     delayError: 2000,
     defaultValues: defaultValues,
@@ -42,8 +40,8 @@ const LoginTemplate = () => {
   return (
     <>
       <AuthCard
-        title='Admin Login'
-        description='Please enter your admin credentials to access the UmrahCash Admin Dashboard.'
+        title='Forgot password'
+        description="Can't remember your password? enter your registered email address and we'll send you a password reset link."
       >
         <FormProvider {...methods}>
           <form
@@ -53,23 +51,14 @@ const LoginTemplate = () => {
             <EmailInput
               label='Email address'
               name='email'
+              placeholder='Type your email address here'
               error={errors["email"]}
             />
-            <PasswordInput
-              label='Password'
-              name='password'
-              error={errors["password"]}
-            />
 
-            {/* Controls */}
-            <div className='w-full space-y-[28px]'>
-              <div className='w-full flex items-center justify-end'>
-                <LinkButton>Forgot Password</LinkButton>
-              </div>
-              <LoadingButton loading={false} disabled={!isDirty} type='submit'>
-                Log into your account
-              </LoadingButton>
-            </div>
+            {/* Control */}
+            <LoadingButton loading={true} disabled={!isDirty} type='submit'>
+              Find account
+            </LoadingButton>
           </form>
         </FormProvider>
       </AuthCard>
@@ -77,4 +66,4 @@ const LoginTemplate = () => {
   );
 };
 
-export default LoginTemplate;
+export default ResetPasswordTemplate;

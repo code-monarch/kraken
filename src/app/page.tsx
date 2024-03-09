@@ -60,7 +60,7 @@ export default function Home() {
         Loading Buttonnnn
       </LoadingButton>
       <Calendar
-        mode='single'
+        mode='range'
         captionLayout='dropdown-buttons'
         fromYear={2024}
         toYear={2027}

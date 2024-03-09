@@ -22,7 +22,7 @@ const AuthCard: FC<IAuthCardProps> = ({ title, description, children }) => {
     <div className='w-[401px] flex flex-col items-center gap-y-24'>
       <BrandLogoIcon />
 
-      <Card className='w-full min-h-[457px]'>
+      <Card className='w-full min-h-[337px] h-fit'>
         <CardHeader>
           <CardTitle>{title}</CardTitle>
           <CardDescription>{description}</CardDescription>

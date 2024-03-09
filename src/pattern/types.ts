@@ -16,7 +16,8 @@ export interface IInputIconProps extends IIconProps {
   focused?: boolean; // input focus state
   togglePasswordInput?: boolean; // password input visible state
 }
-export interface ICustomInputProps {
+export interface ICustomInputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
   label: string;
   error?: FieldError;

@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { ICustomInputProps } from "@/pattern/types";
 import EmailInputIcon from "../icons/email-input-icon";
 
-const EmailInput: FC<ICustomInputProps> = ({ name, label, error }) => {
+const EmailInput: FC<ICustomInputProps> = ({ name, label, error, placeholder, ...props }) => {
   const { control } = useFormContext();
   const [isFocus, setIsFocus] = useState<boolean>(false);
   return (
@@ -25,6 +25,8 @@ const EmailInput: FC<ICustomInputProps> = ({ name, label, error }) => {
               onFocus={() => setIsFocus(true)}
               onBlur={() => setIsFocus(false)}
               variant={error ? "error" : "default"}
+              placeholder={placeholder ?? "example@gmail.com"}
+              {...props}
             />
             {/* prefix Icon */}
             <span className='absolute top-[15px] left-[12px]'>

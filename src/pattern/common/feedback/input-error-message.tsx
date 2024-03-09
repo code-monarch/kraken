@@ -12,7 +12,7 @@ const InputErrorMessage = ({ errors, name }: IInputErrorMessage) => (
   <ErrorMessage
     errors={errors}
     name={name}
-    as={<p className='text-[--warning] text-xs' />}
+    as={<p className='text-[--error] text-xs' />}
   >
     {({ messages }: Record<string, string>) =>
       messages &&

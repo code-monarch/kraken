@@ -27,7 +27,7 @@ function Calendar({
         months:
           "w-full flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "w-full space-y-4",
-        caption: "w-full flex justify-between pt-1 items-center",
+        caption: "w-full flex justify-between items-start",
         caption_label: "text-sm font-medium hidden",
         caption_dropdowns: "flex items-center gap-[4px]",
         dropdown: "flex items-center",
@@ -44,10 +44,10 @@ function Calendar({
         tbody: "w-full",
         head: "w-full",
         cell: cn(
-          "relative p-0 text-center text-sm focus-within:relative focus-within:outline-primary focus-within:outline-primary focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected].day-range-end)]:rounded-r-md",
+          "relative p-0 text-center text-sm focus-within:relative focus-within:outline-primary focus-within:outline-primary focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected].day-range-end)]:rounded-r-[8px]",
           props.mode === "range"
-            ? "[&:has(>.day-range-end)]:rounded-r-md [&:has(>.day-range-start)]:rounded-l-md first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md"
-            : "[&:has([aria-selected])]:rounded-md"
+            ? "[&:has(>.day-range-end)]:rounded-r-[8px] [&:has(>.day-range-start)]:rounded-l-[8px] first:[&:has([aria-selected])]:rounded-l-[8px] last:[&:has([aria-selected])]:rounded-r-[8px]"
+            : "[&:has([aria-selected])]:rounded-[8px]"
         ),
         day: cn(
           "h-[50px] w-[50px] p-0 text-[hsla(215,16%,47%,1)] font-normal rounded-[8px] aria-selected:opacity-100 focus-within:outline-primary"
@@ -55,13 +55,13 @@ function Calendar({
         day_range_start: "day-range-start",
         day_range_end: "day-range-end",
         day_selected:
-          "bg-[hsla(146,100%,97%,1)] !text-primary hover:text-primary focus-within:outline-primary focus:bg-[hsla(146,100%,97%,1)] focus:text-primary focus:font-bold",
+          "bg-primary text-white hover:text-white focus-within:outline-primary focus:bg-primary focus:text-white focus:font-bold rounded-[8px]",
         day_today: "bg-accent text-accent-foreground",
         day_outside:
           "day-outside text-muted-foreground opacity-50  aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30",
         day_disabled: "text-muted-foreground opacity-50",
         day_range_middle:
-          "aria-selected:bg-accent aria-selected:text-accent-foreground",
+          "aria-selected:bg-accent aria-selected:text-primary text-primary bg-accent font-normal rounded-[8px] aria-selected:opacity-100 focus-within:outline-primary",
         day_hidden: "invisible",
         ...classNames,
       }}

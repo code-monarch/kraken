@@ -68,6 +68,7 @@ const config = {
         secondaryBtnHoverShadow: "var(--secondary-btn-hover-shadow)",
         secondarySmBtnHoverShadow: "var(--secondary-sm-btn-hover-shadow)",
         calendarShadow: "-20px 16px 32px 0px hsla(240, 13%, 72%, 0.2)",
+        cardShadow: "0px 4px 25px 0px hsla(240, 13%, 72%, 0.15)",
       },
       spacing: {
         "8": "var(--spacing)",

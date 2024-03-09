@@ -8,7 +8,12 @@ import { ICustomInputProps } from "@/pattern/types";
 import PasswordInputIcon from "../icons/password-input-icon";
 import PasswordInputToggle from "../icons/password-input-toggle-icon";
 
-const PasswordInput: FC<ICustomInputProps> = ({ name, label, error }) => {
+const PasswordInput: FC<ICustomInputProps> = ({
+  name,
+  label,
+  error,
+  placeholder,
+}) => {
   const { control } = useFormContext();
   const [isFocus, setIsFocus] = useState<boolean>(false);
   const [toggleinputType, setToggleinputType] = useState<boolean>(false);
@@ -29,6 +34,7 @@ const PasswordInput: FC<ICustomInputProps> = ({ name, label, error }) => {
               onFocus={() => setIsFocus(true)}
               onBlur={() => setIsFocus(false)}
               variant={error ? "error" : "default"}
+              placeholder={placeholder ?? "Enter password"}
               className='pr-[40px]'
             />
             {/* prefix Icon */}

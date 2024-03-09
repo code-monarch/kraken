@@ -13,7 +13,6 @@ const CalendarDropdown: FC<ICalendarDropdownIcon> = ({
   className,
   children,
 }) => {
-  console.log("CHILDREBBBB: ", children);
   return (
     <div className='relative bg-[hsla(204,33%,97%,1)] h-[38px] min-w-[78px] w-fit'>
       <select
