@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "../styles/globals.css";
 import { raleway } from "./fonts";
 import { cn } from "@/lib/utils";
+import { Providers } from "@/redux/provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,11 +18,11 @@ export default function RootLayout({
     <html lang='en'>
       <body
         className={cn(
-          "bg-background w-screen min-h-screen h-fit ",
-          `${raleway.variable}`,
+          "bg-background w-screen min-h-screen h-fit",
+          `${raleway.variable}`
         )}
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

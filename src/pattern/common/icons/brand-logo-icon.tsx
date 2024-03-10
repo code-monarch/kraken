@@ -2,7 +2,7 @@
 import React from "react";
 import { IIconProps } from "@/pattern/types";
 import { useRouter } from "next/navigation";
-import { DASHBOARD_PATHS } from "@/routes";
+import { DASHBOARD_PATHS } from "@/lib/routes";
 
 const BrandLogoIcon = ({ width, height, className }: IIconProps) => {
   const { push } = useRouter()

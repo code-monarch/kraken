@@ -8,6 +8,7 @@ import EmailInput from "@/pattern/common/inputs/email-input";
 import PasswordInput from "@/pattern/common/inputs/password-input";
 import { LinkButton } from "@/pattern/common/controls/link-button";
 import LoadingButton from "@/pattern/common/controls/loading-button";
+import { CONFIRM_EMAIL } from "@/lib/constants";
 
 const ResetPasswordFormSchema = Yup.object().shape({
   email: Yup.string()
@@ -36,6 +37,7 @@ const ResetPasswordTemplate = () => {
 
   const onSubmit = () => {
     console.log("DATA TO SUBMIT: ");
+    localStorage.setItem(`${CONFIRM_EMAIL}`, "true"); // set confitmEmail localStorage variable to true
   };
   return (
     <>
