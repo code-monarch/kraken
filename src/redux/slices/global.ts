@@ -16,7 +16,8 @@ export const globalStateSlice = createSlice({
   initialState,
   reducers: {
     setPaginationClicked: (state, action: PayloadAction<boolean>) => {
-      state.isPaginationClicked = action?.payload;
+      state.isPaginationClicked = action.payload;
+      return state;
     },
   },
 });

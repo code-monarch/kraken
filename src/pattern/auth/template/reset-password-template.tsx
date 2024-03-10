@@ -58,7 +58,7 @@ const ResetPasswordTemplate = () => {
             />
 
             {/* Control */}
-            <LoadingButton loading={true} disabled={!isDirty} type='submit'>
+            <LoadingButton loading={false} disabled={!isDirty} type='submit'>
               Find account
             </LoadingButton>
           </form>

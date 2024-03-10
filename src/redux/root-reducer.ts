@@ -1,5 +1,4 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import { PersistConfig, persistReducer } from "redux-persist";
 import storage from 'redux-persist/lib/storage'
 // slices
 import { baseApiSlice } from "./api/base-api";

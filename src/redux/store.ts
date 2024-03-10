@@ -13,10 +13,10 @@ import rootReducer, { rootPersistConfig } from "./root-reducer";
 import { baseApiSlice } from "./api/base-api";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
-// ----------------------------------------------------------------------
+// const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: persistReducer(rootPersistConfig, rootReducer),
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
