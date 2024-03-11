@@ -16,6 +16,8 @@ import EmailInput from "@/pattern/common/molecules/inputs/email-input";
 import { FormProvider, useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import TransactionsSlideOutMenu from "@/pattern/common/organisms/slide-out-menu/transactions-slide-out-menu";
+import { show } from "@ebay/nice-modal-react";
 
 export default function Home() {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -38,8 +40,16 @@ export default function Home() {
   const onSubmit = () => {
     console.log("DATA TO SUBMIT: ");
   };
+
+  const showTransactionSheet = () => {
+    show(TransactionsSlideOutMenu);
+  };
+
   return (
     <main className='flex min-h-screen flex-col items-center justify-between p-24'>
+      <Button variant='outline' onClick={showTransactionSheet}>
+        Open Transaction Slide out Menu
+      </Button>
       <Button autoFocus>Primary</Button>
       <Button autoFocus variant='secondary'>
         Secondary

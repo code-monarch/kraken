@@ -23,23 +23,25 @@ const EmailInput: FC<ICustomInputProps> = ({
       render={({ field: { value, name, onChange } }) => (
         <FieldSet>
           <Label>{label}</Label>
-          <div className='relative w-full'>
-            <Input
-              name={name}
-              value={value}
-              onChange={onChange}
-              onFocus={() => setIsFocus(true)}
-              onBlur={() => setIsFocus(false)}
-              variant={error ? "error" : "default"}
-              placeholder={placeholder ?? "example@gmail.com"}
-              {...props}
-            />
-            {/* prefix Icon */}
-            <span className='absolute top-[15px] left-[12px]'>
-              <EmailInputIcon focused={error ? false : isFocus} />
-            </span>
+          <div className="w-full space-y-[4px]">
+            <div className='relative w-full'>
+              <Input
+                name={name}
+                value={value}
+                onChange={onChange}
+                onFocus={() => setIsFocus(true)}
+                onBlur={() => setIsFocus(false)}
+                variant={error ? "error" : "default"}
+                placeholder={placeholder ?? "example@gmail.com"}
+                {...props}
+              />
+              {/* prefix Icon */}
+              <span className='absolute top-[15px] left-[12px]'>
+                <EmailInputIcon focused={error ? false : isFocus} />
+              </span>
+            </div>
+            <InputErrorMessage name={`${name}`} />
           </div>
-          <InputErrorMessage name={`${name}`} />
         </FieldSet>
       )}
     />

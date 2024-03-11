@@ -8,6 +8,8 @@ import EmailInput from "@/pattern/common/molecules/inputs/email-input";
 import PasswordInput from "@/pattern/common/molecules/inputs/password-input";
 import { LinkButton } from "@/pattern/common/molecules/controls/link-button";
 import LoadingButton from "@/pattern/common/molecules/feedback/loading-button";
+import { AUTH_PATHS } from "@/lib/routes";
+import { useRouter } from "next/navigation";
 
 const LoginFormSchema = Yup.object().shape({
   email: Yup.string()
@@ -17,6 +19,7 @@ const LoginFormSchema = Yup.object().shape({
 });
 
 const LoginTemplate = () => {
+  const { push } = useRouter()
   const defaultValues = {
     email: "",
     password: "",
@@ -63,7 +66,9 @@ const LoginTemplate = () => {
             {/* Controls */}
             <div className='w-full space-y-[28px]'>
               <div className='w-full flex items-center justify-end'>
-                <LinkButton>Forgot Password</LinkButton>
+                <LinkButton onClick={() => push(`${AUTH_PATHS.resetPassword}`)}>
+                  Forgot Password
+                </LinkButton>
               </div>
               <LoadingButton loading={false} disabled={!isDirty} type='submit'>
                 Log into your account

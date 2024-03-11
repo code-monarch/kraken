@@ -1,6 +1,6 @@
 import React from "react";
 import { IInputIconProps } from "@/pattern/types";
-import Hidden from "../hidden";
+import Hidden from "../../molecules/data-display/hidden";
 
 const SearchInputIcon = ({ focused }: IInputIconProps) => {
   return (

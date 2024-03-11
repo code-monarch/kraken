@@ -96,6 +96,24 @@
   }
 }
 
+@media (min-height: 800px) {
+ .slide-out-scroll-height {
+  height: 700px;
+ }
+}
+
+@media (min-height: 999px) {
+ .slide-out-scroll-height {
+  height: 800px;
+ }
+}
+
+@media (min-height: 1000px) {
+ .slide-out-scroll-height {
+  height: 900px;
+ }
+}
+
 /* Change Input autofill background color on chrome */
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
