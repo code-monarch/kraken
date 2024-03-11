@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import CalendarDropdownIcon from "../icons/calendar-dropdown-icon";
+import CalendarDropdownIcon from "../../atoms/icons/calendar-dropdown-icon";
 import { DropdownProps } from "react-day-picker";
 
 interface ICalendarDropdownIcon extends DropdownProps {}

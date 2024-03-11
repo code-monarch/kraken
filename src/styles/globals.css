@@ -52,6 +52,8 @@
     --radius: 0.5rem;
 
     --spacing: 8px;
+    --topbar-height: 64px;
+    --sidebar-width: 280px
   }
 
   .dark {
@@ -100,4 +102,22 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active{
     -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+
+/* Custom Scrollbar style */
+.custom_scollbar::-webkit-scrollbar {
+  width: 4px !important;
+  height: 4px;
+  padding-top: 10px;
+}
+
+.custom_scollbar::-webkit-scrollbar-track {
+  border-radius: 4px !important;
+  background-color: transparent;
+}
+
+.custom_scollbar::-webkit-scrollbar-thumb {
+  background-color: hsla(210, 40%, 96%, 1);
+  border-radius: 4px !important;
 }

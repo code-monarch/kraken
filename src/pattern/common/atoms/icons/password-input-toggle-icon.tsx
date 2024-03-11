@@ -1,6 +1,6 @@
-import React from 'react'
-import { IInputIconProps } from '@/pattern/types';
-import Hidden from '../data-display/hidden';
+import React from "react";
+import { IInputIconProps } from "@/pattern/types";
+import Hidden from "../../molecules/data-display/hidden";
 
 const PasswordInputToggle = ({ togglePasswordInput }: IInputIconProps) => {
   return (
@@ -57,4 +57,4 @@ const PasswordInputToggle = ({ togglePasswordInput }: IInputIconProps) => {
   );
 };
 
-export default PasswordInputToggle
+export default PasswordInputToggle;

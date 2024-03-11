@@ -5,11 +5,19 @@ import { Label } from "@/components/ui/label";
 import { Controller, useFormContext } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { ICustomInputProps } from "@/pattern/types";
-import EmailInputIcon from "../icons/email-input-icon";
+import PasswordInputIcon from "../../atoms/icons/password-input-icon";
+import PasswordInputToggle from "../../atoms/icons/password-input-toggle-icon";
 
-const EmailInput: FC<ICustomInputProps> = ({ name, label, error, placeholder, ...props }) => {
+const PasswordInput: FC<ICustomInputProps> = ({
+  name,
+  label,
+  error,
+  placeholder,
+}) => {
   const { control } = useFormContext();
   const [isFocus, setIsFocus] = useState<boolean>(false);
+  const [toggleinputType, setToggleinputType] = useState<boolean>(false);
+
   return (
     <Controller
       name={name!}
@@ -21,16 +29,25 @@ const EmailInput: FC<ICustomInputProps> = ({ name, label, error, placeholder, ..
             <Input
               name={name}
               value={value}
+              type={toggleinputType ? "password" : "text"}
               onChange={onChange}
               onFocus={() => setIsFocus(true)}
               onBlur={() => setIsFocus(false)}
               variant={error ? "error" : "default"}
-              placeholder={placeholder ?? "example@gmail.com"}
-              {...props}
+              placeholder={placeholder ?? "Enter password"}
+              className='pr-[40px]'
             />
             {/* prefix Icon */}
             <span className='absolute top-[15px] left-[12px]'>
-              <EmailInputIcon focused={error ? false : isFocus} />
+              <PasswordInputIcon focused={error ? false : isFocus} />
+            </span>
+
+            {/* Suffix Icon */}
+            <span
+              className='absolute top-[13px] right-[12px]'
+              onClick={() => setToggleinputType(!toggleinputType)}
+            >
+              <PasswordInputToggle togglePasswordInput={toggleinputType} />
             </span>
           </div>
           <InputErrorMessage name={`${name}`} />
@@ -40,4 +57,4 @@ const EmailInput: FC<ICustomInputProps> = ({ name, label, error, placeholder, ..
   );
 };
 
-export default EmailInput;
+export default PasswordInput;

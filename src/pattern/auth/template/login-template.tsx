@@ -4,17 +4,16 @@ import AuthCard from "../organisms/auth-card";
 import { FormProvider, useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import EmailInput from "@/pattern/common/inputs/email-input";
-import PasswordInput from "@/pattern/common/inputs/password-input";
-import { LinkButton } from "@/pattern/common/controls/link-button";
-import LoadingButton from "@/pattern/common/controls/loading-button";
+import EmailInput from "@/pattern/common/molecules/inputs/email-input";
+import PasswordInput from "@/pattern/common/molecules/inputs/password-input";
+import { LinkButton } from "@/pattern/common/molecules/controls/link-button";
+import LoadingButton from "@/pattern/common/molecules/feedback/loading-button";
 
 const LoginFormSchema = Yup.object().shape({
   email: Yup.string()
     .email("Email must be a valid email address")
     .required("Please enter your email address"),
-  password: Yup.string()
-    .required("Password is required"),
+  password: Yup.string().required("Password is required"),
 });
 
 const LoginTemplate = () => {

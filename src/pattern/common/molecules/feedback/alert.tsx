@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { VariantProps, cva } from "class-variance-authority";
-import React, { DetailedHTMLProps, FC, HTMLAttributes, ReactElement } from "react";
-import CloseIcon from "../icons/close-icon";
+import React, { DetailedHTMLProps, FC, HTMLAttributes } from "react";
+import CloseIcon from "../../atoms/icons/close-icon";
 
 const alertVariants = cva(
   "w-[566px] min-h-[85px] flex items-center justify-between whitespace-nowrap text-sm font-normal transition-colors focus:outline-none",
@@ -29,11 +29,8 @@ export interface IAlertProps
 
 const Alert: FC<IAlertProps> = ({ variant, className, ...props }) => {
   return (
-    <div
-      className={cn(alertVariants({ variant, className }))}
-      {...props}
-    >
-        <CloseIcon />
+    <div className={cn(alertVariants({ variant, className }))} {...props}>
+      <CloseIcon />
     </div>
   );
 };

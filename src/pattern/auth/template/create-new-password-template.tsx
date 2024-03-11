@@ -4,9 +4,9 @@ import AuthCard from "../organisms/auth-card";
 import { FormProvider, useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import PasswordInput from "@/pattern/common/inputs/password-input";
-import { LinkButton } from "@/pattern/common/controls/link-button";
-import LoadingButton from "@/pattern/common/controls/loading-button";
+import PasswordInput from "@/pattern/common/molecules/inputs/password-input";
+import { LinkButton } from "@/pattern/common/molecules/controls/link-button";
+import LoadingButton from "@/pattern/common/molecules/feedback/loading-button";
 
 const CreateNewPasswordFormSchema = Yup.object().shape({
   password: Yup.string()

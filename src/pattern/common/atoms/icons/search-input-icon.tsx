@@ -1,6 +1,6 @@
-import React from 'react'
-import { IInputIconProps } from '@/pattern/types';
-import Hidden from '../data-display/hidden';
+import React from "react";
+import { IInputIconProps } from "@/pattern/types";
+import Hidden from "../hidden";
 
 const SearchInputIcon = ({ focused }: IInputIconProps) => {
   return (
@@ -49,4 +49,4 @@ const SearchInputIcon = ({ focused }: IInputIconProps) => {
   );
 };
 
-export default SearchInputIcon
+export default SearchInputIcon;

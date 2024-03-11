@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import InfoIcon from "@/pattern/common/icons/info-icon";
+import InfoIcon from "@/pattern/common/atoms/icons/info-icon";
 
 interface IConfirmEmailInfoBannerProps {
   email: string;

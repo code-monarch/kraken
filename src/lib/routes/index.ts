@@ -5,5 +5,9 @@ export const AUTH_PATHS = {
 };
 
 export const DASHBOARD_PATHS = {
-    index: '/'
+    index: '/',
+    userManagement: '/user-management',
+    transactions: '/transactions',
+    settings: '/settings',
+    activityLogs: '/activity-logs'
 }

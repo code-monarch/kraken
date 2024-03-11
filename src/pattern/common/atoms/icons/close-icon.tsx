@@ -1,6 +1,7 @@
+"use client"
+import React from 'react'
 import { cn } from '@/lib/utils';
 import { IIconProps } from '@/pattern/types';
-import React from 'react'
 
 const CloseIcon = ({ width, height, color, className }: IIconProps) => {
   return (

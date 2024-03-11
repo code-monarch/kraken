@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
-import LoadingButton from "@/pattern/common/controls/loading-button";
+import LoadingButton from "@/pattern/common/molecules/feedback/loading-button";
 import {
   Card,
   CardContent,
@@ -12,7 +12,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import EmailInput from "@/pattern/common/inputs/email-input";
+import EmailInput from "@/pattern/common/molecules/inputs/email-input";
 import { FormProvider, useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";

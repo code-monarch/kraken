@@ -4,8 +4,8 @@ import AuthCard from "../organisms/auth-card";
 import ConfirmEmailInfoBanner from "../molecules/confirm-email-info-banner";
 import { useCountdown } from "@/lib/hooks/useCountdown";
 import { CONFIRM_EMAIL } from "@/lib/constants";
-import Hidden from "@/pattern/common/data-display/hidden";
-import { LinkButton } from "@/pattern/common/controls/link-button";
+import Hidden from "@/pattern/common/molecules/data-display/hidden";
+import { LinkButton } from "@/pattern/common/molecules/controls/link-button";
 
 const shouldConfirmEmail = localStorage.getItem(`${CONFIRM_EMAIL}`);
 const COUNT_START = 120;

@@ -29,7 +29,7 @@ const RequestPasswordResetModal = create(() => {
         <AlertDialogHeader>
           <AlertDialogTitle>Create a Reset Password Request</AlertDialogTitle>
           <AlertDialogDescription>
-            You need to Request for Password reset before continuing
+            You need to Request for Password reset before you can proceed
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

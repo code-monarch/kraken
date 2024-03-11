@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import BrandLogoIcon from "@/pattern/common/icons/brand-logo-icon";
+import BrandLogoIcon from "@/pattern/common/atoms/icons/brand-logo-icon";
 import { cn } from "@/lib/utils";
 
 interface IAuthCardProps

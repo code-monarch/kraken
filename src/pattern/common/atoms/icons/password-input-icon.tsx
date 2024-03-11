@@ -1,6 +1,6 @@
-import React from 'react'
-import { IInputIconProps } from '@/pattern/types';
-import Hidden from '../data-display/hidden';
+import React from "react";
+import { IInputIconProps } from "@/pattern/types";
+import Hidden from "../../molecules/data-display/hidden";
 
 const PasswordInputIcon = ({ focused }: IInputIconProps) => {
   return (
@@ -45,4 +45,4 @@ const PasswordInputIcon = ({ focused }: IInputIconProps) => {
   );
 };
 
-export default PasswordInputIcon
+export default PasswordInputIcon;

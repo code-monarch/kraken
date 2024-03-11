@@ -5,19 +5,17 @@ import { Label } from "@/components/ui/label";
 import { Controller, useFormContext } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { ICustomInputProps } from "@/pattern/types";
-import PasswordInputIcon from "../icons/password-input-icon";
-import PasswordInputToggle from "../icons/password-input-toggle-icon";
+import EmailInputIcon from "../../atoms/icons/email-input-icon";
 
-const PasswordInput: FC<ICustomInputProps> = ({
+const EmailInput: FC<ICustomInputProps> = ({
   name,
   label,
   error,
   placeholder,
+  ...props
 }) => {
   const { control } = useFormContext();
   const [isFocus, setIsFocus] = useState<boolean>(false);
-  const [toggleinputType, setToggleinputType] = useState<boolean>(false);
-
   return (
     <Controller
       name={name!}
@@ -29,25 +27,16 @@ const PasswordInput: FC<ICustomInputProps> = ({
             <Input
               name={name}
               value={value}
-              type={toggleinputType ? "password" : "text"}
               onChange={onChange}
               onFocus={() => setIsFocus(true)}
               onBlur={() => setIsFocus(false)}
               variant={error ? "error" : "default"}
-              placeholder={placeholder ?? "Enter password"}
-              className='pr-[40px]'
+              placeholder={placeholder ?? "example@gmail.com"}
+              {...props}
             />
             {/* prefix Icon */}
             <span className='absolute top-[15px] left-[12px]'>
-              <PasswordInputIcon focused={error ? false : isFocus} />
-            </span>
-
-            {/* Suffix Icon */}
-            <span
-              className='absolute top-[13px] right-[12px]'
-              onClick={() => setToggleinputType(!toggleinputType)}
-            >
-              <PasswordInputToggle togglePasswordInput={toggleinputType} />
+              <EmailInputIcon focused={error ? false : isFocus} />
             </span>
           </div>
           <InputErrorMessage name={`${name}`} />
@@ -57,4 +46,4 @@ const PasswordInput: FC<ICustomInputProps> = ({
   );
 };
 
-export default PasswordInput;
+export default EmailInput;

@@ -1,14 +1,12 @@
 "use client";
-
 import * as React from "react";
-import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import { DayPicker } from "react-day-picker";
 
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
-import CalendarLeftChevrolet from "@/pattern/common/icons/calendar-left-chevrolet";
-import CalendarRightChevrolet from "@/pattern/common/icons/calendar-right-chevrolet";
-import CalendarDropdown from "@/pattern/common/inputs/calendar-dropdown";
+import CalendarLeftChevrolet from "@/pattern/common/atoms/icons/calendar-left-chevrolet";
+import CalendarRightChevrolet from "@/pattern/common/atoms/icons/calendar-right-chevrolet";
+import CalendarDropdown from "@/pattern/common/molecules/inputs/calendar-dropdown";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 

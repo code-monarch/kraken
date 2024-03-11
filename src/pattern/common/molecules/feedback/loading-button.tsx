@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from "react";
 import { Button, ButtonProps } from "@/components/ui/button";
 import Hidden from "../data-display/hidden";
-import LoaderLight from "../icons/loader-light";
+import LoaderLight from "../../atoms/icons/loader-light";
 
 interface ILoadingButtonprops extends ButtonProps {
   loading: boolean;

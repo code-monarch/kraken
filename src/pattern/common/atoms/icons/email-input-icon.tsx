@@ -1,6 +1,6 @@
 import { IInputIconProps } from "@/pattern/types";
 import React from "react";
-import Hidden from "../data-display/hidden";
+import Hidden from "../../molecules/data-display/hidden";
 
 const EmailInputIcon = ({ focused }: IInputIconProps) => {
   return (
