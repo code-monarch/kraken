@@ -27,8 +27,8 @@
     --accent: 210, 40%, 98%, 1;
     --accent-foreground: 215, 23%, 40%, 1;
 
-    --destructive: 350, 67%, 51%, 1;
-    --destructive-foreground: 0, 0%, 100%, 1;
+    --destructive: 4, 70%, 96%, 1;
+    --destructive-foreground: 0, 86%, 61%, 1;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
@@ -50,8 +50,6 @@
     --success-200: 151, 100%, 96%, 1;
     --warning: 40, 96%, 53%, 1;
     --warning-bg: 54, 100%, 96%, 1;
-    --error: 0, 86%, 61%, 1,
-    --error-bg: 4, 70%, 96%, 1,
 
     --coolgrey: 210, 40%, 96%, 1;
     --coolgrey-foreground: 216, 26%, 30%, 1;

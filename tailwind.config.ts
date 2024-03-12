@@ -65,10 +65,6 @@ const config = {
           DEFAULT: "hsl(var(--warning))",
           100: "hsl(var(--warning-bg))",
         },
-        error: {
-          DEFAULT: "hsla(var(--error))",
-          100: "hsla(var(--error-bg))"
-        },
         info: {
           DEFAULT: "hsla(var(--info))",
           100: "hsla(var(--info-bg))",

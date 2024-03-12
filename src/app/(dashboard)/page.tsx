@@ -104,7 +104,7 @@ export default function Home() {
       </FormProvider>
 
       <div className="bg-white w-[500px] h-[500px]">
-        <Badge variant="accent">Badge</Badge>
+        <Badge variant="failed">Badge</Badge>
       </div>
     </main>
   );
