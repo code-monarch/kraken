@@ -40,29 +40,29 @@ export default function Home() {
     console.log("DATA TO SUBMIT: ");
   };
   return (
-    <main className='flex min-h-screen flex-col items-center justify-between p-24'>
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Button autoFocus>Primary</Button>
-      <Button autoFocus variant='secondary'>
+      <Button autoFocus variant="secondary">
         Secondary
       </Button>
-      <Button autoFocus variant='outlinePrimary'>
+      <Button autoFocus variant="outlinePrimary">
         outline primary
       </Button>
-      <Button autoFocus variant='outlineSecondary' disabled>
+      <Button autoFocus variant="outlineSecondary" disabled>
         outline primaryhghghgh
       </Button>
-      <Button autoFocus variant='outlineSecondary' size='sm'>
+      <Button autoFocus variant="outlineSecondary" size="sm">
         small outline Button
       </Button>
-      <Button autoFocus variant='outlineSecondary' size='md'>
+      <Button autoFocus variant="outlineSecondary" size="md">
         medium outline Button
       </Button>
       <LoadingButton loading={true} disabled={true}>
         Loading Buttonnnn
       </LoadingButton>
       <Calendar
-        mode='range'
-        captionLayout='dropdown-buttons'
+        mode="range"
+        captionLayout="dropdown-buttons"
         fromYear={2024}
         toYear={2027}
         selected={date}
@@ -72,10 +72,10 @@ export default function Home() {
           formatWeekdayName: (day) =>
             day?.toLocaleDateString("en-US", { weekday: "short" }),
         }}
-        className='rounded-md border'
+        className="rounded-md border"
       />
 
-      <Card className='w-[350px]'>
+      <Card className="w-[350px]">
         <CardHeader>
           <CardTitle>Create project</CardTitle>
           <CardDescription>
@@ -85,25 +85,27 @@ export default function Home() {
         <CardContent>
           <form></form>
         </CardContent>
-        <CardFooter className='flex justify-between'>
-          <Button variant='outline'>Cancel</Button>
+        <CardFooter className="flex justify-between">
+          <Button variant="outline">Cancel</Button>
           <Button>Deploy</Button>
         </CardFooter>
       </Card>
 
-      <Input placeholder='loremjkjkj' />
-      <Input variant='error' placeholder='loremjkjkj' />
-      <Input variant='error' placeholder='loremjkjkj' disabled />
+      <Input placeholder="loremjkjkj" />
+      <Input variant="error" placeholder="loremjkjkj" />
+      <Input variant="error" placeholder="loremjkjkj" disabled />
       <FormProvider {...methods}>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className='w-full flex flex-col items-center gap-[30px]'
+          className="w-full flex flex-col items-center gap-[30px]"
         >
-          <EmailInput label='Email' name='Email' />
+          <EmailInput label="Email" name="Email" />
         </form>
       </FormProvider>
 
-        <Badge variant="basic">Badge</Badge>
+      <div className="bg-white w-[500px] h-[500px]">
+        <Badge variant="accent">Badge</Badge>
+      </div>
     </main>
   );
 }

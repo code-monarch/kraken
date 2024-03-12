@@ -66,16 +66,16 @@ const config = {
           100: "hsl(var(--warning-bg))",
         },
         error: {
-          DEFAULT: "hsl(var(--error))",
-          100: "hsl(var(--error-bg))"
+          DEFAULT: "hsla(var(--error))",
+          100: "hsla(var(--error-bg))"
         },
         info: {
-          DEFAULT: "hsl(var(--info))",
-          100: "hsl(var(--info-bg))",
+          DEFAULT: "hsla(var(--info))",
+          100: "hsla(var(--info-bg))",
         },
         coolgrey: {
           DEFAULT: "hsl(var(--coolgrey))",
-          100: "hsl(var(--coolgrey-bg))",
+          foreground: "hsl(var(--coolgrey-foreground))",
         }
       },
       borderRadius: {
