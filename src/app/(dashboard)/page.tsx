@@ -16,6 +16,7 @@ import EmailInput from "@/pattern/common/molecules/inputs/email-input";
 import { FormProvider, useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Badge } from "@/components/ui/badge";
 
 export default function Home() {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -101,6 +102,8 @@ export default function Home() {
           <EmailInput label='Email' name='Email' />
         </form>
       </FormProvider>
+
+        <Badge variant="basic">Badge</Badge>
     </main>
   );
 }

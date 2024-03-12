@@ -41,7 +41,8 @@
     "redux-persist": "^6.0.0",
     "sonner": "^1.4.3",
     "tailwind-merge": "^2.2.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@types/node": "^20",
