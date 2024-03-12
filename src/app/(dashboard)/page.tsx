@@ -18,6 +18,7 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import TransactionsSlideOutMenu from "@/pattern/common/organisms/slide-out-menu/transactions-slide-out-menu";
 import { show } from "@ebay/nice-modal-react";
+import UserDetailCard from "@/pattern/common/molecules/data-display/user-detail-card";
 
 export default function Home() {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -111,6 +112,14 @@ export default function Home() {
           <EmailInput label='Email' name='Email' />
         </form>
       </FormProvider>
+
+      <div className='bg-white w-[500px] h-[500px] px-2'>
+        <UserDetailCard
+          ImageFallback='JA'
+          name='Josh to funny'
+          number='+2349036075477'
+        />
+      </div>
     </main>
   );
 }

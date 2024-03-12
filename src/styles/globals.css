@@ -41,6 +41,7 @@
 
 
     --secondary-btn-hover-shadow: 2px 2px 0px 2px hsla(215, 83%, 52%, 1);
+    --destructive-btn-hover-shadow: 2px 2px 0px 2px hsla(350, 67%, 51%, 1);
     --secondary-sm-btn-hover-shadow: 2px 2px 0px 2px hsla(215, 87%, 54%, 0.25);
 ;
 

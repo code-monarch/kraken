@@ -20,7 +20,7 @@ const buttonVariants = cva(
         outlineSecondary:
           "border border-secondary bg-white text-secondary focus:ring-[3px] focus:ring-[var(--ring-secondary) hover:shadow-secondaryBtnHoverShadow",
         outlineDestructive:
-          "border border-destructive bg-white text-destructive focus:ring-[3px] focus:ring-[var(--ring-secondary) hover:shadow-secondaryBtnHoverShadow",
+          "border border-destructive bg-white text-destructive focus:ring-[3px] focus:ring-[--destructive] hover:shadow-destructiveBtnHoverShadow",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-[hsla(215,86%,63%,1)] focus:ring-[3px] focus:ring-[var(--ring-secondary)]",
         ghost: "hover:bg-accent hover:text-accent-foreground",
