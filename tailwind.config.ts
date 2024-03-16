@@ -56,6 +56,23 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        success: {
+          DEFAULT: "hsl(var(--success))",
+          100: "hsl(var(--success-100))",
+          200: "hsl(var(--success-200))",
+        },
+        warning: {
+          DEFAULT: "hsl(var(--warning))",
+          100: "hsl(var(--warning-bg))",
+        },
+        info: {
+          DEFAULT: "hsla(var(--info))",
+          100: "hsla(var(--info-bg))",
+        },
+        coolgrey: {
+          DEFAULT: "hsl(var(--coolgrey))",
+          foreground: "hsl(var(--coolgrey-foreground))",
+        }
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -2,7 +2,7 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import PageWrapper from "@/pattern/common/templates/dashboard-page-wrapper";
-import Topbar from "@/pattern/common/organisms/topbar";
+import Topbar from "@/pattern/common/templates/topbar";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (

@@ -1,9 +1,12 @@
-import React from 'react'
+"use client";
+import React from "react";
+import { usePathname } from "next/navigation";
 
-const page = () => {
+const TransactionsPage = () => {
   return (
-    <div>page</div>
-  )
-}
+    <>
+    </>
+  );
+};
 
-export default page
+export default TransactionsPage;

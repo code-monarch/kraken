@@ -6,9 +6,9 @@ interface ISlideOutDividerProps extends React.HTMLAttributes<HTMLDivElement> {}
 const SlideOutDivider: FC<ISlideOutDividerProps> = ({ children }) => {
   return (
     <div className='w-full flex items-center justify-between'>
-      <Divider />
+      <Divider width='70' />
       <div>{children}</div>
-      <Divider />
+      <Divider width='70' />
     </div>
   );
 };

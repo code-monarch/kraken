@@ -1,22 +1,24 @@
-import React from 'react'
+import { IIconProps } from "@/pattern/types";
+import React from "react";
 
-const Divider = () => {
+const Divider = ({ width, height, color, className }: IIconProps) => {
   return (
     <svg
-      width='86'
-      height='2'
+      width={width ?? "86"}
+      height={height ?? "2"}
       viewBox='0 0 86 2'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
+      className={className}
     >
       <path
         d='M1 1H85'
-        stroke='#F1F5F9'
-        stroke-width='1.5'
-        stroke-linecap='round'
+        stroke={"#F1F5F9" ?? color}
+        strokeWidth='1.5'
+        strokeLinecap='round'
       />
     </svg>
   );
-}
+};
 
-export default Divider
+export default Divider;
