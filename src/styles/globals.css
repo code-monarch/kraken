@@ -7,7 +7,7 @@
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
-    --auth-background: hsla(240,17%,98%,1);
+    --auth-background: hsla(240, 17%, 98%, 1);
 
     --card: 0, 0%, 100%, 1;
     --card-foreground: 213, 10%, 18%, 1;
@@ -33,12 +33,11 @@
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
-    --ring-primary: hsla(145,63%,42%,0.25);
+    --ring-primary: hsla(145, 63%, 42%, 0.25);
     --ring-secondary: hsla(215, 87%, 54%, 0.25);
 
     --primary-btn-hover-shadow: 2px 2px 0px 2px hsla(151, 92%, 39%, 1);
     --primary-sm-btn-hover-shadow: 2px 2px 0px 2px hsla(151, 92%, 39%, 1);
-
 
     --secondary-btn-hover-shadow: 2px 2px 0px 2px hsla(215, 83%, 52%, 1);
     --secondary-sm-btn-hover-shadow: 2px 2px 0px 2px hsla(215, 87%, 54%, 0.25);
@@ -58,7 +57,7 @@
 
     --spacing: 8px;
     --topbar-height: 64px;
-    --sidebar-width: 280px
+    --sidebar-width: 280px;
   }
 
   .dark {
@@ -103,12 +102,11 @@
 
 /* Change Input autofill background color on chrome */
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-input:-webkit-autofill:active{
-    -webkit-box-shadow: 0 0 0 30px white inset !important;
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
-
 
 /* Custom Scrollbar style */
 .custom_scollbar::-webkit-scrollbar {
@@ -125,4 +123,13 @@ input:-webkit-autofill:active{
 .custom_scollbar::-webkit-scrollbar-thumb {
   background-color: hsla(210, 40%, 96%, 1);
   border-radius: 4px !important;
+}
+
+.remove-arrow::-webkit-inner-spin-button,
+.remove-arrow::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.remove-arrow {
+  -moz-appearance: textfield;
 }

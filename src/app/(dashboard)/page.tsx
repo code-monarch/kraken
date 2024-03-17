@@ -17,6 +17,11 @@ import { FormProvider, useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Badge } from "@/components/ui/badge";
+import Image from "next/image";
+import userImg from "@/public/images/user.svg";
+import TransactionsTable from "@/pattern/transactions/organisms/transactions-table";
+import UsersTable from "@/pattern/user-management.tsx/organisms/users-table";
+import ActivityLogsTable from "@/pattern/activity-logs/organisms/activity-logs-table";
 
 export default function Home() {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -39,9 +44,10 @@ export default function Home() {
   const onSubmit = () => {
     console.log("DATA TO SUBMIT: ");
   };
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Button autoFocus>Primary</Button>
+      {/* <Button autoFocus>Primary</Button>
       <Button autoFocus variant="secondary">
         Secondary
       </Button>
@@ -101,10 +107,29 @@ export default function Home() {
         >
           <EmailInput label="Email" name="Email" />
         </form>
-      </FormProvider>
+      </FormProvider> */}
 
-      <div className="bg-white w-[500px] h-[500px]">
-        <Badge variant="failed">Badge</Badge>
+      <Badge variant="failed">Failed</Badge>
+      <Badge variant="active">Active</Badge>
+      <Badge variant="inactive">Inactive</Badge>
+      <Badge variant="flagged">Flagged</Badge>
+      <Image alt="" src={userImg} width={40} height={40} />
+
+      <div className="bg-white w-full p-6">
+        <div>
+          Transactions Table:
+          <TransactionsTable />
+        </div>
+
+        <div>
+          Users Table:
+          <UsersTable />
+        </div>
+
+        <div>
+          Activity Logs Table:
+          <ActivityLogsTable />
+        </div>
       </div>
     </main>
   );
