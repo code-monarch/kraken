@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
-import LoadingButton from "@/pattern/common/molecules/feedback/loading-button";
+import LoadingButton from "@/pattern/common/molecules/controls/loading-button";
 import {
   Card,
   CardContent,
@@ -20,6 +20,8 @@ import { Badge } from "@/components/ui/badge";
 import TransactionsSlideOutMenu from "@/pattern/common/templates/slide-out-menu/transactions-slide-out-menu";
 import { show } from "@ebay/nice-modal-react";
 import UserDetailCard from "@/pattern/common/molecules/data-display/user-detail-card";
+import DashboardMetricCard from "@/pattern/common/organisms/dashboard-metric-card";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 export default function Home() {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -49,6 +51,30 @@ export default function Home() {
 
   return (
     <main className='flex min-h-screen flex-col items-center justify-between p-24'>
+      <div className='bg-white min-w-[200px] w-fit h-[100px] flex items-center justify-center px-2'>
+        <ToggleGroup type='single'>
+          <ToggleGroupItem value='bold' aria-label='Toggle bold'>
+            kdjk
+          </ToggleGroupItem>
+          <ToggleGroupItem value='italic' aria-label='Toggle italic'>
+            sajajsh
+          </ToggleGroupItem>
+          <ToggleGroupItem
+            value='strikethrough'
+            aria-label='Toggle strikethrough'
+          >
+            sakjshj
+          </ToggleGroupItem>
+        </ToggleGroup>
+      </div>
+
+      <div className='bg-black w-full h-[100px] flex items-center justify-center'>
+        <DashboardMetricCard
+          metricLabel='Total Users'
+          metricPercentage='50'
+          metricValue='10,000'
+        />
+      </div>
       <Button variant='outline' onClick={showTransactionSheet}>
         Open Transaction Slide out Menu
       </Button>

@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import EmailInput from "@/pattern/common/molecules/inputs/email-input";
 import PasswordInput from "@/pattern/common/molecules/inputs/password-input";
 import { LinkButton } from "@/pattern/common/molecules/controls/link-button";
-import LoadingButton from "@/pattern/common/molecules/feedback/loading-button";
+import LoadingButton from "@/pattern/common/molecules/controls/loading-button";
 import { AUTH_PATHS } from "@/lib/routes";
 import { useRouter } from "next/navigation";
 
@@ -19,7 +19,7 @@ const LoginFormSchema = Yup.object().shape({
 });
 
 const LoginTemplate = () => {
-  const { push } = useRouter()
+  const { push } = useRouter();
   const defaultValues = {
     email: "",
     password: "",

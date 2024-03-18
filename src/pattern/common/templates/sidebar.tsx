@@ -42,7 +42,7 @@ const navigation: {
 
 const Sidebar = () => {
   return (
-    <div className='fixed left-0 top-0 bottom-0 bg-background min-h-screen h-fit w-[--sidebar-width] border-t-[1.5px] border-t-border px-4 py-[32px] mt-[--topbar-height]'>
+    <div className='fixed left-0 top-0 bottom-0 bg-background min-h-screen h-fit w-[--sidebar-width] border-t-[1.5px] border-t-border px-4 py-[32px] mt-[--topbar-height] z-30'>
       <div className='w-full flex flex-col gap-y-2 items-center custom_scollbar'>
         {navigation.map((nav, idx) => (
           <NavLink

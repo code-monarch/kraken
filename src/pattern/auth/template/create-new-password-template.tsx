@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import PasswordInput from "@/pattern/common/molecules/inputs/password-input";
 import { LinkButton } from "@/pattern/common/molecules/controls/link-button";
-import LoadingButton from "@/pattern/common/molecules/feedback/loading-button";
+import LoadingButton from "@/pattern/common/molecules/controls/loading-button";
 
 const CreateNewPasswordFormSchema = Yup.object().shape({
   password: Yup.string()

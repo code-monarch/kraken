@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import EmailInput from "@/pattern/common/molecules/inputs/email-input";
 import PasswordInput from "@/pattern/common/molecules/inputs/password-input";
 import { LinkButton } from "@/pattern/common/molecules/controls/link-button";
-import LoadingButton from "@/pattern/common/molecules/feedback/loading-button";
+import LoadingButton from "@/pattern/common/molecules/controls/loading-button";
 import { CONFIRM_EMAIL } from "@/lib/constants";
 
 const ResetPasswordFormSchema = Yup.object().shape({

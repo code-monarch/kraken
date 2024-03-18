@@ -1,18 +1,19 @@
+"use client";
 import React, { FC, useState } from "react";
-import InputErrorMessage from "../feedback/input-error-message";
+import { Input } from "@/components/ui/input";
+import { ICustomInputProps } from "@/pattern/types";
 import { FieldSet } from "./fieldset";
 import { Label } from "@/components/ui/label";
 import { Controller, useFormContext } from "react-hook-form";
-import { Input } from "@/components/ui/input";
-import { ICustomInputProps } from "@/pattern/types";
-import Hidden from "../data-display/hidden";
+import InputErrorMessage from "../feedback/input-error-message";
+import DateInputIcon from "../../atoms/icons/date-input-icon";
 
-const FormInput: FC<ICustomInputProps> = ({
+// Component which acts as a trigger in displaying Calendar component
+const DateInput: FC<ICustomInputProps> = ({
   name,
-  label,
-  error,
   placeholder,
-  prefixIcon,
+  error,
+  label,
   suffixIcon,
   ...props
 }) => {
@@ -34,21 +35,15 @@ const FormInput: FC<ICustomInputProps> = ({
                 onFocus={() => setIsFocus(true)}
                 onBlur={() => setIsFocus(false)}
                 variant={error ? "error" : "default"}
-                placeholder={placeholder ?? "example@gmail.com"}
+                placeholder={placeholder ?? "DD / MM / YYYY"}
+                readOnly
+                className='pl-[12px] pr-[40px]'
                 {...props}
               />
-              {/* prefix Icon */}
-              <Hidden visible={!!prefixIcon}>
-                <span className='absolute top-[15px] left-[12px]'>
-                  {prefixIcon}
-                </span>
-              </Hidden>
               {/* suffix Icon */}
-              <Hidden visible={!!suffixIcon}>
                 <span className='absolute top-[15px] right-[12px]'>
-                  {suffixIcon}
+                  <DateInputIcon focused={isFocus} />
                 </span>
-              </Hidden>
             </div>
             <InputErrorMessage name={`${name}`} />
           </div>
@@ -58,4 +53,4 @@ const FormInput: FC<ICustomInputProps> = ({
   );
 };
 
-export default FormInput;
+export default DateInput;
