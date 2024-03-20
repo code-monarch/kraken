@@ -22,6 +22,11 @@ import userImg from "@/public/images/user.svg";
 import TransactionsTable from "@/pattern/transactions/organisms/transactions-table";
 import UsersTable from "@/pattern/user-management.tsx/organisms/users-table";
 import ActivityLogsTable from "@/pattern/activity-logs/organisms/activity-logs-table";
+import PhoneNumberInput from "@/pattern/common/molecules/inputs/phone-input";
+import PhoneAuthDialog from "@/pattern/settings/organisms/phone-auth-dialog";
+import InfoIcon from "@/pattern/common/atoms/icons/info-icon";
+import QRAuthDialog from "@/pattern/settings/organisms/qr-auth-dialog";
+import QRCode from "react-qr-code";
 
 export default function Home() {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -45,8 +50,10 @@ export default function Home() {
     console.log("DATA TO SUBMIT: ");
   };
 
+  const [value, setValue] = useState("authenticatedd");
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className=" w-full flex min-h-screen flex-col items-center justify-between p-24">
       {/* <Button autoFocus>Primary</Button>
       <Button autoFocus variant="secondary">
         Secondary
@@ -109,11 +116,14 @@ export default function Home() {
         </form>
       </FormProvider> */}
 
-      <Badge variant="failed">Failed</Badge>
+      {/* <Badge variant="failed">Failed</Badge>
       <Badge variant="active">Active</Badge>
       <Badge variant="inactive">Inactive</Badge>
       <Badge variant="flagged">Flagged</Badge>
-      <Image alt="" src={userImg} width={40} height={40} />
+      <Image alt="" src={userImg} width={40} height={40} /> */}
+
+      <PhoneAuthDialog />
+      <QRAuthDialog />
 
       <div className="bg-white w-full p-6">
         <div>
