@@ -24,6 +24,7 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-[hsla(215,86%,63%,1)] focus:ring-[3px] focus-visible:ring-[3px] focus:ring-[var(--ring-secondary)] focus-visible:ring-[var(--ring-secondary)]",
         ghost: "hover:bg-accent hover:text-accent-foreground",
+        accent: "bg-[#e2e8f0] text-[#384860]",
       },
       size: {
         default: "h-[52px] px-[32px] py-[16px]",

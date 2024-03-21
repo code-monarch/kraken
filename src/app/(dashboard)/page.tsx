@@ -1,19 +1,38 @@
 "use client";
+<<<<<<< HEAD
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+=======
+import { useForm } from "react-hook-form";
+>>>>>>> ft/mfa-components
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Badge } from "@/components/ui/badge";
-import Image from "next/image";
-import userImg from "@/public/images/user.svg";
 import TransactionsTable from "@/pattern/transactions/organisms/transactions-table";
 import UsersTable from "@/pattern/user-management.tsx/organisms/users-table";
 import ActivityLogsTable from "@/pattern/activity-logs/organisms/activity-logs-table";
+import PhoneAuthDialog from "@/pattern/settings/organisms/phone-auth-dialog";
+import QRAuthDialog from "@/pattern/settings/organisms/qr-auth-dialog";
 
 export default function Home() {
+<<<<<<< HEAD
 
   return (
     <main className='flex min-h-screen flex-col items-center justify-between p-24'>
+=======
+  const WishlistFormSchema = Yup.object().shape({
+    email: Yup.string()
+      .email("Email must be a valid email address")
+      .required("Please enter an email address"),
+  });
+
+  const methods = useForm({
+    mode: "onBlur",
+    resolver: yupResolver(WishlistFormSchema),
+  });
+
+  return (
+    <main className=" w-full flex min-h-screen flex-col items-center justify-between p-24">
+>>>>>>> ft/mfa-components
       {/* <Button autoFocus>Primary</Button>
       <Button autoFocus variant="secondary">
         Secondary
@@ -76,11 +95,22 @@ export default function Home() {
         </form>
       </FormProvider> */}
 
+<<<<<<< HEAD
       <Badge variant='failed'>Failed</Badge>
       <Badge variant='active'>Active</Badge>
       <Badge variant='inactive'>Inactive</Badge>
       <Badge variant='flagged'>Flagged</Badge>
       <Image alt='' src={userImg} width={40} height={40} />
+=======
+      {/* <Badge variant="failed">Failed</Badge>
+      <Badge variant="active">Active</Badge>
+      <Badge variant="inactive">Inactive</Badge>
+      <Badge variant="flagged">Flagged</Badge>
+      <Image alt="" src={userImg} width={40} height={40} /> */}
+
+      <PhoneAuthDialog />
+      <QRAuthDialog />
+>>>>>>> ft/mfa-components
 
       <div className='bg-white w-full p-6'>
         <div>
