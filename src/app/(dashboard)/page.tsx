@@ -1,35 +1,14 @@
 "use client";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import LoadingButton from "@/pattern/common/molecules/feedback/loading-button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import EmailInput from "@/pattern/common/molecules/inputs/email-input";
-import { FormProvider, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Badge } from "@/components/ui/badge";
-import Image from "next/image";
-import userImg from "@/public/images/user.svg";
 import TransactionsTable from "@/pattern/transactions/organisms/transactions-table";
 import UsersTable from "@/pattern/user-management.tsx/organisms/users-table";
 import ActivityLogsTable from "@/pattern/activity-logs/organisms/activity-logs-table";
-import PhoneNumberInput from "@/pattern/common/molecules/inputs/phone-input";
 import PhoneAuthDialog from "@/pattern/settings/organisms/phone-auth-dialog";
-import InfoIcon from "@/pattern/common/atoms/icons/info-icon";
 import QRAuthDialog from "@/pattern/settings/organisms/qr-auth-dialog";
-import QRCode from "react-qr-code";
 
 export default function Home() {
-  const [date, setDate] = useState<Date | undefined>(new Date());
   const WishlistFormSchema = Yup.object().shape({
     email: Yup.string()
       .email("Email must be a valid email address")
@@ -40,17 +19,6 @@ export default function Home() {
     mode: "onBlur",
     resolver: yupResolver(WishlistFormSchema),
   });
-
-  const {
-    handleSubmit,
-    formState: { errors },
-  } = methods;
-
-  const onSubmit = () => {
-    console.log("DATA TO SUBMIT: ");
-  };
-
-  const [value, setValue] = useState("authenticatedd");
 
   return (
     <main className=" w-full flex min-h-screen flex-col items-center justify-between p-24">
