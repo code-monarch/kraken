@@ -65,9 +65,7 @@ const OverviewChartDateFilterPopOver = () => {
             label='End Date'
             onClick={showCalendarModal}
           />
-          <LoadingButton>
-            Confirm
-          </LoadingButton>
+          <LoadingButton>Confirm</LoadingButton>
         </form>
       </FormProvider>
     </div>

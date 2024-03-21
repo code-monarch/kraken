@@ -20,7 +20,7 @@ const DashboardMetricCard: FC<IDashboardMetricCardProps> = ({
   metricPercentage,
 }) => {
   return (
-    <div className='bg-card min-w-[352px] h-[96px] flex flex-col items-start justify-between py-4 px-5 border border-border rounded-[12px]'>
+    <div className='bg-card w-full h-[96px] flex flex-col items-start justify-between py-4 px-5 border border-border rounded-[12px]'>
       <Label>{metricLabel}</Label>
       <div className='w-full flex justify-between items-center'>
         <p className='text-[hsl(216,26%,30%,1)] text-24 font-bold font-raleway flex items-center gap-[2px]'>
