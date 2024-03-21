@@ -1,0 +1,136 @@
+"use client";
+import { Badge } from "@/components/ui/badge";
+import { ColumnDef } from "@tanstack/react-table";
+import NameCell from "@/pattern/user-management.tsx/molecules/name-cell";
+import MoreVerticalIcon from "@/pattern/common/atoms/icons/more-vertical-icon";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { formatDate } from "@/lib/hooks/useFormatDate";
+
+// This type is used to define the shape of our data.
+// You can use a Zod schema here if you want.
+
+export type IUser = {
+  userID: string | number;
+  name: string;
+  email: string;
+  role: string;
+  status: "active" | "inactive" | string;
+  registeredOn: string | Date;
+  image: any;
+  phoneNumber: string;
+};
+
+export const userColumns: ColumnDef<IUser>[] = [
+  {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
+    accessorKey: "userID",
+    header: "User ID",
+  },
+  {
+    accessorKey: "name",
+    id: "name",
+    header: "Name",
+    accessorFn: (row) => `${row.name} ${row.phoneNumber}`,
+    cell: ({ row }) => {
+      return (
+        <NameCell
+          name={row.original.name}
+          phoneNumber={row.original.phoneNumber}
+          image={row.original.image}
+        />
+      );
+    },
+  },
+  {
+    accessorKey: "email",
+    header: "Email",
+  },
+  {
+    accessorKey: "role",
+    header: "Role",
+    cell: ({ row }) => {
+      const role: string = row.getValue("role");
+      const capitalizedRole =
+        role.charAt(0).toUpperCase() + role.slice(1).toLowerCase();
+      return <Badge variant="accent">{capitalizedRole}</Badge>;
+    },
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+    cell: ({ row }) => {
+      const status: any = row.getValue("status");
+      const capitalizedStatus =
+        status.charAt(0).toUpperCase() + status.slice(1).toLowerCase();
+      return <Badge variant={status.toLowerCase()}>{capitalizedStatus}</Badge>;
+    },
+  },
+  {
+    accessorKey: "registeredOn",
+    header: "Registered On",
+    cell: ({ row }) => {
+      const date = formatDate(row.getValue("registeredOn"));
+      return date;
+    },
+  },
+  {
+    id: "actions",
+    cell: ({ row }) => {
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <span className="cursor-pointer">
+              <span className="sr-only">Open menu</span>
+              <MoreVerticalIcon />
+            </span>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem onClick={() => {}}>View Details</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Edit</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Freeze Account</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              className="text-[#d62f4b]"
+              onClick={() => {
+                console.log(row.original.userID);
+              }}
+            >
+              Delete
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    },
+  },
+];
