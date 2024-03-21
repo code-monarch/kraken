@@ -143,3 +143,13 @@ input:-webkit-autofill:active {
   background-color: hsla(210, 40%, 96%, 1);
   border-radius: 4px !important;
 }
+
+.remove-arrow::-webkit-inner-spin-button,
+.remove-arrow::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.remove-arrow {
+  -moz-appearance: textfield;
+}
+
