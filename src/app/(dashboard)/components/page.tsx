@@ -22,6 +22,12 @@ import { show } from "@ebay/nice-modal-react";
 import UserDetailCard from "@/pattern/common/molecules/data-display/user-detail-card";
 import DashboardMetricCard from "@/pattern/common/organisms/dashboard-metric-card";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import TransactionsTable from "@/pattern/transactions/organisms/transactions-table";
+import UsersTable from "@/pattern/user-management.tsx/organisms/users-table";
+import ActivityLogsTable from "@/pattern/activity-logs/organisms/activity-logs-table";
+import PhoneAuthDialog from "@/pattern/settings/organisms/phone-auth-dialog";
+import QRAuthDialog from "@/pattern/settings/organisms/qr-auth-dialog";
+
 
 export default function Home() {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -150,6 +156,26 @@ export default function Home() {
 
       <div className='bg-white w-[500px] h-[200px] space-y-[50px]'>
         <Badge variant='failed'>Badge</Badge>
+      </div>
+
+      <PhoneAuthDialog />
+      <QRAuthDialog />
+
+      <div className='bg-white w-full p-6'>
+        <div>
+          Transactions Table:
+          <TransactionsTable />
+        </div>
+
+        <div>
+          Users Table:
+          <UsersTable />
+        </div>
+
+        <div>
+          Activity Logs Table:
+          <ActivityLogsTable />
+        </div>
       </div>
     </main>
   );
