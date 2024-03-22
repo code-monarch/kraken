@@ -1,11 +1,10 @@
 "use client";
 import React from "react";
-import { create, useModal } from "@ebay/nice-modal-react";
+import { create, show, useModal } from "@ebay/nice-modal-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -15,13 +14,59 @@ import SheetCloseIcon from "@/pattern/common/atoms/icons/sheet-close-icon";
 import { FilterSelectInput } from "@/pattern/common/molecules/inputs/filter-select-input";
 import { Separator } from "@/components/ui/separator";
 import FilterToggle from "@/pattern/common/atoms/filter-toggle";
+import { DateRangeFilterModal } from "@/pattern/common/organisms/date-range-filter-modal";
+import DateInput from "@/pattern/common/molecules/inputs/date-input";
+import { LinkButton } from "@/pattern/common/molecules/controls/link-button";
+import { IListType } from "@/pattern/types";
+
+const rolesFilterSetting: IListType[] = [
+  {
+    label: "All",
+    value: "all",
+  },
+  {
+    label: "Pilgrim",
+    value: "pilgrim",
+  },
+  {
+    label: "Agent",
+    value: "agent",
+  },
+];
+
+const TransactionTypeFilterSetting: IListType[] = [
+  {
+    label: "Trade",
+    value: "trade",
+  },
+  {
+    label: "Deposit",
+    value: "deposit",
+  },
+  {
+    label: "Withdrawal",
+    value: "withdrawal",
+  },
+  {
+    label: "Swap",
+    value: "swap",
+  },
+];
 
 export const RecentTransactionsSearchFilterModal = create(() => {
   const { resolve, hide, visible } = useModal();
 
+  const showDateRangeFilterModal = () => {
+    show(DateRangeFilterModal);
+  };
+
   const handleCloseModal = () => {
     resolve({ resolved: true });
     hide();
+  };
+
+  const handleSaveFilterSettings = () => {
+    handleCloseModal();
   };
   return (
     <Dialog open={visible} onOpenChange={handleCloseModal}>
@@ -30,9 +75,13 @@ export const RecentTransactionsSearchFilterModal = create(() => {
           {/* Header */}
           <CardHeader className='w-full h-[64px] flex flex-row items-center justify-between py-[10px] px-6 border-b border-b-[hsla(218,19%,92%,1)]'>
             <CardTitle>Filters</CardTitle>
-            <span onClick={handleCloseModal} className='!m-0 cursor-pointer'>
-              <SheetCloseIcon />
-            </span>
+            <div className='flex items-center gap-x-[32px] pt-[2px] !m-0'>
+              {/* Clear all button */}
+              <LinkButton className='text-[18px]'>Clear All</LinkButton>
+              <span onClick={handleCloseModal} className='!m-0 cursor-pointer'>
+                <SheetCloseIcon />
+              </span>
+            </div>
           </CardHeader>
 
           {/* Content */}
@@ -45,10 +94,12 @@ export const RecentTransactionsSearchFilterModal = create(() => {
             {/* Date Range */}
             <div className='w-full space-y-[16px] px-6 pt-4 mb-4'>
               <div className='space-y-[16px]'>
-                <label htmlFor='' className='text-sm font-medium'>
-                  Date range
-                </label>
-                <FilterSelectInput />
+                <DateInput
+                  name='date range filter'
+                  label='Date range'
+                  placeholder='Select a date range'
+                  onClick={showDateRangeFilterModal}
+                />
               </div>
             </div>
             <Separator />
@@ -59,9 +110,9 @@ export const RecentTransactionsSearchFilterModal = create(() => {
                 Roles
               </label>
               <div className='w-full max-w-full flex items-center gap-2 flex-wrap'>
-                <FilterToggle value='All' />
-                <FilterToggle value='Pilgrim' />
-                <FilterToggle value='Agent' />
+                {rolesFilterSetting.map(({ value, label }) => (
+                  <FilterToggle key={value} label={label} value={value} />
+                ))}
               </div>
             </div>
             <Separator />
@@ -72,17 +123,16 @@ export const RecentTransactionsSearchFilterModal = create(() => {
                 Transaction type
               </label>
               <div className='w-full flex items-center gap-2'>
-                <FilterToggle value='Trade' />
-                <FilterToggle value='Deposit' />
-                <FilterToggle value='Withdrawal' />
-                <FilterToggle value='Swap' />
+                {TransactionTypeFilterSetting.map(({ value, label }) => (
+                  <FilterToggle key={value} label={label} value={value} />
+                ))}
               </div>
             </div>
           </CardContent>
 
           {/* Footer */}
           <CardFooter className='w-full pb-4 px-6'>
-            <Button>Save</Button>
+            <Button onClick={handleSaveFilterSettings}>Save</Button>
           </CardFooter>
         </Card>
       </DialogContent>

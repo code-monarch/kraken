@@ -24,3 +24,8 @@ export interface ICustomInputProps
   prefixIcon?: ReactElement;
   suffixIcon?: ReactElement;
 }
+
+export interface IListType {
+  label: string;
+  value: string;
+}

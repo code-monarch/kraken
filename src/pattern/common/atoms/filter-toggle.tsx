@@ -10,13 +10,15 @@ interface IFilterToggleProps
   extends React.InputHTMLAttributes<HTMLInputElement>,
     VariantProps<typeof badgeVariants> {
   value: string;
+  label: string;
 }
 
-const FilterToggle: FC<IFilterToggleProps> = ({ variant, value }) => {
+const FilterToggle: FC<IFilterToggleProps> = ({ variant, value, label }) => {
   const [isClicked, setIsClicked] = useState(false);
   return (
     <Toggle
       onClick={() => setIsClicked(!isClicked)}
+      value={value}
       className={cn(
         badgeVariants({ variant }),
         "min-w-[32px] w-fit h-[26px] p-0 rounded-[6px]",
@@ -32,7 +34,7 @@ const FilterToggle: FC<IFilterToggleProps> = ({ variant, value }) => {
             <FilterToggleIcon color='#D82E2E' />
           </span>
         </Hidden>
-        {value}
+        {label}
       </Badge>
     </Toggle>
   );

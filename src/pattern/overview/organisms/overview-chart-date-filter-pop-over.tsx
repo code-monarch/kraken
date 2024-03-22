@@ -1,12 +1,12 @@
 "use client";
 import React from "react";
-import DateInput from "@/pattern/common/molecules/inputs/date-input";
 import { FormProvider, useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { show } from "@ebay/nice-modal-react";
 import CalendarModal from "@/pattern/common/organisms/calendar-modal";
 import LoadingButton from "@/pattern/common/molecules/controls/loading-button";
+import { FormDateInput } from "@/pattern/common/molecules/inputs/form-date-input";
 
 const ChartDateFilterchema = Yup.object().shape({
   startDate: Yup.date().required("Start date is required"),
@@ -55,12 +55,12 @@ const OverviewChartDateFilterPopOver = () => {
             </p>
           </div>
 
-          <DateInput
+          <FormDateInput
             name='startDate'
             label='Start Date'
             onClick={showCalendarModal}
           />
-          <DateInput
+          <FormDateInput
             name='endDate'
             label='End Date'
             onClick={showCalendarModal}
