@@ -155,7 +155,7 @@ export default function Home() {
       </div>
 
       <div className='bg-white w-[500px] h-[200px] space-y-[50px]'>
-        <Badge variant='failed'>Badge</Badge>
+        <Badge variant='failed'>jshdjhsdjs Badge</Badge>
       </div>
 
       <PhoneAuthDialog />

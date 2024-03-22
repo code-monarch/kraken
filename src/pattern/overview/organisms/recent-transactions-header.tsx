@@ -9,6 +9,8 @@ import FilterIcon from "@/pattern/common/atoms/icons/filter-icon";
 import OverviewTableViewFilter from "../molecules/overview-table-view-filters";
 import { useRouter } from "next/navigation";
 import { DASHBOARD_PATHS } from "@/lib/routes";
+import { show } from "@ebay/nice-modal-react";
+import { RecentTransactionsSearchFilterModal } from "./recent-transactions-search-filter-modal";
 
 const RecentTransactionsHeader = () => {
   const { push } = useRouter();
@@ -16,6 +18,11 @@ const RecentTransactionsHeader = () => {
   const handleTransactionRoute = () => {
     push(`${DASHBOARD_PATHS.transactions}`);
   };
+
+  const handleShowSearchFilterModal = ()=>{
+   show(RecentTransactionsSearchFilterModal);
+  }
+
   //   The number of tractions would be gotten from the length of the transaction endpoint
   let transactions = 7;
   return (
@@ -47,7 +54,7 @@ const RecentTransactionsHeader = () => {
       </div>
       {/* Bottom */}
       <div className='w-full h-[76px] bg-inherit flex items-center justify-between py-[26px]'>
-        {/* View all Button */}
+        {/* View all Filter Button */}
         <OverviewTableViewFilter />
 
         <div className='flex items-center gap-3'>
@@ -56,12 +63,13 @@ const RecentTransactionsHeader = () => {
             <SearchInput />
           </div>
 
-          {/* View all Button */}
+          {/* Table search Filter Button */}
           <ButtonWithIcon
             prefixIcon={<FilterIcon />}
             variant='outline'
             size='sm'
             className='w-[125px] h-[44px] text-base'
+            onClick={handleShowSearchFilterModal}
           >
             Filters
           </ButtonWithIcon>

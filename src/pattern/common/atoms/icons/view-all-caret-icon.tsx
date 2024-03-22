@@ -1,7 +1,7 @@
-import { IIconProps } from '@/pattern/types';
 import React from 'react'
+import { IInputIconProps } from '@/pattern/types';
 
-const ViewAllCaretIcon = ({ width, height, color, className }: IIconProps) => {
+const ViewAllCaretIcon = ({ width, height, color, className, focused }: IInputIconProps) => {
   return (
     <svg
       width={width ?? "18"}
