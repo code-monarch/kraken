@@ -2,6 +2,7 @@
 import PageHeader from "@/pattern/common/molecules/data-display/page-header";
 import OverviewChartSection from "@/pattern/overview/templates/overview-chart-section";
 import OverviewMetricsGrid from "@/pattern/overview/templates/overview-metrics-grid";
+import OverviewRecentTransactionsTemplate from "@/pattern/overview/templates/overview-recent-transactions-template";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       />
       <OverviewMetricsGrid />
       <OverviewChartSection />
+      <OverviewRecentTransactionsTemplate />
     </>
   );
 }

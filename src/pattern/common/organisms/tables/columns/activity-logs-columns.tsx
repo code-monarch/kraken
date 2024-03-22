@@ -5,7 +5,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -67,15 +66,15 @@ export const activityLogsColumns: ColumnDef<IActivity>[] = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <span className="cursor-pointer">
-              <span className="sr-only">Open menu</span>
+            <div className='cursor-pointer'>
+              <span className='sr-only'>Open menu</span>
               <ChevronRightIcon />
-            </span>
+            </div>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align='end'>
             <DropdownMenuItem onClick={() => {}}>View Details</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-[#d62f4b]">
+            <DropdownMenuItem className='text-destructive'>
               Delete
             </DropdownMenuItem>
           </DropdownMenuContent>

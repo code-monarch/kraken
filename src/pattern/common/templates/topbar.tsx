@@ -9,7 +9,7 @@ const Topbar = () => {
   return (
     <div
       className={cn(
-        "bg-white fixed w-full h-[--topbar-height] flex justify-between pt-[20px] pb-[12px] pl-4 pr-[32px] transition-all duration-200 ease-in-out z-[30]"
+        "bg-white fixed w-screen h-[--topbar-height] flex justify-between pt-[20px] pb-[12px] pl-4 pr-[32px] transition-all duration-200 ease-in-out z-[30]"
       )}
     >
       <BrandLogoIcon height='32' width='154.24' />

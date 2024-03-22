@@ -2,6 +2,7 @@
 import { Badge } from "@/components/ui/badge";
 import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
+import TransactionsSlideOutMenu from "@/pattern/common/templates/slide-out-menu/transactions-slide-out-menu";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,6 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import MoreVerticalIcon from "@/pattern/common/atoms/icons/more-vertical-icon";
 import { formatDate } from "@/lib/hooks/useFormatDate";
+import { show } from "@ebay/nice-modal-react";
 
 export type ITransaction = {
   trxID: string | number;
@@ -32,14 +34,14 @@ export const trxColumns: ColumnDef<ITransaction>[] = [
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
+        aria-label='Select all'
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
+        aria-label='Select row'
       />
     ),
     enableSorting: false,
@@ -51,7 +53,7 @@ export const trxColumns: ColumnDef<ITransaction>[] = [
   },
   {
     accessorKey: "amount",
-    header: () => <div className="">Amount</div>,
+    header: () => <div className=''>Amount</div>,
     cell: ({ row }) => {
       const amount = parseFloat(row.getValue("amount"));
       const formatted = new Intl.NumberFormat("en-US", {
@@ -59,7 +61,7 @@ export const trxColumns: ColumnDef<ITransaction>[] = [
         currency: "USD",
       }).format(amount);
 
-      return <div className="font-medium">{formatted}</div>;
+      return <div className='font-medium'>{formatted}</div>;
     },
   },
   {
@@ -74,13 +76,13 @@ export const trxColumns: ColumnDef<ITransaction>[] = [
       if (typeof type === "string") {
         const capitalizedType =
           type.charAt(0).toUpperCase() + type.slice(1).toLowerCase();
-        return <Badge variant="accent">{capitalizedType}</Badge>;
+        return <Badge variant='accent'>{capitalizedType}</Badge>;
       }
     },
   },
   {
     accessorKey: "status",
-    header: () => <div className="">Status</div>,
+    header: () => <div className=''>Status</div>,
     cell: ({ row }) => {
       const status: any = row.getValue("status");
       const capitalizedStatus =
@@ -101,15 +103,21 @@ export const trxColumns: ColumnDef<ITransaction>[] = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <span className="cursor-pointer">
-              <span className="sr-only">Open menu</span>
+            <span className='cursor-pointer'>
+              <span className='sr-only'>Open menu</span>
               <MoreVerticalIcon />
             </span>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => {}}>View Details</DropdownMenuItem>
+          <DropdownMenuContent align='end'>
+            <DropdownMenuItem
+              onClick={() => {
+                show(TransactionsSlideOutMenu);
+              }}
+            >
+              View Details
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-[#d62f4b]">
+            <DropdownMenuItem className='text-destructive'>
               Delete
             </DropdownMenuItem>
           </DropdownMenuContent>
