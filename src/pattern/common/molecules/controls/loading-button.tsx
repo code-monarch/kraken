@@ -4,11 +4,11 @@ import Hidden from "../data-display/hidden";
 import LoaderLight from "../../atoms/icons/loader-light";
 
 interface ILoadingButtonprops extends ButtonProps {
-  loading: boolean;
+  loading?: boolean;
 }
 
 const LoadingButton: FC<ILoadingButtonprops> = ({
-  loading,
+  loading = false,
   children,
   ...props
 }) => {

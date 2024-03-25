@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactElement, ReactNode } from "react";
 import { FieldError } from "react-hook-form";
 
 export interface IIconProps extends React.SVGAttributes<SVGElement> {
@@ -21,4 +21,11 @@ export interface ICustomInputProps
   name: string;
   label: string;
   error?: FieldError;
+  prefixIcon?: ReactElement;
+  suffixIcon?: ReactElement;
+}
+
+export interface IListType {
+  label: string;
+  value: string;
 }

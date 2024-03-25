@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang='en'>
       <body
         className={cn(
-          "bg-background w-screen min-h-screen h-fit",
+          "relative bg-background box-border w-screen min-h-screen h-fit p-0 m-0",
           `${raleway.variable}`
         )}
       >

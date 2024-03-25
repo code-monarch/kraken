@@ -3,7 +3,6 @@ import * as React from "react";
 import { DayPicker } from "react-day-picker";
 
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
 import CalendarLeftChevrolet from "@/pattern/common/atoms/icons/calendar-left-chevrolet";
 import CalendarRightChevrolet from "@/pattern/common/atoms/icons/calendar-right-chevrolet";
 import CalendarDropdown from "@/pattern/common/molecules/inputs/calendar-dropdown";

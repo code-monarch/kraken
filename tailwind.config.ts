@@ -83,6 +83,7 @@ const config = {
         primaryBtnHoverShadow: "var(--primary-btn-hover-shadow)",
         primarySmBtnHoverShadow: "var(--primary-sm-btn-hover-shadow)",
         secondaryBtnHoverShadow: "var(--secondary-btn-hover-shadow)",
+        destructiveBtnHoverShadow: "var(--destructive-btn-hover-shadow)",
         secondarySmBtnHoverShadow: "var(--secondary-sm-btn-hover-shadow)",
         calendarShadow: "-20px 16px 32px 0px hsla(240, 13%, 72%, 0.2)",
         cardShadow: "0px 4px 25px 0px hsla(240, 13%, 72%, 0.15)",

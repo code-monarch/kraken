@@ -14,8 +14,6 @@ export interface ILoginPayload {
   password: string;
 }
 
-// Since we've already created a base auth apiSlice for our application with the base URl for authentication,
-//  we will simply be injecting other apiSlices, loginApiSlice for example, into our auth apiSlice
 export const loginApiSlice = baseApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation<ILoginResponse, ILoginPayload>({

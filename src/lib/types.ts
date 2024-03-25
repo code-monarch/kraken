@@ -39,3 +39,7 @@ export interface IUseIntervalProps {
   callback: () => void;
   delay: number | null;
 }
+export interface IFormatCurrencyProps {
+  amount: number | string;
+  totalLength?: number;
+}

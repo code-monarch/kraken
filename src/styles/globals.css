@@ -5,7 +5,7 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 216, 42%, 38%, 1;
 
     --auth-background: hsla(240, 17%, 98%, 1);
 
@@ -27,8 +27,8 @@
     --accent: 210, 40%, 98%, 1;
     --accent-foreground: 215, 23%, 40%, 1;
 
-    --destructive: 4, 70%, 96%, 1;
-    --destructive-foreground: 0, 86%, 61%, 1;
+    --destructive: 350, 67%, 51%, 1;
+    --destructive-foreground: 0, 0%, 100%, 1;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
@@ -40,6 +40,7 @@
     --primary-sm-btn-hover-shadow: 2px 2px 0px 2px hsla(151, 92%, 39%, 1);
 
     --secondary-btn-hover-shadow: 2px 2px 0px 2px hsla(215, 83%, 52%, 1);
+    --destructive-btn-hover-shadow: 2px 2px 0px 2px hsla(350, 67%, 51%, 1);
     --secondary-sm-btn-hover-shadow: 2px 2px 0px 2px hsla(215, 87%, 54%, 0.25);
 
     --info: 214, 84%, 56%, 1;
@@ -96,7 +97,25 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-raleway overflow-x-hidden;
+  }
+}
+
+@media (min-height: 800px) {
+  .slide-out-scroll-height {
+    height: 700px;
+  }
+}
+
+@media (min-height: 999px) {
+  .slide-out-scroll-height {
+    height: 800px;
+  }
+}
+
+@media (min-height: 1000px) {
+  .slide-out-scroll-height {
+    height: 900px;
   }
 }
 
@@ -133,3 +152,4 @@ input:-webkit-autofill:active {
 .remove-arrow {
   -moz-appearance: textfield;
 }
+

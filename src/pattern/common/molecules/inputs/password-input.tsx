@@ -25,32 +25,34 @@ const PasswordInput: FC<ICustomInputProps> = ({
       render={({ field: { value, name, onChange } }) => (
         <FieldSet>
           <Label>{label}</Label>
-          <div className='relative w-full'>
-            <Input
-              name={name}
-              value={value}
-              type={toggleinputType ? "password" : "text"}
-              onChange={onChange}
-              onFocus={() => setIsFocus(true)}
-              onBlur={() => setIsFocus(false)}
-              variant={error ? "error" : "default"}
-              placeholder={placeholder ?? "Enter password"}
-              className='pr-[40px]'
-            />
-            {/* prefix Icon */}
-            <span className='absolute top-[15px] left-[12px]'>
-              <PasswordInputIcon focused={error ? false : isFocus} />
-            </span>
+          <div className='w-full space-y-[4px]'>
+            <div className='relative w-full'>
+              <Input
+                name={name}
+                value={value}
+                type={toggleinputType ? "password" : "text"}
+                onChange={onChange}
+                onFocus={() => setIsFocus(true)}
+                onBlur={() => setIsFocus(false)}
+                variant={error ? "error" : "default"}
+                placeholder={placeholder ?? "Enter password"}
+                className='pr-[40px]'
+              />
+              {/* prefix Icon */}
+              <span className='absolute top-[15px] left-[12px]'>
+                <PasswordInputIcon focused={error ? false : isFocus} />
+              </span>
 
-            {/* Suffix Icon */}
-            <span
-              className='absolute top-[13px] right-[12px]'
-              onClick={() => setToggleinputType(!toggleinputType)}
-            >
-              <PasswordInputToggle togglePasswordInput={toggleinputType} />
-            </span>
+              {/* Suffix Icon */}
+              <span
+                className='absolute top-[13px] right-[12px]'
+                onClick={() => setToggleinputType(!toggleinputType)}
+              >
+                <PasswordInputToggle togglePasswordInput={toggleinputType} />
+              </span>
+            </div>
+            <InputErrorMessage name={`${name}`} />
           </div>
-          <InputErrorMessage name={`${name}`} />
         </FieldSet>
       )}
     />
