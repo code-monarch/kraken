@@ -10,7 +10,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import ConfirmSectionIndicator from "@/pattern/common/atoms/icons/confirm-section-indicator";
+import ConfirmSectionIndicator from "@/pattern/common/atoms/icons/confirm-section-stepper-indicator";
 import VerificationCodeInput from "@/pattern/common/molecules/inputs/verification-code-input";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import MFACompleteDialog from "./mfa-complete-dialog";

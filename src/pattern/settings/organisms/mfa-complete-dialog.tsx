@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import CompletedIcon from "@/pattern/common/atoms/icons/completed-icon";
-import CompleteSectionIndicator from "@/pattern/common/atoms/icons/complete-section-indicator";
+import CompleteSectionIndicator from "@/pattern/common/atoms/icons/complete-mfa-stepper-indicator";
 
 interface IProps {
   open: boolean;

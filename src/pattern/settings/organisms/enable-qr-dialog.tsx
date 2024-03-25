@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import MFACompleteDialog from "./mfa-complete-dialog";
 import QRVerificationCodeInput from "@/pattern/common/molecules/inputs/qr-verification-code-input";
-import EnableSectionIndicator from "@/pattern/common/atoms/icons/enable-section-indicator";
+import EnableSectionIndicator from "@/pattern/common/atoms/icons/enable-mfa-section-indicator";
 import AuthenticatorCodeInput from "@/pattern/common/molecules/inputs/authenticator-code-input";
 
 interface IProps {

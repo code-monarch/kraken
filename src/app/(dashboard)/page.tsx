@@ -50,8 +50,6 @@ export default function Home() {
     console.log("DATA TO SUBMIT: ");
   };
 
-  const [value, setValue] = useState("authenticatedd");
-
   return (
     <main className=" w-full flex min-h-screen flex-col items-center justify-between p-24">
       {/* <Button autoFocus>Primary</Button>
