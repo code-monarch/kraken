@@ -76,7 +76,7 @@ export default function Home() {
 
       <div className='bg-black w-full h-[100px] flex items-center justify-center'>
         <DashboardMetricCard
-          metricLabel='Total Users'
+          metricLabel='Total Revenue'
           metricPercentage='50'
           metricValue='10,000'
         />

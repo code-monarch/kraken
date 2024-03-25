@@ -153,3 +153,8 @@ input:-webkit-autofill:active {
   -moz-appearance: textfield;
 }
 
+/* Change font-family of react-apexChart */
+.apexcharts-xaxis-label{
+  font-family: 'Raleway', sans-serif !important
+}
+

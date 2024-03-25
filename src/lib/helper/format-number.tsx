@@ -14,7 +14,7 @@ export const formatAmount = ({ amount }: IFormatCurrencyProps): string => {
     spaceSeparated: false,
     thousandSeparated: true,
     mantissa: 2,
-    optionalMantissa: true,
+    // optionalMantissa: true,
   });
 
   return formatAmount;

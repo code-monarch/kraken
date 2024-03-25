@@ -14,10 +14,13 @@ const Topbar = () => {
     >
       <BrandLogoIcon height='32' width='154.24' />
 
-      {/* Wallet/Currency Summary, Notification and more options */}
-      <div className='flex items-center gap-x-4'>
-        <NotificationWidget />
-        <TopbarProfileTag />
+      <div className='w-[calc(100%-var(--sidebar-width))] flex items-center justify-between'>
+        hjhj
+        {/* Wallet/Currency Summary, Notification and more options */}
+        <div className='flex items-center gap-x-4'>
+          <NotificationWidget />
+          <TopbarProfileTag />
+        </div>
       </div>
     </div>
   );
