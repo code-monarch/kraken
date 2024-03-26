@@ -23,11 +23,11 @@ import UserDetailCard from "@/pattern/common/molecules/data-display/user-detail-
 import DashboardMetricCard from "@/pattern/common/organisms/dashboard-metric-card";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import TransactionsTable from "@/pattern/transactions/organisms/transactions-table";
-import UsersTable from "@/pattern/user-management.tsx/organisms/users-table";
 import ActivityLogsTable from "@/pattern/activity-logs/organisms/activity-logs-table";
 import PhoneAuthDialog from "@/pattern/settings/organisms/phone-auth-dialog";
 import QRAuthDialog from "@/pattern/settings/organisms/qr-auth-dialog";
-
+import { UserManagementTable } from "@/pattern/user-management.tsx/organisms/user-management-table";
+import UserManagementTableTemplate from "@/pattern/user-management.tsx/templates/user-management-table-template";
 
 export default function Home() {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -76,7 +76,7 @@ export default function Home() {
 
       <div className='bg-black w-full h-[100px] flex items-center justify-center'>
         <DashboardMetricCard
-          metricLabel='Total Revenue'
+          metric='Total Revenue'
           metricPercentage='50'
           metricValue='10,000'
         />
@@ -161,22 +161,7 @@ export default function Home() {
       <PhoneAuthDialog />
       <QRAuthDialog />
 
-      <div className='bg-white w-full p-6'>
-        <div>
-          Transactions Table:
-          <TransactionsTable />
-        </div>
-
-        <div>
-          Users Table:
-          <UsersTable />
-        </div>
-
-        <div>
-          Activity Logs Table:
-          <ActivityLogsTable />
-        </div>
-      </div>
+     <UserManagementTableTemplate />
     </main>
   );
 }

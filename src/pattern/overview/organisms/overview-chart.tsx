@@ -58,6 +58,7 @@ const OverviewChart = () => {
     xaxis: {
       type: "datetime",
       categories: [
+        "12/01/2024 GMT",
         "01/01/2024 GMT",
         "02/01/2024 GMT",
         "03/01/2024 GMT",
@@ -69,7 +70,6 @@ const OverviewChart = () => {
         "09/01/2024 GMT",
         "10/01/2024 GMT",
         "11/01/2024 GMT",
-        "12/01/2024 GMT",
       ],
       position: "bottom",
       labels: {
@@ -84,7 +84,7 @@ const OverviewChart = () => {
         style: {
           colors: "#7D8494",
           fontSize: "12px",
-          fontFamily: "Raleway",
+          fontFamily: "inherit",
           fontWeight: 500,
         },
         offsetX: 0,
@@ -113,9 +113,8 @@ const OverviewChart = () => {
         style: {
           color: undefined,
           fontSize: "12px",
-          fontFamily: "Helvetica, Arial, sans-serif",
+          fontFamily: "inherit",
           fontWeight: 600,
-          cssClass: "apexcharts-xaxis-title",
         },
       },
       crosshairs: {
@@ -127,7 +126,7 @@ const OverviewChart = () => {
         offsetY: 0,
         style: {
           fontSize: "16px",
-          fontFamily: "Raleway, sans-serif",
+          fontFamily: "inherit",
         },
       },
     },
@@ -145,9 +144,8 @@ const OverviewChart = () => {
         style: {
           colors: "#7D8494",
           fontSize: "12px",
-          fontFamily: "Raleway, sans-serif",
+          fontFamily: "inherit",
           fontWeight: 500,
-          cssClass: "apexcharts-yaxis-label",
         },
         offsetX: 0,
         offsetY: 0,
@@ -175,7 +173,7 @@ const OverviewChart = () => {
         style: {
           color: "#7D8494",
           fontSize: "12px",
-          fontFamily: "Raleway, sans-serif",
+          fontFamily: "inherit",
           fontWeight: 500,
         },
       },
@@ -192,7 +190,7 @@ const OverviewChart = () => {
     },
     tooltip: {
       style: {
-        fontFamily: "Raleway",
+        fontFamily: "inherit",
       },
     },
   };
@@ -212,7 +210,7 @@ const OverviewChart = () => {
   ];
 
   return (
-    <div className="h-fit w-full max-w-[1200px]">
+    <div className='h-fit w-full max-w-[1200px]'>
       <Chart
         options={options}
         series={series}

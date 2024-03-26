@@ -1,7 +1,7 @@
 import React from "react";
 import DashboardMetricCard from "@/pattern/common/organisms/dashboard-metric-card";
 
-const OverviewMetricsGrid = () => {
+const OverviewMetricGrid = () => {
   return (
     <div className='w-full grid grid-cols-3 gap-5'>
       {/* Total Users Metric */}
@@ -26,4 +26,4 @@ const OverviewMetricsGrid = () => {
   );
 };
 
-export default OverviewMetricsGrid;
+export default OverviewMetricGrid;

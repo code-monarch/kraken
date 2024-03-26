@@ -1,22 +1,20 @@
-import React, { useEffect, useState } from "react";
-import {
-  IUser,
-  userColumns,
-} from "@/pattern/common/organisms/tables/columns/users-columns";
-import { DataTable } from "@/pattern/common/organisms/tables/data-table";
-import { fetchUsers } from "@/lib/fetchUsers";
+"use client";
+import { useEffect, useState } from "react";
+import { UserManagementTableTemplateHeader } from "../organisms/user-management-table-template-header";
 import { PaginationState } from "@tanstack/react-table";
+import { fetchUsers } from "@/lib/fetchUsers";
+import { UserDetails, UserTableColumns } from "../molecules/user-management-table-column";
+import { UserManagementTable } from "../organisms/user-management-table";
 
-const UsersTable = () => {
+const UserManagementTableTemplate = () => {
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 10,
   });
 
-  const [dataQuery, setDataQuery] = useState<IUser[]>();
-  const [pageCount, setPageCount] = useState<number>();
+  const [dataQuery, setDataQuery] = useState<UserDetails[]>();
+  const [pageCount, setPageCount] = useState<number>(3);
   const [isLoading, setIsLoading] = useState<boolean>();
-  const [isFetching, setIsFetching] = useState<boolean>();
 
   useEffect(() => {
     async function fetchDataAndUpdate() {
@@ -32,9 +30,10 @@ const UsersTable = () => {
     fetchDataAndUpdate();
   }, [pagination]);
   return (
-    <div>
-      <DataTable
-        columns={userColumns}
+    <div className='w-full bg-card'>
+      <UserManagementTableTemplateHeader />
+      <UserManagementTable
+        columns={UserTableColumns}
         data={dataQuery!}
         isLoading={isLoading}
         pageCount={pageCount}
@@ -45,4 +44,4 @@ const UsersTable = () => {
   );
 };
 
-export default UsersTable;
+export default UserManagementTableTemplate;

@@ -8,17 +8,29 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { formatDate } from "@/lib/hooks/useFormatDate";
-import { UserDetails } from "@/pattern/user-management.tsx/molecules/user-management-table-column";
+import { Role, Status } from "@/pattern/types";
+import ArrowDownIcon from "@/pattern/common/atoms/icons/arrow-down-icon";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 
-export const userColumns: ColumnDef<UserDetails>[] = [
+export type UserDetails = {
+  userID: string | number;
+  name: string;
+  email: string;
+  role: typeof Role | string;
+  status: typeof Status | string;
+  registeredOn: string | Date;
+  image: any;
+  phoneNumber: string;
+};
+
+export const UserTableColumns: ColumnDef<UserDetails>[] = [
+  // Checkbox
   {
     id: "select",
     header: ({ table }) => (
@@ -41,10 +53,14 @@ export const userColumns: ColumnDef<UserDetails>[] = [
     enableSorting: false,
     enableHiding: false,
   },
+
+  // User Id
   {
     accessorKey: "userID",
     header: "User ID",
   },
+
+  // Name
   {
     accessorKey: "name",
     id: "name",
@@ -60,10 +76,14 @@ export const userColumns: ColumnDef<UserDetails>[] = [
       );
     },
   },
+
+  // Email
   {
     accessorKey: "email",
     header: "Email",
   },
+
+  // Role
   {
     accessorKey: "role",
     header: "Role",
@@ -74,9 +94,16 @@ export const userColumns: ColumnDef<UserDetails>[] = [
       return <Badge variant='accent'>{capitalizedRole}</Badge>;
     },
   },
+
+  // Status
   {
     accessorKey: "status",
-    header: "Status",
+    header: () => (
+      <div className='flex items-center gap-1'>
+        <span>Status</span>
+        <ArrowDownIcon />
+      </div>
+    ),
     cell: ({ row }) => {
       const status: any = row.getValue("status");
       const capitalizedStatus =
@@ -84,9 +111,16 @@ export const userColumns: ColumnDef<UserDetails>[] = [
       return <Badge variant={status.toLowerCase()}>{capitalizedStatus}</Badge>;
     },
   },
+
+  // Registered on
   {
     accessorKey: "registeredOn",
-    header: "Registered On",
+    header: () => (
+      <div className='flex items-center gap-1'>
+        <span>Registered On</span>
+        <ArrowDownIcon />
+      </div>
+    ),
     cell: ({ row }) => {
       const date = formatDate(row.getValue("registeredOn"));
       return date;

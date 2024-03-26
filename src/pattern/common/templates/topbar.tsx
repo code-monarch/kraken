@@ -9,13 +9,20 @@ const Topbar = () => {
   return (
     <div
       className={cn(
-        "bg-white fixed w-screen h-[--topbar-height] flex justify-between pt-[20px] pb-[12px] pl-4 pr-[32px] transition-all duration-200 ease-in-out z-[30]"
+        "bg-white fixed w-screen h-[--topbar-height] flex items-center gap-x-[32px] pt-[20px] pb-[12px] pl-4 pr-[32px] z-[30]"
       )}
     >
-      <BrandLogoIcon height='32' width='154.24' />
+      {/* width = sidebar width - left padding */}
+      <div className='w-[calc(var(--sidebar-width)-16px)]'> 
+        <BrandLogoIcon height='32' width='154.24' />
+      </div>
 
       <div className='w-[calc(100%-var(--sidebar-width))] flex items-center justify-between'>
-        hjhj
+        {/* Welcome Message */}
+        <h4 className='font-medium text-[1.25rem]'>
+          Welcome back, <span className='text-primary'>Williams</span>
+        </h4>
+
         {/* Wallet/Currency Summary, Notification and more options */}
         <div className='flex items-center gap-x-4'>
           <NotificationWidget />

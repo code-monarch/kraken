@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import {
   ColumnDef,
-  VisibilityState,
   flexRender,
   getCoreRowModel,
   PaginationState,
@@ -18,11 +17,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import ArrowLeftIcon from "../../atoms/icons/arrow-left-icon";
-import ArrowRightIcon from "../../atoms/icons/arrow-right-icon";
 import PulsePlaceholder from "../../atoms/icons/pulse-placeholder-icon";
-import { DataTablePagination } from "./data-table-pagination";
+import { Pagination } from "./pagination";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -70,7 +66,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="rounded-m borde my-6">
+      <div className='rounded-m border my-6'>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -96,7 +92,7 @@ export function DataTable<TData, TValue>({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-24 text-center"
+                  className='h-24 text-center'
                 >
                   <PulsePlaceholder />
                 </TableCell>
@@ -123,7 +119,7 @@ export function DataTable<TData, TValue>({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-24 text-center"
+                  className='h-24 text-center'
                 >
                   <PulsePlaceholder />
                 </TableCell>
@@ -134,7 +130,7 @@ export function DataTable<TData, TValue>({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-24 text-center"
+                  className='h-24 text-center'
                 >
                   No results.
                 </TableCell>
@@ -142,13 +138,13 @@ export function DataTable<TData, TValue>({
             )}
           </TableBody>
         </Table>
-        <div className="flex-1 text-sm text-muted-foreground">
+        <div className='flex-1 text-sm text-muted-foreground'>
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected
         </div>
       </div>
 
-      {pageCount && pageCount > 1 && <DataTablePagination table={table} />}
+      {pageCount && pageCount > 1 && <Pagination table={table} />}
     </div>
   );
 }
