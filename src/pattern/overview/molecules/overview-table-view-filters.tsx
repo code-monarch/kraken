@@ -57,9 +57,8 @@ const OverviewTableViewFilter = () => {
         className='w-[200px] min-h-[200px] bg-card rounded-[8px] shadow-cardShadow'
       >
         {filters.map(({ label, value }, idx) => (
-          <>
+          <div key={value}>
             <div
-              key={value}
               className='w-full h-10 flex item-center text-sm text-[hsla(216,30%,18%,1)] font-medium py-3 px-4 cursor-pointer outline-none transition-colors hover:bg-accent focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
               onClick={() => {
                 setFilterIndex(idx);
@@ -69,7 +68,7 @@ const OverviewTableViewFilter = () => {
               {label}
             </div>
             <Separator />
-          </>
+          </div>
         ))}
       </PopoverContent>
     </Popover>

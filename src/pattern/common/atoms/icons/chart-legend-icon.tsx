@@ -10,7 +10,7 @@ const ChartLegendIcon = ({ color }:IIconProps) => {
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
     >
-      <g clip-path='url(#clip0_3490_11753)'>
+      <g clipPath='url(#clip0_3490_11753)'>
         <circle cx='6' cy='6.5' r='5.5' stroke={color ?? '#CBD5E1'} />
         <circle cx='6' cy='6.5' r='2.75' fill={color ?? '#CBD5E1'} />
       </g>
