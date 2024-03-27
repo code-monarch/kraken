@@ -21,7 +21,7 @@ import {
   UserDetails,
   UserTableColumns,
 } from "../molecules/user-management-table-column";
-import { Pagination } from "@/pattern/common/organisms/tables/pagination";
+import { Pagination } from "@/pattern/common/organisms/table/pagination";
 
 const columns = UserTableColumns;
 

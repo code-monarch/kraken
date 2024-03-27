@@ -17,8 +17,11 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import PulsePlaceholder from "@/pattern/common/atoms/icons/pulse-placeholder-icon";
-import { Pagination } from "@/pattern/common/organisms/tables/pagination";
-import { Transactions, TransactionsTableColumns } from "../molecules/transactions-table-column";
+import { Pagination } from "@/pattern/common/organisms/table/pagination";
+import {
+  Transactions,
+  TransactionsTableColumns,
+} from "../molecules/transactions-table-column";
 
 const columns = TransactionsTableColumns;
 

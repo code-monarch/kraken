@@ -22,12 +22,10 @@ import { show } from "@ebay/nice-modal-react";
 import UserDetailCard from "@/pattern/common/molecules/data-display/user-detail-card";
 import DashboardMetricCard from "@/pattern/common/organisms/dashboard-metric-card";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import TransactionsTable from "@/pattern/transactions/organisms/transactions-table";
-import ActivityLogsTable from "@/pattern/activity-logs/organisms/activity-logs-table";
 import PhoneAuthDialog from "@/pattern/settings/organisms/phone-auth-dialog";
 import QRAuthDialog from "@/pattern/settings/organisms/qr-auth-dialog";
-import { UserManagementTable } from "@/pattern/user-management.tsx/organisms/user-management-table";
 import UserManagementTableTemplate from "@/pattern/user-management.tsx/templates/user-management-table-template";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Home() {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -161,7 +159,18 @@ export default function Home() {
       <PhoneAuthDialog />
       <QRAuthDialog />
 
-     <UserManagementTableTemplate />
+      <UserManagementTableTemplate />
+
+      <Tabs defaultValue='account' className='w-[400px]'>
+        <TabsList>
+          <TabsTrigger value='account'>Account</TabsTrigger>
+          <TabsTrigger value='password'>Password</TabsTrigger>
+        </TabsList>
+        <TabsContent value='account'>
+          Make changes to your account here.
+        </TabsContent>
+        <TabsContent value='password'>Change your password here.</TabsContent>
+      </Tabs>
     </main>
   );
 }

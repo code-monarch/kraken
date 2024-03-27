@@ -10,17 +10,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import SheetCloseIcon from "@/pattern/common/atoms/icons/sheet-close-icon";
 import { FilterSelectInput } from "@/pattern/common/molecules/inputs/filter-select-input";
+import { Separator } from "@/components/ui/separator";
 import FilterToggle from "@/pattern/common/atoms/filter-toggle";
+import { DateRangeFilterModal } from "@/pattern/common/organisms/date-range-filter-modal";
 import DateInput from "@/pattern/common/molecules/inputs/date-input";
 import { LinkButton } from "@/pattern/common/molecules/controls/link-button";
 import { IListType } from "@/pattern/types";
-import CalendarModal from "@/pattern/common/organisms/calendar-modal";
-import { Badge } from "@/components/ui/badge";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { cn } from "@/lib/utils";
 
 const rolesFilterSetting: IListType[] = [
   {
@@ -56,11 +53,11 @@ const TransactionTypeFilterSetting: IListType[] = [
   },
 ];
 
-export const UserManagementTableSearchFilterModal = create(() => {
+export const TransactionsSearchFilterModal = create(() => {
   const { resolve, hide, visible } = useModal();
 
-  const showDateCalendarModal = () => {
-    show(CalendarModal);
+  const showDateRangeFilterModal = () => {
+    show(DateRangeFilterModal);
   };
 
   const handleCloseModal = () => {
@@ -94,6 +91,19 @@ export const UserManagementTableSearchFilterModal = create(() => {
             </div>
             <Separator />
 
+            {/* Date Range */}
+            <div className='w-full space-y-[16px] px-6 pt-4 mb-4'>
+              <div className='space-y-[16px]'>
+                <DateInput
+                  name='date range filter'
+                  label='Date range'
+                  placeholder='Select a date range'
+                  onClick={showDateRangeFilterModal}
+                />
+              </div>
+            </div>
+            <Separator />
+
             {/* Roles Filters */}
             <div className='space-y-[16px] pt-4 px-6 mb-4'>
               <label htmlFor='' className='text-sm font-medium'>
@@ -110,41 +120,14 @@ export const UserManagementTableSearchFilterModal = create(() => {
             {/* Transaction type Filters */}
             <div className='space-y-[16px] py-4 px-6'>
               <label htmlFor='' className='text-sm font-medium'>
-                Status
+                Transaction type
               </label>
               <div className='w-full flex items-center gap-2'>
-                <ToggleGroup type='single'>
-                  <ToggleGroupItem
-                    value='active'
-                    aria-label='Active'
-                    className='min-w-[32px] w-fit h-[24px] p-0 rounded-[6px] border-none hover:border-none focus:ring-[1px] focus-visible:ring-[1px] focus:ring-primary focus-visible:ring-primary'
-                  >
-                    <Badge variant='active' className="h-[24px]">Active</Badge>
-                  </ToggleGroupItem>
-                  <ToggleGroupItem
-                    value='inactive'
-                    aria-label='inactive'
-                    className='min-w-[32px] w-fit h-[24px] p-0 rounded-[6px] border-none hover:border-none focus:ring-[1px] focus-visible:ring-[1px] focus:ring-warning focus-visible:ring-warning'
-                  >
-                    <Badge variant='inactive' className="h-[24px]">Inactive</Badge>
-                  </ToggleGroupItem>
-                </ToggleGroup>
+                {TransactionTypeFilterSetting.map(({ value, label }) => (
+                  <FilterToggle key={value} label={label} value={value} />
+                ))}
               </div>
             </div>
-            <Separator />
-
-            {/* Registered On */}
-            <div className='w-full space-y-[16px] px-6 pt-4 mb-4'>
-              <div className='space-y-[16px]'>
-                <DateInput
-                  name='registration-date'
-                  label='Registered On'
-                  placeholder='Select a date'
-                  onClick={showDateCalendarModal}
-                />
-              </div>
-            </div>
-            <Separator />
           </CardContent>
 
           {/* Footer */}
