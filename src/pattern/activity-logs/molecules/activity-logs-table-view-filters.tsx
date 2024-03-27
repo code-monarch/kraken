@@ -11,28 +11,28 @@ import { Separator } from "@/components/ui/separator";
 
 const filters = [
   {
-    label: "View all",
-    value: "all",
+    label: "Login",
+    value: "login",
   },
   {
-    label: "Completed",
-    value: "completed",
+    label: "Export",
+    value: "export",
   },
   {
-    label: "Pending",
-    value: "pending",
+    label: "User update",
+    value: "user-update",
   },
   {
-    label: "Failed",
-    value: "failed",
+    label: "Transaction",
+    value: "transaction",
   },
   {
-    label: "Cancelled",
-    value: "cancelled",
+    label: "Report",
+    value: "report",
   },
 ];
 
-const OverviewTableViewFilter = () => {
+const ActivityLogsTableViewFilter = () => {
   const [open, setOpen] = useState(false);
   const [filterIndex, setFilterIndex] = useState<number>(0);
 
@@ -75,4 +75,4 @@ const OverviewTableViewFilter = () => {
   );
 };
 
-export default OverviewTableViewFilter;
+export default ActivityLogsTableViewFilter;

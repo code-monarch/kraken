@@ -7,7 +7,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -15,7 +14,7 @@ import MoreVerticalIcon from "@/pattern/common/atoms/icons/more-vertical-icon";
 import { formatDate } from "@/lib/hooks/useFormatDate";
 import { show } from "@ebay/nice-modal-react";
 
-export type ITransaction = {
+export type Transactions = {
   trxID: string | number;
   amount: number;
   agent: string;
@@ -24,7 +23,7 @@ export type ITransaction = {
   date: string | Date;
 };
 
-export const trxColumns: ColumnDef<ITransaction>[] = [
+export const TransactionsTableColumns: ColumnDef<Transactions>[] = [
   {
     id: "select",
     header: ({ table }) => (

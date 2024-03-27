@@ -8,27 +8,29 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { formatDate } from "@/lib/hooks/useFormatDate";
+import { Role, Status } from "@/pattern/types";
+import ArrowDownIcon from "@/pattern/common/atoms/icons/arrow-down-icon";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 
-export type IUser = {
+export type UserDetails = {
   userID: string | number;
   name: string;
   email: string;
-  role: string;
-  status: "active" | "inactive" | string;
+  role: typeof Role | string;
+  status: typeof Status | string;
   registeredOn: string | Date;
   image: any;
   phoneNumber: string;
 };
 
-export const userColumns: ColumnDef<IUser>[] = [
+export const UserTableColumns: ColumnDef<UserDetails>[] = [
+  // Checkbox
   {
     id: "select",
     header: ({ table }) => (
@@ -38,23 +40,27 @@ export const userColumns: ColumnDef<IUser>[] = [
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
+        aria-label='Select all'
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
+        aria-label='Select row'
       />
     ),
     enableSorting: false,
     enableHiding: false,
   },
+
+  // User Id
   {
     accessorKey: "userID",
     header: "User ID",
   },
+
+  // Name
   {
     accessorKey: "name",
     id: "name",
@@ -70,10 +76,14 @@ export const userColumns: ColumnDef<IUser>[] = [
       );
     },
   },
+
+  // Email
   {
     accessorKey: "email",
     header: "Email",
   },
+
+  // Role
   {
     accessorKey: "role",
     header: "Role",
@@ -81,12 +91,19 @@ export const userColumns: ColumnDef<IUser>[] = [
       const role: string = row.getValue("role");
       const capitalizedRole =
         role.charAt(0).toUpperCase() + role.slice(1).toLowerCase();
-      return <Badge variant="accent">{capitalizedRole}</Badge>;
+      return <Badge variant='accent'>{capitalizedRole}</Badge>;
     },
   },
+
+  // Status
   {
     accessorKey: "status",
-    header: "Status",
+    header: () => (
+      <div className='flex items-center gap-1'>
+        <span>Status</span>
+        <ArrowDownIcon />
+      </div>
+    ),
     cell: ({ row }) => {
       const status: any = row.getValue("status");
       const capitalizedStatus =
@@ -94,9 +111,16 @@ export const userColumns: ColumnDef<IUser>[] = [
       return <Badge variant={status.toLowerCase()}>{capitalizedStatus}</Badge>;
     },
   },
+
+  // Registered on
   {
     accessorKey: "registeredOn",
-    header: "Registered On",
+    header: () => (
+      <div className='flex items-center gap-1'>
+        <span>Registered On</span>
+        <ArrowDownIcon />
+      </div>
+    ),
     cell: ({ row }) => {
       const date = formatDate(row.getValue("registeredOn"));
       return date;
@@ -108,12 +132,12 @@ export const userColumns: ColumnDef<IUser>[] = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <span className="cursor-pointer">
-              <span className="sr-only">Open menu</span>
+            <span className='cursor-pointer'>
+              <span className='sr-only'>Open menu</span>
               <MoreVerticalIcon />
             </span>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align='end'>
             <DropdownMenuItem onClick={() => {}}>View Details</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>Edit</DropdownMenuItem>
@@ -121,7 +145,7 @@ export const userColumns: ColumnDef<IUser>[] = [
             <DropdownMenuItem>Freeze Account</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
-              className="text-[#d62f4b]"
+              className='text-[#d62f4b]'
               onClick={() => {
                 console.log(row.original.userID);
               }}

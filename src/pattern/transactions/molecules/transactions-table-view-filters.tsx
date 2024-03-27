@@ -32,7 +32,7 @@ const filters = [
   },
 ];
 
-const OverviewTableViewFilter = () => {
+const TransactionsTableViewFilter = () => {
   const [open, setOpen] = useState(false);
   const [filterIndex, setFilterIndex] = useState<number>(0);
 
@@ -75,4 +75,4 @@ const OverviewTableViewFilter = () => {
   );
 };
 
-export default OverviewTableViewFilter;
+export default TransactionsTableViewFilter;

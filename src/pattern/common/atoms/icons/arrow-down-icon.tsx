@@ -12,9 +12,9 @@ const ArrowDownIcon = () => {
       <path
         d="M5.99998 1.3335V10.6668M5.99998 10.6668L10.6666 6.00016M5.99998 10.6668L1.33331 6.00016"
         stroke="#475467"
-        stroke-width="1.33333"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.33333"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

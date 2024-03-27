@@ -5,29 +5,44 @@ import DashboardMetricPercentage, {
 } from "../atoms/dashboard-metric-percentage";
 import { Label } from "@/components/ui/label";
 import { DOLLAR_CURRENCY_SYMBOL } from "@/lib/constants";
-import { formatAmount } from "@/lib/helper/format-number";
+import { formatAmount, formatNumber } from "@/lib/helper/format-number";
+import Hidden from "../molecules/data-display/hidden";
 
-interface IDashboardMetricCardProps
+export interface IDashboardMetricCardProps
   extends HTMLAttributes<HTMLDivElement>,
     IDashboardMetricValueProps {
-  metricLabel: string;
+  metric: string;
   metricValue: string;
+  isAmount?: boolean; // if true formatAmount else apply thousand seperator
 }
 
 const DashboardMetricCard: FC<IDashboardMetricCardProps> = ({
-  metricLabel,
+  metric,
   metricValue,
   metricPercentage,
+  isAmount = true,
 }) => {
   return (
     <div className='bg-card w-full h-[96px] flex flex-col items-start justify-between py-4 px-5 border border-border rounded-[12px]'>
-      <Label>{metricLabel}</Label>
+      <Label>{metric}</Label>
       <div className='w-full flex justify-between items-center'>
-        <p className='text-[hsl(216,26%,30%,1)] text-24 font-bold font-raleway flex items-center gap-[2px]'>
-          <span className='text-base'>{DOLLAR_CURRENCY_SYMBOL}</span>
-          {formatAmount({
-            amount: metricValue,
-          })}
+        <p className='text-[hsl(216,26%,30%,1)] text-24 font-semibold font-raleway flex items-center gap-[2px]'>
+          {/* If Metric value is an isAmount  */}
+          <Hidden visible={isAmount}>
+            <>
+              <span className='text-base'>{DOLLAR_CURRENCY_SYMBOL}</span>
+              {formatAmount({
+                amount: metricValue,
+              })}
+            </>
+          </Hidden>
+
+          {/* If Metric value is just a number */}
+          <Hidden visible={!isAmount}>
+            {formatNumber({
+              amount: metricValue,
+            })}
+          </Hidden>
         </p>
         <DashboardMetricPercentage metricPercentage={`${metricPercentage}`} />
       </div>

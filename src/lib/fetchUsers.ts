@@ -1,5 +1,5 @@
+import { UserDetails } from "@/pattern/user-management.tsx/molecules/user-management-table-column";
 import { faker } from "@faker-js/faker";
-import { IUser } from "@/pattern/common/organisms/tables/columns/users-columns";
 
 const range = (len: number) => {
   const arr: number[] = [];
@@ -9,11 +9,11 @@ const range = (len: number) => {
   return arr;
 };
 
-const newUser = (): IUser => {
+const newUser = (): UserDetails => {
   return {
     userID: faker.number.int(1000000),
     name: faker.person.fullName(),
-    role: faker.helpers.shuffle(["agent", "pilgrim"])[0]!,
+    role: faker.helpers.shuffle(["Agent", "Pilgrim"])[0],
     status: faker.helpers.shuffle(["active", "inactive"])[0]!,
     email: faker.helpers.shuffle([
       "aishaabdullahi@gmail.com",
@@ -28,9 +28,9 @@ const newUser = (): IUser => {
 };
 
 export function makeData(...lens: number[]) {
-  const makeDataLevel = (depth = 0): IUser[] => {
+  const makeDataLevel = (depth = 0): UserDetails[] => {
     const len = lens[depth]!;
-    return range(len).map((_d): IUser => {
+    return range(len).map((_d): UserDetails => {
       return {
         ...newUser(),
       };

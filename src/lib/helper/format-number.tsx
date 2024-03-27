@@ -10,12 +10,21 @@ import { IFormatCurrencyProps } from "../types";
  * @returns string
  */
 export const formatAmount = ({ amount }: IFormatCurrencyProps): string => {
-  const formatAmount = numbro(amount)?.format({
+  const formattedAmount = numbro(amount)?.format({
     spaceSeparated: false,
     thousandSeparated: true,
     mantissa: 2,
-    optionalMantissa: true,
+    // optionalMantissa: true,
   });
 
-  return formatAmount;
+  return formattedAmount;
+};
+
+export const formatNumber = ({ amount }: Pick<IFormatCurrencyProps, "amount">) => {
+    const formattedNumber = numbro(amount)?.format({
+      spaceSeparated: false,
+      thousandSeparated: true,
+    });
+
+    return formattedNumber;
 };

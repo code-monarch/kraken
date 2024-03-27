@@ -17,17 +17,17 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import PulsePlaceholder from "@/pattern/common/atoms/icons/pulse-placeholder-icon";
-import { Pagination } from "@/pattern/common/organisms/table/pagination";
 import {
-  ActivityLogsColumns,
-  IActivity,
-} from "../molecules/activity-logs-table-column";
+  UserDetails,
+  UserTableColumns,
+} from "../molecules/user-management-table-column";
+import { Pagination } from "@/pattern/common/organisms/table/pagination";
 
-const columns = ActivityLogsColumns;
+const columns = UserTableColumns;
 
-interface IActivityLogsTableProps<TData, TValue> {
+interface IUserManagementTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  data: IActivity[];
+  data: UserDetails[];
   pageCount?: number;
   pagination?: PaginationState;
   setPagination?: any;
@@ -35,13 +35,13 @@ interface IActivityLogsTableProps<TData, TValue> {
   isFetching?: boolean;
 }
 
-export function ActivityLogsTable<TData, TValue>({
+export function UserManagementTable<TData, TValue>({
   data,
   isLoading,
   pagination,
   pageCount,
   setPagination,
-}: IActivityLogsTableProps<TData, TValue>) {
+}: IUserManagementTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = useState({});
 
   if (!pagination) {

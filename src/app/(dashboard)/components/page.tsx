@@ -22,12 +22,10 @@ import { show } from "@ebay/nice-modal-react";
 import UserDetailCard from "@/pattern/common/molecules/data-display/user-detail-card";
 import DashboardMetricCard from "@/pattern/common/organisms/dashboard-metric-card";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import TransactionsTable from "@/pattern/transactions/organisms/transactions-table";
-import UsersTable from "@/pattern/user-management.tsx/organisms/users-table";
-import ActivityLogsTable from "@/pattern/activity-logs/organisms/activity-logs-table";
 import PhoneAuthDialog from "@/pattern/settings/organisms/phone-auth-dialog";
 import QRAuthDialog from "@/pattern/settings/organisms/qr-auth-dialog";
-
+import UserManagementTableTemplate from "@/pattern/user-management.tsx/templates/user-management-table-template";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Home() {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -76,7 +74,7 @@ export default function Home() {
 
       <div className='bg-black w-full h-[100px] flex items-center justify-center'>
         <DashboardMetricCard
-          metricLabel='Total Users'
+          metric='Total Revenue'
           metricPercentage='50'
           metricValue='10,000'
         />
@@ -161,22 +159,18 @@ export default function Home() {
       <PhoneAuthDialog />
       <QRAuthDialog />
 
-      <div className='bg-white w-full p-6'>
-        <div>
-          Transactions Table:
-          <TransactionsTable />
-        </div>
+      <UserManagementTableTemplate />
 
-        <div>
-          Users Table:
-          <UsersTable />
-        </div>
-
-        <div>
-          Activity Logs Table:
-          <ActivityLogsTable />
-        </div>
-      </div>
+      <Tabs defaultValue='account' className='w-[400px]'>
+        <TabsList>
+          <TabsTrigger value='account'>Account</TabsTrigger>
+          <TabsTrigger value='password'>Password</TabsTrigger>
+        </TabsList>
+        <TabsContent value='account'>
+          Make changes to your account here.
+        </TabsContent>
+        <TabsContent value='password'>Change your password here.</TabsContent>
+      </Tabs>
     </main>
   );
 }

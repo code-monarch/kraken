@@ -18,7 +18,7 @@ export type IActivity = {
   date: string | number | any;
 };
 
-export const activityLogsColumns: ColumnDef<IActivity>[] = [
+export const ActivityLogsColumns: ColumnDef<IActivity>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -28,14 +28,14 @@ export const activityLogsColumns: ColumnDef<IActivity>[] = [
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
+        aria-label='Select all'
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
+        aria-label='Select row'
       />
     ),
     enableSorting: false,

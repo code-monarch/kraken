@@ -1,26 +1,24 @@
+"use client";
 import React, { useEffect, useState } from "react";
-import {
-  IUser,
-  userColumns,
-} from "@/pattern/common/organisms/tables/columns/users-columns";
-import { DataTable } from "@/pattern/common/organisms/tables/data-table";
-import { fetchUsers } from "@/lib/fetchUsers";
 import { PaginationState } from "@tanstack/react-table";
+import { fetchTransactions } from "@/lib/fetchTransactions";
+import ActivityLogsTableTemplateHeader from "../organisms/activity-logs-table-template-header";
+import { ActivityLogsTable } from "../organisms/activity-logs-table";
+import { ActivityLogsColumns, IActivity } from "../molecules/activity-logs-table-column";
 
-const UsersTable = () => {
+const ActivityLogsTableTemplate = () => {
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 10,
   });
 
-  const [dataQuery, setDataQuery] = useState<IUser[]>();
-  const [pageCount, setPageCount] = useState<number>();
+  const [dataQuery, setDataQuery] = useState<IActivity[]>();
+  const [pageCount, setPageCount] = useState<number>(3);
   const [isLoading, setIsLoading] = useState<boolean>();
-  const [isFetching, setIsFetching] = useState<boolean>();
 
   useEffect(() => {
     async function fetchDataAndUpdate() {
-      const data = await fetchUsers(pagination);
+      const data = await fetchTransactions(pagination);
       setIsLoading(true);
       if (data) {
         setIsLoading(false);
@@ -32,9 +30,10 @@ const UsersTable = () => {
     fetchDataAndUpdate();
   }, [pagination]);
   return (
-    <div>
-      <DataTable
-        columns={userColumns}
+    <div className='w-full bg-card'>
+      <ActivityLogsTableTemplateHeader />
+      <ActivityLogsTable
+        columns={ActivityLogsColumns}
         data={dataQuery!}
         isLoading={isLoading}
         pageCount={pageCount}
@@ -45,4 +44,4 @@ const UsersTable = () => {
   );
 };
 
-export default UsersTable;
+export default ActivityLogsTableTemplate;

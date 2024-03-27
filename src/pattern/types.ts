@@ -29,3 +29,13 @@ export interface IListType {
   label: string;
   value: string;
 }
+
+export enum Role {
+  "Pilgrim",
+  "Agent",
+}
+
+export enum Status {
+  "active",
+  "inactive",
+}
