@@ -55,12 +55,12 @@ export const TransactionsTableColumns: ColumnDef<Transactions>[] = [
     header: () => <div className=''>Amount</div>,
     cell: ({ row }) => {
       const amount = parseFloat(row.getValue("amount"));
-      const formatted = new Intl.NumberFormat("en-US", {
+      const formattedAmount = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
       }).format(amount);
 
-      return <div className='font-medium'>{formatted}</div>;
+      return <div className='font-medium'>{formattedAmount}</div>;
     },
   },
   {

@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { formatDate } from "@/lib/hooks/useFormatDate";
-import { Role, Status } from "@/pattern/types";
+import { UserType, Status } from "@/pattern/types";
 import ArrowDownIcon from "@/pattern/common/atoms/icons/arrow-down-icon";
 
 // This type is used to define the shape of our data.
@@ -22,7 +22,7 @@ export type UserDetails = {
   userID: string | number;
   name: string;
   email: string;
-  role: typeof Role | string;
+  role: typeof UserType | string;
   status: typeof Status | string;
   registeredOn: string | Date;
   image: any;
@@ -83,7 +83,7 @@ export const UserTableColumns: ColumnDef<UserDetails>[] = [
     header: "Email",
   },
 
-  // Role
+  // UserType
   {
     accessorKey: "role",
     header: "Role",

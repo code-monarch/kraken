@@ -94,7 +94,7 @@ const UserManagementTableTemplate = () => {
               >
                 Pilgrim
                 <Badge
-                  variant={tabValue === "pilgrim" ? "secondary" : "accent"}
+                  variant="accent"
                 >
                   6,000
                 </Badge>
@@ -115,7 +115,7 @@ const UserManagementTableTemplate = () => {
                 className='rounded-none text-base py-3 px-6'
               >
                 Agent
-                <Badge variant={tabValue === "agent" ? "secondary" : "accent"}>
+                <Badge variant="accent">
                   6,000
                 </Badge>
               </TabsTrigger>
