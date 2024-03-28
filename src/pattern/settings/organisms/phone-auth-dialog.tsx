@@ -25,14 +25,14 @@ const PhoneAuthDialog = () => {
   return (
     <div>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger className="bg-[#2277f0] py-3 px-6 rounded-[6px] text-base font-semibold text-white">
+        <DialogTrigger className='bg-secondary py-3 px-6 rounded-[6px] text-base font-semibold text-white'>
           Enable
         </DialogTrigger>
         <DialogContent>
-          <DialogHeader className="space-y-4">
+          <DialogHeader className='space-y-4'>
             <PhoneSectionIndicator />
-            <DialogDescription className="text-[#202b36] text-base text-center">
-              <p className="font-semibold">
+            <DialogDescription className='text-[#202b36] text-base text-center'>
+              <p className='font-semibold'>
                 Enter your mobile phone number in the field below.
               </p>
               <p>
@@ -42,25 +42,25 @@ const PhoneAuthDialog = () => {
             </DialogDescription>
           </DialogHeader>
 
-          <div className="my-2 space-y-2">
+          <div className='my-2 space-y-2'>
             <PhoneNumberInput phone={phone} setPhone={setPhone} />
 
-            <div className="flex items-center gap-1 text-[#4F627D]">
+            <div className='flex items-center gap-1 text-[#4F627D]'>
               <div>
                 <GreyInfoIcon />
               </div>
-              <p className="text-sm">
+              <p className='text-sm'>
                 We will only use this phone number for the purpose of 2-Factor
                 authentication. Message and data rates may apply.
               </p>
             </div>
           </div>
 
-          <DialogFooter className="sm:justify-start">
+          <DialogFooter className='sm:justify-start'>
             <DialogClose asChild>
               <Button
-                type="button"
-                variant="default"
+                type='button'
+                variant='default'
                 onClick={() => {
                   onSubmit();
                   setOpen(false);
@@ -74,7 +74,7 @@ const PhoneAuthDialog = () => {
         </DialogContent>
       </Dialog>
 
-      <div className="hidden">
+      <div className='hidden'>
         <ConfirmCodeDialog open={confirmOpen} setOpen={setConfirmOpen} />
       </div>
     </div>

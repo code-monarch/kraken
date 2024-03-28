@@ -52,14 +52,14 @@ const EnableQRDialog = ({ open, setOpen }: IProps) => {
   return (
     <div>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger className="bg-[#2277f0] py-3 px-6 rounded-[6px] text-base font-semibold text-white">
+        <DialogTrigger className='bg-secondary py-3 px-6 rounded-[6px] text-base font-semibold text-white'>
           Enable
         </DialogTrigger>
         <DialogContent>
-          <DialogHeader className="space-y-4">
+          <DialogHeader className='space-y-4'>
             <EnableSectionIndicator />
-            <DialogDescription className="text-[#202b36] text-base text-center">
-              <p className="font-semibold">
+            <DialogDescription className='text-[#202b36] text-base text-center'>
+              <p className='font-semibold'>
                 Your verification has been sent to +2348039367898, please
                 confirm by entering it below.
               </p>
@@ -70,27 +70,27 @@ const EnableQRDialog = ({ open, setOpen }: IProps) => {
             </DialogDescription>
           </DialogHeader>
 
-          <div className="my-2 space-y-2">
+          <div className='my-2 space-y-2'>
             <FormProvider {...methods}>
               <form>
                 <QRVerificationCodeInput
-                  label="Verification Code"
-                  name="verificationCode"
+                  label='Verification Code'
+                  name='verificationCode'
                 />
 
                 <AuthenticatorCodeInput
-                  label="Authenticator Code"
-                  name="authenticatorCode"
+                  label='Authenticator Code'
+                  name='authenticatorCode'
                 />
               </form>
             </FormProvider>
           </div>
 
-          <DialogFooter className="flex items-center justify-end">
+          <DialogFooter className='flex items-center justify-end'>
             <Button
-              type="button"
-              variant="accent"
-              className="w-fit"
+              type='button'
+              variant='accent'
+              className='w-fit'
               onClick={() => {
                 setOpen(false);
               }}
@@ -98,9 +98,9 @@ const EnableQRDialog = ({ open, setOpen }: IProps) => {
               Back
             </Button>
             <Button
-              type="button"
-              variant="default"
-              className="w-fit"
+              type='button'
+              variant='default'
+              className='w-fit'
               onClick={() => {
                 handleSubmit(onSubmit);
                 setOpen(false);
@@ -113,7 +113,7 @@ const EnableQRDialog = ({ open, setOpen }: IProps) => {
         </DialogContent>
       </Dialog>
 
-      <div className="hidden">
+      <div className='hidden'>
         <MFACompleteDialog open={completeOpen} setOpen={setCompleteOpen} />
       </div>
     </div>

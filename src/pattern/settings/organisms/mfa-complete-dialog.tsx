@@ -25,29 +25,31 @@ interface payload {
 const MFACompleteDialog = ({ open, setOpen }: IProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className="bg-[#2277f0] py-3 px-6 rounded-[6px] text-base font-semibold text-white">
+      <DialogTrigger className='bg-secondary py-3 px-6 rounded-[6px] text-base font-semibold text-white'>
         Enable
       </DialogTrigger>
       <DialogContent>
-        <DialogHeader className="space-y-4">
+        <DialogHeader className='space-y-4'>
           <CompleteSectionIndicator />
         </DialogHeader>
 
-        <div className="my-2 space-y-2 text-center">
-          <div className="flex items-center justify-center">
+        <div className='my-2 space-y-2 text-center'>
+          <div className='flex items-center justify-center'>
             <CompletedIcon />
           </div>
-          <p className="font-semibold text-lg text-[#384860]">Two Factor Authenticator Enabled</p>
-          <p className="text-[#202b36] text-base">
+          <p className='font-semibold text-lg text-[#384860]'>
+            Two Factor Authenticator Enabled
+          </p>
+          <p className='text-[#202b36] text-base'>
             You have successfully enabled Authenticator to protect your account
           </p>
         </div>
 
-        <DialogFooter className="">
+        <DialogFooter className=''>
           <Button
-            type="button"
-            variant="outlinePrimary"
-            className=""
+            type='button'
+            variant='outlinePrimary'
+            className=''
             onClick={() => {
               setOpen(false);
             }}

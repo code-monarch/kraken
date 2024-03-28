@@ -30,7 +30,7 @@ export interface IListType {
   value: string;
 }
 
-export enum Role {
+export enum UserType {
   "Pilgrim",
   "Agent",
 }

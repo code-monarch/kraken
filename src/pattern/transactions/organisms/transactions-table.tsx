@@ -50,7 +50,7 @@ export function TransactionsTable<TData, TValue>({
 
   const defaultData = useMemo(() => [], []);
 
-  const userManagementTable = useReactTable({
+  const transactionsTable = useReactTable({
     data: data ?? defaultData,
     columns,
     pageCount,
@@ -71,7 +71,7 @@ export function TransactionsTable<TData, TValue>({
       <Table>
         {/* Header */}
         <TableHeader>
-          {userManagementTable.getHeaderGroups().map((headerGroup) => (
+          {transactionsTable.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
                 return (
@@ -101,8 +101,8 @@ export function TransactionsTable<TData, TValue>({
           )}
 
           {/* Display table rows when data is done loading and the table rows are not empty */}
-          {!isLoading && userManagementTable.getRowModel().rows?.length ? (
-            userManagementTable.getRowModel().rows.map((row) => (
+          {!isLoading && transactionsTable.getRowModel().rows?.length ? (
+            transactionsTable.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
@@ -133,7 +133,7 @@ export function TransactionsTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
-      {pageCount && pageCount > 1 && <Pagination table={userManagementTable} />}
+      {pageCount && pageCount > 1 && <Pagination table={transactionsTable} />}
     </div>
   );
 }
