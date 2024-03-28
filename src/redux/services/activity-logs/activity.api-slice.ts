@@ -1,6 +1,6 @@
 import { baseApiSlice } from "@/redux/api/base-api";
 
-export interface IActivities {
+export interface ISingleActivity {
   error: boolean;
   responseCode: string;
   data: {
@@ -10,15 +10,19 @@ export interface IActivities {
     activity: string;
     createdAt: string;
     __v: number;
-  }[];
+  };
 }
 
-export interface IDeleteActivitiesRes {
+export interface IDeleteSingleActivityRes {
   error: boolean;
   responseCode: string;
   data: {
-    acknowledged: boolean;
-    deletedCount: number;
+    _id: string;
+    user: string;
+    title: string;
+    activity: string;
+    createdAt: string;
+    __v: number;
   };
 }
 
@@ -26,11 +30,11 @@ interface IActivityPayload {
   id: string;
 }
 
-export const activitiesApiSlice = baseApiSlice.injectEndpoints({
+export const activityApiSlice = baseApiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getActivities: builder.query<IActivities, IActivityPayload>({
+    getSingleActivity: builder.query<ISingleActivity, IActivityPayload>({
       query: ({ id }) => ({
-        url: `settings/admin/activities/${id}`,
+        url: `settings/admin/activity/${id}`,
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -38,9 +42,12 @@ export const activitiesApiSlice = baseApiSlice.injectEndpoints({
       }),
     }),
 
-    deleteActivities: builder.mutation<IDeleteActivitiesRes, IActivityPayload>({
+    deleteSingleActivity: builder.mutation<
+      IDeleteSingleActivityRes,
+      IActivityPayload
+    >({
       query: ({ id }) => ({
-        url: `settings/admin/activities/${id}`,
+        url: `settings/admin/activity/${id}`,
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -50,5 +57,5 @@ export const activitiesApiSlice = baseApiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetActivitiesQuery, useDeleteActivitiesMutation } =
-  activitiesApiSlice;
+export const { useGetSingleActivityQuery, useDeleteSingleActivityMutation } =
+  activityApiSlice;

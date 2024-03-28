@@ -15,16 +15,17 @@ import { formatDate } from "@/lib/hooks/useFormatDate";
 import { show } from "@ebay/nice-modal-react";
 import AgentCell from "./agent-cell";
 
-export type Transactions = {
+export type IRecentTransactions = {
   trxID: string | number;
   amount: number;
   agent: string;
+  pilgrim: string;
   type: string;
   status: string;
   date: string | Date;
 };
 
-export const TransactionsTableColumns: ColumnDef<Transactions>[] = [
+export const TransactionsListTableColumns: ColumnDef<IRecentTransactions>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -50,6 +51,14 @@ export const TransactionsTableColumns: ColumnDef<Transactions>[] = [
   {
     accessorKey: "trxID",
     header: "Trx ID",
+  },
+  {
+    accessorKey: "pilgrim",
+    header: "Pilgrim",
+    cell: ({ row }) => {
+      const name = row.getValue("pilgrim");
+      return <AgentCell name={row.original.pilgrim} />;
+    },
   },
   {
     accessorKey: "amount",

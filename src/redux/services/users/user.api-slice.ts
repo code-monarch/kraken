@@ -100,17 +100,6 @@ export const usersApiSlice = baseApiSlice.injectEndpoints({
       }),
     }),
 
-    updateUser: builder.mutation<IUpdateUserResponse, IUserPayload>({
-      query: ({ id, status }) => ({
-        url: `settings/admin/activities/${id}`,
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: status,
-      }),
-    }),
-
     getSingleUser: builder.query<IGetSingleUserResponse, IUserPayload>({
       query: ({ id }) => ({
         url: `settings/admin/user/${id}`,
@@ -118,6 +107,17 @@ export const usersApiSlice = baseApiSlice.injectEndpoints({
         headers: {
           "Content-Type": "application/json",
         },
+      }),
+    }),
+
+    updateUser: builder.mutation<IUpdateUserResponse, IUserPayload>({
+      query: ({ id, status }) => ({
+        url: `settings/admin/activities/${id}`,
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: status,
       }),
     }),
 
@@ -136,6 +136,6 @@ export const usersApiSlice = baseApiSlice.injectEndpoints({
 export const {
   useGetUsersQuery,
   useGetSingleUserQuery,
-  useDeleteUserMutation,
   useUpdateUserMutation,
+  useDeleteUserMutation,
 } = usersApiSlice;
