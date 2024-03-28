@@ -11,6 +11,10 @@ import { Separator } from "@/components/ui/separator";
 
 const filters = [
   {
+    label: "View all",
+    value: "all",
+  },
+  {
     label: "Login",
     value: "login",
   },

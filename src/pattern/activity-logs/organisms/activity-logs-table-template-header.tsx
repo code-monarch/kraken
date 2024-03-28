@@ -21,7 +21,7 @@ const ActivityLogsTableTemplateHeader = () => {
       {/* Top */}
       <div className='w-full h-[76px] bg-inherit flex items-center justify-between py-[26px]'>
         <div className='flex items-center gap-2'>
-          <h3 className='text-[1.125rem] font-semibold'>Transactions</h3>
+          <h3 className='text-[1.125rem] font-semibold'>Transaction List</h3>
           <Badge variant='accent'>{transactions} transactions</Badge>
         </div>
         <ButtonWithIcon

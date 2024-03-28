@@ -12,6 +12,7 @@ import ChevronRightIcon from "@/pattern/common/atoms/icons/chevron-right-icon";
 import { formatDate } from "@/lib/hooks/useFormatDate";
 import { DeleteAccountModal } from "@/pattern/user-management.tsx/organisms/delete-account-modal";
 import { show } from "@ebay/nice-modal-react";
+import ActivitySlideOutMenu from "../templates/activity-slide-out-menu";
 
 export type IActivity = {
   logID: string | number;
@@ -74,7 +75,7 @@ export const ActivityLogsColumns: ColumnDef<IActivity>[] = [
             </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end'>
-            <DropdownMenuItem onClick={() => {}}>View Details</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => {show(ActivitySlideOutMenu)}}>View Details</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
               className='text-destructive'
