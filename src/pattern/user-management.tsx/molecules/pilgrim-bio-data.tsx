@@ -8,7 +8,7 @@ import PhoneIcon from "@/pattern/common/atoms/icons/phone-icon";
 import { Status, UserType } from "@/pattern/types";
 import { Badge } from "@/components/ui/badge";
 
-interface IProps {
+export interface IPilgrimBioDataProps {
   userImg: string | StaticImport;
   firstName: string;
   lastName: string;
@@ -18,7 +18,7 @@ interface IProps {
   userType: "pilgrim" | "agent";
 }
 
-export const PilgrimBioData: FC<IProps> = ({
+export const PilgrimBioData: FC<IPilgrimBioDataProps> = ({
   userImg,
   firstName,
   lastName,
