@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import ChevronRightIcon from "@/pattern/common/atoms/icons/chevron-right-icon";
 import { formatDate } from "@/lib/hooks/useFormatDate";
+import { DeleteAccountModal } from "@/pattern/user-management.tsx/organisms/delete-account-modal";
+import { show } from "@ebay/nice-modal-react";
 
 export type IActivity = {
   logID: string | number;
@@ -74,7 +76,10 @@ export const ActivityLogsColumns: ColumnDef<IActivity>[] = [
           <DropdownMenuContent align='end'>
             <DropdownMenuItem onClick={() => {}}>View Details</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className='text-destructive'>
+            <DropdownMenuItem
+              className='text-destructive'
+              onClick={() => show(DeleteAccountModal)}
+            >
               Delete
             </DropdownMenuItem>
           </DropdownMenuContent>
