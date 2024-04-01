@@ -20,7 +20,6 @@ import { IListType } from "@/pattern/types";
 import CalendarModal from "@/pattern/common/organisms/calendar-modal";
 import { Badge } from "@/components/ui/badge";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { cn } from "@/lib/utils";
 
 const rolesFilterSetting: IListType[] = [
   {

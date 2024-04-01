@@ -14,6 +14,7 @@ import MoreVerticalIcon from "@/pattern/common/atoms/icons/more-vertical-icon";
 import { formatDate } from "@/lib/hooks/useFormatDate";
 import { show } from "@ebay/nice-modal-react";
 import AgentCell from "./agent-cell";
+import { DeleteAccountModal } from "@/pattern/user-management.tsx/organisms/delete-account-modal";
 
 export type Transactions = {
   trxID: string | number;
@@ -121,7 +122,10 @@ export const TransactionsTableColumns: ColumnDef<Transactions>[] = [
               View Details
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-destructive">
+            <DropdownMenuItem
+              className='text-destructive'
+              onClick={() => show(DeleteAccountModal)}
+            >
               Delete
             </DropdownMenuItem>
           </DropdownMenuContent>
