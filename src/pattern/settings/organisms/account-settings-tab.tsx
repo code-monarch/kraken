@@ -9,11 +9,11 @@ const AccountSettingsTab = () => {
   return (
     <div>
       <p className="text-lg text-[#202b3c] font-semibold mb-2">
-        Account Settings
+        Account Settings 
       </p>
       <Separator />
 
-      <div className="my-2">
+      <div className="my-3">
         <TwoFactorAuthSection />
       </div>
       <Separator />

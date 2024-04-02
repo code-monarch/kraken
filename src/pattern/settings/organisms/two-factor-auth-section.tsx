@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import MfaCard from "../molecules/mfa-card";
 import MfaKeyIcon from "@/pattern/common/atoms/icons/mfa-key-icon";
@@ -7,11 +7,17 @@ import MfaMessageIcon from "@/pattern/common/atoms/icons/mfa-message-icon";
 import PhoneAuthDialog from "./phone-auth-dialog";
 
 const TwoFactorAuthSection = () => {
+  const [mfaActivated, setMfaActivated] = useState<boolean>(false);
   return (
     <div>
-      <div>
+      <div className="space-y-2">
         <p className="text-lg font-medium text-[#202b3c]">
-          Two Factor Authenticator <Badge variant="destructive">OFF</Badge>
+          Two Factor Authenticator {" "}
+          {mfaActivated ? (
+            <Badge variant="active">ON</Badge>
+          ) : (
+            <Badge variant="destructive">OFF</Badge>
+          )}
         </p>
         <p className="text-sm text-[#4f627d]">
           Select authenticator method to get started

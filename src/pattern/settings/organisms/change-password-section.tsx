@@ -6,12 +6,14 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 interface payload {
   oldPassword: string;
   newPassword: string;
+  confirmNewPassword: string;
 }
 
 const ChangePasswordSection = () => {
   const defaultValues = {
     oldPassword: "",
     newPassword: "",
+    confirmNewPassword: "",
   };
 
   const methods = useForm<payload>({
@@ -26,7 +28,11 @@ const ChangePasswordSection = () => {
   } = methods;
 
   const onSubmit: SubmitHandler<payload> = (data) => {
-    console.log("DATA TO SUBMIT: ");
+    if (data.newPassword === data.confirmNewPassword) {
+      console.log("DATA TO SUBMIT: Changing Password");
+    } else {
+      alert("password does not match");
+    }
   };
 
   return (
@@ -40,10 +46,10 @@ const ChangePasswordSection = () => {
 
       <div>
         <FormProvider {...methods}>
-          <form className="w-1/2 space-y-2">
+          <form onSubmit={handleSubmit(onSubmit)} className="w-1/2 space-y-2">
             <PasswordInput label="Old Pin" name="oldPassword" />
             <PasswordInput label="New Pin" name="newPassword" />
-            <PasswordInput label="Confirm New Pin" name="newPassword" />
+            <PasswordInput label="Confirm New Pin" name="confirmNewPassword" />
 
             <div className="my-2">
               <LoadingButton

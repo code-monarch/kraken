@@ -65,7 +65,7 @@ const MyDetailsTab = () => {
           <Separator />
 
           <div className="flex justify-between my-4">
-            <Label>Name</Label>
+            <Label className="font-bold">Name</Label>
             <div className="flex gap-2">
               <SettingsNameInput name="firstname" label="First Name" />
               <SettingsNameInput name="lastname" label="Last Name" />
@@ -74,7 +74,7 @@ const MyDetailsTab = () => {
           <Separator />
 
           <div className="fle grid grid-cols-4 justify-between my-4">
-            <Label>Email</Label>
+            <Label className="font-bold">Email</Label>
             <div className="col-span-1">
               <SettingsEmailInput name="email" label="Email" />
             </div>
