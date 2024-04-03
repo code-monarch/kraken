@@ -14,6 +14,7 @@ export interface IDashboardMetricCardProps
   metric: string;
   metricValue: string;
   isAmount?: boolean; // if true formatAmount else apply thousand seperator
+  hideMetricPercentage?: boolean
 }
 
 const DashboardMetricCard: FC<IDashboardMetricCardProps> = ({
@@ -21,6 +22,7 @@ const DashboardMetricCard: FC<IDashboardMetricCardProps> = ({
   metricValue,
   metricPercentage,
   isAmount = true,
+  hideMetricPercentage = false
 }) => {
   return (
     <div className='bg-card w-full h-[96px] flex flex-col items-start justify-between py-4 px-5 border border-border rounded-[12px]'>
@@ -44,7 +46,10 @@ const DashboardMetricCard: FC<IDashboardMetricCardProps> = ({
             })}
           </Hidden>
         </p>
-        <DashboardMetricPercentage metricPercentage={`${metricPercentage}`} />
+
+        <Hidden visible={!hideMetricPercentage}>
+          <DashboardMetricPercentage metricPercentage={`${metricPercentage}`} />
+        </Hidden>
       </div>
     </div>
   );

@@ -1,9 +1,9 @@
 import React from "react";
-import DashboardMetricCard from "@/pattern/common/organisms/dashboard-metric-card";
+import DashboardMetricCard from "../common/organisms/dashboard-metric-card";
 
-const OverviewMetricGrid = () => {
+const SuperAdminOverviewMetricGrid = () => {
   return (
-    <div className='w-full grid grid-cols-3 gap-5'>
+    <div className='w-full grid grid-cols-4 gap-5'>
       {/* Total Users Metric */}
       <DashboardMetricCard
         metric='Total Revenue'
@@ -23,8 +23,16 @@ const OverviewMetricGrid = () => {
         metricValue='5,687'
         isAmount={false}
       />
+      {/* Total Admin */}
+      <DashboardMetricCard
+        metric='Total Admin'
+        metricPercentage='10'
+        metricValue='5,687'
+        hideMetricPercentage={true}
+        isAmount={false}
+      />
     </div>
   );
 };
 
-export default OverviewMetricGrid;
+export default SuperAdminOverviewMetricGrid;

@@ -153,3 +153,11 @@ input:-webkit-autofill:active {
   -moz-appearance: textfield;
 }
 
+/* Correct Font of Phone number input dropdown */
+.country-list .search{
+  font-family: var(--font-raleway) !important;
+}
+.country-list .country {
+  font-family: var(--font-raleway) !important;
+  font-size: 0.9rem;
+}
