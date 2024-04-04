@@ -21,7 +21,7 @@ const SettingsTemplate = () => {
   const [tabValue, setTabValue] = useState(tabs[0].value);
 
   return (
-    <div className="bg-transparent w-full min-h-[760px] h-fit space-y-[32px] px-6 pb-6">
+    <div className="bg-transparent w-full min-h-[760px] h-fit space-y-[32px] pb-6">
       {/* Tabs */}
       <Tabs value={tabValue} onValueChange={setTabValue} className="w-full">
         <TabsList className="w-full">
