@@ -14,9 +14,16 @@ import {
 import { formatDate } from "@/lib/hooks/useFormatDate";
 import { UserType, Status } from "@/pattern/types";
 import ArrowDownIcon from "@/pattern/common/atoms/icons/arrow-down-icon";
+import { show } from "@ebay/nice-modal-react";
+import { FreezeAccountModal } from "../organisms/freeze-account-modal";
+import { DeleteAccountModal } from "../organisms/delete-account-modal";
+import { DASHBOARD_PATHS } from "@/lib/routes";
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
+const redirectToUserDetails = (userId: string) => {
+  if (typeof window !== "undefined") {
+    window.location.href = `${DASHBOARD_PATHS.userManagement}/${userId}`;
+  }
+};
 
 export type UserDetails = {
   userID: string | number;
@@ -138,16 +145,24 @@ export const UserTableColumns: ColumnDef<UserDetails>[] = [
             </span>
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end'>
-            <DropdownMenuItem onClick={() => {}}>View Details</DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                redirectToUserDetails("89");
+              }}
+            >
+              View Details
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>Edit</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Freeze Account</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => show(FreezeAccountModal)}>
+              Freeze Account
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
               className='text-[#d62f4b]'
               onClick={() => {
-                console.log(row.original.userID);
+                show(DeleteAccountModal);
               }}
             >
               Delete

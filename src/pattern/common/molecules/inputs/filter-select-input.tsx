@@ -38,7 +38,7 @@ export const FilterSelectInput: FC<IFilterInputProps> = ({
           className={cn(inputVariants({ variant, className }), "pl-3")}
         >
           <span className='text-[#94A3B8] text-base font-normal'>Sort by:</span>
-          <SelectValue placeholder='Select a fruit' />
+          <SelectValue placeholder='Select option' />
         </SelectTrigger>
         <SelectContent>
           {sortBy.map(({ label, value }) => (

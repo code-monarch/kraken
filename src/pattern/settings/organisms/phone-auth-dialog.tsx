@@ -4,7 +4,6 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle,
   DialogTrigger,
   DialogClose,
   DialogFooter,
@@ -14,7 +13,6 @@ import { Button } from "@/components/ui/button";
 import PhoneNumberInput from "@/pattern/common/molecules/inputs/phone-input";
 import GreyInfoIcon from "@/pattern/common/atoms/icons/grey-info-icon";
 import ConfirmCodeDialog from "./confirm-code-dialog";
-import { FormProvider } from "react-hook-form";
 
 const PhoneAuthDialog = () => {
   const [phone, setPhone] = useState<string>("");
