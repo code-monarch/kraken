@@ -25,7 +25,7 @@ const ConfirmSectionIndicator = () => {
         r="7"
         fill="white"
         stroke="#08C168"
-        stroke-width="2"
+        strokeWidth="2"
       />
       <rect x="168" y="23" width="136" height="4" fill="#CBD5E1" />
       <path

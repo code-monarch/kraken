@@ -6,12 +6,14 @@ import { Controller, useFormContext } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { ICustomInputProps } from "@/pattern/types";
 import GreyInfoIcon from "../../atoms/icons/grey-info-icon";
+import { cn } from "@/lib/utils";
 
 const QRVerificationCodeInput: FC<ICustomInputProps> = ({
   name,
   label,
   error,
   placeholder,
+  className,
   ...props
 }) => {
   const { control } = useFormContext();
@@ -23,7 +25,7 @@ const QRVerificationCodeInput: FC<ICustomInputProps> = ({
       render={({ field: { value, name, onChange } }) => (
         <FieldSet>
           <Label>{label}</Label>
-          <div className="relative w-full">
+          <div className='relative w-full'>
             <Input
               name={name}
               value={value}
@@ -32,19 +34,20 @@ const QRVerificationCodeInput: FC<ICustomInputProps> = ({
               onBlur={() => setIsFocus(false)}
               variant={error ? "error" : "default"}
               placeholder={placeholder ?? "803 000 000"}
+              className={cn("pl-3", className)}
               {...props}
             />
             <span
               onClick={() => {}}
-              className="absolute top-[15px] right-[12px] text-[#08C168] underline font-semibold text-sm cursor-pointer"
+              className='absolute top-[15px] right-[12px] text-[#08C168] underline font-semibold text-sm cursor-pointer'
             >
               Get code
             </span>
           </div>
           <InputErrorMessage name={`${name}`} />
-          <div className="flex items-center gap-2 !mb-4">
+          <div className='flex items-center gap-2 !mb-4'>
             <GreyInfoIcon />
-            <p className="text-sm text-[#4f627d]">
+            <p className='text-sm text-[#4f627d]'>
               Enter the 6 digit code sent to al***@cbdc.com
             </p>
           </div>

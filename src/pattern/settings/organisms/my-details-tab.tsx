@@ -8,6 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import SettingsNameInput from "@/pattern/common/molecules/inputs/settings-name-input";
 import SettingsEmailInput from "@/pattern/common/molecules/inputs/settings-email-input";
 import { Label } from "@/components/ui/label";
+import EmailInput from "@/pattern/common/molecules/inputs/email-input";
 
 interface payload {
   userImg: any;
@@ -44,39 +45,42 @@ const MyDetailsTab = () => {
 
   return (
     <div>
-      <div className="my-4">
+      <div className='my-4'>
         <PersonalInfo />
       </div>
       <Separator />
 
       <FormProvider {...methods}>
         <form>
-          <div className="flex items-start gap-20 my-4">
-            <div className="shrink-0">
+          <div className='flex items-start gap-20 my-4'>
+            <div className='shrink-0'>
               <YourPhotoText />
             </div>
             <SettingsImageInput
-              name="userImg"
-              label="Photo"
+              name='userImg'
+              label='Photo'
               selectedFile={selectedFile}
               setSelectedFile={setSelectedFile}
             />
           </div>
           <Separator />
 
-          <div className="flex justify-between my-4">
-            <Label className="font-bold">Name</Label>
-            <div className="flex gap-2">
-              <SettingsNameInput name="firstname" label="First Name" />
-              <SettingsNameInput name="lastname" label="Last Name" />
+          <div className='flex justify-between my-4'>
+            <Label className='font-bold'>Name</Label>
+            <div className='flex gap-2'>
+              <SettingsNameInput name='firstname' label='First Name' />
+              <SettingsNameInput name='lastname' label='Last Name' />
             </div>
           </div>
           <Separator />
 
-          <div className="fle grid grid-cols-4 justify-between my-4">
-            <Label className="font-bold">Email</Label>
-            <div className="col-span-1">
-              <SettingsEmailInput name="email" label="Email" />
+          <div className='fle grid grid-cols-4 justify-between my-4'>
+            <Label className='font-bold'>Email</Label>
+            <div className='col-span-1'>
+              <EmailInput
+                name='email'
+                className="w-fit bg-[#f5fffa] text-primary border-0"
+              />
             </div>
           </div>
           <Separator />

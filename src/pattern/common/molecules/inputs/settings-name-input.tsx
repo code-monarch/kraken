@@ -1,17 +1,16 @@
 import React, { FC, useState } from "react";
 import InputErrorMessage from "../feedback/input-error-message";
-import { FieldSet } from "./fieldset";
-import { Label } from "@/components/ui/label";
 import { Controller, useFormContext } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { ICustomInputProps } from "@/pattern/types";
-import EmailInputIcon from "../../atoms/icons/email-input-icon";
+import { cn } from "@/lib/utils";
 
 const SettingsNameInput: FC<ICustomInputProps> = ({
   name,
   label,
   error,
   placeholder,
+  className,
   ...props
 }) => {
   const { control } = useFormContext();
@@ -21,7 +20,7 @@ const SettingsNameInput: FC<ICustomInputProps> = ({
       name={name!}
       control={control}
       render={({ field: { value, name, onChange } }) => (
-        <div className="space-y-[4px]">
+        <div className='space-y-[4px]'>
           <Input
             name={name}
             value={value}
@@ -30,8 +29,8 @@ const SettingsNameInput: FC<ICustomInputProps> = ({
             onBlur={() => setIsFocus(false)}
             variant={error ? "error" : "default"}
             placeholder={placeholder ?? ""}
+            className={cn("w-fit pl-3", className)}
             {...props}
-            className="w-fit"
           />
           <InputErrorMessage name={`${name}`} />
         </div>

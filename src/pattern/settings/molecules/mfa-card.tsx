@@ -25,12 +25,12 @@ const MfaCard = ({
       <div>{icon}</div>
 
       <div>
-        <p className="text-base text-[#1b1e21] font-semibold">
+        <div className="text-base text-[#1b1e21] font-semibold">
           {title}{" "}
           <span>
             {recommended && <Badge variant="active">Recommended</Badge>}
           </span>
-        </p>
+        </div>
         <p className="text-sm text-[#4f627d]">{description}</p>
       </div>
 

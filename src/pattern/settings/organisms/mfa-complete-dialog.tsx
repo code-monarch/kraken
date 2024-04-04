@@ -2,16 +2,13 @@ import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogClose,
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import CompletedIcon from "@/pattern/common/atoms/icons/completed-icon";
 import CompleteSectionIndicator from "@/pattern/common/atoms/icons/complete-mfa-stepper-indicator";
+import { create, useModal } from "@ebay/nice-modal-react";
 
 interface IProps {
   open: boolean;
@@ -22,12 +19,15 @@ interface payload {
   verificationCode: string;
 }
 
-const MFACompleteDialog = ({ open, setOpen }: IProps) => {
+const MFACompleteDialog = create(() => {
+  const { resolve, hide, visible } = useModal();
+
+  const handleCloseModal = () => {
+    resolve({ resolved: true });
+    hide();
+  };
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className='bg-secondary py-3 px-6 rounded-[6px] text-base font-semibold text-white'>
-        Enable
-      </DialogTrigger>
+    <Dialog open={visible} onOpenChange={handleCloseModal}>
       <DialogContent>
         <DialogHeader className='space-y-4'>
           <CompleteSectionIndicator />
@@ -50,9 +50,7 @@ const MFACompleteDialog = ({ open, setOpen }: IProps) => {
             type='button'
             variant='outlinePrimary'
             className=''
-            onClick={() => {
-              setOpen(false);
-            }}
+            onClick={handleCloseModal}
           >
             Close
           </Button>
@@ -60,6 +58,6 @@ const MFACompleteDialog = ({ open, setOpen }: IProps) => {
       </DialogContent>
     </Dialog>
   );
-};
+});
 
 export default MFACompleteDialog;

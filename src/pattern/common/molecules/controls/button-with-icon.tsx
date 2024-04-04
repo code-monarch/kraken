@@ -18,7 +18,6 @@ const ButtonWithIcon: FC<IButtonWithIconprops> = ({
       <Hidden visible={prefixIcon ? true : false}>
         <span>{prefixIcon}</span>
       </Hidden>
-      {prefixIcon ? <span>{prefixIcon}</span> : null}
       {children}
       <Hidden visible={suffixIcon ? true : false}>
         <span>{suffixIcon}</span>

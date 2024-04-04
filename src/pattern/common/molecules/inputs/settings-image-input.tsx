@@ -1,14 +1,10 @@
 import React, { FC, useState } from "react";
 import InputErrorMessage from "../feedback/input-error-message";
 import { FieldSet } from "./fieldset";
-import { Label } from "@/components/ui/label";
 import { Controller, useFormContext } from "react-hook-form";
-import { Input } from "@/components/ui/input";
 import { ICustomInputProps } from "@/pattern/types";
-import EmailInputIcon from "../../atoms/icons/email-input-icon";
 import Image from "next/image";
 import CameraIcon from "../../atoms/icons/camera-icon";
-import userImg from "@/public/images/user.svg";
 
 export interface IProps extends ICustomInputProps {
   selectedFile: any;
@@ -69,7 +65,6 @@ const SettingsImageInput: FC<IProps> = ({
       control={control}
       render={({ field: { value, name, onChange } }) => (
         <FieldSet>
-          {/* <Label>{label}</Label> */}
           <div className="w-full space-y-[4px]">
             <div className="w-full hidden">
               <input
@@ -92,7 +87,7 @@ const SettingsImageInput: FC<IProps> = ({
               height={96}
               style={{ objectFit: "fill", borderRadius: "999px" }}
             />
-            <label htmlFor={name} className="absolute bottom-0 right-0">
+            <label htmlFor={name} className="absolute bottom-0 right-0 cursor-pointer">
               <CameraIcon />
             </label>
           </div>

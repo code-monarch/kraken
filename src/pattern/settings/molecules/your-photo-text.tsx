@@ -1,6 +1,5 @@
 import React from "react";
 import GreyInfoIcon from "@/pattern/common/atoms/icons/grey-info-icon";
-import InfoIcon from "@/pattern/common/atoms/icons/info-icon";
 
 const YourPhotoText = () => {
   return (

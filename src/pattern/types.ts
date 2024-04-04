@@ -19,7 +19,7 @@ export interface IInputIconProps extends IIconProps {
 export interface ICustomInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
-  label: string;
+  label?: string;
   error?: FieldError;
   prefixIcon?: ReactElement;
   suffixIcon?: ReactElement;
