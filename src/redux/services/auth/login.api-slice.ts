@@ -1,14 +1,15 @@
 import { baseApiSlice } from "@/redux/api/base-api";
 
 export interface ILoginResponse {
-  token: string;
-  refreshToken: string;
   error: boolean;
-  error_description: boolean;
-  message: string;
-  errorMessage: string;
+  responseCode: string;
+  responseMessage: string;
+  data: {
+    id: string;
+    email: string;
+    apiKey: string;
+  };
 }
-
 export interface ILoginPayload {
   email: string;
   password: string;

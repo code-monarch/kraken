@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { FieldSet } from "./fieldset";
@@ -8,12 +8,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import InputErrorMessage from "../feedback/input-error-message";
 import { ICustomInputProps } from "@/pattern/types";
 
-interface IProps {
-  phone: string;
-  setPhone: (val: string) => void;
-}
-
-const PhoneNumberInput: FC<ICustomInputProps> = ({ name, label, error }) => {
+const PhoneNumberInput: FC<ICustomInputProps> = ({ name, label }) => {
   const { control } = useFormContext();
 
   return (
@@ -22,7 +17,7 @@ const PhoneNumberInput: FC<ICustomInputProps> = ({ name, label, error }) => {
       control={control}
       render={({ field: { value, name, onChange } }) => (
         <FieldSet>
-          <Label>Phone Number</Label>
+          <Label>{label ?? "Phone Number"}</Label>
           <PhoneInput
             country={"ng"}
             value={value}

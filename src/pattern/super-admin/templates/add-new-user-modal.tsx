@@ -35,7 +35,6 @@ const AddUserFormSchema = Yup.object().shape({
 });
 
 const AddNewUserModal = create(() => {
-  const [phone, setPhone] = useState<string>("");
   //   Controls value of Selected user type
   const [userType, setUserType] = useState<string>("");
 

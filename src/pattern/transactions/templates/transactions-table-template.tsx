@@ -36,7 +36,7 @@ const TransactionsTableTemplate = () => {
     <div className='w-full bg-card'>
       <TransactionsTableTemplateHeader />
       <TransactionsTable
-        columns={TransactionsTableColumns}
+        // columns={TransactionsTableColumns}
         data={dataQuery!}
         isLoading={isLoading}
         pageCount={pageCount}

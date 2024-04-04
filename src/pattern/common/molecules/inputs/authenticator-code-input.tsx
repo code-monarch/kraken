@@ -6,12 +6,14 @@ import { Controller, useFormContext } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { ICustomInputProps } from "@/pattern/types";
 import GreyInfoIcon from "../../atoms/icons/grey-info-icon";
+import { cn } from "@/lib/utils";
 
 const AuthenticatorCodeInput: FC<ICustomInputProps> = ({
   name,
   label,
   error,
   placeholder,
+  className,
   ...props
 }) => {
   const { control } = useFormContext();
@@ -31,12 +33,13 @@ const AuthenticatorCodeInput: FC<ICustomInputProps> = ({
             onBlur={() => setIsFocus(false)}
             variant={error ? "error" : "default"}
             placeholder={placeholder ?? "803 000 000"}
+            className={cn("pl-3", className)}
             {...props}
           />
           <InputErrorMessage name={`${name}`} />
-          <div className="flex items-center gap-2 !mb-4">
+          <div className='flex items-center gap-2 !mb-4'>
             <GreyInfoIcon />
-            <p className="text-sm text-[#4f627d]">
+            <p className='text-sm text-[#4f627d]'>
               Enter the 6 digit code from your authenticator app.
             </p>
           </div>

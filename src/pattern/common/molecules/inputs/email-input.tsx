@@ -6,6 +6,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { ICustomInputProps } from "@/pattern/types";
 import EmailInputIcon from "../../atoms/icons/email-input-icon";
+import Hidden from "../data-display/hidden";
 
 const EmailInput: FC<ICustomInputProps> = ({
   name,
@@ -22,8 +23,12 @@ const EmailInput: FC<ICustomInputProps> = ({
       control={control}
       render={({ field: { value, name, onChange } }) => (
         <FieldSet>
-          <Label>{label}</Label>
-          <div className="w-full space-y-[4px]">
+          {/* Label */}
+          <Hidden visible={!!label}>
+            <Label>{label}</Label>
+          </Hidden>
+          
+          <div className='w-full space-y-[4px]'>
             <div className='relative w-full'>
               <Input
                 name={name}

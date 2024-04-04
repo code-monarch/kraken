@@ -13,6 +13,7 @@ import {
 import MoreVerticalIcon from "@/pattern/common/atoms/icons/more-vertical-icon";
 import { formatDate } from "@/lib/hooks/useFormatDate";
 import { show } from "@ebay/nice-modal-react";
+import AgentCell from "./agent-cell";
 import { DeleteAccountModal } from "@/pattern/user-management.tsx/organisms/delete-account-modal";
 
 export type Transactions = {
@@ -34,14 +35,14 @@ export const TransactionsTableColumns: ColumnDef<Transactions>[] = [
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label='Select all'
+        aria-label="Select all"
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label='Select row'
+        aria-label="Select row"
       />
     ),
     enableSorting: false,
@@ -53,7 +54,7 @@ export const TransactionsTableColumns: ColumnDef<Transactions>[] = [
   },
   {
     accessorKey: "amount",
-    header: () => <div className=''>Amount</div>,
+    header: () => <div className="">Amount</div>,
     cell: ({ row }) => {
       const amount = parseFloat(row.getValue("amount"));
       const formattedAmount = new Intl.NumberFormat("en-US", {
@@ -67,6 +68,10 @@ export const TransactionsTableColumns: ColumnDef<Transactions>[] = [
   {
     accessorKey: "agent",
     header: "Agent",
+    cell: ({ row }) => {
+      const name = row.getValue("agent");
+      return <AgentCell name={row.original.agent} />;
+    },
   },
   {
     accessorKey: "type",
@@ -76,13 +81,13 @@ export const TransactionsTableColumns: ColumnDef<Transactions>[] = [
       if (typeof type === "string") {
         const capitalizedType =
           type.charAt(0).toUpperCase() + type.slice(1).toLowerCase();
-        return <Badge variant='accent'>{capitalizedType}</Badge>;
+        return <Badge variant="accent">{capitalizedType}</Badge>;
       }
     },
   },
   {
     accessorKey: "status",
-    header: () => <div className=''>Status</div>,
+    header: () => <div className="">Status</div>,
     cell: ({ row }) => {
       const status: any = row.getValue("status");
       const capitalizedStatus =
@@ -103,12 +108,12 @@ export const TransactionsTableColumns: ColumnDef<Transactions>[] = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <span className='cursor-pointer'>
-              <span className='sr-only'>Open menu</span>
+            <span className="cursor-pointer">
+              <span className="sr-only">Open menu</span>
               <MoreVerticalIcon />
             </span>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align='end'>
+          <DropdownMenuContent align="end">
             <DropdownMenuItem
               onClick={() => {
                 show(TransactionsSlideOutMenu);

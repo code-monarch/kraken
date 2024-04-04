@@ -26,7 +26,7 @@ import {
 const columns = TransactionsTableColumns;
 
 interface ITransactionsTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
+  // columns: ColumnDef<TData, TValue>[];
   data: Transactions[];
   pageCount?: number;
   pagination?: PaginationState;

@@ -6,6 +6,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { ICustomInputProps } from "@/pattern/types";
 import Hidden from "../data-display/hidden";
+import { cn } from "@/lib/utils";
 
 const FormInput: FC<ICustomInputProps> = ({
   name,
@@ -14,6 +15,7 @@ const FormInput: FC<ICustomInputProps> = ({
   placeholder,
   prefixIcon,
   suffixIcon,
+  className,
   ...props
 }) => {
   const { control } = useFormContext();
@@ -35,6 +37,7 @@ const FormInput: FC<ICustomInputProps> = ({
                 onBlur={() => setIsFocus(false)}
                 variant={error ? "error" : "default"}
                 placeholder={placeholder ?? "Type here"}
+                className={cn(prefixIcon ? "pl-[34px]" : "pl-3", className)}
                 {...props}
               />
               {/* prefix Icon */}
