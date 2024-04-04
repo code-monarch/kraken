@@ -1,19 +1,19 @@
 "use client";
 import React from "react";
-import PageHeader from "../common/molecules/data-display/page-header";
-import ButtonWithIcon from "../common/molecules/controls/button-with-icon";
-import AddUserBtnIcon from "../common/atoms/icons/add-user-btn-icon";
-import SendMessageBtnIcon from "../common/atoms/icons/send-message-btn-icon";
+import PageHeader from "../../common/molecules/data-display/page-header";
+import ButtonWithIcon from "../../common/molecules/controls/button-with-icon";
+import AddUserBtnIcon from "../../common/atoms/icons/add-user-btn-icon";
+import SendMessageBtnIcon from "../../common/atoms/icons/send-message-btn-icon";
 import { show } from "@ebay/nice-modal-react";
-import AddNewUserModal from "./add-new-user-modal";
-import SendMessageModal from "./send-message-modal";
+import AddNewUserModal from "../templates/add-new-user-modal";
+import SendMessageModal from "../templates/send-message-modal";
 
 const SuperAdminUserManagementPageHeader = () => {
   const handleAddUser = () => {
     show(AddNewUserModal);
   };
   const handleSendMessage = () => {
-   show(SendMessageModal);
+    show(SendMessageModal);
   };
   return (
     <div className='w-full flex items-center justify-between'>

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import PhoneNumberInput from "../common/molecules/inputs/phone-input";
+import PhoneNumberInput from "../../common/molecules/inputs/phone-input";
 import {
   Card,
   CardContent,
@@ -10,13 +10,13 @@ import {
 } from "@/components/ui/card";
 import { create, show, useModal } from "@ebay/nice-modal-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import SelectInput from "../common/molecules/inputs/select-input";
-import FormInput from "../common/molecules/inputs/form-input";
+import SelectInput from "../../common/molecules/inputs/select-input";
+import FormInput from "../../common/molecules/inputs/form-input";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormProvider, useForm } from "react-hook-form";
-import EmailInput from "../common/molecules/inputs/email-input";
-import LoadingButton from "../common/molecules/controls/loading-button";
+import EmailInput from "../../common/molecules/inputs/email-input";
+import LoadingButton from "../../common/molecules/controls/loading-button";
 import { Button } from "@/components/ui/button";
 import AddNewUserSuccessModal from "./add-new-user-success-modal";
 
@@ -69,7 +69,7 @@ const AddNewUserModal = create(() => {
   console.log("FORM ERRORR: ", errors);
 
   const onSubmit = () => {
-    handleCloseModal()
+    handleCloseModal();
     show(AddNewUserSuccessModal);
   };
   return (

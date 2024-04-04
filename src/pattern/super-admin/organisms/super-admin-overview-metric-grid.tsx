@@ -1,5 +1,5 @@
 import React from "react";
-import DashboardMetricCard from "../common/organisms/dashboard-metric-card";
+import DashboardMetricCard from "../../common/organisms/dashboard-metric-card";
 
 const SuperAdminOverviewMetricGrid = () => {
   return (

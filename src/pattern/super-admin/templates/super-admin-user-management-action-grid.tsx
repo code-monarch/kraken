@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
-import UserManagementActionBanner from "../common/molecules/feedback/user-management-action-banner";
-import SendMessageIcon from "../common/atoms/icons/send-message-icon";
-import CreateNewUserIcon from "../common/atoms/icons/create-new-user-icon";
+import UserManagementActionBanner from "../../common/molecules/feedback/user-management-action-banner";
+import SendMessageIcon from "../../common/atoms/icons/send-message-icon";
+import CreateNewUserIcon from "../../common/atoms/icons/create-new-user-icon";
 import SendMessageModal from "./send-message-modal";
 import { show } from "@ebay/nice-modal-react";
 import AddNewUserModal from "./add-new-user-modal";

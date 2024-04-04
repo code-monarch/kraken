@@ -1,5 +1,3 @@
-"use client";
-import React, { useState } from "react";
 import {
   Card,
   CardContent,
@@ -7,24 +5,23 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { create, useModal } from "@ebay/nice-modal-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import LoadingButton from "../common/molecules/controls/loading-button";
-import { Button } from "@/components/ui/button";
-import { CommentInput } from "../common/molecules/inputs/comment-input";
-import FormInput from "../common/molecules/inputs/form-input";
+import { create, useModal } from "@ebay/nice-modal-react";
+import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import PercentInput from "../../common/molecules/inputs/percent-input";
+import { Button } from "@/components/ui/button";
+import LoadingButton from "../../common/molecules/controls/loading-button";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-const SendMessageFormSchema = Yup.object().shape({
-  title: Yup.string().required("Message Title is Required"),
+const SetTransactionFeesFormSchema = Yup.object().shape({
+  depositFees: Yup.string().required("Deposit fees is Required"),
+  withdrawalFees: Yup.string().required("Withdrawal fees is Required"),
+  exchangeFees: Yup.string().required("Exchange fees is Required"),
 });
 
-const SendMessageModal = create(() => {
-  // Controls value of comment
-  const [message, setMessage] = useState<string>("");
-
+const SetTransactionFeesModal = create(() => {
   const { resolve, hide, visible } = useModal();
 
   const handleCloseModal = () => {
@@ -33,12 +30,14 @@ const SendMessageModal = create(() => {
   };
 
   const defaultValues = {
-    title: "",
+    depositFees: "0.00",
+    withdrawalFees: "0.00",
+    exchangeFees: "0.00",
   };
 
   const methods = useForm({
     mode: "onChange",
-    resolver: yupResolver(SendMessageFormSchema),
+    resolver: yupResolver(SetTransactionFeesFormSchema),
     reValidateMode: "onChange",
     delayError: 2000,
     defaultValues: defaultValues,
@@ -54,11 +53,10 @@ const SendMessageModal = create(() => {
   const onSubmit = () => {
     handleCloseModal();
   };
-
   return (
     <Dialog open={visible} onOpenChange={handleCloseModal}>
       <DialogContent className='bg-transparent w-fit max-w-[600px] h-fit outline-none border-none shadow-none'>
-        <Card className='min-w-[300px] w-[600px] min-h-[337px] h-fit'>
+        <Card className='min-w-[300px] w-[400px] min-h-[337px] h-fit pb-6'>
           <FormProvider {...methods}>
             <form
               onSubmit={handleSubmit(onSubmit)}
@@ -66,28 +64,38 @@ const SendMessageModal = create(() => {
             >
               <CardHeader>
                 <CardTitle className='text-[1.125rem] font-semibold font-raleway'>
-                  Send Message
+                  Set Transaction Fees
                 </CardTitle>
               </CardHeader>
 
               {/* Content */}
               <CardContent className='space-y-[16px] mb-[8px]'>
-                {/* Title */}
-                <FormInput
-                  label='Title'
-                  name='title'
-                  placeholder='Message title'
-                  error={errors["title"]}
-                  className='min-w-full pl-2'
+                {/* Deposit Fees */}
+                <PercentInput
+                  label='Deposit Fees'
+                  name='depositFees'
+                  placeholder='10'
+                  error={errors["depositFees"]}
                 />
-                {/* Comment */}
-                <CommentInput
-                  label='Message Content'
-                  placeholder='Type your message here'
-                  value={message}
-                  setValue={setMessage}
+
+                {/* Withdrawal Fees */}
+                <PercentInput
+                  label='Withdrawal Fees'
+                  name='withdrawalFees'
+                  placeholder='10'
+                  error={errors["withdrawalFees"]}
+                />
+
+                {/* Exchange Fees */}
+                <PercentInput
+                  label='Exchange Fees'
+                  name='exchangeFees'
+                  placeholder='10'
+                  error={errors["exchangeFees"]}
                 />
               </CardContent>
+
+              {/* Footer */}
               <CardFooter>
                 {/* Controls */}
                 <div className='w-full flex items-center justify-end'>
@@ -108,7 +116,7 @@ const SendMessageModal = create(() => {
                       disabled={!isDirty}
                       type='submit'
                     >
-                      Next
+                      Update Fees
                     </LoadingButton>
                   </div>
                 </div>
@@ -121,4 +129,4 @@ const SendMessageModal = create(() => {
   );
 });
 
-export default SendMessageModal;
+export default SetTransactionFeesModal;

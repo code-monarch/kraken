@@ -5,7 +5,7 @@ import PageHeader from "@/pattern/common/molecules/data-display/page-header";
 import OverviewChartSection from "@/pattern/overview/templates/overview-chart-section";
 import OverviewMetricGrid from "@/pattern/overview/templates/overview-metric-grid";
 import OverviewRecentTransactionsTemplate from "@/pattern/overview/templates/overview-recent-transactions-template";
-import SuperAdminOverviewMetricGrid from "@/pattern/super-admin/super-admin-overview-metric-grid";
+import SuperAdminOverviewMetricGrid from "@/pattern/super-admin/organisms/super-admin-overview-metric-grid";
 
 export default function Home() {
   return (

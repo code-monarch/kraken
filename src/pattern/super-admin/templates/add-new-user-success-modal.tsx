@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import VerifyStatusHeaderIcon from "../common/atoms/icons/verify-status-header-icon";
+import VerifyStatusHeaderIcon from "../../common/atoms/icons/verify-status-header-icon";
 import { Button } from "@/components/ui/button";
 
 const AddNewUserSuccessModal = create(() => {

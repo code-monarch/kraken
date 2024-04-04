@@ -1,3 +1,4 @@
+"use client"
 import React, { FC, useState } from "react";
 import InputErrorMessage from "../feedback/input-error-message";
 import { FieldSet } from "./fieldset";
