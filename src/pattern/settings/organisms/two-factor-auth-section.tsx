@@ -12,14 +12,14 @@ import { Button } from "@/components/ui/button";
 const TwoFactorAuthSection = () => {
   const [mfaActivated, setMfaActivated] = useState<boolean>(false);
   return (
-    <div>
-      <div className='space-y-2'>
+    <div  className='space-y-4'>
+      <div className='space-y-1'>
         <div className='text-lg font-medium text-[#202b3c]'>
           Two Factor Authenticator{" "}
           {mfaActivated ? (
             <Badge variant='active'>ON</Badge>
           ) : (
-            <Badge variant='destructive'>OFF</Badge>
+            <Badge variant='off'>OFF</Badge>
           )}
         </div>
         <p className='text-sm text-[#4f627d]'>

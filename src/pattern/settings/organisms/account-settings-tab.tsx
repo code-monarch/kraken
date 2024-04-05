@@ -7,7 +7,7 @@ import CurrentLanguageSection from "./current-language-section";
 
 const AccountSettingsTab = () => {
   return (
-    <div>
+    <div className="w-[886px]">
       <p className="text-lg text-[#202b3c] font-semibold mb-2">
         Account Settings 
       </p>
@@ -31,7 +31,6 @@ const AccountSettingsTab = () => {
       <div className="my-3">
         <CurrentLanguageSection />
       </div>
-      <Separator />
     </div>
   );
 };

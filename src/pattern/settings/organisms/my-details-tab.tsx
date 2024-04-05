@@ -6,9 +6,10 @@ import SettingsImageInput from "@/pattern/common/molecules/inputs/settings-image
 import userImg from "@/public/images/user.svg";
 import { Separator } from "@/components/ui/separator";
 import SettingsNameInput from "@/pattern/common/molecules/inputs/settings-name-input";
-import SettingsEmailInput from "@/pattern/common/molecules/inputs/settings-email-input";
 import { Label } from "@/components/ui/label";
 import EmailInput from "@/pattern/common/molecules/inputs/email-input";
+import FormInput from "@/pattern/common/molecules/inputs/form-input";
+import { Button } from "@/components/ui/button";
 
 interface payload {
   userImg: any;
@@ -45,41 +46,50 @@ const MyDetailsTab = () => {
 
   return (
     <div>
-      <div className='my-4'>
+      <div className="flex items-center justify-between my-4 ">
         <PersonalInfo />
+        <div className="flex items-center gap-3">
+          <Button variant="outline" size="sm" className="w-fit">
+            Cancel
+          </Button>
+
+          <Button type="submit" size="sm" className="w-fit">
+            Save
+          </Button>
+        </div>
       </div>
       <Separator />
 
       <FormProvider {...methods}>
-        <form>
-          <div className='flex items-start gap-20 my-4'>
-            <div className='shrink-0'>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="flex items-start gap-[32px] my-4">
+            <div className="w-[280px]">
               <YourPhotoText />
             </div>
             <SettingsImageInput
-              name='userImg'
-              label='Photo'
+              name="userImg"
+              label="Photo"
               selectedFile={selectedFile}
               setSelectedFile={setSelectedFile}
             />
           </div>
           <Separator />
 
-          <div className='flex justify-between my-4'>
-            <Label className='font-bold'>Name</Label>
-            <div className='flex gap-2'>
-              <SettingsNameInput name='firstname' label='First Name' />
-              <SettingsNameInput name='lastname' label='Last Name' />
+          <div className="flex items-center gap-[32px] my-4">
+            <Label className="font-bold w-[280px]">Name</Label>
+            <div className="flex gap-5 w-[512px]">
+              <FormInput name="firstname" className="min-w-[246px] w-[246px]" />
+              <FormInput name="lastname" className="min-w-[246px] w-[246px]" />
             </div>
           </div>
           <Separator />
 
-          <div className='fle grid grid-cols-4 justify-between my-4'>
-            <Label className='font-bold'>Email</Label>
-            <div className='col-span-1'>
+          <div className="flex items-center gap-[32px] my-4">
+            <Label className="font-bold w-[280px]">Email</Label>
+            <div className="col-span-1 w-[512px]">
               <EmailInput
-                name='email'
-                className="w-fit bg-[#f5fffa] text-primary border-0"
+                name="email"
+                className="bg-[#f5fffa] text-primary border-0"
               />
             </div>
           </div>

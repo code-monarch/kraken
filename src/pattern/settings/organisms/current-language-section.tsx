@@ -28,8 +28,8 @@ const CurrentLanguageSection = () => {
   const [open, setOpen] = useState(false);
   const [filterIndex, setFilterIndex] = useState<number>(0);
   return (
-    <div className="space-y-3">
-      <div>
+    <div className="space-y-4">
+      <div className="space-y-2">
         <p className="text-lg text-[#202b3c] font-medium">Current Language</p>
         <p className="text-sm text-[#4F627D]">
           Display values in using a specific curency throughout the application.
@@ -37,7 +37,7 @@ const CurrentLanguageSection = () => {
       </div>
 
       <Popover modal open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
+        <PopoverTrigger asChild className="w-[307px]">
           <div>
             <ButtonWithIcon
               suffixIcon={
@@ -45,7 +45,7 @@ const CurrentLanguageSection = () => {
               }
               variant="outline"
               size="sm"
-              className="w-[138p] h-[44px] text-base"
+              className="w-[307px] h-[48px] justify-between py-4 px-3 text-base"
             >
               {filters[filterIndex].label}
             </ButtonWithIcon>
