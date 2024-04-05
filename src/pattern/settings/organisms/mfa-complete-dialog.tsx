@@ -20,11 +20,11 @@ interface payload {
 }
 
 const MFACompleteDialog = create(() => {
-  const { resolve, hide, visible } = useModal();
+  const { resolve, remove, visible } = useModal();
 
   const handleCloseModal = () => {
     resolve({ resolved: true });
-    hide();
+    remove();
   };
   return (
     <Dialog open={visible} onOpenChange={handleCloseModal}>

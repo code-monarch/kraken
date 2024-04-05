@@ -15,11 +15,11 @@ import { SelectNewVerificationStatusWidget } from "../molecules/select-new-verif
 import { CommentInput } from "@/pattern/common/molecules/inputs/comment-input";
 
 export const ChangeVerificationStatusModal = create(() => {
-  const { resolve, hide, visible } = useModal();
+  const { resolve, remove, visible } = useModal();
 
   const handleCloseModal = () => {
     resolve({ resolved: true });
-    hide();
+    remove();
   };
 
   // Controls status state. In the future the default value of this would be gotten from the API

@@ -5,11 +5,11 @@ import { Button } from "@/components/ui/button";
 import { CardContent, CardFooter } from "@/components/ui/card";
 
 interface IMessageSentSuccessProps {
-  onCloseModal: () => void;
+  closeModalHandler: () => void;
 }
 
 const MessageSentSuccessWidget: FC<IMessageSentSuccessProps> = ({
-  onCloseModal,
+  closeModalHandler,
 }) => {
   return (
     <div className='space-y-[24px]'>
@@ -31,7 +31,7 @@ const MessageSentSuccessWidget: FC<IMessageSentSuccessProps> = ({
         <Button
           variant='outlinePrimary'
           className='w-full h-[52px]'
-          onClick={onCloseModal}
+          onClick={() => closeModalHandler()}
         >
           Close
         </Button>

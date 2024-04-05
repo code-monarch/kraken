@@ -13,11 +13,11 @@ import { Button } from "@/components/ui/button";
 import { FreezeAccountHeaderIcon } from "@/pattern/common/atoms/icons/freeze-account-header-icon";
 
 export const FreezeAccountModal = create(() => {
-  const { resolve, hide, visible } = useModal();
+  const { resolve, remove, visible } = useModal();
 
   const handleCloseModal = () => {
     resolve({ resolved: true });
-    hide();
+    remove();
   };
 
   return (

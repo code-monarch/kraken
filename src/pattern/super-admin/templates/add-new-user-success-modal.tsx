@@ -13,11 +13,11 @@ import VerifyStatusHeaderIcon from "../../common/atoms/icons/verify-status-heade
 import { Button } from "@/components/ui/button";
 
 const AddNewUserSuccessModal = create(() => {
-  const { resolve, hide, visible } = useModal();
+  const { resolve, remove, visible } = useModal();
 
   const handleCloseModal = () => {
     resolve({ resolved: true });
-    hide();
+    remove();
   };
   return (
     <Dialog open={visible} onOpenChange={handleCloseModal}>

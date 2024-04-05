@@ -38,11 +38,11 @@ const AddNewUserModal = create(() => {
   //   Controls value of Selected user type
   const [userType, setUserType] = useState<string>("");
 
-  const { resolve, hide, visible } = useModal();
+  const { resolve, remove, visible } = useModal();
 
   const handleCloseModal = () => {
     resolve({ resolved: true });
-    hide();
+    remove();
   };
 
   const defaultValues = {

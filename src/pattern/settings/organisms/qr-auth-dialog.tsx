@@ -16,11 +16,11 @@ import ScanSectionIndicator from "@/pattern/common/atoms/icons/scan-section-indi
 import { create, show, useModal } from "@ebay/nice-modal-react";
 
 const QRAuthDialog = create(() => {
-  const { resolve, hide, visible } = useModal();
+  const { resolve, remove, visible } = useModal();
 
   const handleCloseModal = () => {
     resolve({ resolved: true });
-    hide();
+    remove();
   };
 
   const [value, setValue] = useState("1KLTG4RS7XCJK9FS");

@@ -54,7 +54,7 @@ const TransactionTypeFilterSetting: IListType[] = [
 ];
 
 export const RecentTransactionsSearchFilterModal = create(() => {
-  const { resolve, hide, visible } = useModal();
+  const { resolve, remove, visible } = useModal();
 
   const showDateRangeFilterModal = () => {
     show(DateRangeFilterModal);
@@ -62,7 +62,7 @@ export const RecentTransactionsSearchFilterModal = create(() => {
 
   const handleCloseModal = () => {
     resolve({ resolved: true });
-    hide();
+    remove();
   };
 
   const handleSaveFilterSettings = () => {

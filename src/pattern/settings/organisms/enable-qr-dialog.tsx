@@ -25,11 +25,11 @@ interface payload {
 }
 
 const EnableQRDialog = create(() => {
-  const { resolve, hide, visible } = useModal();
+  const { resolve, remove, visible } = useModal();
 
   const handleCloseModal = () => {
     resolve({ resolved: true });
-    hide();
+    remove();
   };
 
   const defaultValues = {

@@ -7,11 +7,11 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 const CalendarModal = create(() => {
   const [date, setDate] = useState<Date | undefined>(new Date());
 
-  const { resolve, hide, visible } = useModal();
+  const { resolve, remove, visible } = useModal();
 
   const handleCloseModal = () => {
     resolve({ resolved: true });
-    hide();
+    remove();
   };
   return (
     <Dialog open={visible} onOpenChange={handleCloseModal}>

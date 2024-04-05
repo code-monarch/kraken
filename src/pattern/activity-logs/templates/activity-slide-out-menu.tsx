@@ -13,7 +13,7 @@ import { SlideOutActivityDetailsWidget } from "../organisms/slide-out-activity-d
 
 
 const ActivitySlideOutMenu = create(() => {
-  const { resolve, hide, visible } = useModal();
+  const { resolve, remove, visible } = useModal();
   const [scrollHeight, setScrollHeight] = useState(window.innerHeight - 30);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const ActivitySlideOutMenu = create(() => {
 
   const handleCloseModal = () => {
     resolve({ resolved: true });
-    hide();
+    remove();
   };
   return (
     <Sheet modal open={visible} onOpenChange={handleCloseModal}>

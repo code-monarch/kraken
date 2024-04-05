@@ -54,7 +54,7 @@ const ActivityTypeFilterSetting: IListType[] = [
 ];
 
 export const ActivityLogsSearchFilterModal = create(() => {
-  const { resolve, hide, visible } = useModal();
+  const { resolve, remove, visible } = useModal();
 
   const showDateRangeFilterModal = () => {
     show(DateRangeFilterModal);
@@ -62,7 +62,7 @@ export const ActivityLogsSearchFilterModal = create(() => {
 
   const handleCloseModal = () => {
     resolve({ resolved: true });
-    hide();
+    remove();
   };
 
   const handleSaveFilterSettings = () => {

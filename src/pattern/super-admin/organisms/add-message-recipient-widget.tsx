@@ -11,13 +11,13 @@ import RecipientWidget from "../molecules/recipient-widget";
 import { Separator } from "@/components/ui/separator";
 
 interface IAddMessageRecipientWidgetProps {
-  goNext: () => void;
-  goBack: () => void;
+  submitHandler: () => void;
+  back: () => void;
 }
 
 const AddMessageRecipientWidget: FC<IAddMessageRecipientWidgetProps> = ({
-  goNext,
-  goBack,
+  submitHandler,
+  back,
 }) => {
   const [selectAll, setSelectAll] = useState(false);
   return (
@@ -74,7 +74,7 @@ const AddMessageRecipientWidget: FC<IAddMessageRecipientWidgetProps> = ({
         <div className='w-full flex items-center justify-end'>
           <div className='flex items-center justify-end gap-x-3'>
             {/* Cancel Button */}
-            <Button size='sm' variant='outline' onClick={goBack}>
+            <Button size='sm' variant='outline' onClick={() => back()}>
               Back
             </Button>
 
@@ -83,7 +83,7 @@ const AddMessageRecipientWidget: FC<IAddMessageRecipientWidgetProps> = ({
               size='sm'
               loading={false}
               type='button'
-              onClick={goNext}
+              onClick={() => submitHandler()}
             >
               Next
             </LoadingButton>
