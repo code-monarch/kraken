@@ -16,11 +16,11 @@ import {
 
 const RequestPasswordResetModal = create(() => {
   const { push, back } = useRouter();
-  const { resolve, hide, visible } = useModal();
+  const { resolve, remove, visible } = useModal();
 
   const handleCloseModal = () => {
     resolve({ resolved: true });
-    hide();
+    remove();
   };
 
   return (

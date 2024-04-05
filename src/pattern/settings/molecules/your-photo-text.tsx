@@ -3,7 +3,7 @@ import GreyInfoIcon from "@/pattern/common/atoms/icons/grey-info-icon";
 
 const YourPhotoText = () => {
   return (
-    <div>
+    <div className="w-[280px]">
       <p className="flex items-center gap-2 text-sm text-[#384860] font-bold">
         Your photo
         <span>

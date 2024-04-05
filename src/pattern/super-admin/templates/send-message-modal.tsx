@@ -1,8 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import {
-  Card,
-} from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { create, useModal } from "@ebay/nice-modal-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import Stepper from "../../common/molecules/controls/stepper";
@@ -15,19 +13,19 @@ const NUMBER_OF_STEPS = 3;
 
 const SendMessageModal = create(() => {
   // Handles current step of stepper
-  const [currentStep, setCurrentStep] = useState(0);
+  const [currentStep, setCurrentStep] = useState(1);
 
   const goToNextStep = () =>
-    setCurrentStep((prev) => (prev === NUMBER_OF_STEPS - 1 ? prev : prev + 1));
+    setCurrentStep((prev) => (prev === NUMBER_OF_STEPS ? prev : prev + 1));
 
   const goToPreviousStep = () =>
-    setCurrentStep((prev) => (prev <= 0 ? prev : prev - 1));
+    setCurrentStep((prev) => (prev <= 1 ? prev : prev - 1));
 
-  const { resolve, hide, visible } = useModal();
+  const { resolve, visible, remove } = useModal();
 
   const handleCloseModal = () => {
     resolve({ resolved: true });
-    hide();
+    remove();
   };
 
   return (
@@ -38,21 +36,21 @@ const SendMessageModal = create(() => {
           <Stepper currentStep={currentStep} numberOfSteps={NUMBER_OF_STEPS} />
 
           {/* Step 1 */}
-          <Hidden visible={currentStep === 0}>
-            <SendMessageWidget onSubmit={goToNextStep} />
+          <Hidden visible={currentStep === 1}>
+            <SendMessageWidget submitHandler={goToNextStep} />
           </Hidden>
 
           {/* Step 2 */}
-          <Hidden visible={currentStep === 1}>
+          <Hidden visible={currentStep === 2}>
             <AddMessageRecipientWidget
-              goNext={goToNextStep}
-              goBack={goToPreviousStep}
+              submitHandler={goToNextStep}
+              back={goToPreviousStep}
             />
           </Hidden>
 
           {/* Step 3 */}
-          <Hidden visible={currentStep === 2}>
-            <MessageSentSuccessWidget onCloseModal={() => handleCloseModal()} />
+          <Hidden visible={currentStep === 3}>
+            <MessageSentSuccessWidget closeModalHandler={handleCloseModal} />
           </Hidden>
         </Card>
       </DialogContent>

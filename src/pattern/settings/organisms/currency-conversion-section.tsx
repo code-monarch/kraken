@@ -24,8 +24,8 @@ const CurrencyConversionSection = () => {
   const [open, setOpen] = useState(false);
   const [filterIndex, setFilterIndex] = useState<number>(0);
   return (
-    <div className="space-y-3">
-      <div>
+    <div className="space-y-4">
+      <div className="space-y-2">
         <p className="text-lg text-[#202b3c] font-medium">
           Currency Conversion
         </p>
@@ -35,7 +35,7 @@ const CurrencyConversionSection = () => {
       </div>
 
       <Popover modal open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
+        <PopoverTrigger asChild className="w-[307px]">
           <div>
             <ButtonWithIcon
               suffixIcon={
@@ -43,7 +43,7 @@ const CurrencyConversionSection = () => {
               }
               variant="outline"
               size="sm"
-              className="w-[138p] h-[44px] text-base"
+              className="w-[307px] h-[48px] py-4 px-3 text-base justify-between"
             >
               {filters[filterIndex].label}
             </ButtonWithIcon>
@@ -51,7 +51,7 @@ const CurrencyConversionSection = () => {
         </PopoverTrigger>
         <PopoverContent
           align="start"
-          className="w-[200px] min-h-[200p] bg-card rounded-[8px] shadow-cardShadow"
+          className="w-[307px] min-h-[200p] bg-card rounded-[8px] shadow-cardShadow"
         >
           {filters.map(({ label, value }, idx) => (
             <div key={value}>

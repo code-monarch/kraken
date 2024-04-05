@@ -56,7 +56,7 @@ const TransactionTypeFilterSetting: IListType[] = [
 ];
 
 export const UserManagementTableSearchFilterModal = create(() => {
-  const { resolve, hide, visible } = useModal();
+  const { resolve, remove, visible } = useModal();
 
   const showDateCalendarModal = () => {
     show(CalendarModal);
@@ -64,7 +64,7 @@ export const UserManagementTableSearchFilterModal = create(() => {
 
   const handleCloseModal = () => {
     resolve({ resolved: true });
-    hide();
+    remove();
   };
 
   const handleSaveFilterSettings = () => {

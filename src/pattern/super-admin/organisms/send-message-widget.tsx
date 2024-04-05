@@ -20,18 +20,18 @@ const SendMessageFormSchema = Yup.object().shape({
 });
 
 interface ISendMessageWidgetProps {
-  onSubmit: () => void;
+  submitHandler: () => void;
 }
 
-const SendMessageWidget: FC<ISendMessageWidgetProps> = ({ onSubmit }) => {
+const SendMessageWidget: FC<ISendMessageWidgetProps> = ({ submitHandler }) => {
   // Controls value of comment
   const [message, setMessage] = useState<string>("");
 
-  const { resolve, hide, visible } = useModal();
+  const { resolve, remove, visible } = useModal();
 
   const handleCloseModal = () => {
     resolve({ resolved: true });
-    hide();
+    remove();
   };
 
   const defaultValues = {
@@ -41,8 +41,7 @@ const SendMessageWidget: FC<ISendMessageWidgetProps> = ({ onSubmit }) => {
   const methods = useForm({
     mode: "onChange",
     resolver: yupResolver(SendMessageFormSchema),
-    reValidateMode: "onChange",
-    delayError: 2000,
+    reValidateMode: "onBlur",
     defaultValues: defaultValues,
   });
 
@@ -52,10 +51,14 @@ const SendMessageWidget: FC<ISendMessageWidgetProps> = ({ onSubmit }) => {
   } = methods;
 
   console.log("FORM ERRORR: ", errors);
+
+  const goToNextStep = () => {
+    submitHandler();
+  };
   return (
     <FormProvider {...methods}>
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(goToNextStep)}
         className='w-full flex flex-col gap-5'
       >
         {/* Header */}

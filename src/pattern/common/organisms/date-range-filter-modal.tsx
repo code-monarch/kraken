@@ -8,11 +8,11 @@ import { DateRange } from "react-day-picker";
 export const DateRangeFilterModal = create(() => {
   const [date, setDate] = useState<DateRange | undefined>();
 
-  const { resolve, hide, visible } = useModal();
+  const { resolve, remove, visible } = useModal();
 
   const handleCloseModal = () => {
     resolve({ resolved: true });
-    hide();
+    remove();
   };
   return (
     <Dialog open={visible} onOpenChange={handleCloseModal}>

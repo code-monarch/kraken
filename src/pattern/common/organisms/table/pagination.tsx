@@ -12,7 +12,7 @@ export function Pagination<TData>({ table }: DataTablePaginationProps<TData>) {
   const pageCount = table.getPageCount();
 
   return (
-    <div className="w-full flex items-center justify-end py-4 px-6">
+    <div className="w-full flex items-center justify-end py-4">
       <div className="flex items-center">
         {/* Previous Button */}
         <Button

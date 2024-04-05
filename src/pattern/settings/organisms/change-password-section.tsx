@@ -36,8 +36,8 @@ const ChangePasswordSection = () => {
   };
 
   return (
-    <div>
-      <div>
+    <div className="space-y-6">
+      <div className="space-y-1">
         <p className="text-lg text-[#202b3c] font-medium">Change Password</p>
         <p className="text-sm text-[#4F627D]">
           Choose a strong and unique password to protect your information
@@ -46,10 +46,18 @@ const ChangePasswordSection = () => {
 
       <div>
         <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)} className="w-1/2 space-y-2">
-            <PasswordInput label="Old Pin" name="oldPassword" />
-            <PasswordInput label="New Pin" name="newPassword" />
-            <PasswordInput label="Confirm New Pin" name="confirmNewPassword" />
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="w-[307px] space-y-6"
+          >
+            <div className="space-y-4">
+              <PasswordInput label="Old Pin" name="oldPassword" />
+              <PasswordInput label="New Pin" name="newPassword" />
+              <PasswordInput
+                label="Confirm New Pin"
+                name="confirmNewPassword"
+              />
+            </div>
 
             <div className="my-2">
               <LoadingButton

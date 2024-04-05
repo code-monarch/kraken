@@ -22,11 +22,11 @@ const SetTransactionFeesFormSchema = Yup.object().shape({
 });
 
 const SetTransactionFeesModal = create(() => {
-  const { resolve, hide, visible } = useModal();
+  const { resolve, remove, visible } = useModal();
 
   const handleCloseModal = () => {
     resolve({ resolved: true });
-    hide();
+    remove();
   };
 
   const defaultValues = {

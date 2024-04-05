@@ -16,7 +16,7 @@ import { Badge } from "@/components/ui/badge";
 import UserDetailCard from "../../molecules/data-display/user-detail-card";
 
 const TransactionsSlideOutMenu = create(() => {
-  const { resolve, hide, visible } = useModal();
+  const { resolve, remove, visible } = useModal();
   const [scrollHeight, setScrollHeight] = useState(window.innerHeight - 30);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const TransactionsSlideOutMenu = create(() => {
 
   const handleCloseModal = () => {
     resolve({ resolved: true });
-    hide();
+    remove();
   };
   return (
     <Sheet modal open={visible} onOpenChange={handleCloseModal}>

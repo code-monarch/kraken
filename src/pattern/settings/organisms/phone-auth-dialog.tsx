@@ -22,11 +22,11 @@ const RequestOtpFormSchema = Yup.object().shape({
 });
 
 const PhoneAuthDialog = create(() => {
-  const { resolve, hide, visible } = useModal();
+  const { resolve, remove, visible } = useModal();
 
   const handleCloseModal = () => {
     resolve({ resolved: true });
-    hide();
+    remove();
   };
 
   const defaultValues = {

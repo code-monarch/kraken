@@ -38,11 +38,11 @@ const AddNewUserModal = create(() => {
   //   Controls value of Selected user type
   const [userType, setUserType] = useState<string>("");
 
-  const { resolve, hide, visible } = useModal();
+  const { resolve, remove, visible } = useModal();
 
   const handleCloseModal = () => {
     resolve({ resolved: true });
-    hide();
+    remove();
   };
 
   const defaultValues = {
@@ -100,6 +100,7 @@ const AddNewUserModal = create(() => {
                     label='First Name'
                     name='firstName'
                     error={errors["firstName"]}
+                    placeholder='Jon'
                     className='min-w-full pl-2'
                   />
                   {/* Last Name */}
@@ -107,6 +108,7 @@ const AddNewUserModal = create(() => {
                     label='Last Name'
                     name='lastName'
                     error={errors["lastName"]}
+                    placeholder='Doe'
                     className='min-w-full pl-2'
                   />
                 </div>
