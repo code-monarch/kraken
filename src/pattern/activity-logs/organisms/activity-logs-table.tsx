@@ -133,7 +133,8 @@ export function ActivityLogsTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
-      {pageCount && pageCount > 1 && <Pagination table={activityLogsTable} />}
+      {/* {pageCount && pageCount > 1 && <Pagination table={activityLogsTable} />} */}
+      <Pagination table={activityLogsTable} />
     </div>
   );
 }

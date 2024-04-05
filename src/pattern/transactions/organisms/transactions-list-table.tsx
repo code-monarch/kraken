@@ -133,7 +133,8 @@ export function TransactionsListTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
-      {pageCount && pageCount > 1 && <Pagination table={userManagementTable} />}
+      {/* {pageCount && pageCount > 1 && <Pagination table={userManagementTable} />} */}
+      <Pagination table={userManagementTable} />
     </div>
   );
 }
