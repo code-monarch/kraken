@@ -100,6 +100,7 @@ const AddNewUserModal = create(() => {
                     label='First Name'
                     name='firstName'
                     error={errors["firstName"]}
+                    placeholder='Jon'
                     className='min-w-full pl-2'
                   />
                   {/* Last Name */}
@@ -107,6 +108,7 @@ const AddNewUserModal = create(() => {
                     label='Last Name'
                     name='lastName'
                     error={errors["lastName"]}
+                    placeholder='Doe'
                     className='min-w-full pl-2'
                   />
                 </div>
