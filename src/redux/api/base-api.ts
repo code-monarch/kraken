@@ -6,7 +6,7 @@ const headers = new Headers();
 headers.append("Content-Type", "application/json; charset=UTF-8");
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://mainnet-public.mirrornode.hedera.com/api/v1/",
+  baseUrl: "https://589ctkcaz7.execute-api.us-east-1.amazonaws.com/settings",
   // credentials: "same-origin",
   // credentials: "include",
   mode: "cors",

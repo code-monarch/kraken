@@ -90,7 +90,7 @@ interface IUserPayload {
 
 export const usersApiSlice = baseApiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getUsers: builder.query<IGetUsersResponse, void>({
+    getAllUsers: builder.query<IGetUsersResponse, void>({
       query: () => ({
         url: `settings/admin/users`,
         method: "GET",
@@ -134,7 +134,7 @@ export const usersApiSlice = baseApiSlice.injectEndpoints({
 });
 
 export const {
-  useGetUsersQuery,
+  useGetAllUsersQuery,
   useGetSingleUserQuery,
   useUpdateUserMutation,
   useDeleteUserMutation,

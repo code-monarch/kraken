@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import AuthCard from "../organisms/auth-card";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import EmailInput from "@/pattern/common/molecules/inputs/email-input";
@@ -10,6 +10,12 @@ import { LinkButton } from "@/pattern/common/molecules/controls/link-button";
 import LoadingButton from "@/pattern/common/molecules/controls/loading-button";
 import { AUTH_PATHS } from "@/lib/routes";
 import { useRouter } from "next/navigation";
+import { useLoginMutation } from "@/redux/services/auth/login.api-slice";
+
+interface ILoginPayload {
+  email: string;
+  password: string;
+}
 
 const LoginFormSchema = Yup.object().shape({
   email: Yup.string()
@@ -25,7 +31,7 @@ const LoginTemplate = () => {
     password: "",
   };
 
-  const methods = useForm({
+  const methods = useForm<ILoginPayload>({
     mode: "onChange",
     resolver: yupResolver(LoginFormSchema),
     reValidateMode: "onChange",
@@ -38,7 +44,17 @@ const LoginTemplate = () => {
     formState: { errors, isDirty },
   } = methods;
 
-  const onSubmit = () => {
+  // destructure login method from Login API mutation hook
+  const [loginAdmin, { isSuccess, isLoading, isError, error }] =
+    useLoginMutation();
+
+  const onSubmit: SubmitHandler<ILoginPayload> = ({ email, password }) => {
+    loginAdmin({
+      email: email,
+      password: password,
+    })
+      .then(() => {})
+      .catch(() => {})
     console.log("DATA TO SUBMIT: ");
   };
   return (
