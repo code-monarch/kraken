@@ -19,7 +19,7 @@ export const loginApiSlice = baseApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation<ILoginResponse, ILoginPayload>({
       query: (loginDetails) => ({
-        url: "signIn",
+        url: "auth/admin/login",
         method: "POST",
         headers: {
           "Content-Type": "application/json",

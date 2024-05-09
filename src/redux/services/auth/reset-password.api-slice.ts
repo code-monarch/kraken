@@ -3,13 +3,12 @@ import { baseApiSlice } from "@/redux/api/base-api";
 export interface IResetPasswordResponse {
   error: boolean;
   responseCode: string;
-  data: string;
+  responseMessage: string;
+  data: boolean;
 }
 
 export interface IResetPasswordPayload {
   email: string;
-  password: string;
-  token: string;
 }
 
 export const resetPasswordApiSlice = baseApiSlice.injectEndpoints({
@@ -19,7 +18,7 @@ export const resetPasswordApiSlice = baseApiSlice.injectEndpoints({
       IResetPasswordPayload
     >({
       query: (resetPasswordDetails) => ({
-        url: "admin/reset-password",
+        url: "auth/admin/reset-password-request",
         method: "POST",
         headers: {
           "Content-Type": "application/json",

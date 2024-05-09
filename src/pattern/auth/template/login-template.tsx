@@ -1,7 +1,12 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import AuthCard from "../organisms/auth-card";
-import { FormProvider, useForm } from "react-hook-form";
+import {
+  FormProvider,
+  SubmitErrorHandler,
+  SubmitHandler,
+  useForm,
+} from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import EmailInput from "@/pattern/common/molecules/inputs/email-input";
@@ -10,6 +15,10 @@ import { LinkButton } from "@/pattern/common/molecules/controls/link-button";
 import LoadingButton from "@/pattern/common/molecules/controls/loading-button";
 import { AUTH_PATHS } from "@/lib/routes";
 import { useRouter } from "next/navigation";
+import {
+  ILoginPayload,
+  useLoginMutation,
+} from "@/redux/services/auth/login.api-slice";
 
 const LoginFormSchema = Yup.object().shape({
   email: Yup.string()
@@ -19,6 +28,9 @@ const LoginFormSchema = Yup.object().shape({
 });
 
 const LoginTemplate = () => {
+  const [login, { isLoading }] = useLoginMutation();
+  const router = useRouter();
+
   const { push } = useRouter();
   const defaultValues = {
     email: "",
@@ -38,39 +50,56 @@ const LoginTemplate = () => {
     formState: { errors, isDirty },
   } = methods;
 
-  const onSubmit = () => {
+  const onSubmit: SubmitHandler<ILoginPayload> = (data) => {
     console.log("DATA TO SUBMIT: ");
+    login({
+      email: data.email,
+      password: data.password,
+    })
+      .unwrap()
+      .then((res) => {
+        console.log("logged in successfuly");
+        const apiKey = res.data.apiKey;
+        localStorage.setItem("Api_Key", apiKey);
+        if (apiKey) {
+          router.push("/");
+        }
+      })
+      .catch((err) => {
+        console.log(`${err.error || err?.data?.message}`);
+      });
   };
+
   return (
     <>
       <AuthCard
-        title='Admin Login'
-        description='Please enter your admin credentials to access the UmrahCash Admin Dashboard.'
+        title="Admin Login"
+        description="Please enter your admin credentials to access the UmrahCash Admin Dashboard."
       >
         <FormProvider {...methods}>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className='w-full flex flex-col items-center gap-4'
+            className="w-full flex flex-col items-center gap-4"
           >
             <EmailInput
-              label='Email address'
-              name='email'
+              label="Email address"
+              name="email"
               error={errors["email"]}
             />
             <PasswordInput
-              label='Password'
-              name='password'
+              label="Password"
+              name="password"
               error={errors["password"]}
             />
 
             {/* Controls */}
-            <div className='w-full space-y-[28px]'>
-              <div className='w-full flex items-center justify-end'>
+            <div className="w-full space-y-[28px]">
+              <div className="w-full flex items-center justify-end">
                 <LinkButton onClick={() => push(`${AUTH_PATHS.resetPassword}`)}>
                   Forgot Password
                 </LinkButton>
               </div>
-              <LoadingButton loading={false} disabled={!isDirty} type='submit'>
+              <LoadingButton loading={false} disabled={!isDirty} type="submit">
                 Log into your account
               </LoadingButton>
             </div>
