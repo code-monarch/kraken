@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import MoreVerticalIcon from "@/pattern/common/atoms/icons/more-vertical-icon";
-import { formatDate } from "@/lib/hooks/useFormatDate";
+import { formatDate } from "@/lib/helper/format-date";
 import { show } from "@ebay/nice-modal-react";
 import AgentCell from "./agent-cell";
 

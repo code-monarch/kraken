@@ -28,7 +28,7 @@ const LoginFormSchema = Yup.object().shape({
 });
 
 const LoginTemplate = () => {
-  const [login, { isLoading }] = useLoginMutation();
+  const [login, { isLoading, isError }] = useLoginMutation();
   const router = useRouter();
 
   const { push } = useRouter();
@@ -51,7 +51,7 @@ const LoginTemplate = () => {
   } = methods;
 
   const onSubmit: SubmitHandler<ILoginPayload> = (data) => {
-    console.log("DATA TO SUBMIT: ");
+    console.log("DATA TO SUBMIT: ", data);
     login({
       email: data.email,
       password: data.password,
@@ -66,7 +66,7 @@ const LoginTemplate = () => {
         }
       })
       .catch((err) => {
-        console.log(`${err.error || err?.data?.message}`);
+        console.log(`${err.error || err?.data?.message || err}`);
       });
   };
 

@@ -1,16 +1,24 @@
 import { baseApiSlice } from "@/redux/api/base-api";
 
-export interface IActivities {
+export type IActivity = {
+  _id: string;
+  user: string;
+  status: string;
+  ip: string;
+  device: string;
+  type: string;
+  createdAt: string;
+  __v: number;
+}
+
+export interface IActivitiesResponse {
   error: boolean;
   responseCode: string;
+  responseMessage: string;
   data: {
-    _id: string;
-    user: string;
-    title: string;
-    activity: string;
-    createdAt: string;
-    __v: number;
-  }[];
+    count: string;
+    result: IActivity[];
+  };
 }
 
 export interface IDeleteActivitiesRes {
@@ -22,15 +30,11 @@ export interface IDeleteActivitiesRes {
   };
 }
 
-interface IActivityPayload {
-  id: string;
-}
-
 export const activitiesApiSlice = baseApiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getActivities: builder.query<IActivities, IActivityPayload>({
-      query: ({ id }) => ({
-        url: `settings/admin/activities/${id}`,
+    getActivities: builder.query<IActivitiesResponse, void>({
+      query: () => ({
+        url: `settings/admin/activities`,
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -38,9 +42,9 @@ export const activitiesApiSlice = baseApiSlice.injectEndpoints({
       }),
     }),
 
-    deleteActivities: builder.mutation<IDeleteActivitiesRes, IActivityPayload>({
-      query: ({ id }) => ({
-        url: `settings/admin/activities/${id}`,
+    deleteActivities: builder.mutation<IDeleteActivitiesRes, void>({
+      query: () => ({
+        url: `settings/admin/activities`,
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

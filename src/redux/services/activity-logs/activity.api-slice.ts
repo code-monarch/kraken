@@ -1,29 +1,18 @@
 import { baseApiSlice } from "@/redux/api/base-api";
+import { IActivity } from "./activities.api-slice";
 
-export interface ISingleActivity {
+export interface ISingleActivityResponse {
   error: boolean;
   responseCode: string;
-  data: {
-    _id: string;
-    user: string;
-    title: string;
-    activity: string;
-    createdAt: string;
-    __v: number;
-  };
+  responseMessage: string;
+  data: IActivity;
 }
 
 export interface IDeleteSingleActivityRes {
   error: boolean;
   responseCode: string;
-  data: {
-    _id: string;
-    user: string;
-    title: string;
-    activity: string;
-    createdAt: string;
-    __v: number;
-  };
+  responseMessage: string;
+  data: IActivity;
 }
 
 interface IActivityPayload {
@@ -32,15 +21,17 @@ interface IActivityPayload {
 
 export const activityApiSlice = baseApiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getSingleActivity: builder.query<ISingleActivity, IActivityPayload>({
-      query: ({ id }) => ({
-        url: `settings/admin/activity/${id}`,
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }),
-    }),
+    getSingleActivity: builder.query<ISingleActivityResponse, IActivityPayload>(
+      {
+        query: ({ id }) => ({
+          url: `settings/admin/activity/${id}`,
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }),
+      }
+    ),
 
     deleteSingleActivity: builder.mutation<
       IDeleteSingleActivityRes,

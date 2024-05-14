@@ -20,14 +20,18 @@ import PulsePlaceholder from "@/pattern/common/atoms/icons/pulse-placeholder-ico
 import { Pagination } from "@/pattern/common/organisms/table/pagination";
 import {
   ActivityLogsColumns,
-  IActivity,
+  // IActivity,
 } from "../molecules/activity-logs-table-column";
+import {
+  IActivitiesResponse,
+  IActivity,
+} from "@/redux/services/activity-logs/activities.api-slice";
 
 const columns = ActivityLogsColumns;
 
 interface IActivityLogsTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  data: IActivity[];
+  data: IActivitiesResponse;
   pageCount?: number;
   pagination?: PaginationState;
   setPagination?: any;
@@ -51,10 +55,10 @@ export function ActivityLogsTable<TData, TValue>({
   const defaultData = useMemo(() => [], []);
 
   const activityLogsTable = useReactTable({
-    data: data ?? defaultData,
+    data: data?.data?.result ?? defaultData,
     columns,
     pageCount,
-    rowCount: data?.length,
+    rowCount: data?.data?.result?.length,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onRowSelectionChange: setRowSelection,
@@ -92,16 +96,17 @@ export function ActivityLogsTable<TData, TValue>({
         {/* Body */}
         <TableBody>
           {/* Display placeholder when it is loading */}
-          {isLoading && data.length === 0 && (
+          {isLoading && (
             <TableRow>
-              <TableCell colSpan={columns.length} className='h-24 text-center'>
+              <TableCell colSpan={columns.length} className="h-24 text-center">
                 <PulsePlaceholder />
               </TableCell>
             </TableRow>
           )}
 
           {/* Display table rows when data is done loading and the table rows are not empty */}
-          {!isLoading && activityLogsTable.getRowModel().rows?.length ? (
+          {!isLoading &&
+            activityLogsTable.getRowModel().rows?.length &&
             activityLogsTable.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
@@ -113,20 +118,26 @@ export function ActivityLogsTable<TData, TValue>({
                   </TableCell>
                 ))}
               </TableRow>
-            ))
-          ) : (
+            ))}
+
+          {
             // Else render error message
-            <TableRow>
-              <TableCell colSpan={columns.length} className='h-24 text-center'>
-                <PulsePlaceholder />
-              </TableCell>
-            </TableRow>
-          )}
+            !isLoading && !activityLogsTable.getRowModel().rows?.length && (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  Something went wrong
+                </TableCell>
+              </TableRow>
+            )
+          }
 
           {/* Display Message when data is empty */}
-          {!isLoading && data?.length === 0 && (
+          {!isLoading && data?.data?.result.length === 0 && (
             <TableRow>
-              <TableCell colSpan={columns.length} className='h-24 text-center'>
+              <TableCell colSpan={columns.length} className="h-24 text-center">
                 No Record Found.
               </TableCell>
             </TableRow>

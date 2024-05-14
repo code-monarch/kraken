@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function formatDate(date: Date) {
+function formatDate(date: string) {
   // Define arrays for month names and corresponding abbreviations
   const monthNames = [
     "Jan",
@@ -18,9 +18,10 @@ function formatDate(date: Date) {
   ];
 
   // Get day, month, and year from the Date object
-  const day = date.getDate();
-  const month = monthNames[date.getMonth()];
-  const year = date.getFullYear();
+  const dateObject = new Date(date);
+  const day = dateObject.getDate();
+  const month = monthNames[dateObject.getMonth()];
+  const year = dateObject.getFullYear();
 
   // Concatenate the components into the desired format
   return `${day} ${month} ${year}`;

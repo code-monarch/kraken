@@ -7,7 +7,7 @@ headers.append("Content-Type", "application/json; charset=UTF-8");
 
 const baseQuery = fetchBaseQuery({
   // baseUrl: "https://b02z813bo7.execute-api.us-east-1.amazonaws.com/",
-  baseUrl: "http://staging.api.umrahcash.com/",
+  baseUrl: "https://staging.api.umrahcash.com/",
   // credentials: "same-origin",
   // credentials: "include",
   mode: "cors",
@@ -16,7 +16,7 @@ const baseQuery = fetchBaseQuery({
     headers.set("Content-Type", "application/json; charset=UTF-8");
     headers.set(
       "x-service-account-key",
-      "51416eeafe2621b5a0a76c103e22f9d874019c22d812826f"
+      "513ec18d0850b8c96ac0022765ed13fbb76b20c56a550685"
     );
 
     const apiKey = localStorage.getItem("Api_Key");
@@ -24,6 +24,8 @@ const baseQuery = fetchBaseQuery({
     if (apiKey) {
       headers.set("x-admin-api-key", `${apiKey}`);
     }
+    // headers.set("x-admin-api-key", "7023fa9efbeb018b390b308e43fc046b472b8554d168831f");
+  
 
     return headers;
   },

@@ -6,10 +6,12 @@ import OverviewChartSection from "@/pattern/overview/templates/overview-chart-se
 import OverviewMetricGrid from "@/pattern/overview/templates/overview-metric-grid";
 import OverviewRecentTransactionsTemplate from "@/pattern/overview/templates/overview-recent-transactions-template";
 import SuperAdminOverviewMetricGrid from "@/pattern/super-admin/organisms/super-admin-overview-metric-grid";
+import { useGetActivitiesQuery } from "@/redux/services/activity-logs/activities.api-slice";
 import { useGetUsersQuery } from "@/redux/services/users/user.api-slice";
 
 export default function Home() {
   const { data, isLoading, isFetching, isSuccess } = useGetUsersQuery();
+  const { data: activitiesData } = useGetActivitiesQuery();
   return (
     <>
       <PageHeader
@@ -31,13 +33,6 @@ export default function Home() {
       </Hidden>
       <OverviewChartSection />
       <OverviewRecentTransactionsTemplate />
-
-      <form>
-        <fieldset>
-          <label htmlFor="name">Name</label>
-          <input type="text" placeholder="Enter your name" />
-        </fieldset>
-      </form>
     </>
   );
 }

@@ -9,17 +9,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import ChevronRightIcon from "@/pattern/common/atoms/icons/chevron-right-icon";
-import { formatDate } from "@/lib/hooks/useFormatDate";
-import { DeleteAccountModal } from "@/pattern/user-management.tsx/organisms/delete-account-modal";
+import { formatDate } from "@/lib/helper/format-date";
 import { show } from "@ebay/nice-modal-react";
 import ActivitySlideOutMenu from "../templates/activity-slide-out-menu";
-
-export type IActivity = {
-  logID: string | number;
-  type: string;
-  details: string;
-  date: string | number | any;
-};
+import { IActivity } from "@/redux/services/activity-logs/activities.api-slice";
+import { formatDateTime } from "@/lib/helper/format-date-time";
+import { DeleteActivityModal } from "../organisms/delete-activity-modal";
 
 export const ActivityLogsColumns: ColumnDef<IActivity>[] = [
   {
@@ -31,21 +26,21 @@ export const ActivityLogsColumns: ColumnDef<IActivity>[] = [
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label='Select all'
+        aria-label="Select all"
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label='Select row'
+        aria-label="Select row"
       />
     ),
     enableSorting: false,
     enableHiding: false,
   },
   {
-    accessorKey: "logID",
+    accessorKey: "_id",
     header: "Log ID",
   },
   {
@@ -53,14 +48,14 @@ export const ActivityLogsColumns: ColumnDef<IActivity>[] = [
     header: "Activity Type",
   },
   {
-    accessorKey: "details",
+    accessorKey: "status",
     header: "Details",
   },
   {
-    accessorKey: "date",
+    accessorKey: "createdAt",
     header: "Date",
     cell: ({ row }) => {
-      return `${formatDate(row.getValue("date"))}`;
+      return `${formatDate(row.getValue("createdAt"))}`;
     },
   },
   {
@@ -69,17 +64,34 @@ export const ActivityLogsColumns: ColumnDef<IActivity>[] = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <div className='cursor-pointer'>
-              <span className='sr-only'>Open menu</span>
+            <div className="cursor-pointer">
+              <span className="sr-only">Open menu</span>
               <ChevronRightIcon />
             </div>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align='end'>
-            <DropdownMenuItem onClick={() => {show(ActivitySlideOutMenu)}}>View Details</DropdownMenuItem>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem
+              onClick={() => {
+                show(ActivitySlideOutMenu, {
+                  device: row.original.device,
+                  date: formatDateTime(row.original.createdAt),
+                  type: row.original.type,
+                  status: row.original.status,
+                  ip: row.original.ip,
+                });
+              }}
+            >
+              View Details
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
-              className='text-destructive'
-              onClick={() => show(DeleteAccountModal)}
+              className="text-destructive"
+              onClick={() =>
+                show(DeleteActivityModal, {
+                  id: row.original._id,
+                  userID: row.original.user,
+                })
+              }
             >
               Delete
             </DropdownMenuItem>

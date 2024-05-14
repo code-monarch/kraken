@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import MoreVerticalIcon from "@/pattern/common/atoms/icons/more-vertical-icon";
-import { formatDate } from "@/lib/hooks/useFormatDate";
+import { formatDate } from "@/lib/helper/format-date";
 import { show } from "@ebay/nice-modal-react";
 import AgentCell from "./agent-cell";
 import { DeleteAccountModal } from "@/pattern/user-management.tsx/organisms/delete-account-modal";
@@ -62,7 +62,7 @@ export const TransactionsTableColumns: ColumnDef<Transactions>[] = [
         currency: "USD",
       }).format(amount);
 
-      return <div className='font-medium'>{formattedAmount}</div>;
+      return <div className="font-medium">{formattedAmount}</div>;
     },
   },
   {
@@ -123,7 +123,7 @@ export const TransactionsTableColumns: ColumnDef<Transactions>[] = [
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
-              className='text-destructive'
+              className="text-destructive"
               onClick={() => show(DeleteAccountModal)}
             >
               Delete
