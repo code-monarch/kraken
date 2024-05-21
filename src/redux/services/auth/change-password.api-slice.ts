@@ -4,7 +4,21 @@ export interface IChangePasswordResponse {
   error: boolean;
   responseCode: string;
   responseMessage: string;
-  data: boolean;
+  data: {
+    _id: string;
+    email: string;
+    password: string;
+    userType: string;
+    twoFactor: boolean;
+    clientId: string;
+    roles: [];
+    transactions: [];
+    lastLogin: string;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+    apiKey: string;
+  };
 }
 
 export interface IChangePasswordPayload {

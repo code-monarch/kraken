@@ -1,5 +1,11 @@
-import { IActivity } from './../pattern/activity-logs/molecules/activity-logs-table-column';
 import { faker } from "@faker-js/faker";
+
+interface IActivity {
+  logID: number;
+  type: string;
+  details: string;
+  date: Date;
+}
 
 export type Person = {
   firstName: string;

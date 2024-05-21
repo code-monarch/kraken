@@ -7,7 +7,7 @@ interface IProps {
   icon: any;
   title: string;
   description: string;
-  linked: boolean;
+  linked: boolean; // Determines whether MFA has been linked
   recommended: boolean;
   action: any;
 }

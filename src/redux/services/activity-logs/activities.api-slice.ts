@@ -9,15 +9,20 @@ export type IActivity = {
   type: string;
   createdAt: string;
   __v: number;
-}
+};
 
 export interface IActivitiesResponse {
   error: boolean;
   responseCode: string;
   responseMessage: string;
   data: {
-    count: string;
+    count: number;
     result: IActivity[];
+    pagination: {
+      totalResults: number;
+      currentPage: number;
+      totalPages: number;
+    };
   };
 }
 
@@ -29,12 +34,20 @@ export interface IDeleteActivitiesRes {
     deletedCount: number;
   };
 }
+export interface IQuery {
+  pageSize?: number;
+  page?: number;
+  status?: string;
+  type?: string;
+  startDate?: string;
+  endDate?: string;
+}
 
 export const activitiesApiSlice = baseApiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getActivities: builder.query<IActivitiesResponse, void>({
-      query: () => ({
-        url: `settings/admin/activities`,
+    getActivities: builder.query<IActivitiesResponse, IQuery>({
+      query: ({ page, pageSize, status, type, startDate, endDate }) => ({
+        url: `settings/admin/activities?page=${page}&pageSize=${pageSize}&status=${status}&type=${type}&startDate=${startDate}&endDate=${endDate}`,
         method: "GET",
         headers: {
           "Content-Type": "application/json",

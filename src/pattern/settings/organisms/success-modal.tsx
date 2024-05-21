@@ -12,7 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { DeleteAccountHeaderIcon } from "@/pattern/common/atoms/icons/delete-account-header-icon";
 
-export const ErrorModal = create(() => {
+export const SuccessModal = create(() => {
   const { resolve, remove, visible } = useModal();
 
   const handleCloseModal = () => {
@@ -34,8 +34,8 @@ export const ErrorModal = create(() => {
 
           {/* Content */}
           <CardContent className="space-y-[16px] mb-[8px]">
-            <p className="text-sm font-medium text-destructive">
-              Something went wrong. Please try again
+            <p className="text-sm font-medium text-primary">
+              Password changed successfully
             </p>
           </CardContent>
 
