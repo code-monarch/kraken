@@ -49,8 +49,8 @@ const ResetPasswordTemplate = () => {
       .unwrap()
       .then((res) => {
         console.log(res.responseMessage);
+        localStorage.setItem(`${CONFIRM_EMAIL}`, "true"); // set confitmEmail localStorage variable to true
       });
-    localStorage.setItem(`${CONFIRM_EMAIL}`, "true"); // set confitmEmail localStorage variable to true
   };
   return (
     <>

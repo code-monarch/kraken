@@ -36,15 +36,20 @@ interface IActivityLogsTableProps<TData, TValue> {
   pagination?: PaginationState;
   setPagination?: any;
   isLoading?: boolean;
+  isError?: boolean;
   isFetching?: boolean;
+  isSuccess?: boolean;
 }
 
 export function ActivityLogsTable<TData, TValue>({
   data,
-  isLoading,
-  pagination,
   pageCount,
+  pagination,
   setPagination,
+  isLoading,
+  isError,
+  isFetching,
+  isSuccess,
 }: IActivityLogsTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = useState({});
 
@@ -96,7 +101,7 @@ export function ActivityLogsTable<TData, TValue>({
         {/* Body */}
         <TableBody>
           {/* Display placeholder when it is loading */}
-          {isLoading && (
+          {(isLoading || isFetching) && (
             <TableRow>
               <TableCell colSpan={columns.length} className="h-24 text-center">
                 <PulsePlaceholder />
@@ -106,6 +111,8 @@ export function ActivityLogsTable<TData, TValue>({
 
           {/* Display table rows when data is done loading and the table rows are not empty */}
           {!isLoading &&
+            !isFetching &&
+            isSuccess &&
             activityLogsTable.getRowModel().rows?.length &&
             activityLogsTable.getRowModel().rows.map((row) => (
               <TableRow
@@ -120,28 +127,23 @@ export function ActivityLogsTable<TData, TValue>({
               </TableRow>
             ))}
 
+          {/* Display Message when data is empty or an error is returned */}
           {
             // Else render error message
-            !isLoading && !activityLogsTable.getRowModel().rows?.length && (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  Something went wrong
-                </TableCell>
-              </TableRow>
-            )
+            !isLoading &&
+              (isError ||
+                !activityLogsTable.getRowModel().rows?.length ||
+                data?.data?.result.length === 0) && (
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    className="h-24 text-center"
+                  >
+                    No Record Found.
+                  </TableCell>
+                </TableRow>
+              )
           }
-
-          {/* Display Message when data is empty */}
-          {!isLoading && data?.data?.result.length === 0 && (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                No Record Found.
-              </TableCell>
-            </TableRow>
-          )}
         </TableBody>
       </Table>
       {/* {pageCount && pageCount > 1 && <Pagination table={activityLogsTable} />} */}

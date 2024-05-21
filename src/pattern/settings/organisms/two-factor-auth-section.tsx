@@ -9,14 +9,18 @@ import EnableTwoFAButton from "../atoms/enable-twoFA-button";
 import { show } from "@ebay/nice-modal-react";
 import { Button } from "@/components/ui/button";
 
-const TwoFactorAuthSection = () => {
-  const [mfaActivated, setMfaActivated] = useState<boolean>(false);
+interface IProps {
+  twoFactorActivated: boolean;
+}
+
+const TwoFactorAuthSection = ({twoFactorActivated}: IProps) => {
+  // const [mfaActivated, setMfaActivated] = useState<boolean>(false);
   return (
     <div  className='space-y-4'>
       <div className='space-y-1'>
         <div className='text-lg font-medium text-[#202b3c]'>
           Two Factor Authenticator{" "}
-          {mfaActivated ? (
+          {twoFactorActivated ? (
             <Badge variant='active'>ON</Badge>
           ) : (
             <Badge variant='off'>OFF</Badge>
@@ -41,8 +45,8 @@ const TwoFactorAuthSection = () => {
         description='We will send an authentication code your mobile device.'
         icon={<MfaMessageIcon />}
         recommended={false}
-        linked={false}
-        action={<EnableTwoFAButton onClick={() => show(PhoneAuthDialog)} />}
+        linked={twoFactorActivated}
+        action={<EnableTwoFAButton disabled={twoFactorActivated} onClick={() => show(PhoneAuthDialog)} />}
       />
     </div>
   );

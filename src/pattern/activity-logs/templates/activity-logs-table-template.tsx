@@ -11,44 +11,58 @@ import {
 } from "../molecules/activity-logs-table-column";
 import { IActivity } from "@/redux/services/activity-logs/activities.api-slice";
 import { useGetActivitiesQuery } from "@/redux/services/activity-logs/activities.api-slice";
+import { DateRange } from "react-day-picker";
 
 const ActivityLogsTableTemplate = () => {
-  const {
-    data,
-    isLoading: isActivitiesLoading,
-    isSuccess,
-    isError,
-  } = useGetActivitiesQuery();
-
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 10,
   });
 
-  const [dataQuery, setDataQuery] = useState<IActivity[]>();
-  const [pageCount, setPageCount] = useState<number>(3);
-  const [isLoading, setIsLoading] = useState<boolean>();
+  const [pageCount, setPageCount] = useState<number>(1);
+  const [status, setStatus] = useState<string>("");
+  const [type, setType] = useState<string>("");
+  const [startDate, setStartDate] = useState<string>("");
+  const [endDate, setEndDate] = useState<string>("");
+  const [date, setDate] = useState<DateRange | undefined>();
 
-  // useEffect(() => {
-  //   async function fetchDataAndUpdate() {
-  //     const data = await fetchData(pagination);
-  //     setIsLoading(true);
-  //     if (data) {
-  //       setIsLoading(false);
-  //       setDataQuery(data?.rows);
-  //       setPageCount(data?.pageCount);
-  //     }
-  //   }
+  const { data, isLoading, isSuccess, isFetching, isError } =
+    useGetActivitiesQuery({
+      page: pagination.pageIndex + 1,
+      pageSize: pagination.pageSize,
+      status: status === "all" ? "" : status,
+      type: type === "all" ? "" : type,
+      startDate: startDate,
+      endDate: endDate,
+    });
 
-  //   fetchDataAndUpdate();
-  // }, [pagination]);
+  useEffect(() => {
+    if (data && data.data) {
+      setPageCount(data.data.pagination.totalPages);
+    }
+  }, [data]);
+
+  console.log("date range: ", startDate, "to ", endDate);
+  console.log(typeof endDate);
+
   return (
     <div className="w-full bg-card">
-      <ActivityLogsTableTemplateHeader />
+      <ActivityLogsTableTemplateHeader
+        filterString={type}
+        setFilterString={setType}
+        setDate={setDate}
+        setStartDate={setStartDate}
+        setEndDate={setEndDate}
+        setActivityType={setType}
+        setActivityStatus={setStatus}
+      />
       <ActivityLogsTable
         columns={ActivityLogsColumns}
         data={data!}
-        isLoading={isActivitiesLoading}
+        isLoading={isLoading}
+        isError={isError}
+        isFetching={isFetching}
+        isSuccess={isSuccess}
         pageCount={pageCount}
         pagination={pagination}
         setPagination={setPagination}

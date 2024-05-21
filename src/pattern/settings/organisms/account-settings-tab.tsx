@@ -5,16 +5,20 @@ import ChangePasswordSection from "./change-password-section";
 import CurrencyConversionSection from "./currency-conversion-section";
 import CurrentLanguageSection from "./current-language-section";
 
-const AccountSettingsTab = () => {
+interface IProps {
+  twoFactorActivated: boolean;
+}
+
+const AccountSettingsTab = ({ twoFactorActivated }: IProps) => {
   return (
     <div className="w-[886px]">
       <p className="text-lg text-[#202b3c] font-semibold mb-2">
-        Account Settings 
+        Account Settings
       </p>
       <Separator />
 
       <div className="my-3">
-        <TwoFactorAuthSection />
+        <TwoFactorAuthSection twoFactorActivated={twoFactorActivated} />
       </div>
       <Separator />
 

@@ -12,31 +12,36 @@ import { Separator } from "@/components/ui/separator";
 const filters = [
   {
     label: "View all",
-    value: "all",
+    value: "",
   },
   {
     label: "Login",
-    value: "login",
+    value: "Login",
   },
   {
     label: "Export",
-    value: "export",
+    value: "Export",
   },
   {
     label: "User update",
-    value: "user-update",
+    value: "User-update",
   },
   {
     label: "Transaction",
-    value: "transaction",
+    value: "Transaction",
   },
   {
     label: "Report",
-    value: "report",
+    value: "Report",
   },
 ];
 
-const ActivityLogsTableViewFilter = () => {
+interface IProps {
+  filterValue: string;
+  setFilterValue: (value: string) => void;
+}
+
+const ActivityLogsTableViewFilter = ({filterValue, setFilterValue}: IProps) => {
   const [open, setOpen] = useState(false);
   const [filterIndex, setFilterIndex] = useState<number>(0);
 
@@ -66,6 +71,7 @@ const ActivityLogsTableViewFilter = () => {
               className='w-full h-10 flex item-center text-sm text-[hsla(216,30%,18%,1)] font-medium py-3 px-4 cursor-pointer outline-none transition-colors hover:bg-accent focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'
               onClick={() => {
                 setFilterIndex(idx);
+                setFilterValue(value);
                 setOpen(false);
               }}
             >

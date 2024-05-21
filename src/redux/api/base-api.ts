@@ -16,7 +16,7 @@ const baseQuery = fetchBaseQuery({
     headers.set("Content-Type", "application/json; charset=UTF-8");
     headers.set(
       "x-service-account-key",
-      "513ec18d0850b8c96ac0022765ed13fbb76b20c56a550685"
+      "f72f6f9d7f52867da49041d6a4df483c3df596fbbc3f9d3e"
     );
 
     const apiKey = localStorage.getItem("Api_Key");
@@ -25,7 +25,6 @@ const baseQuery = fetchBaseQuery({
       headers.set("x-admin-api-key", `${apiKey}`);
     }
     // headers.set("x-admin-api-key", "7023fa9efbeb018b390b308e43fc046b472b8554d168831f");
-  
 
     return headers;
   },

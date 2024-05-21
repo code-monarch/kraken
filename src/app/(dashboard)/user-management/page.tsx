@@ -7,15 +7,19 @@ import PageHeader from "@/pattern/common/molecules/data-display/page-header";
 import { USER_ROLE } from "@/lib/constants";
 import Hidden from "@/pattern/common/molecules/data-display/hidden";
 import SuperAdminUserManagementActionGrid from "@/pattern/super-admin/templates/super-admin-user-management-action-grid";
+import { useGetAdminQuery } from "@/redux/services/admin/admin.api-slice";
 
 const UserManagementPage = () => {
+  const { data, isLoading } = useGetAdminQuery({
+    id: ""
+  });
   return (
     <>
       {/* Admin Page Header */}
       <Hidden visible={USER_ROLE === "Admin"}>
         <PageHeader
-          pageTitle='User Management'
-          pageDescription='Manage and oversee user accounts with ease.'
+          pageTitle="User Management"
+          pageDescription="Manage and oversee user accounts with ease."
         />
       </Hidden>
 

@@ -19,6 +19,9 @@ import {
   ILoginPayload,
   useLoginMutation,
 } from "@/redux/services/auth/login.api-slice";
+import { RootState } from "@/redux/store";
+import { useDispatch } from "react-redux";
+import { setAdminId } from "@/redux/slices/user-slice";
 
 const LoginFormSchema = Yup.object().shape({
   email: Yup.string()
@@ -29,6 +32,9 @@ const LoginFormSchema = Yup.object().shape({
 
 const LoginTemplate = () => {
   const [login, { isLoading, isError }] = useLoginMutation();
+  const adminId = (state: RootState) => state.userDetails.adminId;
+
+  const dispatch = useDispatch();
   const router = useRouter();
 
   const { push } = useRouter();
@@ -52,15 +58,19 @@ const LoginTemplate = () => {
 
   const onSubmit: SubmitHandler<ILoginPayload> = (data) => {
     console.log("DATA TO SUBMIT: ", data);
+
     login({
       email: data.email,
       password: data.password,
     })
       .unwrap()
       .then((res) => {
-        console.log("logged in successfuly");
         const apiKey = res.data.apiKey;
+        const adminId = res.data.id;
         localStorage.setItem("Api_Key", apiKey);
+        if (adminId) {
+          dispatch(setAdminId(adminId));
+        }
         if (apiKey) {
           router.push("/");
         }
@@ -99,7 +109,11 @@ const LoginTemplate = () => {
                   Forgot Password
                 </LinkButton>
               </div>
-              <LoadingButton loading={false} disabled={!isDirty} type="submit">
+              <LoadingButton
+                loading={isLoading}
+                disabled={!isDirty}
+                type="submit"
+              >
                 Log into your account
               </LoadingButton>
             </div>
