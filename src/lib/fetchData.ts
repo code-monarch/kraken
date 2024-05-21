@@ -1,5 +1,5 @@
+import { IActivity } from './../pattern/activity-logs/molecules/activity-logs-table-column';
 import { faker } from "@faker-js/faker";
-import { IActivity } from "@/pattern/common/organisms/tables/columns/activity-logs-columns";
 
 export type Person = {
   firstName: string;

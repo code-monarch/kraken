@@ -10,6 +10,7 @@ import ActivityLogsTableViewFilter from "../molecules/activity-logs-table-view-f
 import { ActivityLogsSearchFilterModal } from "./activity-logs-search-filter-modal";
 
 const ActivityLogsTableTemplateHeader = () => {
+  
   const handleShowSearchFilterModal = () => {
     show(ActivityLogsSearchFilterModal);
   };

@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { formatDate } from "@/lib/hooks/useFormatDate";
+import { formatDate } from "@/lib/helper/format-date";
 import { UserType, Status } from "@/pattern/types";
 import ArrowDownIcon from "@/pattern/common/atoms/icons/arrow-down-icon";
 import { show } from "@ebay/nice-modal-react";
@@ -47,14 +47,14 @@ export const UserTableColumns: ColumnDef<UserDetails>[] = [
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label='Select all'
+        aria-label="Select all"
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label='Select row'
+        aria-label="Select row"
       />
     ),
     enableSorting: false,
@@ -98,7 +98,7 @@ export const UserTableColumns: ColumnDef<UserDetails>[] = [
       const role: string = row.getValue("role");
       const capitalizedRole =
         role.charAt(0).toUpperCase() + role.slice(1).toLowerCase();
-      return <Badge variant='accent'>{capitalizedRole}</Badge>;
+      return <Badge variant="accent">{capitalizedRole}</Badge>;
     },
   },
 
@@ -106,7 +106,7 @@ export const UserTableColumns: ColumnDef<UserDetails>[] = [
   {
     accessorKey: "status",
     header: () => (
-      <div className='flex items-center gap-1'>
+      <div className="flex items-center gap-1">
         <span>Status</span>
         <ArrowDownIcon />
       </div>
@@ -123,7 +123,7 @@ export const UserTableColumns: ColumnDef<UserDetails>[] = [
   {
     accessorKey: "registeredOn",
     header: () => (
-      <div className='flex items-center gap-1'>
+      <div className="flex items-center gap-1">
         <span>Registered On</span>
         <ArrowDownIcon />
       </div>
@@ -139,12 +139,12 @@ export const UserTableColumns: ColumnDef<UserDetails>[] = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <span className='cursor-pointer'>
-              <span className='sr-only'>Open menu</span>
+            <span className="cursor-pointer">
+              <span className="sr-only">Open menu</span>
               <MoreVerticalIcon />
             </span>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align='end'>
+          <DropdownMenuContent align="end">
             <DropdownMenuItem
               onClick={() => {
                 redirectToUserDetails("89");
@@ -160,7 +160,7 @@ export const UserTableColumns: ColumnDef<UserDetails>[] = [
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
-              className='text-[#d62f4b]'
+              className="text-[#d62f4b]"
               onClick={() => {
                 show(DeleteAccountModal);
               }}

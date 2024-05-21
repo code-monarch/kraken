@@ -2,8 +2,14 @@ import { baseApiSlice } from "@/redux/api/base-api";
 
 export interface IUser {
   _id: string;
+  id: string;
+  firstname: string;
+  lastname: string;
+  middlename: string;
   email: string;
   state: string;
+  bvn: string;
+  pin: string;
   lga: string;
   address: string;
   nin: string;
@@ -16,12 +22,17 @@ export interface IUser {
   createdAt: string;
   updatedAt: string;
   __v: number;
+  status: string;
 }
 
 export interface IGetUsersResponse {
   error: boolean;
   responseCode: string;
-  data: IUser[];
+  responseMessage: string;
+  data: {
+    result: IUser[];
+    count: number;
+  }
 }
 
 export interface IGetSingleUserResponse {

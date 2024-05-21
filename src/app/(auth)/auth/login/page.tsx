@@ -1,7 +1,17 @@
+"use client";
+import React, { useEffect } from "react";
 import LoginTemplate from "@/pattern/auth/template/login-template";
-import React from "react";
+import { useRouter } from "next/navigation";
 
-const loginPage = () => {
+const LoginPage = () => {
+  const router = useRouter();
+  // const apiKey = localStorage.getItem("Api_Key");
+
+  // useEffect(() => {
+  //   if (apiKey) {
+  //     router.push("/");
+  //   }
+  // }, [apiKey, router]);
   return (
     <>
       <LoginTemplate />
@@ -9,4 +19,4 @@ const loginPage = () => {
   );
 };
 
-export default loginPage;
+export default LoginPage;

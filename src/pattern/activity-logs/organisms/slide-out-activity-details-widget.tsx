@@ -33,28 +33,28 @@ date,
       <div className='w-full flex flex-col space-y-[12px]'>
         {/* Type */}
         <div className='w-full flex items-start justify-between'>
-          <Label htmlFor='amount'>Type:</Label>
-          <div id='amount'>Login</div>
+          <Label htmlFor='type'>Type:</Label>
+          <div id='type'>{type}</div>
         </div>
         {/* Status */}
         <div className='w-full flex items-start justify-between'>
-          <Label htmlFor='amount'>Status:</Label>
-          <div id='amount'>Successful</div>
+          <Label htmlFor='status'>Status:</Label>
+          <div id='status'>{status}</div>
         </div>
         {/* IP Address */}
         <div className='w-full flex items-start justify-between'>
-          <Label htmlFor='amount'>IP Address</Label>
-          <div id='amount'>192.168.1.1</div>
+          <Label htmlFor='ip'>IP Address</Label>
+          <div id='ip'>{IP}</div>
         </div>
         {/* Device */}
         <div className='w-full flex items-start justify-between'>
-          <Label htmlFor='amount'>Device</Label>
-          <div id='amount'>Chrome Browser</div>
+          <Label htmlFor='device'>Device</Label>
+          <div id='device'>{device}</div>
         </div>
         {/* Date */}
         <div className='w-full flex items-start justify-between'>
-          <Label htmlFor='amount'>Date</Label>
-          <div id='amount'>18/10/2023. | 12:45 pm</div>
+          <Label htmlFor='date'>Date</Label>
+          <div id='date'>{date}</div>
         </div>
 
         <Separator />
