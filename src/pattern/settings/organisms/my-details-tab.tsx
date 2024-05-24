@@ -10,6 +10,14 @@ import { Label } from "@/components/ui/label";
 import EmailInput from "@/pattern/common/molecules/inputs/email-input";
 import FormInput from "@/pattern/common/molecules/inputs/form-input";
 import { Button } from "@/components/ui/button";
+import {
+  IUpdateAdminPayload,
+  useUpdateAdminMutation,
+} from "@/redux/services/admin/admin.api-slice";
+import { show } from "@ebay/nice-modal-react";
+import { SuccessModal } from "@/pattern/common/organisms/success-modal";
+import { ErrorModal } from "@/pattern/common/organisms/error-modal";
+import LoadingButton from "@/pattern/common/molecules/controls/loading-button";
 
 interface payload {
   userImg: any;
@@ -17,19 +25,32 @@ interface payload {
   lastname: string;
   email: string;
 }
+interface IProps {
+  profilePic: any;
+  firstname: string;
+  lastname: string;
+  email: string;
+  id: string;
+}
 
-const MyDetailsTab = () => {
+const MyDetailsTab = ({
+  firstname,
+  lastname,
+  email,
+  profilePic,
+  id,
+}: IProps) => {
   const [completeOpen, setCompleteOpen] = useState<boolean>(false);
   const [selectedFile, setSelectedFile] = useState(userImg);
 
   const defaultValues = {
     userImg: "",
-    firstname: "Aisha",
-    lastname: "Abdullahi",
-    email: "aishaabdullahi@gmail.com",
+    firstname: firstname ?? "John",
+    lastname: lastname ?? "Doe",
+    email: email ?? "johndoe@gmail.com",
   };
 
-  const methods = useForm<payload>({
+  const methods = useForm<IUpdateAdminPayload>({
     mode: "onChange",
     reValidateMode: "onChange",
     defaultValues: defaultValues,
@@ -40,8 +61,24 @@ const MyDetailsTab = () => {
     formState: { errors, isDirty },
   } = methods;
 
-  const onSubmit: SubmitHandler<payload> = (data) => {
+  const [updateAdmin, { isLoading, isSuccess, isError }] =
+    useUpdateAdminMutation();
+
+  const onSubmit: SubmitHandler<IUpdateAdminPayload> = (data) => {
     console.log("DATA TO SUBMIT: ");
+    updateAdmin({
+      id: id,
+      firstname: data.firstname,
+      lastname: data.lastname,
+      email: data.email,
+    })
+      .unwrap()
+      .then((res) => {
+        show(SuccessModal, { message: "Profile Updated Successfully" });
+      })
+      .catch((err) => {
+        show(ErrorModal, { message: err.data.responseMessage });
+      });
   };
 
   return (
@@ -53,9 +90,15 @@ const MyDetailsTab = () => {
             Cancel
           </Button>
 
-          <Button type="submit" size="sm" className="w-fit">
+          <LoadingButton
+            loading={isLoading}
+            type="submit"
+            onClick={handleSubmit(onSubmit)}
+            size="sm"
+            className="w-fit"
+          >
             Save
-          </Button>
+          </LoadingButton>
         </div>
       </div>
       <Separator />

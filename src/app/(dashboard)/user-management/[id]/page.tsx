@@ -6,8 +6,8 @@ import PilgrimDetailsTemplate from "@/pattern/user-management.tsx/templates/pilg
 const page = ({ params }: { params: { id: string } }) => {
   return (
     <>
-      <GoBackWidget page='User details' />
-      <PilgrimDetailsTemplate />
+      <GoBackWidget page="User details" />
+      <PilgrimDetailsTemplate id={params.id} />
     </>
   );
 };

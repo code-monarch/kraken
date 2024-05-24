@@ -6,8 +6,13 @@ import TransactionsTableTemplate from "@/pattern/transactions/templates/transact
 import TransactionFeesBanner from "@/pattern/super-admin/organisms/transaction-fees-banner";
 import { USER_ROLE } from "@/lib/constants";
 import Hidden from "@/pattern/common/molecules/data-display/hidden";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 const TransactionsPage = () => {
+  const adminRole = useSelector(
+    (state: RootState) => state.userDetails.adminRole
+  );
   return (
     <>
       <PageHeader
@@ -16,7 +21,7 @@ const TransactionsPage = () => {
       />
       <TransactionMetricGrid />
       {/* Super Admin Page Header */}
-      <Hidden visible={USER_ROLE === "SuperAdmin"}>
+      <Hidden visible={adminRole === "SUPER_ADMIN"}>
         <TransactionFeesBanner
           depositFees='10'
           withdrawalFees='10'

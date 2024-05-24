@@ -14,7 +14,7 @@ import { DeleteAccountHeaderIcon } from "@/pattern/common/atoms/icons/delete-acc
 import { useDeleteSingleActivityMutation } from "@/redux/services/activity-logs/activity.api-slice";
 import { SuccessModal } from "./success-modal";
 import { show } from "@ebay/nice-modal-react";
-import { ErrorModal } from "./error-modal";
+import { ErrorModal } from "@/pattern/common/organisms/error-modal";
 
 interface IProps {
   id: string;
@@ -43,7 +43,7 @@ export const DeleteActivityModal = create(({ id, userID }: IProps) => {
       })
       .catch((err) => {
         handleCloseModal();
-        show(ErrorModal)
+        show(ErrorModal, { message: "Someting went wrong, please try again" });
         console.log(`${err.error || err?.data?.message || err}`);
       });
   };

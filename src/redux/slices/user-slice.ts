@@ -5,6 +5,7 @@ export interface IUserSlice {
   phoneNumber?: string;
   email?: string;
   adminId?: string;
+  adminRole?: string;
   sms2fa?: boolean;
   google2fa?: boolean;
 }
@@ -13,12 +14,16 @@ const initialState: IUserSlice = {
   phoneNumber: "",
   email: "",
   adminId: "",
+  adminRole: "",
   sms2fa: false,
   google2fa: false,
 };
 
 // Some User details to store in Local Storage
-export type IUserdetails = Pick<IUserSlice, "email" | "phoneNumber" | "adminId">;
+export type IUserdetails = Pick<
+  IUserSlice,
+  "email" | "phoneNumber" | "adminId"
+>;
 
 // Profile 2FA security Preferences. To be stored in Local storage
 export type I2FApref = Pick<Required<IUserSlice>, "sms2fa" | "google2fa">;
@@ -29,16 +34,20 @@ export const userDetailsSlice = createSlice({
   reducers: {
     setEmail: (state, action) => {
       state.email = action.payload;
-      localStorage.setItem("USER_EMAIL", state.email!);
+      localStorage.setItem("ADMIN_EMAIL", state.email!);
     },
 
     setPhoneNumber: (state, action) => {
       state.phoneNumber = action.payload;
-      localStorage.setItem("USER_PHONE", state.phoneNumber!);
+      localStorage.setItem("ADMIN_PHONE", state.phoneNumber!);
     },
     setAdminId: (state, action) => {
       state.adminId = action.payload;
-      localStorage.setItem("USER_ID", state.adminId!);
+      localStorage.setItem("ADMIN_ID", state.adminId!);
+    },
+    setAdminRole: (state, action) => {
+      state.adminRole = action.payload;
+      localStorage.setItem("ADMIN_ROLE", state.adminRole!);
     },
 
     // set2FaPreference Action
@@ -55,7 +64,12 @@ export const userDetailsSlice = createSlice({
   },
 });
 
-export const { setEmail, setPhoneNumber, setAdminId, set2FaPreference } =
-  userDetailsSlice.actions;
+export const {
+  setEmail,
+  setPhoneNumber,
+  setAdminId,
+  set2FaPreference,
+  setAdminRole,
+} = userDetailsSlice.actions;
 
 export default userDetailsSlice.reducer;

@@ -1,56 +1,72 @@
 import { baseApiSlice } from "@/redux/api/base-api";
 
-export interface IUser {
+export type IUser = {
   _id: string;
-  id: string;
-  firstname: string;
-  lastname: string;
-  middlename: string;
-  email: string;
-  state: string;
-  bvn: string;
-  pin: string;
-  lga: string;
-  address: string;
-  nin: string;
-  password: string;
-  userType: string;
-  roles: [];
+  id: number;
   phoneNumber: string;
-  transactions: [];
+  twoFactor: boolean;
+  isVerified: boolean;
+  verificationCode: string;
+  emailVerified: boolean;
+  roles: [];
   lastLogin: string;
   createdAt: string;
   updatedAt: string;
   __v: number;
-  status: string;
-}
+  address: string;
+  bvn: string;
+  country: string;
+  email: string;
+  firstname: string;
+  lastname: string;
+  middlename: string;
+  nin: string;
+  passportID: string;
+  state: string;
+  userType: string;
+};
 
 export interface IGetUsersResponse {
   error: boolean;
   responseCode: string;
   responseMessage: string;
   data: {
-    result: IUser[];
     count: number;
-  }
+    result: IUser[];
+    pagination: {
+      totalResults: number;
+      currentPage: number;
+      totalPages: number;
+    };
+  };
 }
 
 export interface IGetSingleUserResponse {
   error: boolean;
   responseCode: string;
+  responseMessage: string;
   data: {
-    email: string;
-    state: string;
-    lga: string;
-    address: string;
-    nin: string;
-    userType: string;
-    roles: [];
+    id: number;
     phoneNumber: string;
-    transactions: [];
+    twoFactor: boolean;
+    isVerified: boolean;
+    verificationCode: string;
+    emailVerified: boolean;
+    roles: [];
     lastLogin: string;
     createdAt: string;
     updatedAt: string;
+    address: string;
+    bvn: string;
+    country: string;
+    email: string;
+    firstname: string;
+    lastname: string;
+    middlename: string;
+    nin: string;
+    passportID: string;
+    state: string;
+    userType: string;
   };
 }
 
@@ -96,14 +112,22 @@ interface IUpdateUserResponse {
 
 interface IUserPayload {
   id: string;
-  status: string;
+  status?: string;
+}
+
+export interface IUserQuery {
+  page?: number;
+  limit?: number;
+  status?: string;
+  startDate?: string;
+  endDate?: string;
 }
 
 export const usersApiSlice = baseApiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getUsers: builder.query<IGetUsersResponse, void>({
-      query: () => ({
-        url: `settings/admin/users`,
+    getUsers: builder.query<IGetUsersResponse, IUserQuery>({
+      query: ({ page, limit, status, startDate, endDate }) => ({
+        url: `settings/admin/users?page=${page}&limit=${limit}&status=${status}&startDate=${startDate}&endDate=${endDate}`,
         method: "GET",
         headers: {
           "Content-Type": "application/json",

@@ -18,26 +18,13 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useToggle2FaMutation } from "@/redux/services/two-factor/toggle-2fa";
 import LoadingButton from "@/pattern/common/molecules/controls/loading-button";
-import { ErrorModal } from "@/pattern/activity-logs/organisms/error-modal";
+import { ErrorModal } from "@/pattern/common/organisms/error-modal";
 
 const RequestOtpFormSchema = Yup.object().shape({
   phone: Yup.string().required("Phone number is Required"),
 });
 
 const PhoneAuthDialog = create(() => {
-  useEffect(() => {
-    const securityPreference = {
-      google2FA: "state.google2fa",
-      sms2FA: "state.sms2fa",
-    };
-    localStorage.setItem(
-      "process.env.NEXT_PUBLIC_2FA_PREF",
-      JSON.stringify(securityPreference)
-    );
-  }, []);
-
-  console.log(JSON.parse(localStorage.getItem("process.env.NEXT_PUBLIC_2FA_PREF")!))
-
   const { resolve, remove, visible } = useModal();
 
   const handleCloseModal = () => {
@@ -76,7 +63,7 @@ const PhoneAuthDialog = create(() => {
       })
       .catch((err) => {
         handleCloseModal();
-        show(ErrorModal);
+        show(ErrorModal, { message: "Something went wrong, please try again" });
         console.log(`${err.error || err?.data?.message || err}`);
       });
   };

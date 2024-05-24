@@ -9,7 +9,7 @@ import { getInitials } from "@/lib/helper/get-initials";
 import LocalStore from "@/lib/helper/session-manager";
 
 const Topbar = () => {
-  const adminId = LocalStore.getItem({key: "USER_ID"});
+  const adminId = LocalStore.getItem({key: "ADMIN_ID"});
   const { data, isLoading } = useGetAdminQuery({
     id: adminId ? adminId : "",
   });
