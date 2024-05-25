@@ -2,9 +2,10 @@ import { BaseQueryFn, FetchArgs, FetchBaseQueryError, createApi, fetchBaseQuery 
 import { Mutex } from "async-mutex";
 import { LOGIN_API_KEY, SERVICE_ACCOUNT_API_KEY } from "@/lib/constants";
 import { logOut } from "@/lib/helper/logOut";
+import LocalStore from "@/lib/helper/storage-manager";
 
-const loginApiKey = localStorage.getItem(LOGIN_API_KEY);
-const serviceAccountApiKey = localStorage.getItem(SERVICE_ACCOUNT_API_KEY);
+const loginApiKey = LocalStore.getItem({ key: LOGIN_API_KEY })
+const serviceAccountApiKey = LocalStore.getItem({ key: SERVICE_ACCOUNT_API_KEY })
 
 // Instantiate a mutex instance
 const mutex = new Mutex();
@@ -48,7 +49,7 @@ const baseQueryWithReauth: BaseQueryFn<
 
   if (result.error && result?.error?.status === 500) {
     // Remove expired API key
-    localStorage.removeItem("Api_Key");
+    LocalStore.removeItem({ key: LOGIN_API_KEY })
 
     // checking whether the mutex is locked
     if (!mutex.isLocked()) {
@@ -69,7 +70,7 @@ const baseQueryWithReauth: BaseQueryFn<
           const newServiceAccountLoginApiKey = serviceAccountLoginResult.data?.data?.apiKey;
 
           // store the new service API key
-          localStorage.setItem(SERVICE_ACCOUNT_API_KEY, newServiceAccountLoginApiKey);
+          LocalStore.setItem({ key: SERVICE_ACCOUNT_API_KEY, value: newServiceAccountLoginApiKey })
 
           // retry the original query with new API key
           result = await baseQuery(args, api, extraOptions);

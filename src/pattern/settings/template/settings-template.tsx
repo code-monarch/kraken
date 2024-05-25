@@ -6,11 +6,12 @@ import AccountSettingsTab from "../organisms/account-settings-tab";
 import { useGetAdminQuery } from "@/redux/services/admin/admin.api-slice";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import LocalStore from "@/lib/helper/session-manager";
+import LocalStore from "@/lib/helper/storage-manager";
+import { USER_ID } from "@/lib/constants";
 
 const SettingsTemplate = () => {
   const adminId = useSelector((state: RootState) => state.userDetails.adminId);
-  const userId = LocalStore.getItem({key: "USER_ID"});
+  const userId = LocalStore.getItem({ key: USER_ID });
   const { data: adminData, isLoading } = useGetAdminQuery({
     id: userId ? userId : "",
   });

@@ -18,6 +18,8 @@ import { RootState } from "@/redux/store";
 import { useDispatch } from "react-redux";
 import { setAdminId } from "@/redux/slices/user-slice";
 import { LOGIN_API_KEY } from "@/lib/constants";
+import LocalStore from "@/lib/helper/storage-manager";
+import { toast } from "sonner";
 
 const LoginFormSchema = Yup.object().shape({
   email: Yup.string()
@@ -63,7 +65,7 @@ const LoginTemplate = () => {
       .then((res) => {
         const apiKey = res.data.apiKey;
         const adminId = res.data.id;
-        localStorage.setItem(LOGIN_API_KEY, apiKey);
+        LocalStore.setItem({ key: LOGIN_API_KEY, value: apiKey })
         if (adminId) {
           dispatch(setAdminId(adminId));
         }
@@ -73,6 +75,15 @@ const LoginTemplate = () => {
       })
       .catch((err) => {
         console.log(`${err.error || err?.data?.message || err}`);
+        // Show error message
+        toast.error("Unexpected error", {
+          description: `${err?.data?.responseMessage ?? "We encountered an error while trying to log you in"}`,
+          duration: 5000,
+          cancel: {
+            label: 'Cancel',
+            onClick: () => console.log('Cancel!'),
+          },
+        })
       });
   };
 

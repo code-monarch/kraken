@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { ITransaction } from "@/pattern/common/organisms/tables/columns/transactions-columns";
+import { IRecentTransactions } from "@/pattern/transactions/molecules/transactions-list-table-column";
 
 const range = (len: number) => {
   const arr: number[] = [];
@@ -9,9 +9,10 @@ const range = (len: number) => {
   return arr;
 };
 
-const newTransaction = (): ITransaction => {
+const newTransaction = (): IRecentTransactions => {
   return {
     trxID: faker.number.int(1000000),
+    pilgrim: faker.person.fullName(),
     amount: faker.number.float({ min: 50, max: 100, fractionDigits: 2 }),
     agent: faker.person.fullName(),
     type: faker.helpers.shuffle(["withdrawal", "deposit"])[0]!,
@@ -27,9 +28,9 @@ const newTransaction = (): ITransaction => {
 };
 
 export function makeData(...lens: number[]) {
-  const makeDataLevel = (depth = 0): ITransaction[] => {
+  const makeDataLevel = (depth = 0): IRecentTransactions[] => {
     const len = lens[depth]!;
-    return range(len).map((_d): ITransaction => {
+    return range(len).map((_d): IRecentTransactions => {
       return {
         ...newTransaction(),
       };

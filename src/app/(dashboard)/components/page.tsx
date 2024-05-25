@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
 import LoadingButton from "@/pattern/common/molecules/controls/loading-button";
 import {
   Card,
@@ -22,13 +21,10 @@ import { show } from "@ebay/nice-modal-react";
 import UserDetailCard from "@/pattern/common/molecules/data-display/user-detail-card";
 import DashboardMetricCard from "@/pattern/common/organisms/dashboard-metric-card";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import PhoneAuthDialog from "@/pattern/settings/organisms/phone-auth-dialog";
-import QRAuthDialog from "@/pattern/settings/organisms/qr-auth-dialog";
-import UserManagementTableTemplate from "@/pattern/user-management.tsx/templates/user-management-table-template";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import UserManagementTableTemplate from "@/pattern/user-management/templates/user-management-table-template";
 
-export default function Home() {
-  const [date, setDate] = useState<Date | undefined>(new Date());
+export default function ComponentsPage() {
   const WishlistFormSchema = Yup.object().shape({
     email: Yup.string()
       .email("Email must be a valid email address")
@@ -101,20 +97,6 @@ export default function Home() {
       <LoadingButton loading={true} disabled={true}>
         Loading Buttonnnn
       </LoadingButton>
-      <Calendar
-        mode='range'
-        captionLayout='dropdown-buttons'
-        fromYear={2024}
-        toYear={2027}
-        selected={date}
-        onSelect={setDate}
-        fixedWeeks
-        formatters={{
-          formatWeekdayName: (day) =>
-            day?.toLocaleDateString("en-US", { weekday: "short" }),
-        }}
-        className='rounded-md border'
-      />
 
       <Card className='w-[350px]'>
         <CardHeader>
@@ -155,9 +137,6 @@ export default function Home() {
       <div className='bg-white w-[500px] h-[200px] space-y-[50px]'>
         <Badge variant='failed'>jshdjhsdjs Badge</Badge>
       </div>
-
-      <PhoneAuthDialog />
-      <QRAuthDialog />
 
       <UserManagementTableTemplate />
 

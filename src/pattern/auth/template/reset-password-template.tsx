@@ -1,18 +1,19 @@
 "use client";
-import React from "react";
+import React, { useCallback, useRef } from "react";
 import AuthCard from "../organisms/auth-card";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import EmailInput from "@/pattern/common/molecules/inputs/email-input";
-import PasswordInput from "@/pattern/common/molecules/inputs/password-input";
-import { LinkButton } from "@/pattern/common/molecules/controls/link-button";
 import LoadingButton from "@/pattern/common/molecules/controls/loading-button";
-import { CONFIRM_EMAIL } from "@/lib/constants";
+import { CONFIRM_EMAIL, EMAIL_TO_CONFIRM } from "@/lib/constants";
 import {
   IResetPasswordPayload,
   useResetPasswordMutation,
 } from "@/redux/services/auth/reset-password.api-slice";
+import LocalStore from "@/lib/helper/storage-manager";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const ResetPasswordFormSchema = Yup.object().shape({
   email: Yup.string()
@@ -21,6 +22,8 @@ const ResetPasswordFormSchema = Yup.object().shape({
 });
 
 const ResetPasswordTemplate = () => {
+  const { push } = useRouter()
+
   const defaultValues = {
     email: "",
     password: "",
@@ -34,6 +37,7 @@ const ResetPasswordTemplate = () => {
     defaultValues: defaultValues,
   });
 
+  // Reset Password API mutation
   const [resetPassword, { isLoading }] = useResetPasswordMutation();
 
   const {
@@ -41,16 +45,30 @@ const ResetPasswordTemplate = () => {
     formState: { errors, isDirty },
   } = methods;
 
+
   const onSubmit: SubmitHandler<IResetPasswordPayload> = (data) => {
-    console.log("DATA TO SUBMIT: ");
+    LocalStore.setItem({ key: EMAIL_TO_CONFIRM, value: data.email })
     resetPassword({
       email: data.email,
     })
       .unwrap()
       .then((res) => {
         console.log(res.responseMessage);
-        localStorage.setItem(`${CONFIRM_EMAIL}`, "true"); // set confitmEmail localStorage variable to true
-      });
+        LocalStore.setItem({ key: CONFIRM_EMAIL, value: "true" }) // set confitmEmail localStorage variable to true. Used to conditionally render the content of the next page
+
+        // Go to next page
+        push("confirm-email")
+      }).catch((err) => {
+        // display error message
+        toast.error("Unexpected error", {
+          description: `${err?.data?.responseMessage ?? "Password reset request error"}`,
+          duration: 5000,
+          cancel: {
+            label: 'Cancel',
+            onClick: () => console.log('Cancel!'),
+          },
+        })
+      })
   };
   return (
     <>
@@ -71,8 +89,8 @@ const ResetPasswordTemplate = () => {
             />
 
             {/* Control */}
-            <LoadingButton loading={false} disabled={!isDirty} type="submit">
-              Find account
+            <LoadingButton loading={isLoading} disabled={!isDirty} type="submit">
+              Continue
             </LoadingButton>
           </form>
         </FormProvider>

@@ -1,9 +1,14 @@
+export const CREATE_PASSWORD_TRIGGER_TIME = 120;
 export const CONFIRM_EMAIL = "confirmEmail";
+export const EMAIL_TO_CONFIRM = "email-to-confirm";
 export const NAV_ICON_INACTIVE = "#4F627D";
 export const NAV_ICON_ACTIVE = "#384860";
 export const DOLLAR_CURRENCY_SYMBOL = "$";
 export const USER_ROLE: "Admin" | "SuperAdmin" = "SuperAdmin";
 export const FALLBACK_NAME = "John doe"
-export const LOGIN_API_KEY = "Api-Key"
-export const SERVICE_ACCOUNT_API_KEY = "service-account-Api_Key"
-export const TWO_FA_PREFERENCE = "2FA-preference"
+export const LOGIN_API_KEY = "UC-Api_Key"
+export const SERVICE_ACCOUNT_API_KEY = "UC-service_account_Api_Key"
+export const TWO_FA_PREFERENCE = "UC-2FA_preference"
+export const USER_EMAIL = "UC-user_email"
+export const USER_PHONE = "UC-user_phone"
+export const USER_ID = "UC-user_id"

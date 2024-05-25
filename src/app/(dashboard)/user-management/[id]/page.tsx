@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
 import GoBackWidget from "@/pattern/common/molecules/data-display/go-back-widget";
-import PilgrimDetailsTemplate from "@/pattern/user-management.tsx/templates/pilgrim-details-template";
+import PilgrimDetailsTemplate from "@/pattern/user-management/templates/pilgrim-details-template";
 
-const page = ({ params }: { params: { id: string } }) => {
+const Page = ({ params }: { params: { id: string } }) => {
   return (
     <>
       <GoBackWidget page='User details' />
@@ -12,4 +12,4 @@ const page = ({ params }: { params: { id: string } }) => {
   );
 };
 
-export default page;
+export default Page;

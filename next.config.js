@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
   swcMinify: true,
-  distDir: "dist",
+  // distDir: "dist",
 //   images: { loader: "custom" },
   webpack(config) {
     config.module.rules.push({

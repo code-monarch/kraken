@@ -1,7 +1,7 @@
 "use client";
 import { Badge } from "@/components/ui/badge";
 import { ColumnDef } from "@tanstack/react-table";
-import NameCell from "@/pattern/user-management.tsx/molecules/name-cell";
+import NameCell from "@/pattern/user-management/molecules/name-cell";
 import MoreVerticalIcon from "@/pattern/common/atoms/icons/more-vertical-icon";
 import { Checkbox } from "@/components/ui/checkbox";
 import {

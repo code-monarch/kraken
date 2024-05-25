@@ -1,4 +1,6 @@
 /* eslint-disable no-param-reassign */
+import { TWO_FA_PREFERENCE, USER_EMAIL, USER_ID, USER_PHONE } from "@/lib/constants";
+import LocalStore from "@/lib/helper/storage-manager";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface IUserSlice {
@@ -29,16 +31,16 @@ export const userDetailsSlice = createSlice({
   reducers: {
     setEmail: (state, action) => {
       state.email = action.payload;
-      localStorage.setItem("USER_EMAIL", state.email!);
+      LocalStore.setItem({ key: USER_EMAIL, value: state.email! })
     },
 
     setPhoneNumber: (state, action) => {
       state.phoneNumber = action.payload;
-      localStorage.setItem("USER_PHONE", state.phoneNumber!);
+      LocalStore.setItem({ key: USER_PHONE, value: state.phoneNumber! })
     },
     setAdminId: (state, action) => {
       state.adminId = action.payload;
-      localStorage.setItem("USER_ID", state.adminId!);
+      LocalStore.setItem({ key: USER_ID, value: state.adminId! })
     },
 
     // set2FaPreference Action
@@ -49,7 +51,7 @@ export const userDetailsSlice = createSlice({
         google2FA: state.google2fa,
         sms2FA: state.sms2fa,
       });
-      localStorage.setItem("2FA_PREF", securityPreference);
+      LocalStore.setItem({key: TWO_FA_PREFERENCE, value: securityPreference});
     },
     // set2FaPreference Action End
   },

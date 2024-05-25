@@ -20,6 +20,7 @@ import { useToggle2FaMutation } from "@/redux/services/two-factor/toggle-2fa";
 import LoadingButton from "@/pattern/common/molecules/controls/loading-button";
 import { ErrorModal } from "@/pattern/activity-logs/organisms/error-modal";
 import { TWO_FA_PREFERENCE } from "@/lib/constants";
+import LocalStore from "@/lib/helper/storage-manager";
 
 const RequestOtpFormSchema = Yup.object().shape({
   phone: Yup.string().required("Phone number is Required"),
@@ -31,10 +32,8 @@ const PhoneAuthDialog = create(() => {
       google2FA: "state.google2fa",
       sms2FA: "state.sms2fa",
     };
-    localStorage.setItem(
-      TWO_FA_PREFERENCE,
-      JSON.stringify(securityPreference)
-    );
+    LocalStore.setItem({ key: TWO_FA_PREFERENCE, value: JSON.stringify(securityPreference) })
+
   }, []);
 
   console.log(JSON.parse(localStorage.getItem(TWO_FA_PREFERENCE)!))
