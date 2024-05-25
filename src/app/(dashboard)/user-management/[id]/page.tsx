@@ -1,10 +1,12 @@
 "use client";
 import React from "react";
+import { useParams } from 'next/navigation'
 import GoBackWidget from "@/pattern/common/molecules/data-display/go-back-widget";
 import PilgrimDetailsTemplate from "@/pattern/user-management/templates/pilgrim-details-template";
 
-const UserDetailsPage = ({ params }: { params: { id: string } }) => {
-  
+const UserDetailsPage = () => {
+  const params = useParams<{ id: string }>()
+
   return (
     <>
       <GoBackWidget page="User details" />
@@ -12,7 +14,5 @@ const UserDetailsPage = ({ params }: { params: { id: string } }) => {
     </>
   );
 };
-
-export const generateStaticParams = () => { id: 2 };
 
 export default UserDetailsPage;
