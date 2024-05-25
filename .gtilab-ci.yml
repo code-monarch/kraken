@@ -1,0 +1,55 @@
+image: node:18
+
+stages:
+  - test
+  - build
+  - deploy
+
+before_script:
+  - if [ "$CI_JOB_STAGE" = "build" ]; then yarn install; fi
+
+# sast:
+#   stage: test
+# include:
+#   - template: Security/SAST.gitlab-ci.yml
+
+# lintCheck:
+#   stage: build
+#   script:
+#     - yarn lint
+
+build:
+  stage: build
+  script:
+    - yarn generate
+  artifacts:
+    paths:
+      - dist
+    expire_in: 1 hour
+
+deploy_staging:
+  stage: deploy
+  image: python:latest
+  script:
+    - apt-get update
+    - apt-get -y install python3-pip
+    - pip3 install awscli
+    - aws s3 sync dist/ s3://$S3_BUCKET_STAGING --delete
+  environment:
+    name: staging
+  only:
+    - staging
+
+deploy_production:
+  stage: deploy
+  image: python:latest
+  script:
+    - apt-get update
+    - apt-get -y install python3-pip
+    - pip3 install awscli
+    - aws s3 sync dist/ s3://$S3_BUCKET --delete --region $AWS_DEFAULT_REGION
+  environment:
+    name: production
+  rules:
+    - if: $CI_COMMIT_BRANCH == "mail"
+      when: manual
