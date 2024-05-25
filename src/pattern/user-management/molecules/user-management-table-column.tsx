@@ -18,6 +18,10 @@ import { show } from "@ebay/nice-modal-react";
 import { FreezeAccountModal } from "../organisms/freeze-account-modal";
 import { DeleteAccountModal } from "../organisms/delete-account-modal";
 import { DASHBOARD_PATHS } from "@/lib/routes";
+import {
+  IGetUsersResponse,
+  IUser,
+} from "@/redux/services/users/user.api-slice";
 
 const redirectToUserDetails = (userId: string) => {
   if (typeof window !== "undefined") {
@@ -36,7 +40,7 @@ export type UserDetails = {
   phoneNumber: string;
 };
 
-export const UserTableColumns: ColumnDef<UserDetails>[] = [
+export const UserTableColumns: ColumnDef<IUser>[] = [
   // Checkbox
   {
     id: "select",
@@ -63,7 +67,7 @@ export const UserTableColumns: ColumnDef<UserDetails>[] = [
 
   // User Id
   {
-    accessorKey: "userID",
+    accessorKey: "_id",
     header: "User ID",
   },
 
@@ -72,13 +76,14 @@ export const UserTableColumns: ColumnDef<UserDetails>[] = [
     accessorKey: "name",
     id: "name",
     header: "Name",
-    accessorFn: (row) => `${row.name} ${row.phoneNumber}`,
+    accessorFn: (row) => `${row.firstname} ${row.phoneNumber}`,
     cell: ({ row }) => {
+      const name = `${row.original.firstname} ${row.original.lastname}`;
       return (
         <NameCell
-          name={row.original.name}
+          name={name}
           phoneNumber={row.original.phoneNumber}
-          image={row.original.image}
+          image={""}
         />
       );
     },
@@ -92,10 +97,10 @@ export const UserTableColumns: ColumnDef<UserDetails>[] = [
 
   // UserType
   {
-    accessorKey: "role",
+    accessorKey: "userType",
     header: "Role",
     cell: ({ row }) => {
-      const role: string = row.getValue("role");
+      const role: string = row.getValue("userType");
       const capitalizedRole =
         role.charAt(0).toUpperCase() + role.slice(1).toLowerCase();
       return <Badge variant="accent">{capitalizedRole}</Badge>;
@@ -104,7 +109,7 @@ export const UserTableColumns: ColumnDef<UserDetails>[] = [
 
   // Status
   {
-    accessorKey: "status",
+    accessorKey: "isVerified",
     header: () => (
       <div className="flex items-center gap-1">
         <span>Status</span>
@@ -112,16 +117,17 @@ export const UserTableColumns: ColumnDef<UserDetails>[] = [
       </div>
     ),
     cell: ({ row }) => {
-      const status: any = row.getValue("status");
+      const status: any = row.getValue("isVerified");
+      const stat = String(status);
       const capitalizedStatus =
-        status.charAt(0).toUpperCase() + status.slice(1).toLowerCase();
-      return <Badge variant={status.toLowerCase()}>{capitalizedStatus}</Badge>;
+        stat.charAt(0).toUpperCase() + stat.slice(1).toLowerCase();
+      return <Badge variant={stat.toLowerCase()}>{capitalizedStatus}</Badge>;
     },
   },
 
   // Registered on
   {
-    accessorKey: "registeredOn",
+    accessorKey: "createdAt",
     header: () => (
       <div className="flex items-center gap-1">
         <span>Registered On</span>
@@ -129,7 +135,7 @@ export const UserTableColumns: ColumnDef<UserDetails>[] = [
       </div>
     ),
     cell: ({ row }) => {
-      const date = formatDate(row.getValue("registeredOn"));
+      const date = formatDate(row.getValue("createdAt"));
       return date;
     },
   },
@@ -147,7 +153,7 @@ export const UserTableColumns: ColumnDef<UserDetails>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuItem
               onClick={() => {
-                redirectToUserDetails("89");
+                redirectToUserDetails(row.original._id);
               }}
             >
               View Details
@@ -162,7 +168,10 @@ export const UserTableColumns: ColumnDef<UserDetails>[] = [
             <DropdownMenuItem
               className="text-[#d62f4b]"
               onClick={() => {
-                show(DeleteAccountModal);
+                show(DeleteAccountModal, {
+                  userId: row.original._id,
+                  name: `${row.original.firstname} ${row.original.lastname}`,
+                });
               }}
             >
               Delete

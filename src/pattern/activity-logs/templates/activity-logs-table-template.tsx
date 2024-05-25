@@ -19,6 +19,7 @@ const ActivityLogsTableTemplate = () => {
   const [pageCount, setPageCount] = useState<number>(1);
   const [status, setStatus] = useState<string>("");
   const [type, setType] = useState<string>("");
+  const [order, setOrder] = useState<string>("");
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
   const [date, setDate] = useState<DateRange | undefined>();
@@ -56,6 +57,7 @@ const ActivityLogsTableTemplate = () => {
         setEndDate={setEndDate}
         setActivityType={setType}
         setActivityStatus={setStatus}
+        setOrder={setOrder}
       />
       <ActivityLogsTable
         columns={ActivityLogsColumns}

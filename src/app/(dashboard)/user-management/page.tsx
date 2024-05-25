@@ -5,20 +5,20 @@ import PageHeader from "@/pattern/common/molecules/data-display/page-header";
 import { USER_ROLE } from "@/lib/constants";
 import Hidden from "@/pattern/common/molecules/data-display/hidden";
 import SuperAdminUserManagementActionGrid from "@/pattern/super-admin/templates/super-admin-user-management-action-grid";
-import { useGetAdminQuery } from "@/redux/services/admin/admin.api-slice";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 import UserManagementMetricGrid from "@/pattern/user-management/organisms/user-management-metric-grid";
 import UserManagementTableTemplate from "@/pattern/user-management/templates/user-management-table-template";
 
 const UserManagementPage = () => {
-  // Get Admin Details by ID
-  const { data, isLoading } = useGetAdminQuery({
-    id: ""
-  });
+  const adminRole = useSelector(
+    (state: RootState) => state.userDetails.adminRole
+  );
 
   return (
     <>
       {/* Admin Page Header */}
-      <Hidden visible={USER_ROLE === "Admin"}>
+      <Hidden visible={adminRole === "ADMIN"}>
         <PageHeader
           pageTitle="User Management"
           pageDescription="Manage and oversee user accounts with ease."
@@ -26,14 +26,14 @@ const UserManagementPage = () => {
       </Hidden>
 
       {/* Super Admin Page Header */}
-      <Hidden visible={USER_ROLE === "SuperAdmin"}>
+      <Hidden visible={adminRole === "SUPER_ADMIN"}>
         <SuperAdminUserManagementPageHeader />
       </Hidden>
 
       <UserManagementMetricGrid />
 
       {/* Super Admin Page Action Banners */}
-      <Hidden visible={USER_ROLE === "SuperAdmin"}>
+      <Hidden visible={adminRole === "SUPER_ADMIN"}>
         <SuperAdminUserManagementActionGrid />
       </Hidden>
       <UserManagementTableTemplate />

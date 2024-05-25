@@ -21,6 +21,20 @@ export interface IGetAdminResponse {
   };
 }
 
+export interface IUpdateAdminResponse {
+  error: false;
+  responseCode: string;
+  responseMessage: string;
+  data: {};
+}
+
+export interface IUpdateAdminPayload {
+  firstname: string;
+  lastname: string;
+  email: string;
+  id: string;
+}
+
 interface IGetAdminPayload {
   id: string;
 }
@@ -36,7 +50,17 @@ export const adminApiSlice = baseApiSlice.injectEndpoints({
         },
       }),
     }),
+    updateAdmin: builder.mutation<IUpdateAdminResponse, IUpdateAdminPayload>({
+      query: ({ id, firstname, lastname, email }) => ({
+        url: `auth/admin/update-admin/${id}`,
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: { firstname, lastname, email },
+      }),
+    }),
   }),
 });
 
-export const { useGetAdminQuery } = adminApiSlice;
+export const { useGetAdminQuery, useUpdateAdminMutation } = adminApiSlice;

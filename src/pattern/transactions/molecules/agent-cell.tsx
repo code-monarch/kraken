@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import userImg from "@/public/images/user.svg";
+import userImg from "@/public/images/user-img.png";
 
 interface IProps {
   name: string;

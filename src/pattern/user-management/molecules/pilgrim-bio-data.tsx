@@ -15,7 +15,8 @@ export interface IPilgrimBioDataProps {
   email: string;
   phoneNumber: string;
   status: "active" | "inactive";
-  userType: "pilgrim" | "agent";
+  userType: "user" | "agent" | string;
+  id?: string;
 }
 
 export const PilgrimBioData: FC<IPilgrimBioDataProps> = ({

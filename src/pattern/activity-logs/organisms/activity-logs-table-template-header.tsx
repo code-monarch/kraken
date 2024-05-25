@@ -17,6 +17,7 @@ interface IProps {
   setEndDate: (value: string) => void;
   setActivityType: (value: string) => void;
   setActivityStatus: (value: string) => void;
+  setOrder: (value: string) => void;
 }
 
 const ActivityLogsTableTemplateHeader = ({
@@ -26,7 +27,8 @@ const ActivityLogsTableTemplateHeader = ({
   setStartDate,
   setEndDate,
   setActivityType,
-  setActivityStatus
+  setActivityStatus,
+  setOrder,
 }: IProps) => {
   // const [filterString, setFilterString] = useState<string>("");
 
@@ -36,8 +38,9 @@ const ActivityLogsTableTemplateHeader = ({
       setDate(result.date);
       setStartDate(result.startDate);
       setEndDate(result.endDate);
-      setActivityType(result.activityType)
-      setActivityStatus(result.activityStatus)
+      setActivityType(result.activityType);
+      setActivityStatus(result.activityStatus);
+      setOrder(result.order);
     }
   };
 

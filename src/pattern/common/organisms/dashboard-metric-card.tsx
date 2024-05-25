@@ -12,7 +12,7 @@ export interface IDashboardMetricCardProps
   extends HTMLAttributes<HTMLDivElement>,
     IDashboardMetricValueProps {
   metric: string;
-  metricValue: string;
+  metricValue: number;
   isAmount?: boolean; // if true formatAmount else apply thousand seperator
   hideMetricPercentage?: boolean
 }

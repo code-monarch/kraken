@@ -26,13 +26,12 @@ const baseQuery = fetchBaseQuery({
     headers.set("Content-Type", "application/json; charset=UTF-8");
     headers.set(
       "x-service-account-key",
-      serviceAccountApiKey ?? "4ecce566867cc1546bfb04d9f67c2fc8d3808dd5e433058f"
+      "a24bc9ef5497fea18a61dccb5ebf0a48a3533c265d2e98be"
     );
 
     if (loginApiKey) {
       headers.set("x-admin-api-key", loginApiKey);
     }
-    // headers.set("x-admin-api-key", "7023fa9efbeb018b390b308e43fc046b472b8554d168831f");
 
     return headers;
   },

@@ -17,17 +17,20 @@ export const PilgrimDetailsPageHeader: FC<IPilgrimBioDataProps> = ({
   userImg,
   status,
   userType,
+  id,
 }) => {
-
-  const handleFreezeAccount =()=>{
+  const handleFreezeAccount = () => {
     show(FreezeAccountModal);
-  }
+  };
 
-  const handleDeleteAccount =()=>{
-    show(DeleteAccountModal);
-  }
+  const handleDeleteAccount = () => {
+    show(DeleteAccountModal, {
+      userId: id,
+      name: `${firstName} ${lastName}`,
+    });
+  };
   return (
-    <div className='w-full flex items-start justify-between'>
+    <div className="w-full flex items-start justify-between">
       <PilgrimBioData
         email={email}
         firstName={firstName}
@@ -37,17 +40,17 @@ export const PilgrimDetailsPageHeader: FC<IPilgrimBioDataProps> = ({
         status={status}
         userType={userType}
       />
-      <div className='h-[44px] flex items-center gap-4'>
+      <div className="h-[44px] flex items-center gap-4">
         <Button
-          variant='outlineSecondary'
-          className='h-full w-[174px]'
+          variant="outlineSecondary"
+          className="h-full w-[174px]"
           onClick={handleFreezeAccount}
         >
           Freeze Account
         </Button>
         <Button
-          variant='outlineDestructive'
-          className='h-full w-[102px]'
+          variant="outlineDestructive"
+          className="h-full w-[102px]"
           onClick={handleDeleteAccount}
         >
           Delete

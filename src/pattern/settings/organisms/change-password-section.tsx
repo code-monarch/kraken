@@ -89,17 +89,17 @@ const ChangePasswordSection = () => {
           >
             <div className="space-y-4">
               <PasswordInput
-                label="Old Pin"
+                label="Old Password"
                 name="oldPassword"
                 error={errors["oldPassword"]}
               />
               <PasswordInput
-                label="New Pin"
+                label="New Password"
                 name="newPassword"
                 error={errors["newPassword"]}
               />
               <PasswordInput
-                label="Confirm New Pin"
+                label="Confirm New Password"
                 name="confirmNewPassword"
                 error={errors["confirmNewPassword"]}
               />

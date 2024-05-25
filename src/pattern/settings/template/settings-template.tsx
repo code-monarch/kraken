@@ -7,11 +7,11 @@ import { useGetAdminQuery } from "@/redux/services/admin/admin.api-slice";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import LocalStore from "@/lib/helper/storage-manager";
-import { USER_ID } from "@/lib/constants";
+import { ADMIN_ID } from "@/lib/constants";
 
 const SettingsTemplate = () => {
   const adminId = useSelector((state: RootState) => state.userDetails.adminId);
-  const userId = LocalStore.getItem({ key: USER_ID });
+  const userId = LocalStore.getItem({ key: ADMIN_ID });
   const { data: adminData, isLoading } = useGetAdminQuery({
     id: userId ? userId : "",
   });
@@ -20,7 +20,15 @@ const SettingsTemplate = () => {
     {
       tabName: "My Details",
       value: "details",
-      content: <MyDetailsTab />,
+      content: (
+        <MyDetailsTab
+          firstname={adminData?.data.firstname ?? "John"}
+          lastname={adminData?.data.lastname ?? "Doe"}
+          email={adminData?.data.email ?? "johndoe@gmail.com"}
+          profilePic={""}
+          id={userId!}
+        />
+      ),
     },
     {
       tabName: "Account Settings",
