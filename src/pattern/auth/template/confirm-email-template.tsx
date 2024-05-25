@@ -76,7 +76,7 @@ const ConfirmEmailTemplate = () => {
         })
       })
     start();
-  }, [push, reset, resetPassword, start]);
+  }, [push, reset, resetPassword, start, emailToConfirm]);
 
   return (
     <>
