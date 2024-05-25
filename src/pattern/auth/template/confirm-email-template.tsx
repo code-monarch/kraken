@@ -55,7 +55,7 @@ const ConfirmEmailTemplate = () => {
         // display Success message
         toast.success("Successfull", {
           description: `${res?.responseMessage ?? "A password reset link has been sent to your email address"}`,
-          duration: 5000,
+          duration: 8000,
           cancel: {
             label: 'Ok',
             onClick: () => console.log('Cancel!'),
@@ -68,7 +68,7 @@ const ConfirmEmailTemplate = () => {
         // display error message
         toast.error("Unexpected error", {
           description: `${err?.data?.responseMessage ?? "Password reset request error"}`,
-          duration: 5000,
+          duration: 8000,
           cancel: {
             label: 'Cancel',
             onClick: () => console.log('Cancel!'),

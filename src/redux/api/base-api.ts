@@ -17,7 +17,7 @@ headers.append("Content-Type", "application/json; charset=UTF-8");
 
 const baseQuery = fetchBaseQuery({
   // baseUrl: "https://b02z813bo7.execute-api.us-east-1.amazonaws.com/",
-  baseUrl: "https://staging.api.umrahcash.com/",
+  baseUrl: `${process.env.NEXT_PUBLIC_BASE_URL}`,
   // credentials: "same-origin",
   // credentials: "include",
   mode: "cors",
@@ -26,7 +26,8 @@ const baseQuery = fetchBaseQuery({
     headers.set("Content-Type", "application/json; charset=UTF-8");
     headers.set(
       "x-service-account-key",
-      "a24bc9ef5497fea18a61dccb5ebf0a48a3533c265d2e98be"
+      `${serviceAccountApiKey}`
+      // "a24bc9ef5497fea18a61dccb5ebf0a48a3533c265d2e98be"
     );
 
     if (loginApiKey) {
@@ -49,6 +50,7 @@ const baseQueryWithReauth: BaseQueryFn<
   if (result.error && result?.error?.status === 500) {
     // Remove expired API key
     LocalStore.removeItem({ key: LOGIN_API_KEY })
+    LocalStore.removeItem({ key: SERVICE_ACCOUNT_API_KEY })
 
     // checking whether the mutex is locked
     if (!mutex.isLocked()) {
@@ -60,8 +62,8 @@ const baseQueryWithReauth: BaseQueryFn<
           api,
           {
             body: {
-              "clientId": "frontend-website",
-              "clientSecret": "a6805281c286a6d1541092884565174b"
+              "clientId": `${process.env.CLIENT_ID}`,
+              "clientSecret": `${process.env.CLIENT_SECRET}`
             }
           }
         );
@@ -91,7 +93,7 @@ const baseQueryWithReauth: BaseQueryFn<
 
 export const baseApiSlice = createApi({
   reducerPath: "baseApi",
-  baseQuery: baseQuery,
+  baseQuery: baseQueryWithReauth,
   tagTypes: [],
   refetchOnReconnect: true,
   endpoints: () => ({}),

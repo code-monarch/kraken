@@ -62,7 +62,7 @@ const ResetPasswordTemplate = () => {
         // display error message
         toast.error("Unexpected error", {
           description: `${err?.data?.responseMessage ?? "Password reset request error"}`,
-          duration: 5000,
+          duration: 8000,
           cancel: {
             label: 'Cancel',
             onClick: () => console.log('Cancel!'),
