@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { ADMIN_ROLE, TWO_FA_PREFERENCE, USER_EMAIL, ADMIN_ID, USER_PHONE } from "@/lib/constants";
 import LocalStore from "@/lib/helper/storage-manager";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";

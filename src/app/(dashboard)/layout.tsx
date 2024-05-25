@@ -2,7 +2,12 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import PageWrapper from "@/pattern/common/templates/dashboard-page-wrapper";
-import Topbar from "@/pattern/common/templates/topbar";
+// import Topbar from "@/pattern/common/templates/topbar";
+import dynamic from 'next/dynamic'
+
+const Topbar = dynamic(() => import('@/pattern/common/templates/topbar'), {
+  ssr: false,
+})
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (

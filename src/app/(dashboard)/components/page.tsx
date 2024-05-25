@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import LoadingButton from "@/pattern/common/molecules/controls/loading-button";
 import {
@@ -72,7 +71,7 @@ export default function ComponentsPage() {
         <DashboardMetricCard
           metric='Total Revenue'
           metricPercentage='50'
-          metricValue='10,000'
+          metricValue={10000}
         />
       </div>
       <Button variant='outline' onClick={showTransactionSheet}>

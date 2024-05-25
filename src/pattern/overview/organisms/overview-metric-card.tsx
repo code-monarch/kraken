@@ -27,7 +27,7 @@ const OverviewMetricCard = () => {
           key={idx}
           metric={`${metric}`}
           metricPercentage={`${metricPercentage}`}
-          metricValue={`${metricValue}`}
+          metricValue={Number(metricValue)}
         />
       ))}
     </div>

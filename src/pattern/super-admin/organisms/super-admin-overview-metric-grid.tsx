@@ -1,5 +1,6 @@
+"use client"
 import React from "react";
-import DashboardMetricCard from "../../common/organisms/dashboard-metric-card";
+import DashboardMetricCard from "@/pattern/common/organisms/dashboard-metric-card";
 
 const SuperAdminOverviewMetricGrid = () => {
   return (
@@ -8,26 +9,26 @@ const SuperAdminOverviewMetricGrid = () => {
       <DashboardMetricCard
         metric='Total Revenue'
         metricPercentage='10'
-        metricValue='10,000'
+        metricValue={10000}
       />
       {/* Total Agent Earnings */}
       <DashboardMetricCard
         metric='Total Agent Earnings'
         metricPercentage='10'
-        metricValue='4,876.00'
+        metricValue= {4876.00}
       />
       {/* Total Number of transactions */}
       <DashboardMetricCard
         metric='Total No. of transactions'
         metricPercentage='10'
-        metricValue='5,687'
+        metricValue= {5687}
         isAmount={false}
       />
       {/* Total Admin */}
       <DashboardMetricCard
         metric='Total Admin'
         metricPercentage='10'
-        metricValue='5,687'
+        metricValue= {5687}
         hideMetricPercentage={true}
         isAmount={false}
       />

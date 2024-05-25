@@ -1,7 +1,6 @@
 "use client";
 import * as React from "react";
 import { DayPicker } from "react-day-picker";
-
 import { cn } from "@/lib/utils";
 import CalendarLeftChevrolet from "@/pattern/common/atoms/icons/calendar-left-chevrolet";
 import CalendarRightChevrolet from "@/pattern/common/atoms/icons/calendar-right-chevrolet";
@@ -9,12 +8,12 @@ import CalendarDropdown from "@/pattern/common/molecules/inputs/calendar-dropdow
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
-function Calendar({
+const Calendar = ({
   className,
   classNames,
   showOutsideDays = true,
   ...props
-}: CalendarProps) {
+}: CalendarProps) => {
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}

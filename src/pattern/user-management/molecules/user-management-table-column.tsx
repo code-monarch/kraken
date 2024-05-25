@@ -19,7 +19,6 @@ import { FreezeAccountModal } from "../organisms/freeze-account-modal";
 import { DeleteAccountModal } from "../organisms/delete-account-modal";
 import { DASHBOARD_PATHS } from "@/lib/routes";
 import {
-  IGetUsersResponse,
   IUser,
 } from "@/redux/services/users/user.api-slice";
 
@@ -117,11 +116,8 @@ export const UserTableColumns: ColumnDef<IUser>[] = [
       </div>
     ),
     cell: ({ row }) => {
-      const status: any = row.getValue("isVerified");
-      const stat = String(status);
-      const capitalizedStatus =
-        stat.charAt(0).toUpperCase() + stat.slice(1).toLowerCase();
-      return <Badge variant={stat.toLowerCase()}>{capitalizedStatus}</Badge>;
+      const status: boolean = row.getValue("isVerified");
+      return <Badge variant={status === true ? "active" : "destructive"} className="capitalize">{status}</Badge>;
     },
   },
 

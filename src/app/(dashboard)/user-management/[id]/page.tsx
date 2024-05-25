@@ -3,7 +3,8 @@ import React from "react";
 import GoBackWidget from "@/pattern/common/molecules/data-display/go-back-widget";
 import PilgrimDetailsTemplate from "@/pattern/user-management/templates/pilgrim-details-template";
 
-const Page = ({ params }: { params: { id: string } }) => {
+const UserDetailsPage = ({ params }: { params: { id: string } }) => {
+  
   return (
     <>
       <GoBackWidget page="User details" />
@@ -12,4 +13,6 @@ const Page = ({ params }: { params: { id: string } }) => {
   );
 };
 
-export default Page;
+export const generateStaticParams = () => { id: 2 };
+
+export default UserDetailsPage;

@@ -1,5 +1,6 @@
 "use client";
-import { USER_ROLE } from "@/lib/constants";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import LocalStore from "@/lib/helper/storage-manager";
 import Hidden from "@/pattern/common/molecules/data-display/hidden";
 import PageHeader from "@/pattern/common/molecules/data-display/page-header";
@@ -10,12 +11,13 @@ import SuperAdminOverviewMetricGrid from "@/pattern/super-admin/organisms/super-
 import { useGetAdminQuery } from "@/redux/services/admin/admin.api-slice";
 import { setAdminRole } from "@/redux/slices/user-slice";
 import { RootState } from "@/redux/store";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { ADMIN_ID } from "@/lib/constants";
 
- const Home = () => {
+ const OverviewPage = () => {
   const dispatch = useDispatch();
-  const adminId = LocalStore.getItem({ key: "ADMIN_ID" });
+  const adminId = LocalStore.getItem({ key: ADMIN_ID });
+
+  // Get Admin API query
   const { data, isLoading } = useGetAdminQuery({
     id: adminId ? adminId : "",
   });
@@ -52,4 +54,4 @@ import { useDispatch, useSelector } from "react-redux";
     </>
   );
 }
-export default Home;
+export default OverviewPage;

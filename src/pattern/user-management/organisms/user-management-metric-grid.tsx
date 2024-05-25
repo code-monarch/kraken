@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import DashboardMetricCard from "@/pattern/common/organisms/dashboard-metric-card";
 import { useGetUsersQuery } from "@/redux/services/users/user.api-slice";
