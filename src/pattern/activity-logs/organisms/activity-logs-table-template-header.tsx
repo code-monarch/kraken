@@ -44,8 +44,9 @@ const ActivityLogsTableTemplateHeader = ({
     }
   };
 
-  //   The number of tractions would be gotten from the length of the transaction endpoint
+  //  The number of tractions would be gotten from the length of the transaction endpoint
   let transactions = 7;
+  
   return (
     <div className="w-full px-6">
       {/* Top */}

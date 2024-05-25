@@ -7,6 +7,7 @@ import TopbarProfileTag from "../molecules/data-display/top-bar-profile-tag";
 import { useGetAdminQuery } from "@/redux/services/admin/admin.api-slice";
 import { getInitials } from "@/lib/helper/get-initials";
 import LocalStore from "@/lib/helper/session-manager";
+import { FALLBACK_NAME } from "@/lib/constants";
 
 const Topbar = () => {
   const adminId = LocalStore.getItem({key: "ADMIN_ID"});
@@ -14,11 +15,10 @@ const Topbar = () => {
     id: adminId ? adminId : "",
   });
 
-  const fullname = data?.data.firstname + " " + data?.data.lastname;
-  const initials = getInitials(fullname);
+  const initials = getInitials(`${data?.data.firstname} ${data?.data.lastname}`);
 
   console.log("adminId: ", adminId);
-  console.log("fullname: ", fullname);
+  console.log("fullname: ", `${data?.data.firstname} ${data?.data.lastname}`);
   return (
     <div
       className={cn(
@@ -34,7 +34,7 @@ const Topbar = () => {
         {/* Welcome Message */}
         <h4 className="font-medium text-[1.25rem]">
           Welcome back,{" "}
-          <span className="text-primary">{data?.data.firstname}</span>
+          <span className="text-primary">{data?.data.firstname ?? FALLBACK_NAME}</span>
         </h4>
 
         {/* Wallet/Currency Summary, Notification and more options */}

@@ -1,12 +1,7 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import AuthCard from "../organisms/auth-card";
-import {
-  FormProvider,
-  SubmitErrorHandler,
-  SubmitHandler,
-  useForm,
-} from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import EmailInput from "@/pattern/common/molecules/inputs/email-input";
@@ -22,6 +17,7 @@ import {
 import { RootState } from "@/redux/store";
 import { useDispatch } from "react-redux";
 import { setAdminId } from "@/redux/slices/user-slice";
+import { LOGIN_API_KEY } from "@/lib/constants";
 
 const LoginFormSchema = Yup.object().shape({
   email: Yup.string()
@@ -43,7 +39,7 @@ const LoginTemplate = () => {
     password: "",
   };
 
-  const methods = useForm({
+  const methods = useForm<ILoginPayload>({
     mode: "onChange",
     resolver: yupResolver(LoginFormSchema),
     reValidateMode: "onChange",
@@ -67,7 +63,7 @@ const LoginTemplate = () => {
       .then((res) => {
         const apiKey = res.data.apiKey;
         const adminId = res.data.id;
-        localStorage.setItem("Api_Key", apiKey);
+        localStorage.setItem(LOGIN_API_KEY, apiKey);
         if (adminId) {
           dispatch(setAdminId(adminId));
         }

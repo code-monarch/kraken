@@ -1,15 +1,12 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PaginationState } from "@tanstack/react-table";
-import { fetchTransactions } from "@/lib/fetchTransactions";
-import { fetchData } from "@/lib/fetchData";
 import ActivityLogsTableTemplateHeader from "../organisms/activity-logs-table-template-header";
 import { ActivityLogsTable } from "../organisms/activity-logs-table";
 import {
   ActivityLogsColumns,
   // IActivity,
 } from "../molecules/activity-logs-table-column";
-import { IActivity } from "@/redux/services/activity-logs/activities.api-slice";
 import { useGetActivitiesQuery } from "@/redux/services/activity-logs/activities.api-slice";
 import { DateRange } from "react-day-picker";
 
@@ -26,6 +23,10 @@ const ActivityLogsTableTemplate = () => {
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
   const [date, setDate] = useState<DateRange | undefined>();
+  console.log("STATUS: ", status)
+  console.log("TYPE: ", type)
+  console.log("START DATE: ", startDate)
+  console.log("END DATE: ", endDate)
 
   const { data, isLoading, isSuccess, isFetching, isError } =
     useGetActivitiesQuery({
@@ -47,7 +48,7 @@ const ActivityLogsTableTemplate = () => {
   console.log(typeof endDate);
 
   return (
-    <div className="w-full bg-card">
+    <div className='w-full bg-card'>
       <ActivityLogsTableTemplateHeader
         filterString={type}
         setFilterString={setType}

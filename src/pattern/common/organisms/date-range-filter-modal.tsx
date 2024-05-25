@@ -7,12 +7,13 @@ import { DateRange } from "react-day-picker";
 import { formatDateRange } from "@/lib/helper/format-date-range";
 
 export const DateRangeFilterModal = create(() => {
-  const [date, setDate] = useState<DateRange | undefined>();
+  const [date, setDate] = useState<DateRange | undefined>(); // Holds value of selected date range
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
 
-  console.log("date: ", date);
+  // console.log("date: ", date);
 
+  // Save state of the selected date ranges whenever the useer changes their selection
   useEffect(() => {
     setStartDate(date?.from ? formatDateRange(date?.from) : "");
     setEndDate(date?.to ? formatDateRange(date?.to) : "")
