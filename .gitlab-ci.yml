@@ -8,20 +8,20 @@ stages:
 before_script:
   - if [ "$CI_JOB_STAGE" = "build" ]; then yarn install; fi
 
-# sast:
-#   stage: test
-# include:
-#   - template: Security/SAST.gitlab-ci.yml
+sast:
+  stage: test
+include:
+  - template: Security/SAST.gitlab-ci.yml
 
-# lintCheck:
-#   stage: build
-#   script:
-#     - yarn lint
+lintCheck:
+  stage: build
+  script:
+    - yarn lint
 
 build:
   stage: build
   script:
-    - yarn generate
+    - yarn build
   artifacts:
     paths:
       - dist
