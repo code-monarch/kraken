@@ -41,7 +41,7 @@ const ConfirmEmailTemplate = () => {
   // Start countdown timer on template render if user has access to re confirm Email
   useEffect(() => {
     start();
-  }, []);
+  }, [start]);
 
 
   const handleResendPassword = useCallback(() => {
@@ -76,7 +76,7 @@ const ConfirmEmailTemplate = () => {
         })
       })
     start();
-  }, []);
+  }, [push, reset, resetPassword, start]);
 
   return (
     <>
