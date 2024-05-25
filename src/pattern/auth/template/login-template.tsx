@@ -17,6 +17,7 @@ import {
 import { RootState } from "@/redux/store";
 import { useDispatch } from "react-redux";
 import { setAdminId } from "@/redux/slices/user-slice";
+import { LOGIN_API_KEY } from "@/lib/constants";
 
 const LoginFormSchema = Yup.object().shape({
   email: Yup.string()
@@ -62,7 +63,7 @@ const LoginTemplate = () => {
       .then((res) => {
         const apiKey = res.data.apiKey;
         const adminId = res.data.id;
-        localStorage.setItem("Api_Key", apiKey);
+        localStorage.setItem(LOGIN_API_KEY, apiKey);
         if (adminId) {
           dispatch(setAdminId(adminId));
         }

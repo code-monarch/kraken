@@ -4,3 +4,6 @@ export const NAV_ICON_ACTIVE = "#384860";
 export const DOLLAR_CURRENCY_SYMBOL = "$";
 export const USER_ROLE: "Admin" | "SuperAdmin" = "SuperAdmin";
 export const FALLBACK_NAME = "John doe"
+export const LOGIN_API_KEY = "Api-Key"
+export const SERVICE_ACCOUNT_API_KEY = "service-account-Api_Key"
+export const TWO_FA_PREFERENCE = "2FA-preference"

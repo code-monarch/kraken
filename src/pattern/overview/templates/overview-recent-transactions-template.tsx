@@ -33,7 +33,7 @@ const OverviewRecentTransactionsTemplate = () => {
     <div className='w-full bg-card'>
       <RecentTransactionsHeader />
       <TransactionsTable
-        columns={TransactionsTableColumns}
+        // columns={TransactionsTableColumns}
         data={dataQuery!}
         isLoading={isLoading}
         pageCount={pageCount}
