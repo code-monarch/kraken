@@ -51,7 +51,7 @@ const baseQueryWithReauth: BaseQueryFn<
   await mutex.waitForUnlock();
   let result = await baseQuery(args, api, extraOptions);
 
-  if (result.error && result?.error?.status === 500) {
+  if (result.error && result?.error?.status === 600) {
     // Remove expired API key
     // LocalStore.removeItem({ key: LOGIN_API_KEY })
     // LocalStore.removeItem({ key: SERVICE_ACCOUNT_API_KEY })

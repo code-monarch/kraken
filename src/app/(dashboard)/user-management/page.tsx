@@ -1,44 +1,28 @@
-"use client";
-import React from "react";
-import SuperAdminUserManagementPageHeader from "@/pattern/super-admin/molecules/super-admin-user-management-page-header";
-import PageHeader from "@/pattern/common/molecules/data-display/page-header";
-import { USER_ROLE } from "@/lib/constants";
-import Hidden from "@/pattern/common/molecules/data-display/hidden";
-import SuperAdminUserManagementActionGrid from "@/pattern/super-admin/templates/super-admin-user-management-action-grid";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
-import UserManagementMetricGrid from "@/pattern/user-management/organisms/user-management-metric-grid";
-import UserManagementTableTemplate from "@/pattern/user-management/templates/user-management-table-template";
+'use client'
+import React, { Suspense } from 'react'
+import UserManagementPageTemplate from '@/pattern/user-management/templates/user-management-page-template'
+import PulsePlaceholder from '@/pattern/common/atoms/icons/pulse-placeholder-icon'
+
+// This component passed as a fallback to the Suspense boundary
+// will be rendered in place of the User management page template in the initial HTML.
+// When the value is available during React hydration the fallback
+// will be replaced with the `<UserManagementPageTemplate>` component.
+function UserManagementFallback() {
+  return (
+    <div className='w-full h-full flex items-center justify-center'>
+      <PulsePlaceholder />
+    </div>
+  )
+}
 
 const UserManagementPage = () => {
-  const adminRole = useSelector(
-    (state: RootState) => state.userDetails.adminRole
-  );
-
   return (
-    <>
-      {/* Admin Page Header */}
-      <Hidden visible={adminRole === "ADMIN"}>
-        <PageHeader
-          pageTitle="User Management"
-          pageDescription="Manage and oversee user accounts with ease."
-        />
-      </Hidden>
+      <div>
+        <Suspense fallback={<UserManagementFallback />}>
+          <UserManagementPageTemplate />
+        </Suspense>
+      </div>
+  )
+}
 
-      {/* Super Admin Page Header */}
-      <Hidden visible={adminRole === "SUPER_ADMIN"}>
-        <SuperAdminUserManagementPageHeader />
-      </Hidden>
-
-      <UserManagementMetricGrid />
-
-      {/* Super Admin Page Action Banners */}
-      <Hidden visible={adminRole === "SUPER_ADMIN"}>
-        <SuperAdminUserManagementActionGrid />
-      </Hidden>
-      <UserManagementTableTemplate />
-    </>
-  );
-};
-
-export default UserManagementPage;
+export default UserManagementPage

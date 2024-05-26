@@ -1,6 +1,6 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import LoadingButton from "@/pattern/common/molecules/controls/loading-button";
+'use client'
+import { Button } from '@/components/ui/button'
+import LoadingButton from '@/pattern/common/molecules/controls/loading-button'
 import {
   Card,
   CardContent,
@@ -8,45 +8,45 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import EmailInput from "@/pattern/common/molecules/inputs/email-input";
-import { FormProvider, useForm } from "react-hook-form";
-import * as Yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Badge } from "@/components/ui/badge";
-import TransactionsSlideOutMenu from "@/pattern/common/templates/slide-out-menu/transactions-slide-out-menu";
-import { show } from "@ebay/nice-modal-react";
-import UserDetailCard from "@/pattern/common/molecules/data-display/user-detail-card";
-import DashboardMetricCard from "@/pattern/common/organisms/dashboard-metric-card";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import UserManagementTableTemplate from "@/pattern/user-management/templates/user-management-table-template";
+} from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import EmailInput from '@/pattern/common/molecules/inputs/email-input'
+import { FormProvider, useForm } from 'react-hook-form'
+import * as Yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { Badge } from '@/components/ui/badge'
+import TransactionsSlideOutMenu from '@/pattern/common/templates/slide-out-menu/transactions-slide-out-menu'
+import { show } from '@ebay/nice-modal-react'
+import UserDetailCard from '@/pattern/common/molecules/data-display/user-detail-card'
+import DashboardMetricCard from '@/pattern/common/organisms/dashboard-metric-card'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import UserManagementTableTemplate from '@/pattern/user-management/molecules/user-management-table-template'
 
 export default function ComponentsPage() {
   const WishlistFormSchema = Yup.object().shape({
     email: Yup.string()
-      .email("Email must be a valid email address")
-      .required("Please enter an email address"),
-  });
+      .email('Email must be a valid email address')
+      .required('Please enter an email address'),
+  })
 
   const methods = useForm({
-    mode: "onBlur",
+    mode: 'onBlur',
     resolver: yupResolver(WishlistFormSchema),
-  });
+  })
 
   const {
     handleSubmit,
     formState: { errors },
-  } = methods;
+  } = methods
 
   const onSubmit = () => {
-    console.log("DATA TO SUBMIT: ");
-  };
+    console.log('DATA TO SUBMIT: ')
+  }
 
   const showTransactionSheet = () => {
-    show(TransactionsSlideOutMenu);
-  };
+    show(TransactionsSlideOutMenu)
+  }
 
   return (
     <main className='flex min-h-screen flex-col items-center justify-between p-24'>
@@ -150,5 +150,5 @@ export default function ComponentsPage() {
         <TabsContent value='password'>Change your password here.</TabsContent>
       </Tabs>
     </main>
-  );
+  )
 }

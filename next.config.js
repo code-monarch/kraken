@@ -2,6 +2,7 @@
 module.exports = {
   swcMinify: true,
   output: "export",
+  images: { unoptimized: true },
   // distDir: "dist",
 //   images: { loader: "custom" },
   webpack(config) {
