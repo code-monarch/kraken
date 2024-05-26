@@ -13,18 +13,23 @@ export interface ILoginResponse {
 export interface ILoginPayload {
   email: string;
   password: string;
+  serviceAccountApiKey: string;
 }
 
 export const loginApiSlice = baseApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation<ILoginResponse, ILoginPayload>({
-      query: (loginDetails) => ({
+      query: ({ email, password, serviceAccountApiKey }) => ({
         url: "auth/admin/login",
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "x-service-account-key": serviceAccountApiKey
         },
-        body: loginDetails,
+        body: {
+          email: email,
+          password: password
+        },
       }),
     }),
   }),

@@ -15,15 +15,8 @@ import {
   useLoginMutation,
 } from "@/redux/services/auth/login.api-slice";
 import { useServiceAccountLoginMutation } from "@/redux/services/auth/service-account-login.api-slice";
-import { RootState } from "@/redux/store";
-import { useDispatch } from "react-redux";
-import { setAdminId } from "@/redux/slices/user-slice";
-import { LOGIN_API_KEY } from "@/lib/constants";
-import LocalStore from "@/lib/helper/storage-manager";
+import { storeLoginCredentials } from "@/lib/helper/storage-manager";
 import { toast } from "sonner";
-
-// "clientId": `${process.env.CLIENT_ID}`,
-//   "clientSecret": `${process.env.CLIENT_SECRET}`
 
 const LoginFormSchema = Yup.object().shape({
   email: Yup.string()
@@ -34,23 +27,19 @@ const LoginFormSchema = Yup.object().shape({
 
 const LoginTemplate = () => {
   // Service Account Login
-  const [serviceAccountLogin, { isLoading: loadingServiceAccountLogin, isError: errorLoggingIn }] = useServiceAccountLoginMutation();
+  const [serviceAccountLogin, { isLoading: loadingServiceAccountLogin }] = useServiceAccountLoginMutation();
 
   // Admin Login API key
-  const [login, { isLoading, isError }] = useLoginMutation();
-
-  const adminId = (state: RootState) => state.userDetails.adminId;
-
-  const dispatch = useDispatch();
-  const router = useRouter();
+  const [login, { isLoading }] = useLoginMutation();
 
   const { push } = useRouter();
+
   const defaultValues = {
     email: "",
     password: "",
   };
 
-  const methods = useForm<ILoginPayload>({
+  const methods = useForm<Omit<ILoginPayload, 'serviceAccountApiKey'>>({
     mode: "onChange",
     resolver: yupResolver(LoginFormSchema),
     reValidateMode: "onChange",
@@ -63,28 +52,23 @@ const LoginTemplate = () => {
     formState: { errors, isDirty },
   } = methods;
 
-  const onSubmit: SubmitHandler<ILoginPayload> = (data) => {
+  const onSubmit: SubmitHandler<Omit<ILoginPayload, 'serviceAccountApiKey'>> = (data) => {
     console.log("DATA TO SUBMIT: ", data);
 
     serviceAccountLogin({
       clientId: `${process.env.NEXT_PUBLIC_CLIENT_ID}`,
       clientSecret: `${process.env.NEXT_PUBLIC_CLIENT_SECRET}`
-    }).unwrap().then((res) => {
+    }).unwrap().then((response) => {
       login({
         email: data.email,
         password: data.password,
+        serviceAccountApiKey: response.data?.apiKey
       })
         .unwrap()
         .then((res) => {
-          const apiKey = res.data.apiKey;
-          const adminId = res.data.id;
-          LocalStore.setItem({ key: LOGIN_API_KEY, value: apiKey })
-          if (adminId) {
-            dispatch(setAdminId(adminId));
-          }
-          if (apiKey) {
-            router.push("/");
-          }
+          storeLoginCredentials({ apiKey: res.data.apiKey, adminId: res.data.id, serviceAccountApiKey: response.data?.apiKey }).then(() => {
+            push("/");
+          })
         })
         .catch((err) => {
           console.log(`${err.error || err?.data?.message || err}`);
@@ -97,7 +81,7 @@ const LoginTemplate = () => {
               onClick: () => console.log('Cancel!'),
             },
           })
-        });
+        })
     }).catch((err) => {
       // display error message
       toast.error("Unexpected error", {

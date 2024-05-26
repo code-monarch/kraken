@@ -12,17 +12,16 @@ interface IProps {
 const AuthGuard: FC<IProps> = ({ children }) => {
     const { replace } = useRouter();
     const loginApiKey = LocalStore.getItem({ key: LOGIN_API_KEY })
-    const serviceAccountKey = LocalStore.getItem({ key: SERVICE_ACCOUNT_API_KEY })
 
     useEffect(() => {
-        if (loginApiKey && serviceAccountKey) {
+        if (loginApiKey) {
             return
         } else {
             replace(`${AUTH_PATHS.login}`);
         }
-    }, [loginApiKey, replace, serviceAccountKey]);
+    }, [loginApiKey, replace]);
 
-    return <div>{children}</div>;
+    return <div>{loginApiKey ? children : null}</div>;
 };
 
 export default AuthGuard;

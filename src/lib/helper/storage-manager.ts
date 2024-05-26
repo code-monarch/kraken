@@ -1,3 +1,5 @@
+import { ADMIN_ROLE, LOGIN_API_KEY, SERVICE_ACCOUNT_API_KEY } from "../constants";
+
 interface ISessionProps {
   key: string | undefined;
   value?: string;
@@ -46,29 +48,30 @@ const LocalStore = {
   setItem, getItem, removeItem, clearStore,
 };
 
-/**
- * Function that sets session token after Login in Local Storage
- */
-export const setAdminApiKey = (value: string) => {
-  const key = `ADMIN_API_KEY`;
-  return LocalStore.setItem({ key, value });
-};
-export const setServiceApiKey = (value: string) => {
-  const key = `SERVICE_API_KEY`;
-  return LocalStore.setItem({ key, value });
-};
-
-/**
- * Function that gets session token from local storage
- */
-export const getAdminApiKey = () => {
-  const key = `ADMIN_API_KEY`;
-  return LocalStore.getItem({ key });
-};
-export const getServiceApiKey = () => {
-  const key = `SERVISE_API_KEY`;
-  return LocalStore.getItem({ key });
-};
-
-
 export default LocalStore;
+
+
+/**
+ * 
+ * @description Promise which stores service account API key
+ */
+export const storeServiceApiAccountKey = (serviceAccountKey: string): Promise<unknown> => {
+  return new Promise((resolve) => {
+    LocalStore.setItem({ key: SERVICE_ACCOUNT_API_KEY, value: serviceAccountKey })
+    resolve(true)
+  });
+};
+
+interface ILoginCredentials{
+  apiKey: string;
+  adminId: string;
+  serviceAccountApiKey: string;
+}
+export const storeLoginCredentials = ({ apiKey, adminId, serviceAccountApiKey }: ILoginCredentials): Promise<unknown> => {
+  return new Promise((resolve) => {
+    LocalStore.setItem({ key: LOGIN_API_KEY, value: apiKey })
+    LocalStore.setItem({ key: ADMIN_ROLE, value: adminId });
+    LocalStore.setItem({ key: SERVICE_ACCOUNT_API_KEY, value: serviceAccountApiKey })
+    resolve(true)
+  });
+};

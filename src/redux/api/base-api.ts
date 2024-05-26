@@ -6,6 +6,7 @@ import LocalStore from "@/lib/helper/storage-manager";
 
 const loginApiKey = LocalStore.getItem({ key: LOGIN_API_KEY })
 const serviceAccountApiKey = LocalStore.getItem({ key: SERVICE_ACCOUNT_API_KEY })
+console.log('SERVICE ACCOUNT KEY: ', serviceAccountApiKey)
 
 // Instantiate a mutex instance
 const mutex = new Mutex();
@@ -24,11 +25,14 @@ const baseQuery = fetchBaseQuery({
   prepareHeaders: (headers, { }) => {
     headers.set("Accept", "application/json");
     headers.set("Content-Type", "application/json; charset=UTF-8");
-    headers.set(
-      "x-service-account-key",
-      `${serviceAccountApiKey}`
-      // "a24bc9ef5497fea18a61dccb5ebf0a48a3533c265d2e98be"
-    );
+
+    if (serviceAccountApiKey) {
+      headers.set(
+        "x-service-account-key",
+        `${serviceAccountApiKey}`
+        // "a24bc9ef5497fea18a61dccb5ebf0a48a3533c265d2e98be"
+      );
+    }
 
     if (loginApiKey) {
       headers.set("x-admin-api-key", loginApiKey);
@@ -49,8 +53,8 @@ const baseQueryWithReauth: BaseQueryFn<
 
   if (result.error && result?.error?.status === 500) {
     // Remove expired API key
-    LocalStore.removeItem({ key: LOGIN_API_KEY })
-    LocalStore.removeItem({ key: SERVICE_ACCOUNT_API_KEY })
+    // LocalStore.removeItem({ key: LOGIN_API_KEY })
+    // LocalStore.removeItem({ key: SERVICE_ACCOUNT_API_KEY })
 
     // checking whether the mutex is locked
     if (!mutex.isLocked()) {
