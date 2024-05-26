@@ -6,7 +6,6 @@ import LocalStore from "@/lib/helper/storage-manager";
 
 const loginApiKey = LocalStore.getItem({ key: LOGIN_API_KEY })
 const serviceAccountApiKey = LocalStore.getItem({ key: SERVICE_ACCOUNT_API_KEY })
-console.log('SERVICE ACCOUNT KEY: ', serviceAccountApiKey)
 
 // Instantiate a mutex instance
 const mutex = new Mutex();

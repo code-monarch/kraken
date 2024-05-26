@@ -30,9 +30,6 @@ const UserDetailsTemplate = () => {
     id: `${id}`,
   })
 
-  console.log('isError: ', isError)
-  console.log('Error: ', error)
-
   // Display error modal for bad Network error else display generic error modal
   useEffect(() => {
     if (
