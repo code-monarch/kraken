@@ -23,7 +23,7 @@ build:
   script:
     - yarn install
     - yarn build
-    - ls -la dist
+    - ls -la .next
   artifacts:
     paths:
       - .next
