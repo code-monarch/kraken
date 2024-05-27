@@ -9,7 +9,7 @@ module.exports = {
     config.module.rules.push({
       test: /\.svg$/,
       use: ["@svgr/webpack"],
-    });
+    });1
 
     return config;
   },
