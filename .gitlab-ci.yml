@@ -24,7 +24,7 @@ build:
     - yarn build
   artifacts:
     paths:
-      - ./dist
+      - /dist
     expire_in: 1 hour
 
 deploy_staging:
