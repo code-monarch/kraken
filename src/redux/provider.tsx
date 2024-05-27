@@ -9,10 +9,10 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
       <Provider store={store}>
-        <PersistGate persistor={persistor}>
-          <Toaster position='top-center' richColors />
-          <NiceModal.Provider>{children}</NiceModal.Provider>
-        </PersistGate>
+        <Toaster position='top-center' richColors />
+        <NiceModal.Provider>
+          <PersistGate persistor={persistor}>{children}</PersistGate>
+        </NiceModal.Provider>
       </Provider>
     </div>
   )
