@@ -1,16 +1,19 @@
 'use client'
 import NiceModal from '@ebay/nice-modal-react'
-import { store } from './store'
+import { persistor, store } from './store'
 import { Provider } from 'react-redux'
 import { Toaster } from '@/components/ui/sonner'
+import { PersistGate } from 'redux-persist/integration/react'
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
-    <Provider store={store}>
-      <Toaster position='top-center' richColors />
-      <NiceModal.Provider>
-        <div>{children}</div>
-      </NiceModal.Provider>
-    </Provider>
+    <div>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <Toaster position='top-center' richColors />
+          <NiceModal.Provider>{children}</NiceModal.Provider>
+        </PersistGate>
+      </Provider>
+    </div>
   )
 }

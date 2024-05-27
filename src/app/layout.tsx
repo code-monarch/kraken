@@ -1,19 +1,19 @@
-import type { Metadata } from "next";
-import "../styles/globals.css";
-import { raleway } from "./fonts";
-import { cn } from "@/lib/utils";
-import { Providers } from "@/redux/provider";
+import type { Metadata } from 'next'
+import '../styles/globals.css'
+import { raleway } from './fonts'
+import { cn } from '@/lib/utils'
+import { Providers } from '@/redux/provider'
 
 export const metadata: Metadata = {
-  title: "Ummrah cash admin",
-  description: "Ummrah cash admin",
-  applicationName: "ummrah cash admin"
-};
+  title: 'Ummrah cash admin',
+  description: 'Ummrah cash admin',
+  applicationName: 'ummrah cash admin',
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang='en'>
@@ -23,9 +23,7 @@ export default function RootLayout({
           `${raleway.variable}`,
         )}
       >
-        <div>
-          <Providers>{children}</Providers>
-        </div>
+        <Providers>{children}</Providers>
       </body>
     </html>
   )

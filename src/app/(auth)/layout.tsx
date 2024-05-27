@@ -8,9 +8,9 @@ export const metadata: Metadata = {
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <section className='bg-[var(--auth-background)] w-screen h-screen min-h-screen flex justify-center items-start py-[88px]'>
+    <div className='bg-[var(--auth-background)] w-screen h-screen min-h-screen flex justify-center items-start py-[88px]'>
       {children}
-    </section>
+    </div>
   );
 };
 
