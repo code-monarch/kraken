@@ -42,6 +42,7 @@ const ChangePasswordSection = () => {
   const {
     handleSubmit,
     formState: { errors, isDirty },
+    reset,
   } = methods;
 
   const [
@@ -58,6 +59,7 @@ const ChangePasswordSection = () => {
       .then((res) => {
         console.log("password changed successfully");
         show(SuccessModal);
+        reset();
       })
       .catch((err) => {
         console.log(changePasswordError);

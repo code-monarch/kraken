@@ -108,7 +108,7 @@ export const UserTableColumns: ColumnDef<IUser>[] = [
 
   // Status
   {
-    accessorKey: "isVerified",
+    accessorKey: "status",
     header: () => (
       <div className="flex items-center gap-1">
         <span>Status</span>
@@ -116,8 +116,8 @@ export const UserTableColumns: ColumnDef<IUser>[] = [
       </div>
     ),
     cell: ({ row }) => {
-      const status: boolean = row.getValue("isVerified");
-      return <Badge variant={status === true ? "active" : "destructive"} className="capitalize">{status}</Badge>;
+      const status: any = row.original.status.toLowerCase();
+      return <Badge variant={status!} className="capitalize">{status}</Badge>;
     },
   },
 

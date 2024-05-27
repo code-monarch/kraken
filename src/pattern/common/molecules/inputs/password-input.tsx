@@ -16,7 +16,7 @@ const PasswordInput: FC<ICustomInputProps> = ({
 }) => {
   const { control } = useFormContext();
   const [isFocus, setIsFocus] = useState<boolean>(false);
-  const [toggleinputType, setToggleinputType] = useState<boolean>(false);
+  const [toggleinputType, setToggleinputType] = useState<boolean>(true);
 
   return (
     <Controller

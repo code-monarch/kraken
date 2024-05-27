@@ -31,7 +31,7 @@ const columns = ActivityLogsColumns;
 
 interface IActivityLogsTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  data: IActivitiesResponse;
+  data: IActivity[];
   pageCount?: number;
   pagination?: PaginationState;
   setPagination?: any;
@@ -60,10 +60,10 @@ export function ActivityLogsTable<TData, TValue>({
   const defaultData = useMemo(() => [], []);
 
   const activityLogsTable = useReactTable({
-    data: data?.data?.result ?? defaultData,
+    data: data ?? defaultData,
     columns,
     pageCount,
-    rowCount: data?.data?.result?.length,
+    rowCount: data?.length,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onRowSelectionChange: setRowSelection,
@@ -133,7 +133,7 @@ export function ActivityLogsTable<TData, TValue>({
             !isLoading &&
               (isError ||
                 !activityLogsTable.getRowModel().rows?.length ||
-                data?.data?.result.length === 0) && (
+                data?.length === 0) && (
                 <TableRow>
                   <TableCell
                     colSpan={columns.length}

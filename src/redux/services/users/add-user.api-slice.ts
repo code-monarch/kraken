@@ -1,61 +1,53 @@
-import { baseApiSlice } from "@/redux/api/base-api";
-import { IUser } from "./user.api-slice";
+import { baseApiSlice } from '@/redux/api/base-api'
+import { IUser } from './user.api-slice'
 
 export interface IAddUserResponse {
-  error: boolean;
-  responseCode: string;
-  responseMessage: string;
+  error: boolean
+  responseCode: string
+  responseMessage: string
   data: {
-    id: number;
-    firstname: string;
-    lastname: string;
-    middlename: string;
-    email: string;
-    phoneNumber: string;
-    state: string;
-    address: string;
-    bvn: string;
-    nin: string;
-    twoFactor: boolean;
-    isVerified: boolean;
-    emailVerified: boolean;
-    userType: string;
-    roles: [];
-    _id: string;
-    lastLogin: string;
-    createdAt: string;
-    updatedAt: string;
-  };
+    id: number
+    firstname: string
+    lastname: string
+    middlename: string
+    email: string
+    phoneNumber: string
+    state: string
+    address: string
+    bvn: string
+    nin: string
+    twoFactor: boolean
+    isVerified: boolean
+    emailVerified: boolean
+    userType: string
+    roles: []
+    _id: string
+    lastLogin: string
+    createdAt: string
+    updatedAt: string
+  }
 }
 
 export interface IAddUserPayload {
-  email: string;
-  phoneNumber: string;
-  password: string;
-  lastname: string;
-  firstname: string;
-  middlename: string;
-  state: string;
-  lga: string;
-  address: string;
-  nin: string;
-  pin: string;
-  bvn: string;
+  email: string
+  phoneNumber: string
+  lastname: string
+  firstname: string
 }
 
 export const addUserApiSlice = baseApiSlice.injectEndpoints({
-  endpoints: (builder) => ({
+  endpoints: builder => ({
     addUser: builder.mutation<IAddUserResponse, IAddUserPayload>({
-      query: (addUserDetails) => ({
+      query: addUserDetails => ({
         url: `settings/admin/user`,
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: addUserDetails,
       }),
     }),
   }),
-});
+})
 
-export const { useAddUserMutation } = addUserApiSlice;
+export const { useAddUserMutation } = addUserApiSlice

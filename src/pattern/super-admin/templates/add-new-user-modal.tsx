@@ -24,6 +24,7 @@ import {
   useAddUserMutation,
 } from "@/redux/services/users/add-user.api-slice";
 import { ErrorModal } from "@/pattern/common/organisms/error-modal";
+import { toast } from "sonner";
 
 const USER_TYPES = [
   { label: "Administrator", value: "Administrator" },
@@ -76,18 +77,10 @@ const AddNewUserModal = create(() => {
 
   const onSubmit: SubmitHandler<any> = (data) => {
     addUser({
-      address: "fct abuja",
-      bvn: "1234560",
       email: data.email,
       firstname: data.firstname,
       lastname: data.lastname,
-      middlename: "medda",
-      nin: "123455",
-      lga: "dawaki",
-      password: "Bibi@12345!",
       phoneNumber: data.phoneNumber,
-      pin: "1234",
-      state: "abuja",
     })
       .unwrap()
       .then((res) => {

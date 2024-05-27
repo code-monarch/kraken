@@ -1,142 +1,160 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import ButtonWithIcon from "@/pattern/common/molecules/controls/button-with-icon";
-import { ExcelIcon } from "@/pattern/common/atoms/icons/excel-icon";
-import SearchInput from "@/pattern/common/molecules/inputs/search-input";
-import FilterIcon from "@/pattern/common/atoms/icons/filter-icon";
-import { show } from "@ebay/nice-modal-react";
-import { UserManagementTableSearchFilterModal } from "../organisms/user-management-table-search-filter-modal";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { UserManagementTable } from "../organisms/user-management-table";
-import { PaginationState } from "@tanstack/react-table";
+'use client'
+import React, { useEffect, useMemo, useState } from 'react'
+import ButtonWithIcon from '@/pattern/common/molecules/controls/button-with-icon'
+import { ExcelIcon } from '@/pattern/common/atoms/icons/excel-icon'
+import SearchInput from '@/pattern/common/molecules/inputs/search-input'
+import FilterIcon from '@/pattern/common/atoms/icons/filter-icon'
+import { show } from '@ebay/nice-modal-react'
+import { UserManagementTableSearchFilterModal } from '../organisms/user-management-table-search-filter-modal'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { UserManagementTable } from '../organisms/user-management-table'
+import { PaginationState } from '@tanstack/react-table'
 import {
   UserDetails,
   UserTableColumns,
-} from "../molecules/user-management-table-column";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { useGetUsersQuery } from "@/redux/services/users/user.api-slice";
+} from '../molecules/user-management-table-column'
+import { Badge } from '@/components/ui/badge'
+import { Separator } from '@/components/ui/separator'
+import { IUser, useGetUsersQuery } from '@/redux/services/users/user.api-slice'
 
 const UserManagementTableTemplate = () => {
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 10,
-  });
+  })
 
-  const [pageCount, setPageCount] = useState<number>(1);
-  const [status, setStatus] = useState<string>("");
-  const [date, setDate] = useState<string>();
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [role, setRole] = useState<string>("");
-  const [order, setOrder] = useState<string>("");
-  const [startDate, setStartDate] = useState<string>("");
-  const [endDate, setEndDate] = useState<string>("");
+  const [pageCount, setPageCount] = useState<number>(1)
+  const [status, setStatus] = useState<string>('')
+  const [searchQuery, setSearchQuery] = useState<string>('')
+  const [role, setRole] = useState<string>('')
+  const [order, setOrder] = useState<string>('')
+  const [startDate, setStartDate] = useState<string>('')
+  const [endDate, setEndDate] = useState<string>('')
 
   const { data, isLoading, isSuccess, isFetching, isError } = useGetUsersQuery({
     page: pagination.pageIndex + 1,
     limit: pagination.pageSize,
     status: status,
-    startDate: "",
-    endDate: "",
-  });
+    startDate: startDate,
+    endDate: endDate,
+  })
 
   useEffect(() => {
     if (data && data.data) {
-      setPageCount(data.data.pagination.totalPages);
+      setPageCount(data.data.pagination.totalPages)
     }
-  }, [data]);
+  }, [data])
 
   const handleShowSearchFilterModal = async () => {
-    const result: any = await show(UserManagementTableSearchFilterModal);
+    const result: any = await show(UserManagementTableSearchFilterModal)
     if (result.resolved) {
-      setStatus(result.userStatus);
-      setDate(result.registeredOn);
-      setRole(result.role);
-      setOrder(result.order);
+      setStatus(result.userStatus)
+      setRole(result.role)
+      setOrder(result.order)
+      setStartDate(result.startDate)
+      setEndDate(result.endDate)
     }
-  };
+  }
 
-  const [tabValue, setTabValue] = useState("all");
+  const [tabValue, setTabValue] = useState('all')
+
+  const sortedData = useMemo(() => {
+    let result = data?.data.result
+
+    if (data?.data.result && order === 'descending') {
+      result = [...data?.data.result].sort((a, b) => {
+        return b.firstname.localeCompare(a.firstname)
+      })
+    } else if (data?.data.result && order === 'ascending') {
+      result = [...data?.data.result].sort((a, b) => {
+        return a.firstname.localeCompare(b.firstname)
+      })
+    }
+
+    return result
+  }, [data, order])
+  const sortedUsers = sortedData?.filter(item => item.userType === 'USER')
+  const sortedAgents = sortedData?.filter(item => item.userType === 'AGENT')
 
   return (
-    <div className="w-full h-fit bg-card px-6">
+    <div className='w-full h-fit bg-card px-6'>
       {/* Top */}
-      <div className="w-full h-[76px] bg-inherit flex items-center justify-between py-[26px]">
-        <div className="flex items-center gap-2">
-          <h3 className="text-[1.125rem] font-semibold">User List</h3>
+      <div className='w-full h-[76px] bg-inherit flex items-center justify-between py-[26px]'>
+        <div className='flex items-center gap-2'>
+          <h3 className='text-[1.125rem] font-semibold'>User List</h3>
         </div>
         <ButtonWithIcon
-          variant="outlinePrimary"
+          variant='outlinePrimary'
           prefixIcon={<ExcelIcon />}
-          size="sm"
-          className="w-[127px] h-[44px] text-base"
+          size='sm'
+          className='w-[127px] h-[44px] text-base'
         >
           Export
         </ButtonWithIcon>
       </div>
 
       {/* Bottom */}
-      <div className="relative w-full h-fit bg-inherit flex items-center justify-between py-[26px]">
+      <div className='relative w-full h-fit bg-inherit flex items-center justify-between py-[26px]'>
         {/* Tabs */}
-        <Tabs value={tabValue} onValueChange={setTabValue} className="w-full">
+        <Tabs value={tabValue} onValueChange={setTabValue} className='w-full'>
           <TabsList>
             {/* All Users */}
-            <div className="w-fit flex flex-col items-start">
+            <div className='w-fit flex flex-col items-start'>
               <TabsTrigger
-                value="all"
-                className="rounded-none text-base py-3 px-6"
+                value='all'
+                className='rounded-none text-base py-3 px-6'
               >
                 All
               </TabsTrigger>
               <Separator
                 className={
-                  tabValue === "all"
-                    ? "text-primary bg-primary"
-                    : "text-border bg-border"
+                  tabValue === 'all'
+                    ? 'text-primary bg-primary'
+                    : 'text-border bg-border'
                 }
               />
             </div>
 
             {/* Pilgrims */}
-            <div className="w-fit flex flex-col items-start">
+            <div className='w-fit flex flex-col items-start'>
               <TabsTrigger
-                value="pilgrim"
-                className="rounded-none text-base py-3 px-6"
+                value='user'
+                className='rounded-none text-base py-3 px-6'
               >
-                Pilgrim
-                <Badge variant="accent">6,000</Badge>
+                User
+                <Badge variant='accent'>{sortedUsers?.length}</Badge>
               </TabsTrigger>
               <Separator
                 className={
-                  tabValue === "pilgrim"
-                    ? "text-primary bg-primary"
-                    : "text-border bg-border"
+                  tabValue === 'user'
+                    ? 'text-primary bg-primary'
+                    : 'text-border bg-border'
                 }
               />
             </div>
 
             {/* Agent */}
-            <div className="w-fit flex flex-col items-start">
+            <div className='w-fit flex flex-col items-start'>
               <TabsTrigger
-                value="agent"
-                className="rounded-none text-base py-3 px-6"
+                value='agent'
+                className='rounded-none text-base py-3 px-6'
               >
                 Agent
-                <Badge variant="accent">6,000</Badge>
+                <Badge variant='accent'>6,000</Badge>
               </TabsTrigger>
               <Separator
                 className={
-                  tabValue === "agent"
-                    ? "text-primary bg-primary"
-                    : "text-border bg-border"
+                  tabValue === 'agent'
+                    ? 'text-primary bg-primary'
+                    : 'text-border bg-border'
                 }
               />
             </div>
           </TabsList>
-          <TabsContent value="all">
+          <TabsContent value='all'>
             <UserManagementTable
               columns={UserTableColumns}
-              data={data!}
+              data={sortedData!}
               isLoading={isLoading}
               isError={isError}
               isFetching={isFetching}
@@ -146,11 +164,11 @@ const UserManagementTableTemplate = () => {
               setPagination={setPagination}
             />
           </TabsContent>
-          <TabsContent value="pilgrim">
-            {" "}
+          <TabsContent value='user'>
+            {' '}
             <UserManagementTable
               columns={UserTableColumns}
-              data={data!}
+              data={sortedUsers!}
               isLoading={isLoading}
               isError={isError}
               isFetching={isFetching}
@@ -160,11 +178,11 @@ const UserManagementTableTemplate = () => {
               setPagination={setPagination}
             />
           </TabsContent>
-          <TabsContent value="agent">
-            {" "}
+          <TabsContent value='agent'>
+            {' '}
             <UserManagementTable
               columns={UserTableColumns}
-              data={data!}
+              data={sortedAgents!}
               isLoading={isLoading}
               isError={isError}
               isFetching={isFetching}
@@ -177,21 +195,21 @@ const UserManagementTableTemplate = () => {
         </Tabs>
         {/* Tabs End */}
 
-        <div className="absolute top-[30px] right-0 flex items-center gap-3">
+        <div className='absolute top-[30px] right-0 flex items-center gap-3'>
           {/* Search Input */}
-          <div className="flex items-center gap-3">
+          <div className='flex items-center gap-3'>
             <SearchInput
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={e => setSearchQuery(e.target.value)}
             />
           </div>
 
           {/* Table search Filter Button */}
           <ButtonWithIcon
             prefixIcon={<FilterIcon />}
-            variant="outline"
-            size="sm"
-            className="w-[125px] h-[44px] text-base"
+            variant='outline'
+            size='sm'
+            className='w-[125px] h-[44px] text-base'
             onClick={handleShowSearchFilterModal}
           >
             Filters
@@ -199,7 +217,7 @@ const UserManagementTableTemplate = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default UserManagementTableTemplate;
+export default UserManagementTableTemplate

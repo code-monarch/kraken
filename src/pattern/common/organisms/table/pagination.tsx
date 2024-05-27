@@ -1,26 +1,26 @@
-import React from "react";
-import { Table } from "@tanstack/react-table";
-import { Button } from "@/components/ui/button";
-import ArrowLeftIcon from "../../atoms/icons/arrow-left-icon";
-import ArrowRightIcon from "../../atoms/icons/arrow-right-icon";
+import React from 'react'
+import { Table } from '@tanstack/react-table'
+import { Button } from '@/components/ui/button'
+import ArrowLeftIcon from '../../atoms/icons/arrow-left-icon'
+import ArrowRightIcon from '../../atoms/icons/arrow-right-icon'
 
 interface DataTablePaginationProps<TData> {
-  table: Table<TData>;
+  table: Table<TData>
 }
 
 export function Pagination<TData>({ table }: DataTablePaginationProps<TData>) {
-  const pageCount = table.getPageCount();
+  const pageCount = table.getPageCount()
 
   return (
-    <div className="w-full flex items-center justify-end py-4">
-      <div className="flex items-center">
+    <div className='w-full flex items-center justify-end py-4'>
+      <div className='flex items-center'>
         {/* Previous Button */}
         <Button
-          className=" min-w-fit min-h-fit w-fit text-sm text-[#1d2939] py-2.5 px-4 rounded-l-[8px] rounded-r-none "
-          variant="outline"
-          size="sm"
+          className=' min-w-fit min-h-fit w-fit text-sm text-[#1d2939] py-2.5 px-4 rounded-l-[8px] rounded-r-none '
+          variant='outline'
+          size='sm'
           onClick={() => {
-            table.previousPage();
+            table.previousPage()
           }}
           disabled={!table.getCanPreviousPage()}
         >
@@ -36,13 +36,13 @@ export function Pagination<TData>({ table }: DataTablePaginationProps<TData>) {
               key={index}
               className={`${
                 table.getState().pagination.pageIndex === index
-                  ? "text-primary"
-                  : "text-[#1d2939]"
+                  ? 'text-primary'
+                  : 'text-[#1d2939]'
               } min-w-fit min-h-fit w-fit text-sm  py-2.5 px-4 rounded-none`}
-              variant="outline"
-              size="sm"
+              variant='outline'
+              size='sm'
               onClick={() => {
-                table.setPageIndex(index);
+                table.setPageIndex(index)
               }}
             >
               {index + 1}
@@ -56,20 +56,20 @@ export function Pagination<TData>({ table }: DataTablePaginationProps<TData>) {
                 key={index}
                 className={`${
                   table.getState().pagination.pageIndex === index
-                    ? "text-primary"
-                    : "text-[#1d2939]"
+                    ? 'text-primary'
+                    : 'text-[#1d2939]'
                 } min-w-fit min-h-fit w-fit text-sm  py-2.5 px-4 rounded-none`}
-                variant="outline"
-                size="sm"
+                variant='outline'
+                size='sm'
                 onClick={() => {
-                  table.setPageIndex(index);
+                  table.setPageIndex(index)
                 }}
               >
                 {index + 1}
               </Button>
             ))}
 
-            <span className="inline-block">
+            {/* <span className="inline-block">
               <input
                 type="number"
                 min="1"
@@ -82,6 +82,12 @@ export function Pagination<TData>({ table }: DataTablePaginationProps<TData>) {
                 }}
                 className="remove-arrow border h-[32px] py-2.5 px-4 rounded w-[fit] text-center"
               />
+            </span> */}
+
+            <span className='text-primary font-medium border h-[32px h-full py-2.5 px-4 w-[80px] text-center min-w-fit min-h-fit text-sm rounded-none'>
+              {table.getState().pagination.pageIndex > 2 && table.getState().pagination.pageIndex < pageCount - 3
+                ? table.getState().pagination.pageIndex + 1
+                : '...'}
             </span>
 
             {[...Array(3)].map((_, index) => (
@@ -90,13 +96,13 @@ export function Pagination<TData>({ table }: DataTablePaginationProps<TData>) {
                 className={`${
                   table.getState().pagination.pageIndex ===
                   pageCount - 3 + index
-                    ? "text-primary"
-                    : "text-[#1d2939]"
+                    ? 'text-primary'
+                    : 'text-[#1d2939]'
                 } min-w-fit min-h-fit w-fit text-sm  py-2.5 px-4 rounded-none`}
-                variant="outline"
-                size="sm"
+                variant='outline'
+                size='sm'
                 onClick={() => {
-                  table.setPageIndex(pageCount - 3 + index);
+                  table.setPageIndex(pageCount - 3 + index)
                 }}
               >
                 {pageCount - 2 + index}
@@ -107,11 +113,11 @@ export function Pagination<TData>({ table }: DataTablePaginationProps<TData>) {
 
         {/* Next button */}
         <Button
-          className="py-2.5 px-4 rounded-r-[8px] rounded-l-none min-w-fit min-h-fit w-fit text-sm text-[#1d2939]"
-          variant="outline"
-          size="sm"
+          className='py-2.5 px-4 rounded-r-[8px] rounded-l-none min-w-fit min-h-fit w-fit text-sm text-[#1d2939]'
+          variant='outline'
+          size='sm'
           onClick={() => {
-            table.nextPage();
+            table.nextPage()
           }}
           disabled={!table.getCanNextPage()}
         >
@@ -120,5 +126,5 @@ export function Pagination<TData>({ table }: DataTablePaginationProps<TData>) {
         </Button>
       </div>
     </div>
-  );
+  )
 }
