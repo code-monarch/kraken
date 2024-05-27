@@ -26,7 +26,7 @@ build:
     - ls -la dist
   artifacts:
     paths:
-      - dist
+      - .next
     expire_in: 1 hour
 
 deploy_staging:
@@ -36,7 +36,7 @@ deploy_staging:
     - apt-get update
     - apt-get -y install python3-pip
     - pip3 install awscli
-    - aws s3 sync dist/ s3://$S3_BUCKET_STAGING --delete
+    - aws s3 sync .next/ s3://$S3_BUCKET_STAGING --delete
   environment:
     name: staging
   only:
