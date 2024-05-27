@@ -50,7 +50,7 @@ export const userDetailsSlice = createSlice({
   reducers: {
     setEmail: (state, action) => {
       state.email = action.payload
-      LocalStore.setItem({ key: USER_EMAIL, value: state.email! })
+      LocalStore.setItem({ key: USER_EMAIL, value: state?.email! })
     },
 
     setPhoneNumber: (state, action) => {
@@ -66,11 +66,11 @@ export const userDetailsSlice = createSlice({
       LocalStore.setItem({ key: ADMIN_ROLE, value: state.adminRole! })
     },
     setAdminInfo: (state, action: PayloadAction<IAdminDetails>) => {
-      state.adminRole = action.payload.adminRole
-      state.firstname = action.payload.firstname
-      state.lastname = action.payload.lastname
-      state.phoneNumber = action.payload.phoneNumber
-      state.email = action.payload.email
+      state.adminRole = action.payload?.adminRole
+      state.firstname = action.payload?.firstname
+      state.lastname = action.payload?.lastname
+      state.phoneNumber = action.payload?.phoneNumber
+      state.email = action.payload?.email
       const adminInfo = JSON.stringify({
         [ADMIN_ROLE]: state.adminRole,
         [ADMIN_FIRSTNAME]: state.firstname,
@@ -83,8 +83,8 @@ export const userDetailsSlice = createSlice({
 
     // set2FaPreference Action
     set2FaPreference: (state, action: PayloadAction<I2FApref>) => {
-      state.google2fa = action.payload.google2fa
-      state.sms2fa = action.payload.sms2fa
+      state.google2fa = action.payload?.google2fa
+      state.sms2fa = action.payload?.sms2fa
       const securityPreference = JSON.stringify({
         google2FA: state.google2fa,
         sms2FA: state.sms2fa,

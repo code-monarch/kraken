@@ -10,15 +10,15 @@ import { ADMIN_ID } from '@/lib/constants'
 
 const SettingsTemplate = () => {
   const adminFirstname = useSelector(
-    (state: RootState) => state.userDetails.firstname,
+    (state: RootState) => state.userDetails?.firstname,
   )
   const adminLastname = useSelector(
-    (state: RootState) => state.userDetails.lastname,
+    (state: RootState) => state.userDetails?.lastname,
   )
-  const adminEmail = useSelector((state: RootState) => state.userDetails.email)
-  const sms2Fa = useSelector((state: RootState) => state.userDetails.sms2fa)
+  const adminEmail = useSelector((state: RootState) => state.userDetails?.email)
+  const sms2Fa = useSelector((state: RootState) => state.userDetails?.sms2fa)
 
-  const adminId = useSelector((state: RootState) => state.userDetails.adminId)
+  const adminId = useSelector((state: RootState) => state.userDetails?.adminId)
   const userId = LocalStore.getItem({ key: ADMIN_ID })
 
 

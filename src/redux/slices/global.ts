@@ -1,5 +1,4 @@
 "use client";
-import { RootState } from "@/redux/store";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 

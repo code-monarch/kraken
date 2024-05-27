@@ -11,7 +11,7 @@ import { RootState } from "@/redux/store";
 
 const TransactionsPage = () => {
   const adminRole = useSelector(
-    (state: RootState) => state.userDetails.adminRole
+    (state: RootState) => state.userDetails?.adminRole
   );
   return (
     <>

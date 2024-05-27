@@ -27,7 +27,7 @@ const OverviewPage = () => {
   })
 
   const adminRole = useSelector(
-    (state: RootState) => state.userDetails.adminRole,
+    (state: RootState) => state.userDetails?.adminRole,
   )
 
   useEffect(() => {

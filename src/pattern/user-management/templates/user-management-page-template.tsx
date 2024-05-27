@@ -13,7 +13,7 @@ import { useSearchParams } from 'next/navigation'
 
 const UserManagementPageTemplate = () => {
   const adminRole = useSelector(
-    (state: RootState) => state.userDetails.adminRole,
+    (state: RootState) => state.userDetails?.adminRole,
   )
 
   const searchParams = useSearchParams()

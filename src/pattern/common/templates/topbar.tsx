@@ -18,9 +18,9 @@ const Topbar = () => {
   })
 
   const firstname = useSelector(
-    (state: RootState) => state.userDetails.firstname,
+    (state: RootState) => state.userDetails?.firstname,
   )
-  const lastname = useSelector((state: RootState) => state.userDetails.lastname)
+  const lastname = useSelector((state: RootState) => state.userDetails?.lastname)
 
   const initials = getInitials(`${firstname} ${lastname}`)
 
