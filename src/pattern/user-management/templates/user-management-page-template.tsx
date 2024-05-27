@@ -25,7 +25,7 @@ const UserManagementPageTemplate = () => {
       {userId ? (
         <UserDetailsTemplate />
       ) : (
-        <div>
+        <div className='w-full h-full space-y-[20px]'>
           {/* Admin Page Header */}
           <Hidden visible={adminRole === 'ADMIN'}>
             <PageHeader

@@ -43,7 +43,7 @@ const ActivitySlideOutMenu = create(
           <div className="relative h-full">
             <ScrollArea
               className="w-full rounded-sm"
-              style={{ height: `${scrollHeight}px` }}
+              style={{ height: scrollHeight }}
             >
               <SheetHeader className="absolute top-0 right-0 left-0 z-10">
                 <SheetTitle>Activity details</SheetTitle>
