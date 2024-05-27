@@ -1,4 +1,4 @@
-import { ADMIN_ROLE, LOGIN_API_KEY, SERVICE_ACCOUNT_API_KEY } from "../constants";
+import { ADMIN_ID, ADMIN_ROLE, LOGIN_API_KEY, SERVICE_ACCOUNT_API_KEY } from "../constants";
 
 interface ISessionProps {
   key: string | undefined;
@@ -71,6 +71,7 @@ export const storeLoginCredentials = ({ apiKey, adminId, serviceAccountApiKey }:
   return new Promise((resolve) => {
     LocalStore.setItem({ key: LOGIN_API_KEY, value: apiKey })
     LocalStore.setItem({ key: ADMIN_ROLE, value: adminId });
+    LocalStore.setItem({ key: ADMIN_ID, value: adminId });
     LocalStore.setItem({ key: SERVICE_ACCOUNT_API_KEY, value: serviceAccountApiKey })
     resolve(true)
   });

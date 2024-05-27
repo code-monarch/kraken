@@ -15,8 +15,10 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 
 // const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
 
+const reducer = persistReducer<ReturnType<typeof rootReducer>>(rootPersistConfig, rootReducer);
+
 export const store = configureStore({
-  reducer: rootReducer,
+  reducer: reducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

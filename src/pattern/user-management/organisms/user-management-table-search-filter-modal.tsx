@@ -20,6 +20,7 @@ import { IListType } from "@/pattern/types";
 import CalendarModal from "@/pattern/common/organisms/calendar-modal";
 import { Badge } from "@/components/ui/badge";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { DateRangeFilterModal } from "@/pattern/common/organisms/date-range-filter-modal";
 
 const rolesFilterSetting: IListType[] = [
   {
@@ -27,8 +28,8 @@ const rolesFilterSetting: IListType[] = [
     value: "all",
   },
   {
-    label: "Pilgrim",
-    value: "pilgrim",
+    label: "User",
+    value: "user",
   },
   {
     label: "Agent",
@@ -36,30 +37,14 @@ const rolesFilterSetting: IListType[] = [
   },
 ];
 
-const TransactionTypeFilterSetting: IListType[] = [
-  {
-    label: "Trade",
-    value: "trade",
-  },
-  {
-    label: "Deposit",
-    value: "deposit",
-  },
-  {
-    label: "Withdrawal",
-    value: "withdrawal",
-  },
-  {
-    label: "Swap",
-    value: "swap",
-  },
-];
-
 export const UserManagementTableSearchFilterModal = create(() => {
   const [userStatus, setUserStatus] = useState<string>("");
   const [userRole, setUserRole] = useState<string>("");
   const [registeredOn, setRegisteredOn] = useState<string>("");
+  const [startDate, setStartDate] = useState<string>("");
+  const [endDate, setEndDate] = useState<string>("");
   const [order, setOrder] = useState<string>("");
+  const [dateRange, setDateRange] = useState<string>("");
 
   const { resolve, remove, visible } = useModal();
 
@@ -70,8 +55,17 @@ export const UserManagementTableSearchFilterModal = create(() => {
     }
   };
 
+  const showDateRangeFilterModal = async () => {
+    const result: any = await show(DateRangeFilterModal);
+    if (result.resolved) {
+      setStartDate(result.startDate);
+      setEndDate(result.endDate);
+      setDateRange(`${result.startDate} - ${result.endDate}`)
+    }
+  };
+
   const handleCloseModal = () => {
-    resolve({ resolved: true, userStatus, userRole, registeredOn, order });
+    resolve({ resolved: true, userStatus, userRole, startDate, endDate, order });
     remove();
   };
 
@@ -80,7 +74,7 @@ export const UserManagementTableSearchFilterModal = create(() => {
   };
   return (
     <Dialog open={visible} onOpenChange={handleCloseModal}>
-      <DialogContent className="w-fit h-fit p-0 outline-none border-none shadow-none">
+      <DialogContent onInteractOutside={(e) => e.preventDefault()} className="w-fit h-fit p-0 outline-none border-none shadow-none">
         <Card className="w-[350px] min-h-[578px] h-fit p-0">
           {/* Header */}
           <CardHeader className="w-full h-[64px] flex flex-row items-center justify-between py-[10px] px-6 border-b border-b-[hsla(218,19%,92%,1)]">
@@ -88,7 +82,7 @@ export const UserManagementTableSearchFilterModal = create(() => {
             <div className="flex items-center gap-x-[32px] pt-[2px] !m-0">
               {/* Clear all button */}
               <LinkButton className="text-[18px]">Clear All</LinkButton>
-              <span onClick={handleCloseModal} className="!m-0 cursor-pointer">
+              <span onClick={() => remove()} className="!m-0 cursor-pointer">
                 <SheetCloseIcon />
               </span>
             </div>
@@ -143,7 +137,7 @@ export const UserManagementTableSearchFilterModal = create(() => {
                   <ToggleGroupItem
                     value="Active"
                     aria-label="Active"
-                    // className="min-w-[32px] w-fit h-[24px] p-0 rounded-[6px] border-none hover:border-none focus:ring-[1px] focus-visible:ring-[1px] focus:ring-primary focus-visible:ring-primary"
+                    className='!bg-transparent data-[state=on]:!bg-success-200 data-[state=on]:!text-primary'
                   >
                     <Badge variant="active" className="h-[24px]">
                       Active
@@ -152,7 +146,7 @@ export const UserManagementTableSearchFilterModal = create(() => {
                   <ToggleGroupItem
                     value="Inactive"
                     aria-label="Inactive"
-                    // className="min-w-[32px] w-fit h-[24px] p-0 rounded-[6px] border-none hover:border-none focus:ring-[1px] focus-visible:ring-[1px] focus:ring-warning focus-visible:ring-warning"
+                    className='!bg-transparent data-[state=on]:!bg-success-200 data-[state=on]:!text-primary'
                   >
                     <Badge variant="inactive" className="h-[24px]">
                       Inactive
@@ -169,9 +163,9 @@ export const UserManagementTableSearchFilterModal = create(() => {
                 <DateInput
                   name="registration-date"
                   label="Registered On"
-                  placeholder="Select a date"
-                  onClick={showDateCalendarModal}
-                  value={registeredOn}
+                  placeholder="Select a date range"
+                  onClick={showDateRangeFilterModal}
+                  value={dateRange}
                 />
               </div>
             </div>

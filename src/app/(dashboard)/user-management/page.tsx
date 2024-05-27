@@ -17,11 +17,11 @@ function UserManagementFallback() {
 
 const UserManagementPage = () => {
   return (
-      <div>
+      <>
         <Suspense fallback={<UserManagementFallback />}>
           <UserManagementPageTemplate />
         </Suspense>
-      </div>
+      </>
   )
 }
 

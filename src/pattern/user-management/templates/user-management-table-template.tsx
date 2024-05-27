@@ -10,11 +10,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { UserManagementTable } from '../organisms/user-management-table'
 import { PaginationState } from '@tanstack/react-table'
 import {
+  UserDetails,
   UserTableColumns,
 } from '../molecules/user-management-table-column'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
-import { useGetUsersQuery } from '@/redux/services/users/user.api-slice'
+import { IUser, useGetUsersQuery } from '@/redux/services/users/user.api-slice'
 
 const UserManagementTableTemplate = () => {
   const [pagination, setPagination] = useState<PaginationState>({
@@ -93,7 +94,7 @@ const UserManagementTableTemplate = () => {
       </div>
 
       {/* Bottom */}
-      <div className='h-fit w-full bg-inherit flex items-center justify-between py-[26px]'>
+      <div className='relative w-full h-fit bg-inherit flex items-center justify-between py-[26px]'>
         {/* Tabs */}
         <Tabs value={tabValue} onValueChange={setTabValue} className='w-full'>
           <TabsList>
@@ -150,7 +151,7 @@ const UserManagementTableTemplate = () => {
               />
             </div>
           </TabsList>
-          <TabsContent value='all' className='w-full'>
+          <TabsContent value='all'>
             <UserManagementTable
               columns={UserTableColumns}
               data={sortedData!}
@@ -163,7 +164,8 @@ const UserManagementTableTemplate = () => {
               setPagination={setPagination}
             />
           </TabsContent>
-          <TabsContent value='user' className='w-full'>
+          <TabsContent value='user'>
+            {' '}
             <UserManagementTable
               columns={UserTableColumns}
               data={sortedUsers!}
@@ -176,7 +178,8 @@ const UserManagementTableTemplate = () => {
               setPagination={setPagination}
             />
           </TabsContent>
-          <TabsContent value='agent' className='w-full'>
+          <TabsContent value='agent'>
+            {' '}
             <UserManagementTable
               columns={UserTableColumns}
               data={sortedAgents!}

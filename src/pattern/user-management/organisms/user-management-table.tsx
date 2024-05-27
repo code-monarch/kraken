@@ -18,17 +18,17 @@ import {
 } from "@tanstack/react-table";
 import PulsePlaceholder from "@/pattern/common/atoms/icons/pulse-placeholder-icon";
 import {
-  UserDetails,
   UserTableColumns,
 } from "../molecules/user-management-table-column";
 import { Pagination } from "@/pattern/common/organisms/table/pagination";
-import { IGetUsersResponse } from "@/redux/services/users/user.api-slice";
+import { IUser } from "@/redux/services/users/user.api-slice";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const columns = UserTableColumns;
 
 interface IUserManagementTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  data: IGetUsersResponse;
+  data: IUser[];
   pageCount?: number;
   pagination?: PaginationState;
   setPagination?: any;
@@ -57,10 +57,10 @@ export function UserManagementTable<TData, TValue>({
   const defaultData = useMemo(() => [], []);
 
   const userManagementTable = useReactTable({
-    data: data?.data?.result ?? defaultData,
+    data: data ?? defaultData,
     columns,
     pageCount,
-    rowCount: data?.data?.result?.length,
+    rowCount: data?.length,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onRowSelectionChange: setRowSelection,
@@ -73,34 +73,34 @@ export function UserManagementTable<TData, TValue>({
     debugTable: true,
   });
   return (
-    <div>
+    <ScrollArea className='w-full h-full' orientation='horizontal'>
       <Table>
         {/* Header */}
-        <TableHeader>
-          {userManagementTable.getHeaderGroups().map((headerGroup) => (
+        <TableHeader className='w-full'>
+          {userManagementTable.getHeaderGroups().map(headerGroup => (
             <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
+              {headerGroup.headers.map(header => {
                 return (
                   <TableHead key={header.id}>
                     {header.isPlaceholder
                       ? null
                       : flexRender(
                           header.column.columnDef.header,
-                          header.getContext()
+                          header.getContext(),
                         )}
                   </TableHead>
-                );
+                )
               })}
             </TableRow>
           ))}
         </TableHeader>
 
         {/* Body */}
-        <TableBody>
+        <TableBody className='w-full'>
           {/* Display placeholder when it is loading */}
           {(isLoading || isFetching) && (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
+              <TableCell colSpan={columns.length} className='h-24 text-center'>
                 <PulsePlaceholder />
               </TableCell>
             </TableRow>
@@ -111,12 +111,12 @@ export function UserManagementTable<TData, TValue>({
             !isFetching &&
             isSuccess &&
             userManagementTable.getRowModel().rows?.length &&
-            userManagementTable.getRowModel().rows.map((row) => (
+            userManagementTable.getRowModel().rows.map(row => (
               <TableRow
                 key={row.id}
-                data-state={row.getIsSelected() && "selected"}
+                data-state={row.getIsSelected() && 'selected'}
               >
-                {row.getVisibleCells().map((cell) => (
+                {row.getVisibleCells().map(cell => (
                   <TableCell key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
@@ -125,25 +125,23 @@ export function UserManagementTable<TData, TValue>({
             ))}
 
           {/* Display Message when data is empty */}
-          {
-            !isLoading &&
-              (isError ||
-                !userManagementTable.getRowModel().rows?.length ||
-                data?.data?.result.length === 0) && (
-                <TableRow>
-                  <TableCell
-                    colSpan={columns.length}
-                    className="h-24 text-center"
-                  >
-                    No Record Found.
-                  </TableCell>
-                </TableRow>
-              )
-          }
+          {!isLoading &&
+            (isError ||
+              !userManagementTable.getRowModel().rows?.length ||
+              data?.length === 0) && (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className='h-24 text-center'
+                >
+                  No Record Found.
+                </TableCell>
+              </TableRow>
+            )}
         </TableBody>
       </Table>
       {/* {pageCount && pageCount > 1 && <Pagination table={userManagementTable} />} */}
       <Pagination table={userManagementTable} />
-    </div>
-  );
+    </ScrollArea>
+  )
 }

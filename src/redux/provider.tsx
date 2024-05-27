@@ -9,7 +9,7 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
+        <PersistGate persistor={persistor}>
           <Toaster position='top-center' richColors />
           <NiceModal.Provider>{children}</NiceModal.Provider>
         </PersistGate>
