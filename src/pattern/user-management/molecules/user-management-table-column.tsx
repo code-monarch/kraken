@@ -24,7 +24,7 @@ import {
 
 const redirectToUserDetails = (userId: string) => {
   if (typeof window !== "undefined") {
-    window.location.href = `${DASHBOARD_PATHS.userManagement}/${userId}`;
+    window.location.href = `${DASHBOARD_PATHS.userManagement}?userId=${userId}`;
   }
 };
 
@@ -40,7 +40,6 @@ export type UserDetails = {
 };
 
 export const UserTableColumns: ColumnDef<IUser>[] = [
-  // Checkbox
   {
     id: "select",
     header: ({ table }) => (

@@ -5,6 +5,7 @@ import { baseApiSlice } from "./api/base-api";
 import hardSet from "redux-persist/lib/stateReconciler/hardSet";
 
 import globalStateReducers from "./slices/global";
+import authStateReducers from "./slices/auth";
 import  userDetailsReducer  from "./slices/user-slice";
 
 export const rootPersistConfig = {
@@ -18,6 +19,7 @@ export const rootPersistConfig = {
 const rootReducer = combineReducers({
   [baseApiSlice.reducerPath]: baseApiSlice.reducer,
   globalState: globalStateReducers,
+  authState: authStateReducers,
   userDetails: userDetailsReducer,
 });
 

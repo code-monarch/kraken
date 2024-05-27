@@ -7,17 +7,19 @@ import AuthGuard from "@/pattern/common/templates/auth-guard";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <AuthGuard>
-    <div
-      className={cn(
-        "bg-accent w-full min-h-screen h-full flex flex-col items-center"
-      )}
-    >
-      <Topbar />
-      <PageWrapper>{children}</PageWrapper>
-    </div>
-    </AuthGuard>
-  );
+    <>
+      <AuthGuard>
+        <div
+          className={cn(
+            'bg-accent w-full min-h-screen h-full flex flex-col items-center',
+          )}
+        >
+          <Topbar />
+          <PageWrapper>{children}</PageWrapper>
+        </div>
+      </AuthGuard>
+    </>
+  )
 };
 
 export default Layout;

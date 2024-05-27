@@ -27,20 +27,19 @@ const baseQuery = fetchBaseQuery({
   baseUrl: `${process.env.NEXT_PUBLIC_BASE_URL}`,
   // credentials: "same-origin",
   // credentials: "include",
-  mode: 'cors',
-  prepareHeaders: (headers, {}) => {
-    headers.set('Accept', 'application/json')
-    headers.set('Content-Type', 'application/json; charset=UTF-8')
-    const serviceAccountApiKey = LocalStore.getItem({
-      key: SERVICE_ACCOUNT_API_KEY,
-    })
+  mode: "cors",
+  prepareHeaders: (headers, { }) => {
+    headers.set("Accept", "application/json");
+    headers.set("Content-Type", "application/json; charset=UTF-8");
+
     if (serviceAccountApiKey) {
-    headers.set(
-      'x-service-account-key',
-      `${serviceAccountApiKey}`,
-    )
+      headers.set(
+        "x-service-account-key",
+        `${serviceAccountApiKey}`
+        // "a24bc9ef5497fea18a61dccb5ebf0a48a3533c265d2e98be"
+      );
     }
-    const loginApiKey = LocalStore.getItem({ key: LOGIN_API_KEY })
+
     if (loginApiKey) {
       headers.set('x-admin-api-key', `${loginApiKey}`)
     }
@@ -58,10 +57,10 @@ const baseQueryWithReauth: BaseQueryFn<
   await mutex.waitForUnlock()
   let result = await baseQuery(args, api, extraOptions)
 
-  if (result.error && result?.error?.status === 500) {
+  if (result.error && result?.error?.status === 600) {
     // Remove expired API key
-    LocalStore.removeItem({ key: LOGIN_API_KEY })
-    LocalStore.removeItem({ key: SERVICE_ACCOUNT_API_KEY })
+    // LocalStore.removeItem({ key: LOGIN_API_KEY })
+    // LocalStore.removeItem({ key: SERVICE_ACCOUNT_API_KEY })
 
     // checking whether the mutex is locked
     if (!mutex.isLocked()) {
