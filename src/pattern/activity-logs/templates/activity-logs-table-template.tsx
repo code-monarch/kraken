@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { PaginationState } from "@tanstack/react-table";
 import ActivityLogsTableTemplateHeader from "../organisms/activity-logs-table-template-header";
 import { ActivityLogsTable } from "../organisms/activity-logs-table";
@@ -23,10 +23,6 @@ const ActivityLogsTableTemplate = () => {
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
   const [date, setDate] = useState<DateRange | undefined>();
-  console.log("STATUS: ", status)
-  console.log("TYPE: ", type)
-  console.log("START DATE: ", startDate)
-  console.log("END DATE: ", endDate)
 
   const { data, isLoading, isSuccess, isFetching, isError } =
     useGetActivitiesQuery({
@@ -44,8 +40,21 @@ const ActivityLogsTableTemplate = () => {
     }
   }, [data]);
 
-  console.log("date range: ", startDate, "to ", endDate);
-  console.log(typeof endDate);
+  const sortedData = useMemo(() => {
+    let result = data?.data.result
+
+    if (data?.data.result && order === 'descending') {
+      result = [...data?.data.result].sort((a, b) => {
+        return b.type.localeCompare(a.type)
+      })
+    } else if (data?.data.result && order === 'ascending') {
+      result = [...data?.data.result].sort((a, b) => {
+        return a.type.localeCompare(b.type)
+      })
+    }
+
+    return result
+  }, [data, order])
 
   return (
     <div className='w-full bg-card'>
@@ -61,7 +70,7 @@ const ActivityLogsTableTemplate = () => {
       />
       <ActivityLogsTable
         columns={ActivityLogsColumns}
-        data={data!}
+        data={sortedData!}
         isLoading={isLoading}
         isError={isError}
         isFetching={isFetching}

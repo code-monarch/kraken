@@ -22,13 +22,13 @@ import {
   UserTableColumns,
 } from "../molecules/user-management-table-column";
 import { Pagination } from "@/pattern/common/organisms/table/pagination";
-import { IGetUsersResponse } from "@/redux/services/users/user.api-slice";
+import { IGetUsersResponse, IUser } from "@/redux/services/users/user.api-slice";
 
 const columns = UserTableColumns;
 
 interface IUserManagementTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  data: IGetUsersResponse;
+  data: IUser[];
   pageCount?: number;
   pagination?: PaginationState;
   setPagination?: any;
@@ -57,10 +57,10 @@ export function UserManagementTable<TData, TValue>({
   const defaultData = useMemo(() => [], []);
 
   const userManagementTable = useReactTable({
-    data: data?.data?.result ?? defaultData,
+    data: data ?? defaultData,
     columns,
     pageCount,
-    rowCount: data?.data?.result?.length,
+    rowCount: data?.length,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onRowSelectionChange: setRowSelection,
@@ -129,7 +129,7 @@ export function UserManagementTable<TData, TValue>({
             !isLoading &&
               (isError ||
                 !userManagementTable.getRowModel().rows?.length ||
-                data?.data?.result.length === 0) && (
+                data?.length === 0) && (
                 <TableRow>
                   <TableCell
                     colSpan={columns.length}
