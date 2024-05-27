@@ -22,25 +22,31 @@ import {
   UserTableColumns,
 } from "../molecules/user-management-table-column";
 import { Pagination } from "@/pattern/common/organisms/table/pagination";
+import { IGetUsersResponse } from "@/redux/services/users/user.api-slice";
 
 const columns = UserTableColumns;
 
 interface IUserManagementTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  data: UserDetails[];
+  data: IGetUsersResponse;
   pageCount?: number;
   pagination?: PaginationState;
   setPagination?: any;
   isLoading?: boolean;
   isFetching?: boolean;
+  isSuccess?: boolean;
+  isError?: boolean;
 }
 
 export function UserManagementTable<TData, TValue>({
   data,
-  isLoading,
   pagination,
   pageCount,
   setPagination,
+  isLoading,
+  isFetching,
+  isSuccess,
+  isError,
 }: IUserManagementTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = useState({});
 
@@ -51,10 +57,10 @@ export function UserManagementTable<TData, TValue>({
   const defaultData = useMemo(() => [], []);
 
   const userManagementTable = useReactTable({
-    data: data ?? defaultData,
+    data: data?.data?.result ?? defaultData,
     columns,
     pageCount,
-    rowCount: data?.length,
+    rowCount: data?.data?.result?.length,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onRowSelectionChange: setRowSelection,
@@ -92,16 +98,19 @@ export function UserManagementTable<TData, TValue>({
         {/* Body */}
         <TableBody>
           {/* Display placeholder when it is loading */}
-          {isLoading && data.length === 0 && (
+          {(isLoading || isFetching) && (
             <TableRow>
-              <TableCell colSpan={columns.length} className='h-24 text-center'>
+              <TableCell colSpan={columns.length} className="h-24 text-center">
                 <PulsePlaceholder />
               </TableCell>
             </TableRow>
           )}
 
           {/* Display table rows when data is done loading and the table rows are not empty */}
-          {!isLoading && userManagementTable.getRowModel().rows?.length ? (
+          {!isLoading &&
+            !isFetching &&
+            isSuccess &&
+            userManagementTable.getRowModel().rows?.length &&
             userManagementTable.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
@@ -113,24 +122,24 @@ export function UserManagementTable<TData, TValue>({
                   </TableCell>
                 ))}
               </TableRow>
-            ))
-          ) : (
-            // Else render error message
-            <TableRow>
-              <TableCell colSpan={columns.length} className='h-24 text-center'>
-                <PulsePlaceholder />
-              </TableCell>
-            </TableRow>
-          )}
+            ))}
 
           {/* Display Message when data is empty */}
-          {!isLoading && data?.length === 0 && (
-            <TableRow>
-              <TableCell colSpan={columns.length} className='h-24 text-center'>
-                No Record Found.
-              </TableCell>
-            </TableRow>
-          )}
+          {
+            !isLoading &&
+              (isError ||
+                !userManagementTable.getRowModel().rows?.length ||
+                data?.data?.result.length === 0) && (
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    className="h-24 text-center"
+                  >
+                    No Record Found.
+                  </TableCell>
+                </TableRow>
+              )
+          }
         </TableBody>
       </Table>
       {/* {pageCount && pageCount > 1 && <Pagination table={userManagementTable} />} */}

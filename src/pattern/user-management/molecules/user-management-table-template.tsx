@@ -1,51 +1,59 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import ButtonWithIcon from "@/pattern/common/molecules/controls/button-with-icon";
-import { ExcelIcon } from "@/pattern/common/atoms/icons/excel-icon";
-import SearchInput from "@/pattern/common/molecules/inputs/search-input";
-import FilterIcon from "@/pattern/common/atoms/icons/filter-icon";
-import { show } from "@ebay/nice-modal-react";
-import { UserManagementTableSearchFilterModal } from "../organisms/user-management-table-search-filter-modal";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { UserManagementTable } from "../organisms/user-management-table";
-import { PaginationState } from "@tanstack/react-table";
-import {
-  UserDetails,
-  UserTableColumns,
-} from "../molecules/user-management-table-column";
-import { fetchUsers } from "@/lib/fetchUsers";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
+'use client'
+import React, { useEffect, useState } from 'react'
+import ButtonWithIcon from '@/pattern/common/molecules/controls/button-with-icon'
+import { ExcelIcon } from '@/pattern/common/atoms/icons/excel-icon'
+import SearchInput from '@/pattern/common/molecules/inputs/search-input'
+import FilterIcon from '@/pattern/common/atoms/icons/filter-icon'
+import { show } from '@ebay/nice-modal-react'
+import { UserManagementTableSearchFilterModal } from '../organisms/user-management-table-search-filter-modal'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { UserManagementTable } from '../organisms/user-management-table'
+import { PaginationState } from '@tanstack/react-table'
+import { UserDetails, UserTableColumns } from './user-management-table-column'
+import { Badge } from '@/components/ui/badge'
+import { Separator } from '@/components/ui/separator'
+import { useGetUsersQuery } from '@/redux/services/users/user.api-slice'
 
 const UserManagementTableTemplate = () => {
-  const handleShowSearchFilterModal = () => {
-    show(UserManagementTableSearchFilterModal);
-  };
-
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 10,
-  });
+  })
 
-  const [dataQuery, setDataQuery] = useState<UserDetails[]>();
-  const [pageCount, setPageCount] = useState<number>(3);
-  const [isLoading, setIsLoading] = useState<boolean>();
+  const [pageCount, setPageCount] = useState<number>(1)
+  const [status, setStatus] = useState<string>('')
+  const [date, setDate] = useState<string>()
+  const [searchQuery, setSearchQuery] = useState<string>('')
+  const [role, setRole] = useState<string>('')
+  const [order, setOrder] = useState<string>('')
+  const [startDate, setStartDate] = useState<string>('')
+  const [endDate, setEndDate] = useState<string>('')
+
+  const { data, isLoading, isSuccess, isFetching, isError } = useGetUsersQuery({
+    page: pagination.pageIndex + 1,
+    limit: pagination.pageSize,
+    status: status,
+    startDate: '',
+    endDate: '',
+  })
 
   useEffect(() => {
-    async function fetchDataAndUpdate() {
-      const data = await fetchUsers(pagination);
-      setIsLoading(true);
-      if (data) {
-        setIsLoading(false);
-        setDataQuery(data?.rows);
-        setPageCount(data?.pageCount);
-      }
+    if (data && data.data) {
+      setPageCount(data.data.pagination.totalPages)
     }
+  }, [data])
 
-    fetchDataAndUpdate();
-  }, [pagination]);
+  const handleShowSearchFilterModal = async () => {
+    const result: any = await show(UserManagementTableSearchFilterModal)
+    if (result.resolved) {
+      setStatus(result.userStatus)
+      setDate(result.registeredOn)
+      setRole(result.role)
+      setOrder(result.order)
+    }
+  }
 
-  const [tabValue, setTabValue] = useState("all")
+  const [tabValue, setTabValue] = useState('all')
 
   return (
     <div className='w-full h-fit bg-card px-6'>
@@ -79,9 +87,9 @@ const UserManagementTableTemplate = () => {
               </TabsTrigger>
               <Separator
                 className={
-                  tabValue === "all"
-                    ? "text-primary bg-primary"
-                    : "text-border bg-border"
+                  tabValue === 'all'
+                    ? 'text-primary bg-primary'
+                    : 'text-border bg-border'
                 }
               />
             </div>
@@ -93,17 +101,13 @@ const UserManagementTableTemplate = () => {
                 className='rounded-none text-base py-3 px-6'
               >
                 Pilgrim
-                <Badge
-                  variant="accent"
-                >
-                  6,000
-                </Badge>
+                <Badge variant='accent'>6,000</Badge>
               </TabsTrigger>
               <Separator
                 className={
-                  tabValue === "pilgrim"
-                    ? "text-primary bg-primary"
-                    : "text-border bg-border"
+                  tabValue === 'pilgrim'
+                    ? 'text-primary bg-primary'
+                    : 'text-border bg-border'
                 }
               />
             </div>
@@ -115,15 +119,13 @@ const UserManagementTableTemplate = () => {
                 className='rounded-none text-base py-3 px-6'
               >
                 Agent
-                <Badge variant="accent">
-                  6,000
-                </Badge>
+                <Badge variant='accent'>6,000</Badge>
               </TabsTrigger>
               <Separator
                 className={
-                  tabValue === "agent"
-                    ? "text-primary bg-primary"
-                    : "text-border bg-border"
+                  tabValue === 'agent'
+                    ? 'text-primary bg-primary'
+                    : 'text-border bg-border'
                 }
               />
             </div>
@@ -131,30 +133,39 @@ const UserManagementTableTemplate = () => {
           <TabsContent value='all'>
             <UserManagementTable
               columns={UserTableColumns}
-              data={dataQuery!}
+              data={data!}
               isLoading={isLoading}
+              isError={isError}
+              isFetching={isFetching}
+              isSuccess={isSuccess}
               pageCount={pageCount}
               pagination={pagination}
               setPagination={setPagination}
             />
           </TabsContent>
           <TabsContent value='pilgrim'>
-            {" "}
+            {' '}
             <UserManagementTable
               columns={UserTableColumns}
-              data={dataQuery!}
+              data={data!}
               isLoading={isLoading}
+              isError={isError}
+              isFetching={isFetching}
+              isSuccess={isSuccess}
               pageCount={pageCount}
               pagination={pagination}
               setPagination={setPagination}
             />
           </TabsContent>
           <TabsContent value='agent'>
-            {" "}
+            {' '}
             <UserManagementTable
               columns={UserTableColumns}
-              data={dataQuery!}
+              data={data!}
               isLoading={isLoading}
+              isError={isError}
+              isFetching={isFetching}
+              isSuccess={isSuccess}
               pageCount={pageCount}
               pagination={pagination}
               setPagination={setPagination}
@@ -166,7 +177,10 @@ const UserManagementTableTemplate = () => {
         <div className='absolute top-[30px] right-0 flex items-center gap-3'>
           {/* Search Input */}
           <div className='flex items-center gap-3'>
-            <SearchInput />
+            <SearchInput
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+            />
           </div>
 
           {/* Table search Filter Button */}
@@ -182,7 +196,7 @@ const UserManagementTableTemplate = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default UserManagementTableTemplate

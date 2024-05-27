@@ -1,33 +1,82 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import AuthCard from "../organisms/auth-card";
 import ConfirmEmailInfoBanner from "../molecules/confirm-email-info-banner";
 import { useCountdown } from "@/lib/hooks/useCountdown";
-import { CONFIRM_EMAIL } from "@/lib/constants";
 import Hidden from "@/pattern/common/molecules/data-display/hidden";
 import { LinkButton } from "@/pattern/common/molecules/controls/link-button";
-
-const shouldConfirmEmail = localStorage.getItem(`${CONFIRM_EMAIL}`);
-const COUNT_START = 120;
+import { CREATE_PASSWORD_TRIGGER_TIME, EMAIL_TO_CONFIRM } from "@/lib/constants";
+import LocalStore from "@/lib/helper/storage-manager";
+import { useResetPasswordMutation } from "@/redux/services/auth/reset-password.api-slice";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const ConfirmEmailTemplate = () => {
-  const [count, { start, stop, reset }] = useCountdown({
-    countStart: COUNT_START,
+  const { push } = useRouter()
+
+  // helper functions for starting and reseting trigger timer
+  const [count, { start, reset }] = useCountdown({
+    countStart: CREATE_PASSWORD_TRIGGER_TIME,
   });
+
+  // Get entered Email for resending Email verification email
+  const emailToConfirm = LocalStore.getItem({ key: EMAIL_TO_CONFIRM })
+
+  // Reset Password API mutation
+  const [resetPassword, { isLoading, isError, isSuccess }] = useResetPasswordMutation();
+
+  useEffect(() => {
+    if (isLoading) {
+      // display Loading toast
+      toast.loading("Sending...", {
+        description: "Sending password reset email",
+        id: "sending-email"
+      })
+    } else if (isError || isSuccess) {
+      toast.dismiss("sending-email");
+    }
+  }, [isLoading, isError, isSuccess])
+
 
   // Start countdown timer on template render if user has access to re confirm Email
   useEffect(() => {
-    if (!shouldConfirmEmail) {
-      return;
-    } else {
-      start();
-    }
+    start();
   }, [start]);
 
-  const handleResendPassword = () => {
-    // call resend reset link endpoint then
+
+  const handleResendPassword = useCallback(() => {
+    // reset timer
     reset();
-  };
+    resetPassword({
+      email: `${emailToConfirm}`,
+    })
+      .unwrap()
+      .then((res) => {
+        // display Success message
+        toast.success("Successfull", {
+          description: `${res?.responseMessage ?? "A password reset link has been sent to your email address"}`,
+          duration: 8000,
+          cancel: {
+            label: 'Ok',
+            onClick: () => console.log('Cancel!'),
+          },
+        })
+
+        // route to confirm Email page
+        push("confirm-email")
+      }).catch((err) => {
+        // display error message
+        toast.error("Unexpected error", {
+          description: `${err?.data?.responseMessage ?? "Password reset request error"}`,
+          duration: 8000,
+          cancel: {
+            label: 'Cancel',
+            onClick: () => console.log('Cancel!'),
+          },
+        })
+      })
+    start();
+  }, [push, reset, resetPassword, start, emailToConfirm]);
 
   return (
     <>

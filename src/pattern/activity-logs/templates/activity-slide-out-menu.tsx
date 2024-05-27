@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
@@ -25,7 +24,7 @@ const ActivitySlideOutMenu = create(
     const [scrollHeight, setScrollHeight] = useState(window.innerHeight - 30);
 
     useEffect(() => {
-      function handleResize() {
+      const handleResize =() => {
         setScrollHeight(window.innerHeight - 30);
       }
 

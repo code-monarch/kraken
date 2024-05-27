@@ -3,8 +3,7 @@ import React, { useEffect, useState } from "react";
 import { TransactionsTable } from "@/pattern/transactions/organisms/transactions-table";
 import { PaginationState } from "@tanstack/react-table";
 import {
-  Transactions,
-  TransactionsTableColumns,
+  Transactions
 } from "@/pattern/transactions/molecules/transactions-table-column";
 import { fetchTransactions } from "@/lib/fetchTransactions";
 import TransactionsTableTemplateHeader from "@/pattern/transactions/organisms/transactions-table-template-header";
@@ -32,11 +31,11 @@ const UserTransactionsTabContent = () => {
 
     fetchDataAndUpdate();
   }, [pagination]);
+
   return (
     <div className='w-full bg-card'>
       <TransactionsTableTemplateHeader />
       <TransactionsTable
-        columns={TransactionsTableColumns}
         data={dataQuery!}
         isLoading={isLoading}
         pageCount={pageCount}

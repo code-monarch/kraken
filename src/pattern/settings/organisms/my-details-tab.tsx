@@ -3,33 +3,46 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import PersonalInfo from "../molecules/personal-info";
 import YourPhotoText from "../molecules/your-photo-text";
 import SettingsImageInput from "@/pattern/common/molecules/inputs/settings-image-input";
-import userImg from "@/public/images/user.svg";
+import userImg from "@/public/images/user-img.png";
 import { Separator } from "@/components/ui/separator";
-import SettingsNameInput from "@/pattern/common/molecules/inputs/settings-name-input";
 import { Label } from "@/components/ui/label";
 import EmailInput from "@/pattern/common/molecules/inputs/email-input";
 import FormInput from "@/pattern/common/molecules/inputs/form-input";
 import { Button } from "@/components/ui/button";
+import {
+  IUpdateAdminPayload,
+  useUpdateAdminMutation,
+} from "@/redux/services/admin/admin.api-slice";
+import { show } from "@ebay/nice-modal-react";
+import { SuccessModal } from "@/pattern/common/organisms/success-modal";
+import { ErrorModal } from "@/pattern/common/organisms/error-modal";
+import LoadingButton from "@/pattern/common/molecules/controls/loading-button";
 
-interface payload {
-  userImg: any;
+interface IProps {
+  profilePic: any;
   firstname: string;
   lastname: string;
   email: string;
+  id: string;
 }
 
-const MyDetailsTab = () => {
-  const [completeOpen, setCompleteOpen] = useState<boolean>(false);
+const MyDetailsTab = ({
+  firstname,
+  lastname,
+  email,
+  profilePic,
+  id,
+}: IProps) => {
   const [selectedFile, setSelectedFile] = useState(userImg);
 
   const defaultValues = {
     userImg: "",
-    firstname: "Aisha",
-    lastname: "Abdullahi",
-    email: "aishaabdullahi@gmail.com",
+    firstname: firstname ?? "John",
+    lastname: lastname ?? "Doe",
+    email: email ?? "johndoe@gmail.com",
   };
 
-  const methods = useForm<payload>({
+  const methods = useForm<IUpdateAdminPayload>({
     mode: "onChange",
     reValidateMode: "onChange",
     defaultValues: defaultValues,
@@ -40,8 +53,24 @@ const MyDetailsTab = () => {
     formState: { errors, isDirty },
   } = methods;
 
-  const onSubmit: SubmitHandler<payload> = (data) => {
+  const [updateAdmin, { isLoading, isSuccess, isError }] =
+    useUpdateAdminMutation();
+
+  const onSubmit: SubmitHandler<IUpdateAdminPayload> = (data) => {
     console.log("DATA TO SUBMIT: ");
+    updateAdmin({
+      id: id,
+      firstname: data.firstname,
+      lastname: data.lastname,
+      email: data.email,
+    })
+      .unwrap()
+      .then((res) => {
+        show(SuccessModal, { message: "Profile Updated Successfully" });
+      })
+      .catch((err) => {
+        show(ErrorModal, { message: err.data.responseMessage });
+      });
   };
 
   return (
@@ -53,9 +82,15 @@ const MyDetailsTab = () => {
             Cancel
           </Button>
 
-          <Button type="submit" size="sm" className="w-fit">
+          <LoadingButton
+            loading={isLoading}
+            type="submit"
+            onClick={handleSubmit(onSubmit)}
+            size="sm"
+            className="w-fit"
+          >
             Save
-          </Button>
+          </LoadingButton>
         </div>
       </div>
       <Separator />

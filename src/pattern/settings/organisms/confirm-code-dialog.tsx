@@ -16,7 +16,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import FormInput from "@/pattern/common/molecules/inputs/form-input";
 import LoadingButton from "@/pattern/common/molecules/controls/loading-button";
 import { useConfirmToggle2FaMutation } from "@/redux/services/two-factor/toggle-2fa";
-import { ErrorModal } from "@/pattern/activity-logs/organisms/error-modal";
+import { ErrorModal } from "@/pattern/common/organisms/error-modal";
 
 interface IConfirmCodeInput {
   verificationCode: string;
@@ -67,7 +67,7 @@ const ConfirmCodeDialog = create(() => {
         show(MFACompleteDialog);
       })
       .catch((err) => {
-        show(ErrorModal);
+        show(ErrorModal, { message: "Something went wrong, please try again" });
         console.log(`${err.error || err?.data?.message || err}`);
       });
   };

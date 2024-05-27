@@ -21,7 +21,6 @@ export function Pagination<TData>({ table }: DataTablePaginationProps<TData>) {
           size="sm"
           onClick={() => {
             table.previousPage();
-            console.log("prevpageIndex: ", table.getState().pagination.pageIndex);
           }}
           disabled={!table.getCanPreviousPage()}
         >
@@ -44,11 +43,6 @@ export function Pagination<TData>({ table }: DataTablePaginationProps<TData>) {
               size="sm"
               onClick={() => {
                 table.setPageIndex(index);
-                console.log(
-                  "pageIndex: ",
-                  table.getState().pagination.pageIndex
-                );
-                console.log("index: ", index)
               }}
             >
               {index + 1}
@@ -94,7 +88,8 @@ export function Pagination<TData>({ table }: DataTablePaginationProps<TData>) {
               <Button
                 key={index + pageCount - 2}
                 className={`${
-                  table.getState().pagination.pageIndex === pageCount - 3 + index
+                  table.getState().pagination.pageIndex ===
+                  pageCount - 3 + index
                     ? "text-primary"
                     : "text-[#1d2939]"
                 } min-w-fit min-h-fit w-fit text-sm  py-2.5 px-4 rounded-none`}
@@ -102,7 +97,6 @@ export function Pagination<TData>({ table }: DataTablePaginationProps<TData>) {
                 size="sm"
                 onClick={() => {
                   table.setPageIndex(pageCount - 3 + index);
-                  console.log("eeee: ", table.getState().pagination.pageIndex)
                 }}
               >
                 {pageCount - 2 + index}
@@ -118,7 +112,6 @@ export function Pagination<TData>({ table }: DataTablePaginationProps<TData>) {
           size="sm"
           onClick={() => {
             table.nextPage();
-            console.log("nextpageIndex: ", table.getState().pagination.pageIndex);
           }}
           disabled={!table.getCanNextPage()}
         >

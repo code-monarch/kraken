@@ -71,6 +71,7 @@ export const ActivityLogsSearchFilterModal = create(() => {
   const [endDate, setEndaDate] = useState<string>("");
   const [activityType, setActivityType] = useState<string>("");
   const [activityStatus, setActivityStatus] = useState<string>("");
+  const [order, setOrder] = useState<string>("");
 
   const showDateRangeFilterModal = async () => {
     const result: any = await show(DateRangeFilterModal);
@@ -89,6 +90,7 @@ export const ActivityLogsSearchFilterModal = create(() => {
       endDate,
       activityType,
       activityStatus,
+      order,
     });
     remove();
   };
@@ -115,7 +117,7 @@ export const ActivityLogsSearchFilterModal = create(() => {
           {/* Content */}
           <CardContent className="pt-0 pb-[23px]">
             <div className="w-full space-y-[16px] px-6 pt-2 mb-4">
-              <FilterSelectInput />
+              <FilterSelectInput order={order} setOrder={setOrder} />
             </div>
             <Separator />
 
@@ -146,7 +148,6 @@ export const ActivityLogsSearchFilterModal = create(() => {
                   type="single"
                   value={activityStatus}
                   onValueChange={setActivityStatus}
-                  className="flex items-center flex-wrap justify-start"
                 >
                   {rolesFilterSetting.map(({ value, label }) => (
                     <ToggleGroupItem

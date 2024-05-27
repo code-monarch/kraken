@@ -6,11 +6,11 @@ import NotificationWidget from "../molecules/data-display/notification-widget";
 import TopbarProfileTag from "../molecules/data-display/top-bar-profile-tag";
 import { useGetAdminQuery } from "@/redux/services/admin/admin.api-slice";
 import { getInitials } from "@/lib/helper/get-initials";
-import LocalStore from "@/lib/helper/session-manager";
-import { FALLBACK_NAME } from "@/lib/constants";
+import LocalStore from "@/lib/helper/storage-manager";
+import { FALLBACK_NAME, ADMIN_ID } from "@/lib/constants";
 
 const Topbar = () => {
-  const adminId = LocalStore.getItem({key: "USER_ID"});
+  const adminId = LocalStore.getItem({ key: ADMIN_ID });
   const { data, isLoading } = useGetAdminQuery({
     id: adminId ? adminId : "",
   });

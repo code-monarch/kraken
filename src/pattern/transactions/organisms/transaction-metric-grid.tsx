@@ -8,21 +8,21 @@ const TransactionMetricGrid = () => {
       <DashboardMetricCard
         metric='Total Transactions'
         metricPercentage='10'
-        metricValue='10000'
+        metricValue= {10000}
         isAmount={false}
       />
       {/* Total Amount Transacted */}
       <DashboardMetricCard
         metric='Total Amount Transacted'
         metricPercentage='10'
-        metricValue='200000'
+        metricValue={200000}
         isAmount={true}
       />
       {/* Average Transaction Amount */}
       <DashboardMetricCard
         metric='Average Transaction Amount'
         metricPercentage='10'
-        metricValue='133.33'
+        metricValue={133.33}
         isAmount={true}
       />
     </div>

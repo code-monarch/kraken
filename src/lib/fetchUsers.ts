@@ -1,4 +1,4 @@
-import { UserDetails } from "@/pattern/user-management.tsx/molecules/user-management-table-column";
+import { UserDetails } from "@/pattern/user-management/molecules/user-management-table-column";
 import { faker } from "@faker-js/faker";
 
 const range = (len: number) => {

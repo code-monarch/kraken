@@ -18,16 +18,16 @@ import {
 } from "@tanstack/react-table";
 import PulsePlaceholder from "@/pattern/common/atoms/icons/pulse-placeholder-icon";
 import {
-  UserDetails,
   UserTableColumns,
 } from "../molecules/user-management-table-column";
 import { Pagination } from "@/pattern/common/organisms/table/pagination";
+import { IUser } from "@/redux/services/users/user.api-slice";
 
 const columns = UserTableColumns;
 
 interface IUserManagementTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  data: UserDetails[];
+  data: IUser[];
   pageCount?: number;
   pagination?: PaginationState;
   setPagination?: any;

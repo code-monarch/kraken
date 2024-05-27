@@ -10,9 +10,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { DeleteAccountHeaderIcon } from "@/pattern/common/atoms/icons/delete-account-header-icon";
 
-export const ErrorModal = create(() => {
+interface IProps {
+  message: string;
+}
+
+export const ErrorModal = create(({ message }: IProps) => {
   const { resolve, remove, visible } = useModal();
 
   const handleCloseModal = () => {
@@ -27,21 +30,21 @@ export const ErrorModal = create(() => {
           {/* Header */}
           <CardHeader className="w-full flex flex-col items-start gap-y-5">
             {/* <DeleteAccountHeaderIcon /> */}
-            <CardTitle className="text-[1.125rem] text-foreground font-semibold">
-              Message
+            <CardTitle className="text-[1.125rem] text-destructive font-semibold">
+             Error Message
             </CardTitle>
           </CardHeader>
 
           {/* Content */}
           <CardContent className="space-y-[16px] mb-[8px]">
-            <p className="text-sm font-medium text-destructive">
-              Something went wrong. Please try again
+            <p className="text-base font-medium text-foreground">
+              {message}
             </p>
           </CardContent>
 
           {/* Footer */}
           <CardFooter className="w-full flex items-center justify-between gap-3">
-            <Button size="sm" variant="outline" onClick={handleCloseModal}>
+            <Button size="sm" variant="destructive" onClick={handleCloseModal}>
               Close
             </Button>
           </CardFooter>

@@ -1,8 +1,6 @@
-"use client";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import LoadingButton from "@/pattern/common/molecules/controls/loading-button";
+'use client'
+import { Button } from '@/components/ui/button'
+import LoadingButton from '@/pattern/common/molecules/controls/loading-button'
 import {
   Card,
   CardContent,
@@ -10,48 +8,45 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import EmailInput from "@/pattern/common/molecules/inputs/email-input";
-import { FormProvider, useForm } from "react-hook-form";
-import * as Yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Badge } from "@/components/ui/badge";
-import TransactionsSlideOutMenu from "@/pattern/common/templates/slide-out-menu/transactions-slide-out-menu";
-import { show } from "@ebay/nice-modal-react";
-import UserDetailCard from "@/pattern/common/molecules/data-display/user-detail-card";
-import DashboardMetricCard from "@/pattern/common/organisms/dashboard-metric-card";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import PhoneAuthDialog from "@/pattern/settings/organisms/phone-auth-dialog";
-import QRAuthDialog from "@/pattern/settings/organisms/qr-auth-dialog";
-import UserManagementTableTemplate from "@/pattern/user-management.tsx/templates/user-management-table-template";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+} from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import EmailInput from '@/pattern/common/molecules/inputs/email-input'
+import { FormProvider, useForm } from 'react-hook-form'
+import * as Yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { Badge } from '@/components/ui/badge'
+import TransactionsSlideOutMenu from '@/pattern/common/templates/slide-out-menu/transactions-slide-out-menu'
+import { show } from '@ebay/nice-modal-react'
+import UserDetailCard from '@/pattern/common/molecules/data-display/user-detail-card'
+import DashboardMetricCard from '@/pattern/common/organisms/dashboard-metric-card'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import UserManagementTableTemplate from '@/pattern/user-management/molecules/user-management-table-template'
 
-export default function Home() {
-  const [date, setDate] = useState<Date | undefined>(new Date());
+export default function ComponentsPage() {
   const WishlistFormSchema = Yup.object().shape({
     email: Yup.string()
-      .email("Email must be a valid email address")
-      .required("Please enter an email address"),
-  });
+      .email('Email must be a valid email address')
+      .required('Please enter an email address'),
+  })
 
   const methods = useForm({
-    mode: "onBlur",
+    mode: 'onBlur',
     resolver: yupResolver(WishlistFormSchema),
-  });
+  })
 
   const {
     handleSubmit,
     formState: { errors },
-  } = methods;
+  } = methods
 
   const onSubmit = () => {
-    console.log("DATA TO SUBMIT: ");
-  };
+    console.log('DATA TO SUBMIT: ')
+  }
 
   const showTransactionSheet = () => {
-    show(TransactionsSlideOutMenu);
-  };
+    show(TransactionsSlideOutMenu)
+  }
 
   return (
     <main className='flex min-h-screen flex-col items-center justify-between p-24'>
@@ -76,7 +71,7 @@ export default function Home() {
         <DashboardMetricCard
           metric='Total Revenue'
           metricPercentage='50'
-          metricValue='10,000'
+          metricValue={10000}
         />
       </div>
       <Button variant='outline' onClick={showTransactionSheet}>
@@ -101,20 +96,6 @@ export default function Home() {
       <LoadingButton loading={true} disabled={true}>
         Loading Buttonnnn
       </LoadingButton>
-      <Calendar
-        mode='range'
-        captionLayout='dropdown-buttons'
-        fromYear={2024}
-        toYear={2027}
-        selected={date}
-        onSelect={setDate}
-        fixedWeeks
-        formatters={{
-          formatWeekdayName: (day) =>
-            day?.toLocaleDateString("en-US", { weekday: "short" }),
-        }}
-        className='rounded-md border'
-      />
 
       <Card className='w-[350px]'>
         <CardHeader>
@@ -156,9 +137,6 @@ export default function Home() {
         <Badge variant='failed'>jshdjhsdjs Badge</Badge>
       </div>
 
-      <PhoneAuthDialog />
-      <QRAuthDialog />
-
       <UserManagementTableTemplate />
 
       <Tabs defaultValue='account' className='w-[400px]'>
@@ -172,5 +150,5 @@ export default function Home() {
         <TabsContent value='password'>Change your password here.</TabsContent>
       </Tabs>
     </main>
-  );
+  )
 }

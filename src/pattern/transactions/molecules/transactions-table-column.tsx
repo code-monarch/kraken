@@ -14,7 +14,7 @@ import MoreVerticalIcon from "@/pattern/common/atoms/icons/more-vertical-icon";
 import { formatDate } from "@/lib/helper/format-date";
 import { show } from "@ebay/nice-modal-react";
 import AgentCell from "./agent-cell";
-import { DeleteAccountModal } from "@/pattern/user-management.tsx/organisms/delete-account-modal";
+import { DeleteAccountModal } from "@/pattern/user-management/organisms/delete-account-modal";
 
 export type Transactions = {
   trxID: string | number;

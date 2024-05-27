@@ -1,8 +1,12 @@
 "use client";
 import React from "react";
+import dynamic from 'next/dynamic'
 import { ApexOptions } from "apexcharts";
 import numbro from "numbro";
-import Chart from "react-apexcharts";
+
+const Chart = dynamic(() => import('react-apexcharts'), {
+  ssr: false,
+})
 
 export const OVERVIEW_CHART_LEGEND = [
   { label: "Deposit", color: "#CBD5E1" },

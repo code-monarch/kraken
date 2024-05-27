@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogHeader,
-  DialogClose,
-  DialogFooter,
+  DialogHeader
 } from "@/components/ui/dialog";
 import PhoneSectionIndicator from "@/pattern/common/atoms/icons/phone-section-indicator";
-import { Button } from "@/components/ui/button";
 import PhoneNumberInput from "@/pattern/common/molecules/inputs/phone-input";
 import GreyInfoIcon from "@/pattern/common/atoms/icons/grey-info-icon";
 import ConfirmCodeDialog from "./confirm-code-dialog";
@@ -18,7 +15,9 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useToggle2FaMutation } from "@/redux/services/two-factor/toggle-2fa";
 import LoadingButton from "@/pattern/common/molecules/controls/loading-button";
-import { ErrorModal } from "@/pattern/activity-logs/organisms/error-modal";
+import { TWO_FA_PREFERENCE } from "@/lib/constants";
+import LocalStore from "@/lib/helper/storage-manager";
+import { ErrorModal } from "@/pattern/common/organisms/error-modal";
 
 const RequestOtpFormSchema = Yup.object().shape({
   phone: Yup.string().required("Phone number is Required"),
@@ -30,13 +29,11 @@ const PhoneAuthDialog = create(() => {
       google2FA: "state.google2fa",
       sms2FA: "state.sms2fa",
     };
-    localStorage.setItem(
-      "process.env.NEXT_PUBLIC_2FA_PREF",
-      JSON.stringify(securityPreference)
-    );
+    LocalStore.setItem({ key: TWO_FA_PREFERENCE, value: JSON.stringify(securityPreference) })
+
   }, []);
 
-  console.log(JSON.parse(localStorage.getItem("process.env.NEXT_PUBLIC_2FA_PREF")!))
+  console.log(JSON.parse(localStorage.getItem(TWO_FA_PREFERENCE)!))
 
   const { resolve, remove, visible } = useModal();
 
@@ -76,7 +73,7 @@ const PhoneAuthDialog = create(() => {
       })
       .catch((err) => {
         handleCloseModal();
-        show(ErrorModal);
+        show(ErrorModal, { message: "Something went wrong, please try again" });
         console.log(`${err.error || err?.data?.message || err}`);
       });
   };

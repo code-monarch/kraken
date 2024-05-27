@@ -5,6 +5,7 @@ import { AUTH_PATHS } from "@/lib/routes";
 
 const AuthPage = () => {
   const { push } = useRouter();
+  
   useEffect(() => {
     push(`${AUTH_PATHS.login}`);
   }, [push]);

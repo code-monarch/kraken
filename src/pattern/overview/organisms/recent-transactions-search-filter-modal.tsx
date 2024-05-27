@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { create, show, useModal } from "@ebay/nice-modal-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import {
@@ -54,6 +54,7 @@ const TransactionTypeFilterSetting: IListType[] = [
 ];
 
 export const RecentTransactionsSearchFilterModal = create(() => {
+  const [order, setOrder] = useState<string>("");
   const { resolve, remove, visible } = useModal();
 
   const showDateRangeFilterModal = () => {
@@ -87,7 +88,7 @@ export const RecentTransactionsSearchFilterModal = create(() => {
           {/* Content */}
           <CardContent className='pt-0 pb-[23px]'>
             <div className='w-full space-y-[16px] px-6 pt-2 mb-4'>
-              <FilterSelectInput />
+              <FilterSelectInput order={order} setOrder={setOrder} />
             </div>
             <Separator />
 

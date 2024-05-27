@@ -1,16 +1,14 @@
-"use client";
-import React, { ReactNode } from "react";
-import { cn } from "@/lib/utils";
-import Sidebar from "./sidebar";
-import PageHeader from "../molecules/data-display/page-header";
+'use client'
+import React, { ReactNode } from 'react'
+import { cn } from '@/lib/utils'
+import Sidebar from './sidebar'
 
 // Wrapper for pages that are not authentication pages
 const PageWrapper = ({ children }: { children: ReactNode }) => {
-
   return (
     <div
       className={cn(
-        "relative bg-accent w-full h-full flex items-start transition-all duration-200 ease-in-out"
+        'relative bg-accent w-full h-full flex items-start transition-all duration-200 ease-in-out',
       )}
     >
       <Sidebar />
@@ -18,7 +16,7 @@ const PageWrapper = ({ children }: { children: ReactNode }) => {
         {children}
       </main>
     </div>
-  );
-};
+  )
+}
 
-export default PageWrapper;
+export default PageWrapper
