@@ -21,7 +21,9 @@ lintCheck:
 build:
   stage: build
   script:
+    - yarn install
     - yarn build
+    - ls -la dist
   artifacts:
     paths:
       - dist
