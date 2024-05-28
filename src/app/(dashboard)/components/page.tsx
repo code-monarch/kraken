@@ -21,7 +21,7 @@ import UserDetailCard from '@/pattern/common/molecules/data-display/user-detail-
 import DashboardMetricCard from '@/pattern/common/organisms/dashboard-metric-card'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import UserManagementTableTemplate from '@/pattern/user-management/molecules/user-management-table-template'
+import UserManagementTableTemplate from '@/pattern/user-management/templates/user-management-table-template'
 
 export default function ComponentsPage() {
   const WishlistFormSchema = Yup.object().shape({
