@@ -136,7 +136,7 @@ const LoginTemplate = () => {
               </div>
               <LoadingButton
                 loading={isLoading || loadingServiceAccountLogin}
-                disabled={!isDirty}
+                disabled={!isDirty || isLoading || loadingServiceAccountLogin}
                 type='submit'
               >
                 Log into your account

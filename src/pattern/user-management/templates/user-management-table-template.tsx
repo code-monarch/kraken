@@ -15,7 +15,7 @@ import {
 } from '../molecules/user-management-table-column'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
-import { IUser, useGetUsersQuery } from '@/redux/services/users/user.api-slice'
+import { useGetUsersQuery } from '@/redux/services/users/user.api-slice'
 
 const UserManagementTableTemplate = () => {
   const [pagination, setPagination] = useState<PaginationState>({
@@ -73,11 +73,11 @@ const UserManagementTableTemplate = () => {
 
     return result
   }, [data, order])
-  const sortedUsers = sortedData?.filter(item => item.userType === 'USER')
-  const sortedAgents = sortedData?.filter(item => item.userType === 'AGENT')
+  const allUsers = sortedData?.filter(item => item.userType === 'USER')
+  const allAgents = sortedData?.filter(item => item.userType === 'AGENT')
 
   return (
-    <div className='w-full h-fit bg-card px-6'>
+    <div className='w-full h-fit bg-card px-6 overflow-auto'>
       {/* Top */}
       <div className='w-full h-[76px] bg-inherit flex items-center justify-between py-[26px]'>
         <div className='flex items-center gap-2'>
@@ -94,7 +94,7 @@ const UserManagementTableTemplate = () => {
       </div>
 
       {/* Bottom */}
-      <div className='relative w-full h-fit bg-inherit flex items-center justify-between py-[26px]'>
+      <div className='!relative w-full h-fit bg-inherit flex items-center py-[26px] overflow-auto'>
         {/* Tabs */}
         <Tabs value={tabValue} onValueChange={setTabValue} className='w-full'>
           <TabsList>
@@ -122,7 +122,7 @@ const UserManagementTableTemplate = () => {
                 className='rounded-none text-base py-3 px-6'
               >
                 User
-                <Badge variant='accent'>{sortedUsers?.length}</Badge>
+                <Badge variant='accent'>{allUsers?.length}</Badge>
               </TabsTrigger>
               <Separator
                 className={
@@ -152,57 +152,57 @@ const UserManagementTableTemplate = () => {
             </div>
           </TabsList>
           <TabsContent value='all'>
-            <UserManagementTable
-              columns={UserTableColumns}
-              data={sortedData!}
-              isLoading={isLoading}
-              isError={isError}
-              isFetching={isFetching}
-              isSuccess={isSuccess}
-              pageCount={pageCount}
-              pagination={pagination}
-              setPagination={setPagination}
-            />
+              <UserManagementTable
+                columns={UserTableColumns}
+                data={sortedData!}
+                isLoading={isLoading}
+                isError={isError}
+                isFetching={isFetching}
+                isSuccess={isSuccess}
+                pageCount={pageCount}
+                pagination={pagination}
+                setPagination={setPagination}
+              />
           </TabsContent>
+
+          {/* Users */}
           <TabsContent value='user'>
-            {' '}
-            <UserManagementTable
-              columns={UserTableColumns}
-              data={sortedUsers!}
-              isLoading={isLoading}
-              isError={isError}
-              isFetching={isFetching}
-              isSuccess={isSuccess}
-              pageCount={pageCount}
-              pagination={pagination}
-              setPagination={setPagination}
-            />
+              <UserManagementTable
+                columns={UserTableColumns}
+                data={allUsers!}
+                isLoading={isLoading}
+                isError={isError}
+                isFetching={isFetching}
+                isSuccess={isSuccess}
+                pageCount={pageCount}
+                pagination={pagination}
+                setPagination={setPagination}
+              />
           </TabsContent>
+
+          {/* Agents */}
           <TabsContent value='agent'>
-            {' '}
-            <UserManagementTable
-              columns={UserTableColumns}
-              data={sortedAgents!}
-              isLoading={isLoading}
-              isError={isError}
-              isFetching={isFetching}
-              isSuccess={isSuccess}
-              pageCount={pageCount}
-              pagination={pagination}
-              setPagination={setPagination}
-            />
+              <UserManagementTable
+                columns={UserTableColumns}
+                data={allAgents!}
+                isLoading={isLoading}
+                isError={isError}
+                isFetching={isFetching}
+                isSuccess={isSuccess}
+                pageCount={pageCount}
+                pagination={pagination}
+                setPagination={setPagination}
+              />
           </TabsContent>
         </Tabs>
         {/* Tabs End */}
 
-        <div className='absolute top-[30px] right-0 flex items-center gap-3'>
+        <div className='absolute top-[30px] right-0 w-fit flex items-center gap-3'>
           {/* Search Input */}
-          <div className='flex items-center gap-3'>
-            <SearchInput
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-            />
-          </div>
+          <SearchInput
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+          />
 
           {/* Table search Filter Button */}
           <ButtonWithIcon
