@@ -22,7 +22,6 @@ const ActivityLogsTableTemplate = () => {
   const [order, setOrder] = useState<string>("");
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
-  const [date, setDate] = useState<DateRange | undefined>();
 
   const { data, isLoading, isSuccess, isFetching, isError } =
     useGetActivitiesQuery({
@@ -61,7 +60,6 @@ const ActivityLogsTableTemplate = () => {
       <ActivityLogsTableTemplateHeader
         filterString={type}
         setFilterString={setType}
-        setDate={setDate}
         setStartDate={setStartDate}
         setEndDate={setEndDate}
         setActivityType={setType}

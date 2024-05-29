@@ -6,15 +6,13 @@ import SuperAdminUserManagementPageHeader from '@/pattern/super-admin/molecules/
 import UserManagementMetricGrid from '../organisms/user-management-metric-grid'
 import SuperAdminUserManagementActionGrid from '@/pattern/super-admin/templates/super-admin-user-management-action-grid'
 import UserManagementTableTemplate from '../molecules/user-management-table-template'
-import { useSelector } from 'react-redux'
-import { RootState } from '@/redux/store'
 import UserDetailsTemplate from './user-details-template'
 import { useSearchParams } from 'next/navigation'
+import LocalStore from '@/lib/helper/storage-manager'
+import { ADMIN_ROLE } from '@/lib/constants'
 
 const UserManagementPageTemplate = () => {
-  const adminRole = useSelector(
-    (state: RootState) => state.userDetails?.adminRole,
-  )
+  const adminRole = LocalStore.getItem({key: ADMIN_ROLE})
 
   const searchParams = useSearchParams()
 

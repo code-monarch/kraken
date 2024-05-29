@@ -1,6 +1,6 @@
 'use client'
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import LocalStore from '@/lib/helper/storage-manager'
 import Hidden from '@/pattern/common/molecules/data-display/hidden'
 import PageHeader from '@/pattern/common/molecules/data-display/page-header'
@@ -14,24 +14,20 @@ import {
   setAdminInfo,
   setAdminRole,
 } from '@/redux/slices/user-slice'
-import { RootState } from '@/redux/store'
-import { ADMIN_ID } from '@/lib/constants'
+import { ADMIN_ID, ADMIN_ROLE } from '@/lib/constants'
 
 const OverviewPage = () => {
   const dispatch = useDispatch()
   const adminId = LocalStore.getItem({ key: ADMIN_ID })
+  const adminRole = LocalStore.getItem({key: ADMIN_ROLE})
 
   // Get Admin API query
   const { data, isLoading } = useGetAdminQuery({
     id: adminId ? adminId : '',
   })
 
-  const adminRole = useSelector(
-    (state: RootState) => state.userDetails?.adminRole,
-  )
-
   useEffect(() => {
-    dispatch(setAdminRole(data?.data.userType))
+    dispatch(setAdminRole(adminRole))
     dispatch(
       setAdminInfo({
         adminRole: data?.data.userType,
@@ -44,7 +40,7 @@ const OverviewPage = () => {
     dispatch(
       set2FaPreference({ sms2fa: data?.data.twoFactor!, google2fa: false }),
     )
-  }, [dispatch, data])
+  }, [dispatch, data, adminRole])
 
   return (
     <>

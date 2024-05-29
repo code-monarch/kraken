@@ -1,38 +1,39 @@
-import { baseApiSlice } from "@/redux/api/base-api";
+import { baseApiSlice } from '@/redux/api/base-api'
 
 export interface ILoginResponse {
-  error: boolean;
-  responseCode: string;
-  responseMessage: string;
+  error: boolean
+  responseCode: string
+  responseMessage: string
   data: {
-    id: string;
-    email: string;
-    apiKey: string;
-  };
+    userType: string
+    id: string
+    email: string
+    apiKey: string
+  }
 }
 export interface ILoginPayload {
-  email: string;
-  password: string;
-  serviceAccountApiKey: string;
+  email: string
+  password: string
+  serviceAccountApiKey: string
 }
 
 export const loginApiSlice = baseApiSlice.injectEndpoints({
-  endpoints: (builder) => ({
+  endpoints: builder => ({
     login: builder.mutation<ILoginResponse, ILoginPayload>({
       query: ({ email, password, serviceAccountApiKey }) => ({
-        url: "auth/admin/login",
-        method: "POST",
+        url: 'auth/admin/login',
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-          "x-service-account-key": serviceAccountApiKey
+          'Content-Type': 'application/json',
+          'x-service-account-key': serviceAccountApiKey,
         },
         body: {
           email: email,
-          password: password
+          password: password,
         },
       }),
     }),
   }),
-});
+})
 
-export const { useLoginMutation } = loginApiSlice;
+export const { useLoginMutation } = loginApiSlice

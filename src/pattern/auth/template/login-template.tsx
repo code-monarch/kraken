@@ -74,6 +74,7 @@ const LoginTemplate = () => {
             storeLoginCredentials({
               apiKey: res.data.apiKey,
               adminId: res.data.id,
+              adminRole: res.data.userType,
               serviceAccountApiKey: response.data?.apiKey,
             }).then(() => {
               push('/')
