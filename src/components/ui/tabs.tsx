@@ -1,11 +1,23 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import * as TabsPrimitive from "@radix-ui/react-tabs"
+import * as React from 'react'
+import * as TabsPrimitive from '@radix-ui/react-tabs'
 
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils'
 
-const Tabs = TabsPrimitive.Root
+// const Tabs = TabsPrimitive.Root
+
+const Tabs = React.forwardRef<
+  React.ElementRef<typeof TabsPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Root>
+>(({ className, ...props }, ref) => (
+  <TabsPrimitive.Root
+    ref={ref}
+    className={cn('w-full overflow-auto', className)}
+    {...props}
+  />
+))
+Tabs.displayName = TabsPrimitive.Tabs.displayName
 
 const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
@@ -14,8 +26,8 @@ const TabsList = React.forwardRef<
   <TabsPrimitive.List
     ref={ref}
     className={cn(
-      "inline-flex min-h-10 h-fit items-center justify-start bg-transparent text-muted-foreground",
-      className
+      'inline-flex min-h-10 h-fit items-center justify-start bg-transparent text-muted-foreground',
+      className,
     )}
     {...props}
   />
@@ -29,12 +41,12 @@ const TabsTrigger = React.forwardRef<
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[4px] px-[16px] py-[10px] text-[1.125rem] font-[500] ring-offset-primary transition-all focus-visible:border-none focus-visible:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-[hsla(151,100%,96%,1)] data-[state=active]:text-primary data-[state=active]:font-[600]",
-      className
+      'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[4px] px-[16px] py-[10px] text-[1.125rem] font-[500] ring-offset-primary transition-all focus-visible:border-none focus-visible:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-[hsla(151,100%,96%,1)] data-[state=active]:text-primary data-[state=active]:font-[600]',
+      className,
     )}
     {...props}
   />
-));
+))
 TabsTrigger.displayName = TabsPrimitive.Trigger.displayName
 
 const TabsContent = React.forwardRef<
@@ -44,8 +56,8 @@ const TabsContent = React.forwardRef<
   <TabsPrimitive.Content
     ref={ref}
     className={cn(
-      "mt-4 ring-offset-none focus-visible:outline-none focus-visible:ring-none",
-      className
+      'mt-4 ring-offset-none focus-visible:outline-none focus-visible:ring-none overflow-auto',
+      className,
     )}
     {...props}
   />

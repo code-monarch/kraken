@@ -35,7 +35,7 @@ export const rootPersistConfig = {
   key: "root",
   storage,
   keyPrefix: "redux-",
-  whitelist: [],
+  // whitelist: [],
   stateReconciler: hardSet,
 };
 

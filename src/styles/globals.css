@@ -97,7 +97,7 @@
     @apply box-border;
   }
   body {
-    @apply bg-background text-foreground font-raleway overflow-x-hidden;
+    @apply bg-background text-foreground font-raleway overflow-x-auto;
   }
 }
 
@@ -117,6 +117,10 @@
   .slide-out-scroll-height {
     height: 900px;
   }
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 /* Change Input autofill background color on chrome */
@@ -140,6 +144,22 @@ input:-webkit-autofill:active {
 }
 
 .custom_scollbar::-webkit-scrollbar-thumb {
+  background-color: hsla(210, 40%, 96%, 1);
+  border-radius: 4px !important;
+}
+
+::-webkit-scrollbar {
+  width: 4px !important;
+  height: 4px;
+  padding-top: 10px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 4px !important;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
   background-color: hsla(210, 40%, 96%, 1);
   border-radius: 4px !important;
 }
