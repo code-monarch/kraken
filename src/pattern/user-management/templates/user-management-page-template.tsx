@@ -5,11 +5,11 @@ import PageHeader from '@/pattern/common/molecules/data-display/page-header'
 import SuperAdminUserManagementPageHeader from '@/pattern/super-admin/molecules/super-admin-user-management-page-header'
 import UserManagementMetricGrid from '../organisms/user-management-metric-grid'
 import SuperAdminUserManagementActionGrid from '@/pattern/super-admin/templates/super-admin-user-management-action-grid'
-import UserManagementTableTemplate from '../molecules/user-management-table-template'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/redux/store'
 import UserDetailsTemplate from './user-details-template'
 import { useSearchParams } from 'next/navigation'
+import UserManagementTableTemplate from './user-management-table-template'
 
 const UserManagementPageTemplate = () => {
   const adminRole = useSelector(
@@ -45,6 +45,7 @@ const UserManagementPageTemplate = () => {
           <Hidden visible={adminRole === 'SUPER_ADMIN'}>
             <SuperAdminUserManagementActionGrid />
           </Hidden>
+
           <UserManagementTableTemplate />
         </div>
       )}
