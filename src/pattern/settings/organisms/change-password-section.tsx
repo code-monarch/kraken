@@ -7,7 +7,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useChangePasswordMutation } from "@/redux/services/auth/change-password.api-slice";
 import { show } from "@ebay/nice-modal-react";
 import { PasswordErrorModal } from "./password-error-modal";
-import { SuccessModal } from "./success-modal";
+import LocalStore from "@/lib/helper/storage-manager";
+import { SuccessModal } from "@/pattern/common/organisms/success-modal";
+import { toast } from "sonner";
 
 interface payload {
   oldPassword: string;
@@ -57,9 +59,29 @@ const ChangePasswordSection = () => {
     })
       .unwrap()
       .then((res) => {
-        console.log("password changed successfully");
-        show(SuccessModal);
-        reset();
+        return new Promise((resolve) => {
+          reset();
+          // toast.success("Successful", {
+          //   description:
+          //     "Password changed successfully. You'll be redirected to the login page to sign in with your new password",
+          //   duration: 8000,
+          //   cancel: {
+          //     label: "Cancel",
+          //     onClick: () => console.log("Cancel!"),
+          //   },
+          // });
+          show(SuccessModal, {
+            message: `Password changed successfully. Please wait, you're being redirected to the login page to sign in with your new password`,
+          });
+
+          // A 7-second delay before resolving
+          setTimeout(() => {
+            resolve(true);
+          }, 7000);
+        }).then(() => {
+          LocalStore.clearStore();
+          window.location.reload();
+        });
       })
       .catch((err) => {
         console.log(changePasswordError);

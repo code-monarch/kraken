@@ -92,6 +92,14 @@ const UserManagementTableTemplate = () => {
   // This filters through the sorted state of the data and returns only users with user type of "AGENT"
   const allAgents = sortedData?.filter((item) => item.userType === "AGENT");
 
+  useEffect(() => {
+    if(tabValue === "user") {
+      setRole("user")
+    } else if (tabValue === "agent") {
+      setRole("agent")
+    }
+  }, [tabValue])
+
   return (
     <div className="w-full h-fit bg-card px-6 overflow-auto">
       {/* Top */}

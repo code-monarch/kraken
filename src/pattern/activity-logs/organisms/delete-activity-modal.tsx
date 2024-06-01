@@ -12,9 +12,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { DeleteAccountHeaderIcon } from "@/pattern/common/atoms/icons/delete-account-header-icon";
 import { useDeleteSingleActivityMutation } from "@/redux/services/activity-logs/activity.api-slice";
-import { SuccessModal } from "./success-modal";
 import { show } from "@ebay/nice-modal-react";
 import { ErrorModal } from "@/pattern/common/organisms/error-modal";
+import { SuccessModal } from "@/pattern/common/organisms/success-modal";
 
 interface IProps {
   id: string;
@@ -39,7 +39,7 @@ export const DeleteActivityModal = create(({ id, userID }: IProps) => {
       .then((res) => {
         console.log("deleted successfuly");
         handleCloseModal();
-        show(SuccessModal);
+        show(SuccessModal, { message: "Activity deleted successfully" });
       })
       .catch((err) => {
         handleCloseModal();
