@@ -12,7 +12,6 @@ import { ActivityLogsSearchFilterModal } from "./activity-logs-search-filter-mod
 interface IProps {
   filterString: string;
   setFilterString: (value: string) => void;
-  setDate: (value: any) => void;
   setStartDate: (value: string) => void;
   setEndDate: (value: string) => void;
   setActivityType: (value: string) => void;
@@ -23,7 +22,6 @@ interface IProps {
 const ActivityLogsTableTemplateHeader = ({
   filterString,
   setFilterString,
-  setDate,
   setStartDate,
   setEndDate,
   setActivityType,
@@ -35,7 +33,6 @@ const ActivityLogsTableTemplateHeader = ({
   const handleShowSearchFilterModal = async () => {
     const result: any = await show(ActivityLogsSearchFilterModal);
     if (result.resolved) {
-      setDate(result.date);
       setStartDate(result.startDate);
       setEndDate(result.endDate);
       setActivityType(result.activityType);

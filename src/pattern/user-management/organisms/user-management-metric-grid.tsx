@@ -22,7 +22,7 @@ const UserManagementMetricGrid = () => {
       />
       {/* Active Pilgrims */}
       <DashboardMetricCard
-        metric="Active Pilgrims"
+        metric="Active Users"
         metricPercentage="10"
         metricValue={4000}
         isAmount={false}

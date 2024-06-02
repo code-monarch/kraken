@@ -14,7 +14,7 @@ export interface IPilgrimBioDataProps {
   lastName: string;
   email: string;
   phoneNumber: string;
-  status: "active" | "inactive";
+  status: "active" | "inactive" | string;
   userType: "user" | "agent" | string;
   id?: string;
 }
@@ -25,8 +25,8 @@ export const PilgrimBioData: FC<IPilgrimBioDataProps> = ({
   lastName,
   email,
   phoneNumber,
-  status = Status.active,
-  userType = UserType.Pilgrim,
+  status,
+  userType,
 }) => {
   return (
     <div className='flex items-start gap-6'>
@@ -65,12 +65,12 @@ export const PilgrimBioData: FC<IPilgrimBioDataProps> = ({
         <div className='flex items-center gap-1'>
           {/* User */}
           <Badge variant='outline'>
-            {userType === "pilgrim" ? "Pilgrim" : "Agent"}
+            {userType === "USER" ? "User" : "Agent"}
           </Badge>
 
           {/* Status */}
-          <Badge variant={status === "active" ? "active" : "inactive"}>
-            {status === "active" ? "Active" : "Inactive"}
+          <Badge variant={status === "Active" ? "active" : "inactive"}>
+            {status === "Active" ? "Active" : "Inactive"}
           </Badge>
         </div>
       </div>

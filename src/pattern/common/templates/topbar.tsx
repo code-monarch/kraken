@@ -12,11 +12,6 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/redux/store'
 
 const Topbar = () => {
-  const adminId = LocalStore.getItem({ key: ADMIN_ID })
-  const { data, isLoading } = useGetAdminQuery({
-    id: adminId ? adminId : '',
-  })
-
   const firstname = useSelector(
     (state: RootState) => state.userDetails?.firstname,
   )

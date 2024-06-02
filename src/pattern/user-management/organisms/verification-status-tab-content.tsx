@@ -7,7 +7,12 @@ import ViewAllCaretIcon from "@/pattern/common/atoms/icons/view-all-caret-icon";
 import { show } from "@ebay/nice-modal-react";
 import { ChangeVerificationStatusModal } from "./change-verification-status-modal";
 
-const VerificationStatusTabContent = () => {
+interface IProps {
+  isVerified: boolean;
+  nationalId: string;
+}
+
+const VerificationStatusTabContent = ({isVerified, nationalId}: IProps) => {
 
   const showChangeVerifStatusModal = ()=>{
     show(ChangeVerificationStatusModal);
@@ -29,22 +34,22 @@ const VerificationStatusTabContent = () => {
           className='w-[138px] h-[44px] text-base'
           onClick={showChangeVerifStatusModal}
         >
-          Pending
+          {isVerified ? "Approved" : "Pending"}
         </ButtonWithIcon>
       </div>
 
-      <PilgrimStatusWidget label='National ID:' value='0-123-456-789' />
+      <PilgrimStatusWidget label='National ID:' value={nationalId} />
       <PilgrimStatusWidget
         label='Verification Status:'
         value={
-          <Badge variant='pending' className='h-[32px] w-[80px] text-base'>
-            Pending
+          <Badge variant={isVerified ? "completed" : "pending"} className='h-[32px] w-[80px] text-base'>
+            {isVerified ? "Approved" : "Pending"}
           </Badge>
         }
       />
       <PilgrimStatusWidget
         label='Verification Status:'
-        comment='Document under review. Please check back later'
+        comment={isVerified ? "Approved" : 'Document under review. Please check back later'}
       />
     </div>
   );
