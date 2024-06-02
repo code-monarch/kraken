@@ -23,6 +23,7 @@ export interface ICustomInputProps
   error?: FieldError;
   prefixIcon?: ReactElement;
   suffixIcon?: ReactElement;
+  disabled?: boolean;
 }
 
 export interface IListType {

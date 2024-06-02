@@ -75,7 +75,6 @@ const MyDetailsTab = ({
         dispatch(setAdminRole(res?.data.userType))
         dispatch(
           setAdminInfo({
-            adminRole: res?.data.userType,
             firstname: res?.data.firstname,
             lastname: res?.data.lastname,
             email: res?.data.email,
