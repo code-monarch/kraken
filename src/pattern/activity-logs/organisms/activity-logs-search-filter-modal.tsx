@@ -18,7 +18,6 @@ import { DateRangeFilterModal } from '@/pattern/common/organisms/date-range-filt
 import DateInput from '@/pattern/common/molecules/inputs/date-input'
 import { LinkButton } from '@/pattern/common/molecules/controls/link-button'
 import { IListType } from '@/pattern/types'
-import { DateRange } from 'react-day-picker'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 
 const rolesFilterSetting: IListType[] = [
@@ -65,7 +64,6 @@ const ActivityTypeFilterSetting: IListType[] = [
 
 export const ActivityLogsSearchFilterModal = create(() => {
   const { resolve, remove, visible } = useModal()
-  const [date, setDate] = useState<DateRange | undefined>()
   const [startDate, setStartDate] = useState<string>('')
   const [endDate, setEndaDate] = useState<string>('')
   const [dateRange, setDateRange] = useState<string>('')
@@ -76,7 +74,6 @@ export const ActivityLogsSearchFilterModal = create(() => {
   const showDateRangeFilterModal = async () => {
     const result: any = await show(DateRangeFilterModal)
     if (result.resolved) {
-      setDate(result.date)
       setStartDate(result.startDate)
       setEndaDate(result.endDate)
       setDateRange(`${result.startDate} - ${result.endDate}`)
@@ -86,7 +83,6 @@ export const ActivityLogsSearchFilterModal = create(() => {
   const handleCloseModal = () => {
     resolve({
       resolved: true,
-      date,
       startDate,
       endDate,
       activityType,
@@ -99,6 +95,25 @@ export const ActivityLogsSearchFilterModal = create(() => {
   const handleSaveFilterSettings = () => {
     handleCloseModal()
   }
+
+  const isButtonDisabled = !(
+    activityStatus ||
+    activityType ||
+    startDate ||
+    endDate ||
+    order ||
+    dateRange
+  )
+
+  const resetValues = () => {
+    setActivityStatus('')
+    setActivityType('')
+    setStartDate('')
+    setEndaDate('')
+    setOrder('')
+    setDateRange('')
+  }
+
   return (
     <Dialog open={visible} onOpenChange={handleCloseModal}>
       <DialogContent
@@ -111,7 +126,7 @@ export const ActivityLogsSearchFilterModal = create(() => {
             <CardTitle>Filters</CardTitle>
             <div className='flex items-center gap-x-[32px] pt-[2px] !m-0'>
               {/* Clear all button */}
-              <LinkButton className='text-[18px]'>Clear All</LinkButton>
+              <LinkButton onClick={resetValues} disabled={isButtonDisabled} className='text-[18px]'>Clear All</LinkButton>
               <span onClick={() => remove()} className='!m-0 cursor-pointer'>
                 <SheetCloseIcon />
               </span>
@@ -198,7 +213,7 @@ export const ActivityLogsSearchFilterModal = create(() => {
 
           {/* Footer */}
           <CardFooter className='w-full pb-4 px-6'>
-            <Button onClick={handleSaveFilterSettings}>Save</Button>
+            <Button disabled={isButtonDisabled} onClick={handleSaveFilterSettings}>Save</Button>
           </CardFooter>
         </Card>
       </DialogContent>

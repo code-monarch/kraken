@@ -4,7 +4,7 @@ import { VariantProps, cva } from "class-variance-authority";
 import React from "react";
 
 const linkButtonVariants = cva(
-  "h-fit w-fit text-base font-[600] font-raleway underline p-0 rounded-[6px] disabled:opacity-70",
+  "h-fit w-fit text-base font-[600] font-raleway underline p-0 rounded-[6px] disabled:opacity-70 disabled:cursor-not-allowed",
   {
     variants: {
       variant: {

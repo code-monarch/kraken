@@ -21,23 +21,6 @@ import { DASHBOARD_PATHS } from '@/lib/routes'
 import { IUser } from '@/redux/services/users/user.api-slice'
 import ViewDetailsBtn from '../atoms/view-details-btn'
 
-// const redirectToUserDetails = (userId: string) => {
-//   if (typeof window !== "undefined") {
-//     window.location.href = `${DASHBOARD_PATHS.userManagement}?userId=${userId}`;
-//   }
-// };
-
-export type UserDetails = {
-  userID: string | number
-  name: string
-  email: string
-  role: typeof UserType | string
-  status: typeof Status | string
-  registeredOn: string | Date
-  image: any
-  phoneNumber: string
-}
-
 export const UserTableColumns: ColumnDef<IUser>[] = [
   {
     id: 'select',

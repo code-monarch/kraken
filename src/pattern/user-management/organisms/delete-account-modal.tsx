@@ -12,9 +12,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { DeleteAccountHeaderIcon } from "@/pattern/common/atoms/icons/delete-account-header-icon";
 import { useDeleteUserMutation } from "@/redux/services/users/delete-user.api-slice";
-import { SuccessModal } from "./delete-account-success-modal";
 import LoadingButton from "@/pattern/common/molecules/controls/loading-button";
 import { ErrorModal } from "@/pattern/common/organisms/error-modal";
+import { useRouter, useSearchParams } from "next/navigation";
+import { DASHBOARD_PATHS } from "@/lib/routes";
+import { SuccessModal } from "@/pattern/common/organisms/success-modal";
 
 interface IProps {
   userId: string;
@@ -22,6 +24,12 @@ interface IProps {
 }
 
 export const DeleteAccountModal = create(({ userId, name }: IProps) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Returns a boolean if the current URL has a 'userId' search param
+  const id = searchParams.has("userId");
+
   const [deleteAccount, { isLoading, isSuccess, isError }] =
     useDeleteUserMutation();
   const { resolve, remove, visible } = useModal();
@@ -38,7 +46,11 @@ export const DeleteAccountModal = create(({ userId, name }: IProps) => {
       .unwrap()
       .then((res) => {
         handleCloseModal();
-        show(SuccessModal);
+        show(SuccessModal, { message: "Account deleted successfully" });
+        if (id) {
+          router.push(`${DASHBOARD_PATHS.userManagement}`);
+        }
+        window.location.reload();
       })
       .catch((err) => {
         handleCloseModal();

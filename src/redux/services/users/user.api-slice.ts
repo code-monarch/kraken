@@ -53,7 +53,6 @@ export interface IGetSingleUserResponse {
     isVerified: boolean
     verificationCode: string
     emailVerified: boolean
-    roles: []
     lastLogin: string
     createdAt: string
     updatedAt: string
@@ -68,6 +67,9 @@ export interface IGetSingleUserResponse {
     passportID: string
     state: string
     userType: string
+    status: string
+    totp2FASecret: string
+    totp2FA: boolean
   }
 }
 
