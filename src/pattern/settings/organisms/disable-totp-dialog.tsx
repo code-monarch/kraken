@@ -25,6 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { set2FaPreference } from "@/redux/slices/user-slice";
 import { RootState } from "@/redux/store";
 import { SuccessModal } from "@/pattern/common/organisms/success-modal";
+import SheetCloseIcon from "@/pattern/common/atoms/icons/sheet-close-icon";
 
 const ValidateTotpFormSchema = Yup.object().shape({
   token: Yup.string().required(
@@ -95,7 +96,7 @@ const DisableTotpDialog = create(() => {
   return (
     <Dialog open={visible} onOpenChange={handleCloseModal}>
       <DialogContent>
-        <DialogHeader className="space-y-4">
+        <DialogHeader className="space-y-4 relative">
           <EnableSectionIndicator />
           <DialogDescription className="text-[#202b36] text-base text-center">
             <p className="font-semibold">
@@ -103,6 +104,12 @@ const DisableTotpDialog = create(() => {
               please enter the token from your authenticator app to continue
             </p>
           </DialogDescription>
+          <span
+            onClick={handleCloseModal}
+            className="!m-0 cursor-pointer absolute right-0 top-0"
+          >
+            <SheetCloseIcon />
+          </span>
         </DialogHeader>
 
         <div className="my-2 space-y-2">

@@ -15,6 +15,7 @@ import ValidateTotpDialog from "./validate-totp.dialog";
 import ScanSectionIndicator from "@/pattern/common/atoms/icons/scan-section-indicator";
 import { create, show, useModal } from "@ebay/nice-modal-react";
 import Image from "next/image";
+import SheetCloseIcon from "@/pattern/common/atoms/icons/sheet-close-icon";
 
 interface IProps {
   secret: string;
@@ -37,8 +38,11 @@ const ScanQrDialog = create(({ secret, qrCode }: IProps) => {
   };
   return (
     <Dialog open={visible} onOpenChange={handleCloseModal}>
-      <DialogContent onInteractOutside={(e) => e.preventDefault()} className="text-[#202b3c] text-center">
-        <DialogHeader className="space-y-4">
+      <DialogContent
+        onInteractOutside={(e) => e.preventDefault()}
+        className="text-[#202b3c] text-center"
+      >
+        <DialogHeader className="space-y-4 relative">
           <ScanSectionIndicator />
           <DialogDescription className="text-[#202b36] text-base text-center">
             <p className="font-semibold">
@@ -46,6 +50,12 @@ const ScanQrDialog = create(({ secret, qrCode }: IProps) => {
             </p>
             <p>You will need an Authenticator app to complete this process,</p>
           </DialogDescription>
+          <span
+            onClick={handleCloseModal}
+            className="!m-0 cursor-pointer absolute right-0 top-0"
+          >
+            <SheetCloseIcon />
+          </span>
         </DialogHeader>
 
         <div className="my-2 space-y-2">

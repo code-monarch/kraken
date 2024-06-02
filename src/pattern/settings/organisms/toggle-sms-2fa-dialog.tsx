@@ -20,6 +20,7 @@ import LocalStore from "@/lib/helper/storage-manager";
 import { ErrorModal } from "@/pattern/common/organisms/error-modal";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import SheetCloseIcon from "@/pattern/common/atoms/icons/sheet-close-icon";
 
 const RequestOtpFormSchema = Yup.object().shape({
   // phone: Yup.string().required("Phone number is Required"),
@@ -75,39 +76,45 @@ const ToggleSms2FaDialog = create(() => {
   return (
     <Dialog open={visible} onOpenChange={handleCloseModal}>
       <FormProvider {...methods}>
-      <DialogContent>
-        <DialogHeader className="space-y-4">
-          <PhoneSectionIndicator />
-          <DialogDescription className="text-[#202b36] text-base text-center space-y-2">
-            {!sms2Fa ? (
-              <div className="space-y-2">
-                <p className="font-semibold">
-                  A one-time passcode will be sent to your mobile phone number
-                  shown below.
-                </p>
-                <p>
-                  We will send an authenticator code whenever we detect a
-                  sign-in attempt from an unrecognized location.
-                </p>
-              </div>
-            ) : (
-              <div className="space-y-2">
-                <p className="font-semibold">
-                  You are trying to disable SMS 2FA on this account.
-                </p>
-                <p>
-                  A one-time passcode will be sent to your mobile phone number
-                  shown below.
-                </p>
-              </div>
-            )}
-            <p>
-              Click <strong>Next</strong> to get code.
-            </p>
-          </DialogDescription>
-        </DialogHeader>
+        <DialogContent>
+          <DialogHeader className="space-y-4 relative">
+            <PhoneSectionIndicator />
+            <DialogDescription className="text-[#202b36] text-base text-center space-y-2">
+              {!sms2Fa ? (
+                <div className="space-y-2">
+                  <p className="font-semibold">
+                    A one-time passcode will be sent to your mobile phone number
+                    shown below.
+                  </p>
+                  <p>
+                    We will send an authenticator code whenever we detect a
+                    sign-in attempt from an unrecognized location.
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <p className="font-semibold">
+                    You are trying to disable SMS 2FA on this account.
+                  </p>
+                  <p>
+                    A one-time passcode will be sent to your mobile phone number
+                    shown below.
+                  </p>
+                </div>
+              )}
+              <p>
+                Click <strong>Next</strong> to get code.
+              </p>
+            </DialogDescription>
+            <span
+              onClick={handleCloseModal}
+              className="!m-0 cursor-pointer absolute right-0 top-0"
+            >
+              <SheetCloseIcon />
+            </span>
+          </DialogHeader>
 
-        {/* <form
+          {/* <form
             onSubmit={handleSubmit(onSubmit)}
             className="w-full flex flex-col gap-5"
           >
@@ -131,24 +138,24 @@ const ToggleSms2FaDialog = create(() => {
             </div>
           </form> */}
 
-        <PhoneNumberInput
-          label="Phone Number"
-          name="phone"
-          defaultValue={adminPhoneNumber!}
-          value={adminPhoneNumber!}
-          readOnly
-          disabled={true}
-        />
+          <PhoneNumberInput
+            label="Phone Number"
+            name="phone"
+            defaultValue={adminPhoneNumber!}
+            value={adminPhoneNumber!}
+            readOnly
+            disabled={true}
+          />
 
-        <LoadingButton
-          loading={isLoading}
-          type="button"
-          variant="default"
-          onClick={handleGenerateCode}
-        >
-          Next
-        </LoadingButton>
-      </DialogContent>
+          <LoadingButton
+            loading={isLoading}
+            type="button"
+            variant="default"
+            onClick={handleGenerateCode}
+          >
+            Next
+          </LoadingButton>
+        </DialogContent>
       </FormProvider>
     </Dialog>
   );

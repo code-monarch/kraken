@@ -20,6 +20,7 @@ import { ErrorModal } from "@/pattern/common/organisms/error-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { set2FaPreference } from "@/redux/slices/user-slice";
+import SheetCloseIcon from "@/pattern/common/atoms/icons/sheet-close-icon";
 
 interface IConfirmCodeInput {
   verificationCode: string;
@@ -103,7 +104,7 @@ const ConfirmSms2FaDialog = create(() => {
     <Dialog open={visible} onOpenChange={handleCloseModal}>
       <FormProvider {...methods}>
         <DialogContent onInteractOutside={(e) => e.preventDefault()}>
-          <DialogHeader className="space-y-4">
+          <DialogHeader className="space-y-4 relative">
             <ConfirmSectionIndicator />
             <DialogDescription className="text-[#202b36] text-base text-center">
               <p className="font-semibold">
@@ -119,6 +120,12 @@ const ConfirmSms2FaDialog = create(() => {
                 <p>This will disable SMS 2FA on this account.</p>
               )}
             </DialogDescription>
+            <span
+              onClick={handleCloseModal}
+              className="!m-0 cursor-pointer absolute right-0 top-0"
+            >
+              <SheetCloseIcon />
+            </span>
           </DialogHeader>
 
           <form onSubmit={handleSubmit(onSubmitHandler)}>
