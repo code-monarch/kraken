@@ -3,37 +3,34 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogHeader
+  DialogHeader,
 } from "@/components/ui/dialog";
 import PhoneSectionIndicator from "@/pattern/common/atoms/icons/phone-section-indicator";
 import PhoneNumberInput from "@/pattern/common/molecules/inputs/phone-input";
 import GreyInfoIcon from "@/pattern/common/atoms/icons/grey-info-icon";
-import ConfirmCodeDialog from "./confirm-code-dialog";
+import ConfirmSms2FaDialog from "./confirm-sms-2fa-dialog";
 import { create, show, useModal } from "@ebay/nice-modal-react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useToggle2FaMutation } from "@/redux/services/two-factor/toggle-2fa";
+import { useToggleSms2FaMutation } from "@/redux/services/two-factor/sms2Fa.api-slice";
 import LoadingButton from "@/pattern/common/molecules/controls/loading-button";
 import { TWO_FA_PREFERENCE } from "@/lib/constants";
 import LocalStore from "@/lib/helper/storage-manager";
 import { ErrorModal } from "@/pattern/common/organisms/error-modal";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import SheetCloseIcon from "@/pattern/common/atoms/icons/sheet-close-icon";
 
 const RequestOtpFormSchema = Yup.object().shape({
-  phone: Yup.string().required("Phone number is Required"),
+  // phone: Yup.string().required("Phone number is Required"),
 });
 
-const PhoneAuthDialog = create(() => {
-  useEffect(() => {
-    const securityPreference = {
-      google2FA: "state.google2fa",
-      sms2FA: "state.sms2fa",
-    };
-    LocalStore.setItem({ key: TWO_FA_PREFERENCE, value: JSON.stringify(securityPreference) })
-
-  }, []);
-
-  console.log(JSON.parse(localStorage.getItem(TWO_FA_PREFERENCE)!))
+const ToggleSms2FaDialog = create(() => {
+  const sms2Fa = useSelector((state: RootState) => state.userDetails.sms2fa);
+  const adminPhoneNumber = useSelector(
+    (state: RootState) => state.userDetails.phoneNumber
+  );
 
   const { resolve, remove, visible } = useModal();
 
@@ -43,12 +40,12 @@ const PhoneAuthDialog = create(() => {
   };
 
   const defaultValues = {
-    phone: "",
+    phone: adminPhoneNumber!,
   };
 
   const methods = useForm({
     mode: "onChange",
-    resolver: yupResolver(RequestOtpFormSchema),
+    // resolver: yupResolver(RequestOtpFormSchema),
     reValidateMode: "onChange",
     delayError: 2000,
     defaultValues: defaultValues,
@@ -59,17 +56,16 @@ const PhoneAuthDialog = create(() => {
     formState: { errors, isDirty },
   } = methods;
 
-  console.log("FORM ERRORR: ", errors);
+  const [genrateCode, { isLoading, isSuccess, isError }] =
+    useToggleSms2FaMutation();
 
-  const [toggle2Fa, { isLoading, isSuccess, isError }] = useToggle2FaMutation();
-
-  const onSubmit: SubmitHandler<{ phone: string }> = (data) => {
-    toggle2Fa()
+  const handleGenerateCode = () => {
+    genrateCode()
       .unwrap()
       .then((res) => {
         console.log(res);
         handleCloseModal();
-        show(ConfirmCodeDialog);
+        show(ConfirmSms2FaDialog);
       })
       .catch((err) => {
         handleCloseModal();
@@ -81,25 +77,49 @@ const PhoneAuthDialog = create(() => {
     <Dialog open={visible} onOpenChange={handleCloseModal}>
       <FormProvider {...methods}>
         <DialogContent>
-          <DialogHeader className="space-y-4">
+          <DialogHeader className="space-y-4 relative">
             <PhoneSectionIndicator />
-            <DialogDescription className="text-[#202b36] text-base text-center">
-              <p className="font-semibold">
-                Enter your mobile phone number in the field below.
-              </p>
+            <DialogDescription className="text-[#202b36] text-base text-center space-y-2">
+              {!sms2Fa ? (
+                <div className="space-y-2">
+                  <p className="font-semibold">
+                    A one-time passcode will be sent to your mobile phone number
+                    shown below.
+                  </p>
+                  <p>
+                    We will send an authenticator code whenever we detect a
+                    sign-in attempt from an unrecognized location.
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <p className="font-semibold">
+                    You are trying to disable SMS 2FA on this account.
+                  </p>
+                  <p>
+                    A one-time passcode will be sent to your mobile phone number
+                    shown below.
+                  </p>
+                </div>
+              )}
               <p>
-                We will send an authenticator code when we detect a sign-in
-                attempt from an unrecognized location.
+                Click <strong>Next</strong> to get code.
               </p>
             </DialogDescription>
+            <span
+              onClick={handleCloseModal}
+              className="!m-0 cursor-pointer absolute right-0 top-0"
+            >
+              <SheetCloseIcon />
+            </span>
           </DialogHeader>
 
-          <form
+          {/* <form
             onSubmit={handleSubmit(onSubmit)}
             className="w-full flex flex-col gap-5"
           >
             <div className="my-2 space-y-2">
-              {/* Phone number */}
+
               <PhoneNumberInput
                 label="Phone Number"
                 name="phone"
@@ -116,20 +136,29 @@ const PhoneAuthDialog = create(() => {
                 </p>
               </div>
             </div>
+          </form> */}
 
-            <LoadingButton
-              loading={isLoading}
-              disabled={!isDirty}
-              type="submit"
-              variant="default"
-            >
-              Next
-            </LoadingButton>
-          </form>
+          <PhoneNumberInput
+            label="Phone Number"
+            name="phone"
+            defaultValue={adminPhoneNumber!}
+            value={adminPhoneNumber!}
+            readOnly
+            disabled={true}
+          />
+
+          <LoadingButton
+            loading={isLoading}
+            type="button"
+            variant="default"
+            onClick={handleGenerateCode}
+          >
+            Next
+          </LoadingButton>
         </DialogContent>
       </FormProvider>
     </Dialog>
   );
 });
 
-export default PhoneAuthDialog;
+export default ToggleSms2FaDialog;

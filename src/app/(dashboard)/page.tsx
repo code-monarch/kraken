@@ -28,16 +28,12 @@ const OverviewPage = () => {
   useEffect(() => {
     dispatch(
       setAdminInfo({
-        adminRole: data?.data.userType,
         firstname: data?.data.firstname,
         lastname: data?.data.lastname,
         email: data?.data.email,
         phoneNumber: data?.data.phoneNumber,
       }),
     )
-    // dispatch(
-    //   set2FaPreference({ sms2fa: data?.data.twoFactor!, google2fa: false }),
-    // )
   }, [dispatch, data, adminRole])
 
   return (

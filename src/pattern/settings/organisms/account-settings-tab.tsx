@@ -9,7 +9,7 @@ interface IProps {
   twoFactorActivated: boolean;
 }
 
-const AccountSettingsTab = ({ twoFactorActivated }: IProps) => {
+const AccountSettingsTab = () => {
   return (
     <div className="w-[886px]">
       <p className="text-lg text-[#202b3c] font-semibold mb-2">
@@ -18,7 +18,7 @@ const AccountSettingsTab = ({ twoFactorActivated }: IProps) => {
       <Separator />
 
       <div className="my-3">
-        <TwoFactorAuthSection twoFactorActivated={twoFactorActivated} />
+        <TwoFactorAuthSection />
       </div>
       <Separator />
 

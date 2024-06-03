@@ -15,9 +15,9 @@ export interface IConfirmToggle2FaPayload {
   token: string;
 }
 
-export const toggle2FaApiSlice = baseApiSlice.injectEndpoints({
+export const sms2FaApiSlice = baseApiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    toggle2Fa: builder.mutation<IToggle2FaResponse, void>({
+    toggleSms2Fa: builder.mutation<IToggle2FaResponse, void>({
       query: () => ({
         url: "settings/admin/toggle-2fa",
         method: "POST",
@@ -26,7 +26,7 @@ export const toggle2FaApiSlice = baseApiSlice.injectEndpoints({
         },
       }),
     }),
-    confirmToggle2Fa: builder.mutation<IConfirmToggle2FaResponse, IConfirmToggle2FaPayload>({
+    confirmSms2Fa: builder.mutation<IConfirmToggle2FaResponse, IConfirmToggle2FaPayload>({
       query: (tokenDetails) => ({
         url: "settings/admin/confirm-toggle-2fa",
         method: "POST",
@@ -39,5 +39,5 @@ export const toggle2FaApiSlice = baseApiSlice.injectEndpoints({
   }),
 });
 
-export const { useToggle2FaMutation, useConfirmToggle2FaMutation } =
-  toggle2FaApiSlice;
+export const { useToggleSms2FaMutation, useConfirmSms2FaMutation } =
+  sms2FaApiSlice;

@@ -16,7 +16,6 @@ const SettingsTemplate = () => {
   const adminEmail = useSelector(
     (state: RootState) => state.userDetails?.email
   );
-  const sms2Fa = useSelector((state: RootState) => state.userDetails?.sms2fa);
 
   const tabs = [
     {
@@ -34,7 +33,7 @@ const SettingsTemplate = () => {
     {
       tabName: "Account Settings",
       value: "settings",
-      content: <AccountSettingsTab twoFactorActivated={sms2Fa!} />,
+      content: <AccountSettingsTab />,
     },
   ];
 
