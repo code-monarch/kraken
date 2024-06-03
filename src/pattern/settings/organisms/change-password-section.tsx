@@ -10,6 +10,8 @@ import { PasswordErrorModal } from "./password-error-modal";
 import LocalStore from "@/lib/helper/storage-manager";
 import { SuccessModal } from "@/pattern/common/organisms/success-modal";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { AUTH_PATHS } from "@/lib/routes";
 
 interface payload {
   oldPassword: string;
@@ -27,6 +29,8 @@ const ChangePasswordFormSchema = Yup.object().shape({
 });
 
 const ChangePasswordSection = () => {
+  const { replace } = useRouter();
+
   const defaultValues = {
     oldPassword: "",
     newPassword: "",
@@ -61,18 +65,18 @@ const ChangePasswordSection = () => {
       .then((res) => {
         return new Promise((resolve) => {
           reset();
-          // toast.success("Successful", {
-          //   description:
-          //     "Password changed successfully. You'll be redirected to the login page to sign in with your new password",
-          //   duration: 8000,
-          //   cancel: {
-          //     label: "Cancel",
-          //     onClick: () => console.log("Cancel!"),
-          //   },
-          // });
-          show(SuccessModal, {
-            message: `Password changed successfully. Please wait, you're being redirected to the login page to sign in with your new password`,
+          toast.success("Successful", {
+            description:
+              "Password changed successfully. Please wait, you're being redirected to the login page to sign in with your new password",
+            duration: 8000,
+            cancel: {
+              label: "Cancel",
+              onClick: () => console.log("Cancel!"),
+            },
           });
+          // show(SuccessModal, {
+          //   message: `Password changed successfully. Please wait, you're being redirected to the login page to sign in with your new password`,
+          // });
 
           // A 7-second delay before resolving
           setTimeout(() => {
@@ -80,7 +84,8 @@ const ChangePasswordSection = () => {
           }, 7000);
         }).then(() => {
           LocalStore.clearStore();
-          window.location.reload();
+          replace(`${AUTH_PATHS.login}`);
+          // window.location.reload();
         });
       })
       .catch((err) => {
