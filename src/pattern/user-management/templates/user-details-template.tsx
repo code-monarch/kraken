@@ -59,6 +59,7 @@ const UserDetailsTemplate = () => {
           email={data?.data.email ?? 'Email'}
           address={data?.data.address ?? 'Address'}
           name={`${data?.data.firstname} ${data?.data.lastname}`}
+          phoneNumber={data?.data.phoneNumber!}
         />
       ),
     },
@@ -72,7 +73,9 @@ const UserDetailsTemplate = () => {
       tabName: 'Verification Status',
       value: 'verification-status',
       icon: VerificationStatusTabIcon,
-      content: <VerificationStatusTabContent />,
+      content: (
+        <VerificationStatusTabContent isVerified={data?.data.isVerified!} nationalId={data?.data.nin!} />
+      ),
     },
   ]
 
@@ -96,10 +99,8 @@ const UserDetailsTemplate = () => {
               lastName={data?.data.lastname ?? 'Lastname'}
               phoneNumber={data?.data.phoneNumber ?? 'PhoneNumber'}
               userImg={userImg}
-              status={
-                (data?.data.isVerified ? 'active' : 'inactive') ?? 'Status'
-              }
-              userType={data?.data.userType! ?? 'UserType'!}
+              status={data?.data.status ?? 'Status'}
+              userType={data?.data.userType! ?? 'UserType'}
               id={`${id}`}
             />
             {/* Tabs */}

@@ -30,7 +30,6 @@ interface IProps {
   firstname: string
   lastname: string
   email: string
-  id: string
 }
 
 const MyDetailsTab = ({
@@ -38,7 +37,6 @@ const MyDetailsTab = ({
   lastname,
   email,
   profilePic,
-  id,
 }: IProps) => {
   const [selectedFile, setSelectedFile] = useState(userImg)
   const dispatch = useDispatch()
@@ -67,7 +65,6 @@ const MyDetailsTab = ({
   const onSubmit: SubmitHandler<IUpdateAdminPayload> = data => {
     console.log('DATA TO SUBMIT: ')
     updateAdmin({
-      // id: id,
       firstname: data.firstname,
       lastname: data.lastname,
       email: data.email,
@@ -78,7 +75,6 @@ const MyDetailsTab = ({
         dispatch(setAdminRole(res?.data.userType))
         dispatch(
           setAdminInfo({
-            adminRole: res?.data.userType,
             firstname: res?.data.firstname,
             lastname: res?.data.lastname,
             email: res?.data.email,

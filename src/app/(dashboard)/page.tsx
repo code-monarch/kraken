@@ -1,7 +1,6 @@
 'use client'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import LocalStore from '@/lib/helper/storage-manager'
 import Hidden from '@/pattern/common/molecules/data-display/hidden'
 import PageHeader from '@/pattern/common/molecules/data-display/page-header'
 import OverviewChartSection from '@/pattern/overview/templates/overview-chart-section'
@@ -12,39 +11,30 @@ import { useGetAdminQuery } from '@/redux/services/admin/admin.api-slice'
 import {
   set2FaPreference,
   setAdminInfo,
-  setAdminRole,
 } from '@/redux/slices/user-slice'
 import { RootState } from '@/redux/store'
-import { ADMIN_ID } from '@/lib/constants'
 
 const OverviewPage = () => {
   const dispatch = useDispatch()
-  const adminId = LocalStore.getItem({ key: ADMIN_ID })
+
+  const adminId = useSelector((state: RootState) => state.userDetails.adminId)
+  const adminRole = useSelector((state: RootState) => state.userDetails.adminRole)
 
   // Get Admin API query
   const { data, isLoading } = useGetAdminQuery({
-    id: adminId ? adminId : '',
+    id: adminId!,
   })
 
-  const adminRole = useSelector(
-    (state: RootState) => state.userDetails?.adminRole,
-  )
-
   useEffect(() => {
-    dispatch(setAdminRole(data?.data.userType))
     dispatch(
       setAdminInfo({
-        adminRole: data?.data.userType,
         firstname: data?.data.firstname,
         lastname: data?.data.lastname,
         email: data?.data.email,
         phoneNumber: data?.data.phoneNumber,
       }),
     )
-    dispatch(
-      set2FaPreference({ sms2fa: data?.data.twoFactor!, google2fa: false }),
-    )
-  }, [dispatch, data])
+  }, [dispatch, data, adminRole])
 
   return (
     <>

@@ -66,11 +66,12 @@ interface ILoginCredentials{
   apiKey: string;
   adminId: string;
   serviceAccountApiKey: string;
+  adminRole: string;
 }
-export const storeLoginCredentials = ({ apiKey, adminId, serviceAccountApiKey }: ILoginCredentials): Promise<unknown> => {
+export const storeLoginCredentials = ({ apiKey, adminId, serviceAccountApiKey, adminRole }: ILoginCredentials): Promise<unknown> => {
   return new Promise((resolve) => {
     LocalStore.setItem({ key: LOGIN_API_KEY, value: apiKey })
-    LocalStore.setItem({ key: ADMIN_ROLE, value: adminId });
+    LocalStore.setItem({ key: ADMIN_ROLE, value: adminRole });
     LocalStore.setItem({ key: ADMIN_ID, value: adminId });
     LocalStore.setItem({ key: SERVICE_ACCOUNT_API_KEY, value: serviceAccountApiKey })
     resolve(true)

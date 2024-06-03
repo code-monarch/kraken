@@ -5,6 +5,11 @@ export interface ILoginResponse {
   responseCode: string;
   responseMessage: string;
   data: {
+    twoFactor: {
+      sms2FA: boolean;
+      totp2FA: boolean;
+    };
+    userType: string;
     id: string;
     email: string;
     apiKey: string;
@@ -24,11 +29,11 @@ export const loginApiSlice = baseApiSlice.injectEndpoints({
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-service-account-key": serviceAccountApiKey
+          "x-service-account-key": serviceAccountApiKey,
         },
         body: {
           email: email,
-          password: password
+          password: password,
         },
       }),
     }),
