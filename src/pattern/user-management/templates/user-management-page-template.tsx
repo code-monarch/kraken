@@ -18,11 +18,12 @@ const UserManagementPageTemplate = () => {
 
   // Returns a boolean if the current URL has a 'userId' search param
   const userId = searchParams.has('userId')
+
+  if(userId) return (
+    <UserDetailsTemplate />
+  )
   return (
-    <>
-      {userId ? (
-        <UserDetailsTemplate />
-      ) : (
+
         <div className='w-full h-full space-y-[20px]'>
           {/* Admin Page Header */}
           <Hidden visible={adminRole === 'ADMIN'}>
@@ -46,8 +47,6 @@ const UserManagementPageTemplate = () => {
 
           <UserManagementTableTemplate />
         </div>
-      )}
-    </>
   )
 }
 
