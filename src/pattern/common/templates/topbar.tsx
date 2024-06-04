@@ -4,10 +4,7 @@ import BrandLogoIcon from '../atoms/icons/brand-logo-icon'
 import { cn } from '@/lib/utils'
 import NotificationWidget from '../molecules/data-display/notification-widget'
 import TopbarProfileTag from '../molecules/data-display/top-bar-profile-tag'
-import { useGetAdminQuery } from '@/redux/services/admin/admin.api-slice'
 import { getInitials } from '@/lib/helper/get-initials'
-import LocalStore from '@/lib/helper/storage-manager'
-import { FALLBACK_NAME, ADMIN_ID } from '@/lib/constants'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/redux/store'
 
@@ -34,7 +31,7 @@ const Topbar = () => {
         {/* Welcome Message */}
         <h4 className='font-medium text-[1.25rem]'>
           Welcome back,{' '}
-          <span className='text-primary'>{firstname ?? FALLBACK_NAME}</span>
+          <span className='text-primary'>{firstname ?? "null"}</span>
         </h4>
 
         {/* Wallet/Currency Summary, Notification and more options */}
