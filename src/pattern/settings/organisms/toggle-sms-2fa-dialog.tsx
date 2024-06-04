@@ -27,9 +27,9 @@ const RequestOtpFormSchema = Yup.object().shape({
 });
 
 const ToggleSms2FaDialog = create(() => {
-  const sms2Fa = useSelector((state: RootState) => state.userDetails.sms2fa);
+  const sms2Fa = useSelector((state: RootState) => state.userDetails?.sms2fa);
   const adminPhoneNumber = useSelector(
-    (state: RootState) => state.userDetails.phoneNumber
+    (state: RootState) => state.userDetails?.phoneNumber
   );
 
   const { resolve, remove, visible } = useModal();

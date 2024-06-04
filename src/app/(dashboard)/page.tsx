@@ -17,8 +17,8 @@ import { RootState } from '@/redux/store'
 const OverviewPage = () => {
   const dispatch = useDispatch()
 
-  const adminId = useSelector((state: RootState) => state.userDetails.adminId)
-  const adminRole = useSelector((state: RootState) => state.userDetails.adminRole)
+  const adminId = useSelector((state: RootState) => state.userDetails?.adminId)
+  const adminRole = useSelector((state: RootState) => state.userDetails?.adminRole)
 
   // Get Admin API query
   const { data, isLoading } = useGetAdminQuery({

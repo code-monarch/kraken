@@ -37,7 +37,7 @@ const ValidateTotpDialog = create(() => {
   const { resolve, remove, visible } = useModal();
   const dispatch = useDispatch();
 
-  const sms2Fa = useSelector((state: RootState) => state.userDetails.sms2fa);
+  const sms2Fa = useSelector((state: RootState) => state.userDetails?.sms2fa);
 
   const handleCloseModal = () => {
     resolve({ resolved: true });

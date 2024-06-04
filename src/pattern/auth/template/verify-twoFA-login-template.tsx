@@ -45,10 +45,10 @@ const VerifyTwoFALoginTemplate = () => {
   const { push } = useRouter()
   const dispatch = useDispatch()
 
-  const userEmail = useSelector((state: RootState) => state.userDetails.email)
-  const sms2fa = useSelector((state: RootState) => state.userDetails.sms2fa)
+  const userEmail = useSelector((state: RootState) => state.userDetails?.email)
+  const sms2fa = useSelector((state: RootState) => state.userDetails?.sms2fa)
   const google2fa = useSelector(
-    (state: RootState) => state.userDetails.google2fa,
+    (state: RootState) => state.userDetails?.google2fa,
   )
 
   // Reset Password API mutation
