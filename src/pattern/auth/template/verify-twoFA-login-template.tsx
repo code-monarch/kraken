@@ -30,10 +30,11 @@ import {
   setAdminRole,
   setEmail,
 } from '@/redux/slices/user-slice'
-import { storeLoginCredentials } from '@/lib/helper/storage-manager'
+import LocalStore, { storeLoginCredentials } from '@/lib/helper/storage-manager'
 import { DASHBOARD_PATHS } from '@/lib/routes'
 import { FieldSet } from '@/pattern/common/molecules/inputs/fieldset'
 import InputErrorMessage from '@/pattern/common/molecules/feedback/input-error-message'
+import { SERVICE_ACCOUNT_API_KEY } from '@/lib/constants'
 
 const twoFALoginFormSchema = Yup.object().shape({
   password: Yup.string()
@@ -97,7 +98,8 @@ const VerifyTwoFALoginTemplate = () => {
           apiKey: res.data.apiKey,
           adminId: res.data.id,
           adminRole: res.data.userType,
-          serviceAccountApiKey: res.data?.apiKey,
+          // serviceAccountApiKey: res.data?.apiKey,
+          serviceAccountApiKey: LocalStore.getItem({key: SERVICE_ACCOUNT_API_KEY})!,
         }).then(() => {
           push(`${DASHBOARD_PATHS.index}`)
         })
