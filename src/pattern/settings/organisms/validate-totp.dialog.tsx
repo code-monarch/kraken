@@ -103,7 +103,7 @@ const ValidateTotpDialog = create(() => {
           <EnableSectionIndicator />
           <DialogDescription className="text-[#202b36] text-base text-center">
             <p className="font-semibold">
-              Your verification has been sent to +2348039367898, please confirm
+              Your verification has been sent to your email, please confirm
               by entering it below.
             </p>
             <p>

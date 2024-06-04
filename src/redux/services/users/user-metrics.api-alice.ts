@@ -1,89 +1,125 @@
-import { baseApiSlice } from '@/redux/api/base-api'
+import { baseApiSlice } from "@/redux/api/base-api";
 
 export type IUser = {
-  roles: []
-  _id: string
-  id: number
-  phoneNumber: string
-  twoFactor: boolean
-  isVerified: boolean
-  verificationCode: string
-  emailVerified: boolean
-  lastLogin: string
-  createdAt: string
-  updatedAt: string
-  __v: number
-  address: string
-  bvn: string
-  country: string
-  email: string
-  firstname: string
-  lastname: string
-  middlename: string
-  nin: string
-  passportID: string
-  state: string
-  userType: string
-  status: string
-}
+  roles: [];
+  _id: string;
+  id: number;
+  phoneNumber: string;
+  twoFactor: boolean;
+  isVerified: boolean;
+  verificationCode: string;
+  emailVerified: boolean;
+  lastLogin: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+  address: string;
+  bvn: string;
+  country: string;
+  email: string;
+  firstname: string;
+  lastname: string;
+  middlename: string;
+  nin: string;
+  passportID: string;
+  state: string;
+  userType: string;
+  status: string;
+};
 
 export type IAdminUser = {
-  _id: string
-  email: string
-  userType: string
-  twoFactor: boolean
-  clientId: string
-  transactions: []
-  lastLogin: string
-  createdAt: string
-  updatedAt: string
-  __v: number
-  apiKey: string
-  firstname: string
-  lastname: string
-  phoneNumber: string
-  emailVerified: boolean
-  isVerified: boolean
-  status: string
-  totp2FA: boolean
-}
+  _id: string;
+  email: string;
+  userType: string;
+  twoFactor: boolean;
+  clientId: string;
+  transactions: [];
+  lastLogin: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+  apiKey: string;
+  firstname: string;
+  lastname: string;
+  phoneNumber: string;
+  emailVerified: boolean;
+  isVerified: boolean;
+  status: string;
+  totp2FA: boolean;
+};
 
 export interface IGetUsersMetricsResponse {
-  error: boolean
-  responseCode: string
-  responseMessage: string
+  error: boolean;
+  responseCode: string;
+  responseMessage: string;
   data: {
-    count: number
-    results: IUser[]
+    results: IUser[];
+    users: {
+      active: number;
+      inactive: number;
+      frozen: number;
+      Suspended: number;
+      pending: number;
+      total: number;
+    };
+    agents: {
+      active: number;
+      inactive: number;
+      frozen: number;
+      Suspended: number;
+      pending: number;
+      total: number;
+    };
     pagination: {
-      totalResults: number
-      currentPage: number
-      totalPages: number
-    }
-  }
+      totalResults: number;
+      currentPage: number;
+      totalPages: number;
+    };
+  };
 }
 
 export interface IUserMetricsQuery {
-  pageSize?: number
-  page?: number
-  userType?: string
-  status?: string
-  startDate?: string
-  endDate?: string
+  pageSize?: number;
+  page?: number;
+  userType?: string;
+  status?: string;
+  startDate?: string;
+  endDate?: string;
+  q?: string;
 }
 
 export const usersMetricsApiSlice = baseApiSlice.injectEndpoints({
-  endpoints: builder => ({
-    getUsersMetrics: builder.query<IGetUsersMetricsResponse, IUserMetricsQuery>({
-      query: ({ pageSize, page, userType, status, startDate, endDate }) => ({
-        url: `settings/admin/users-meterics?page=${page}&limit=${pageSize}&userType=${userType}&status=${status}&startDate=${startDate}&endDate=${endDate}`,
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }),
-    }),
+  endpoints: (builder) => ({
+    getUsersMetrics: builder.query<IGetUsersMetricsResponse, IUserMetricsQuery>(
+      {
+        query: ({
+          pageSize,
+          page,
+          userType,
+          status,
+          startDate,
+          endDate,
+          q,
+        }) => ({
+          url: `settings/admin/user-metrics?page=${page}&limit=${pageSize}&userType=${userType}&status=${status}&startDate=${startDate}&endDate=${endDate}&q=${q}`,
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }),
+        providesTags: (result, error, arg) =>
+          result
+            ? [
+                ...result.data.results.map(({ _id }) => ({
+                  type: "User" as const,
+                  id: _id,
+                })),
+                "User",
+              ]
+            : ["User"],
+      }
+    ),
   }),
-})
+});
 
-export const { useGetUsersMetricsQuery } = usersMetricsApiSlice
+export const { useGetUsersMetricsQuery } = usersMetricsApiSlice;

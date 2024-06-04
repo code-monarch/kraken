@@ -72,7 +72,7 @@ const TwoFactorAuthSection = () => {
 
       <MfaCard
         title="Through Authenticator App"
-        description="Use an authenticator app such as Odozi MPC Wallet, Google authenticator, 1Passord etc to generate authentication code."
+        description="Use an authenticator app such as Google authenticator, 1Passord etc to generate authentication code."
         icon={<MfaKeyIcon />}
         recommended={true}
         linked={totp2Fa!}

@@ -132,7 +132,6 @@ export function UserManagementTable<TData, TValue>({
             {/* Display Message when data is empty */}
             {!isLoading &&
               (isError ||
-                !userManagementTable.getRowModel().rows?.length ||
                 data?.length === 0) && (
                 <TableRow>
                   <TableCell

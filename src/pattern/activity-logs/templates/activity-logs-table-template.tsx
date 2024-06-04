@@ -65,6 +65,7 @@ const ActivityLogsTableTemplate = () => {
         setActivityType={setType}
         setActivityStatus={setStatus}
         setOrder={setOrder}
+        totalActivities={data?.data.pagination.totalResults!}
       />
       <ActivityLogsTable
         columns={ActivityLogsColumns}

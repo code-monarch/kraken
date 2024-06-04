@@ -50,7 +50,6 @@ export const DeleteAccountModal = create(({ userId, name }: IProps) => {
         if (id) {
           router.push(`${DASHBOARD_PATHS.userManagement}`);
         }
-        window.location.reload();
       })
       .catch((err) => {
         handleCloseModal();
