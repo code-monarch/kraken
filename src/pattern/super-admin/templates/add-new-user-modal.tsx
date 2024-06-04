@@ -27,8 +27,8 @@ import { ErrorModal } from "@/pattern/common/organisms/error-modal";
 import { toast } from "sonner";
 
 const USER_TYPES = [
-  { label: "Administrator", value: "Administrator" },
-  { label: "User", value: "User" },
+  { label: "Agent", value: "AGENT" },
+  { label: "User", value: "USER" },
 ];
 
 const AddUserFormSchema = Yup.object().shape({
@@ -43,6 +43,7 @@ const AddUserFormSchema = Yup.object().shape({
 const AddNewUserModal = create(() => {
   //   Controls value of Selected user type
   const [userType, setUserType] = useState<string>("");
+  console.log("userType: ",userType);
 
   const { resolve, remove, visible } = useModal();
 
@@ -81,6 +82,7 @@ const AddNewUserModal = create(() => {
       firstname: data.firstname,
       lastname: data.lastname,
       phoneNumber: data.phoneNumber,
+      userType: userType,
     })
       .unwrap()
       .then((res) => {
@@ -120,6 +122,7 @@ const AddNewUserModal = create(() => {
                   label="User Type"
                   options={USER_TYPES}
                   placeholder="Select a user type"
+                  value={userType}
                   setValue={setUserType}
                 />
 

@@ -1,11 +1,12 @@
 import { baseApiSlice } from "@/redux/api/base-api";
 import { IUser } from "./user.api-slice";
 
-export interface IAddUserResponse {
+export interface IFreezeUserResponse {
   error: boolean;
   responseCode: string;
   responseMessage: string;
   data: {
+    _id: string;
     id: number;
     firstname: string;
     lastname: string;
@@ -21,35 +22,28 @@ export interface IAddUserResponse {
     emailVerified: boolean;
     userType: string;
     roles: [];
-    _id: string;
     lastLogin: string;
     createdAt: string;
     updatedAt: string;
   };
 }
 
-export interface IAddUserPayload {
-  email: string;
-  phoneNumber: string;
-  lastname: string;
-  firstname: string;
-  userType: string;
+export interface IFreezeUserPayload {
+  id: string;
 }
-
-export const addUserApiSlice = baseApiSlice.injectEndpoints({
+export const freezeUserApiSlice = baseApiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    addUser: builder.mutation<IAddUserResponse, IAddUserPayload>({
-      query: (addUserDetails) => ({
-        url: `settings/admin/user`,
-        method: "POST",
+    freezeUser: builder.mutation<IFreezeUserResponse, IFreezeUserPayload>({
+      query: ({ id }) => ({
+        url: `settings/admin/user/toggle-freeze/${id}`,
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: addUserDetails,
       }),
-      invalidatesTags: ["User"],
+      invalidatesTags: (result, error, arg) => [{ type: "User", id: arg.id }],
     }),
   }),
 });
 
-export const { useAddUserMutation } = addUserApiSlice;
+export const { useFreezeUserMutation } = freezeUserApiSlice;

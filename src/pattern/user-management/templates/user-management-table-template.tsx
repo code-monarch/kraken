@@ -14,6 +14,9 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { useGetUsersQuery } from "@/redux/services/users/user.api-slice";
 import { useGetUsersMetricsQuery } from "@/redux/services/users/user-metrics.api-alice";
+import useDebounce from "@/lib/hooks/useDebounce";
+import { Cross2Icon } from "@radix-ui/react-icons";
+import Hidden from "@/pattern/common/molecules/data-display/hidden";
 
 const UserManagementTableTemplate = () => {
   const [tabValue, setTabValue] = useState("all");
@@ -29,6 +32,8 @@ const UserManagementTableTemplate = () => {
   const [order, setOrder] = useState<string>("");
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
+
+  const debouncedSearchQuery = useDebounce(searchQuery, 2000);
 
   // const { data, isLoading, isSuccess, isFetching, isError } = useGetUsersQuery({
   //   page: pagination.pageIndex + 1,
@@ -46,6 +51,7 @@ const UserManagementTableTemplate = () => {
       userType: role,
       startDate: startDate,
       endDate: endDate,
+      q: searchQuery,
     });
 
   useEffect(() => {
@@ -60,7 +66,7 @@ const UserManagementTableTemplate = () => {
     });
     if (result.resolved) {
       setStatus(result.userStatus);
-      setRole(result.role);
+      setRole(result.userRole === "all" ? "" : result.userRole);
       setOrder(result.order);
       setStartDate(result.startDate);
       setEndDate(result.endDate);
@@ -93,12 +99,23 @@ const UserManagementTableTemplate = () => {
   const allAgents = sortedData?.filter((item) => item.userType === "AGENT");
 
   useEffect(() => {
-    if(tabValue === "user") {
-      setRole("user")
+    if (tabValue === "user") {
+      setRole("USER");
     } else if (tabValue === "agent") {
-      setRole("agent")
+      setRole("AGENT");
+    } else if (tabValue === "all") {
+      setRole("");
     }
-  }, [tabValue])
+  }, [tabValue]);
+
+  const isFilterActive = !(status || role || startDate || endDate || order);
+  const clearFilters = () => {
+    setStatus("");
+    setRole("");
+    setStartDate("");
+    setEndDate("");
+    setOrder("");
+  };
 
   return (
     <div className="w-full h-fit bg-card px-6 overflow-auto">
@@ -146,7 +163,7 @@ const UserManagementTableTemplate = () => {
                 className="rounded-none text-base py-3 px-6"
               >
                 User
-                <Badge variant="accent">6,000</Badge>
+                <Badge variant="accent">{data?.data.users.total ?? 1000}</Badge>
               </TabsTrigger>
               <Separator
                 className={
@@ -164,7 +181,9 @@ const UserManagementTableTemplate = () => {
                 className="rounded-none text-base py-3 px-6"
               >
                 Agent
-                <Badge variant="accent">6,000</Badge>
+                <Badge variant="accent">
+                  {data?.data.agents.total ?? 1000}
+                </Badge>
               </TabsTrigger>
               <Separator
                 className={
@@ -233,11 +252,16 @@ const UserManagementTableTemplate = () => {
             prefixIcon={<FilterIcon />}
             variant="outline"
             size="sm"
-            className="w-[125px] h-[44px] text-base"
+            className={`w-[125px] h-[44px] text-base`}
             onClick={handleShowSearchFilterModal}
           >
             Filters
           </ButtonWithIcon>
+          {/* <Hidden visible={!isFilterActive}>
+            <span onClick={clearFilters} className="text-destructive flex items-center whitespace-nowrap text-sm font-medium cursor-pointer border rounded-md p-1">
+              <Cross2Icon color="red" /> Clear filters
+            </span>
+          </Hidden> */}
         </div>
       </div>
     </div>

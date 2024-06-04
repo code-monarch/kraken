@@ -22,6 +22,7 @@ import DashboardMetricCard from '@/pattern/common/organisms/dashboard-metric-car
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import UserManagementTableTemplate from '@/pattern/user-management/templates/user-management-table-template'
+import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@/components/ui/input-otp'
 
 export default function ComponentsPage() {
   const WishlistFormSchema = Yup.object().shape({
@@ -149,6 +150,20 @@ export default function ComponentsPage() {
         </TabsContent>
         <TabsContent value='password'>Change your password here.</TabsContent>
       </Tabs>
+
+      <InputOTP maxLength={6}>
+        <InputOTPGroup>
+          <InputOTPSlot index={0} />
+          <InputOTPSlot index={1} />
+          <InputOTPSlot index={2} />
+        </InputOTPGroup>
+        <InputOTPSeparator />
+        <InputOTPGroup>
+          <InputOTPSlot index={3} />
+          <InputOTPSlot index={4} />
+          <InputOTPSlot index={5} />
+        </InputOTPGroup>
+      </InputOTP>
     </main>
   )
 }

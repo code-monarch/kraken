@@ -30,11 +30,11 @@ const rolesFilterSetting: IListType[] = [
   },
   {
     label: 'User',
-    value: 'user',
+    value: 'USER',
   },
   {
     label: 'Agent',
-    value: 'agent',
+    value: 'AGENT',
   },
 ]
 
@@ -191,6 +191,15 @@ export const UserManagementTableSearchFilterModal = create(
                     >
                       <Badge variant='inactive' className='h-[24px]'>
                         Inactive
+                      </Badge>
+                    </ToggleGroupItem>
+                    <ToggleGroupItem
+                      value='Frozen'
+                      aria-label='Frozen'
+                      className='!bg-transparent data-[state=on]:!bg-success-200 data-[state=on]:!text-primary'
+                    >
+                      <Badge variant='flagged' className='h-[24px]'>
+                        Frozen
                       </Badge>
                     </ToggleGroupItem>
                   </ToggleGroup>

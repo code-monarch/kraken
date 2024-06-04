@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import DashboardMetricCard from "@/pattern/common/organisms/dashboard-metric-card";
 import { useGetUsersQuery } from "@/redux/services/users/user.api-slice";
@@ -20,6 +20,7 @@ const UserManagementMetricGrid = () => {
       userType: "",
       startDate: "",
       endDate: "",
+      q: "",
     });
   return (
     <div className="w-full grid grid-cols-3 gap-5">
@@ -34,14 +35,14 @@ const UserManagementMetricGrid = () => {
       <DashboardMetricCard
         metric="Active Users"
         metricPercentage="10"
-        metricValue={4000}
+        metricValue={data?.data.users.active ?? 1000}
         isAmount={false}
       />
       {/* Active Agents */}
       <DashboardMetricCard
         metric="Active Agents"
         metricPercentage="10"
-        metricValue={3562}
+        metricValue={data?.data.agents.active ?? 1000}
         isAmount={false}
       />
     </div>
