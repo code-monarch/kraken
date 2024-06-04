@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/input";
 import { ICustomInputProps } from "@/pattern/types";
 import GreyInfoIcon from "../../atoms/icons/grey-info-icon";
 import { cn } from "@/lib/utils";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 const QRVerificationCodeInput: FC<ICustomInputProps> = ({
   name,
@@ -18,6 +20,7 @@ const QRVerificationCodeInput: FC<ICustomInputProps> = ({
 }) => {
   const { control } = useFormContext();
   const [isFocus, setIsFocus] = useState<boolean>(false);
+  const adminEmail = useSelector((state: RootState) => state.userDetails.email)
   return (
     <Controller
       name={name!}
@@ -48,7 +51,7 @@ const QRVerificationCodeInput: FC<ICustomInputProps> = ({
           <div className='flex items-center gap-2 !mb-4'>
             <GreyInfoIcon />
             <p className='text-sm text-[#4f627d]'>
-              Enter the 6 digit code sent to al***@cbdc.com
+              Enter the 6 digit code sent to {adminEmail}
             </p>
           </div>
         </FieldSet>
