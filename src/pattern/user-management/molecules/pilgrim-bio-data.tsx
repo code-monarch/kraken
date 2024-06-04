@@ -65,12 +65,12 @@ export const PilgrimBioData: FC<IPilgrimBioDataProps> = ({
         <div className='flex items-center gap-1'>
           {/* User */}
           <Badge variant='outline'>
-            {userType === "USER" ? "User" : "Agent"}
+            {userType}
           </Badge>
 
           {/* Status */}
-          <Badge variant={status === "Active" ? "active" : "inactive"}>
-            {status === "Active" ? "Active" : "Inactive"}
+          <Badge variant={status === "Active" ? "active" : status === "Frozen" ? "flagged" : "inactive"}>
+            {status}
           </Badge>
         </div>
       </div>

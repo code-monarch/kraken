@@ -20,7 +20,11 @@ export const PilgrimDetailsPageHeader: FC<IPilgrimBioDataProps> = ({
   id,
 }) => {
   const handleFreezeAccount = () => {
-    show(FreezeAccountModal);
+    show(FreezeAccountModal, {
+      userId: id,
+      name: `${firstName} ${lastName}`,
+      status: status,
+    });
   };
 
   const handleDeleteAccount = () => {
@@ -46,7 +50,7 @@ export const PilgrimDetailsPageHeader: FC<IPilgrimBioDataProps> = ({
           className="h-full w-[174px]"
           onClick={handleFreezeAccount}
         >
-          Freeze Account
+          {status === "Frozen" ? "Unfreeze Account" : "Freeze Account"}
         </Button>
         <Button
           variant="outlineDestructive"

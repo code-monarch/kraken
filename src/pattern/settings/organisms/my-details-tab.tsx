@@ -72,7 +72,7 @@ const MyDetailsTab = ({
       .unwrap()
       .then(res => {
         show(SuccessModal, { message: 'Profile Updated Successfully' })
-        dispatch(setAdminRole(res?.data.userType))
+        // dispatch(setAdminRole(res?.data.userType))
         dispatch(
           setAdminInfo({
             firstname: res?.data.firstname,
@@ -81,9 +81,9 @@ const MyDetailsTab = ({
             phoneNumber: res?.data.phoneNumber,
           }),
         )
-        dispatch(
-          set2FaPreference({ sms2fa: res?.data.twoFactor!, google2fa: false }),
-        )
+        // dispatch(
+        //   set2FaPreference({ sms2fa: res?.data.twoFactor!, google2fa: false }),
+        // )
       })
       .catch(err => {
         toast.error('Unexpected error', {

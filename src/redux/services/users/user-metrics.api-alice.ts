@@ -53,8 +53,23 @@ export interface IGetUsersMetricsResponse {
   responseCode: string;
   responseMessage: string;
   data: {
-    count: number;
     results: IUser[];
+    users: {
+      active: number;
+      inactive: number;
+      frozen: number;
+      Suspended: number;
+      pending: number;
+      total: number;
+    };
+    agents: {
+      active: number;
+      inactive: number;
+      frozen: number;
+      Suspended: number;
+      pending: number;
+      total: number;
+    };
     pagination: {
       totalResults: number;
       currentPage: number;
@@ -92,6 +107,16 @@ export const usersMetricsApiSlice = baseApiSlice.injectEndpoints({
             "Content-Type": "application/json",
           },
         }),
+        providesTags: (result, error, arg) =>
+          result
+            ? [
+                ...result.data.results.map(({ _id }) => ({
+                  type: "User" as const,
+                  id: _id,
+                })),
+                "User",
+              ]
+            : ["User"],
       }
     ),
   }),

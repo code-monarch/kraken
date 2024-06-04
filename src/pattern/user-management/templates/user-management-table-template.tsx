@@ -110,12 +110,12 @@ const UserManagementTableTemplate = () => {
 
   const isFilterActive = !(status || role || startDate || endDate || order);
   const clearFilters = () => {
-    setStatus('')
-    setRole('')
-    setStartDate('')
-    setEndDate('')
-    setOrder('')
-  }
+    setStatus("");
+    setRole("");
+    setStartDate("");
+    setEndDate("");
+    setOrder("");
+  };
 
   return (
     <div className="w-full h-fit bg-card px-6 overflow-auto">
@@ -163,7 +163,7 @@ const UserManagementTableTemplate = () => {
                 className="rounded-none text-base py-3 px-6"
               >
                 User
-                <Badge variant="accent">6,000</Badge>
+                <Badge variant="accent">{data?.data.users.total ?? 1000}</Badge>
               </TabsTrigger>
               <Separator
                 className={
@@ -181,7 +181,9 @@ const UserManagementTableTemplate = () => {
                 className="rounded-none text-base py-3 px-6"
               >
                 Agent
-                <Badge variant="accent">6,000</Badge>
+                <Badge variant="accent">
+                  {data?.data.agents.total ?? 1000}
+                </Badge>
               </TabsTrigger>
               <Separator
                 className={
@@ -250,18 +252,16 @@ const UserManagementTableTemplate = () => {
             prefixIcon={<FilterIcon />}
             variant="outline"
             size="sm"
-            className={`w-[125px] h-[44px] text-base ${
-              !isFilterActive ? "bg-success-200" : ""
-            }`}
+            className={`w-[125px] h-[44px] text-base`}
             onClick={handleShowSearchFilterModal}
           >
             Filters
           </ButtonWithIcon>
-          <Hidden visible={!isFilterActive}>
+          {/* <Hidden visible={!isFilterActive}>
             <span onClick={clearFilters} className="text-destructive flex items-center whitespace-nowrap text-sm font-medium cursor-pointer border rounded-md p-1">
               <Cross2Icon color="red" /> Clear filters
             </span>
-          </Hidden>
+          </Hidden> */}
         </div>
       </div>
     </div>

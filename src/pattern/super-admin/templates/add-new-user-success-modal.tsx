@@ -27,7 +27,7 @@ const AddNewUserSuccessModal = create(() => {
           <CardHeader className='w-full flex flex-col items-start gap-y-5'>
             <VerifyStatusHeaderIcon />
             <CardTitle className='text-[1.125rem] text-foreground font-semibold'>
-              Users Added Successfully
+              User Added Successfully
             </CardTitle>
           </CardHeader>
 

@@ -18,6 +18,7 @@ interface ISelectInputProps
     VariantProps<typeof inputVariants> {
   options: { label: string; value: string }[];
   label: string;
+  value: string;
   setValue: (value: string) => void;
 }
 
@@ -25,13 +26,14 @@ const SelectInput: FC<ISelectInputProps> = ({
   options,
   label,
   placeholder,
+  value,
   setValue,
 }) => {
   return (
     <FieldSet>
       <Label>{label}</Label>
       <Select
-        // value={value}
+        value={value}
         onValueChange={setValue}
         defaultValue={options[0]?.value}
       >
