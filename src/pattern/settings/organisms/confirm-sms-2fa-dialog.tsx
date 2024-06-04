@@ -34,12 +34,12 @@ const ConfirmSms2FaDialog = create(() => {
   const { resolve, remove, visible } = useModal();
   const dispatch = useDispatch();
 
-  const sms2Fa = useSelector((state: RootState) => state.userDetails.sms2fa);
+  const sms2Fa = useSelector((state: RootState) => state.userDetails?.sms2fa);
   const totp2FA = useSelector(
-    (state: RootState) => state.userDetails.google2fa
+    (state: RootState) => state.userDetails?.google2fa
   );
   const adminPhoneNumber = useSelector(
-    (state: RootState) => state.userDetails.phoneNumber
+    (state: RootState) => state.userDetails?.phoneNumber
   );
 
   const handleCloseModal = () => {

@@ -20,7 +20,7 @@ const QRVerificationCodeInput: FC<ICustomInputProps> = ({
 }) => {
   const { control } = useFormContext();
   const [isFocus, setIsFocus] = useState<boolean>(false);
-  const adminEmail = useSelector((state: RootState) => state.userDetails.email)
+  const adminEmail = useSelector((state: RootState) => state.userDetails?.email)
   return (
     <Controller
       name={name!}

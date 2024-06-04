@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/redux/store'
 
 const UserManagementPageTemplate = () => {
-  const adminRole = useSelector((state: RootState) => state.userDetails.adminRole)
+  const adminRole = useSelector((state: RootState) => state.userDetails?.adminRole)
 
   const searchParams = useSearchParams()
 
