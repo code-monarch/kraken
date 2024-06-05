@@ -27,7 +27,7 @@ export const SuccessModal = create(({ message }: IProps) => {
   return (
     <Dialog open={visible} onOpenChange={handleCloseModal}>
       <DialogContent className="w-fit h-fit p-0 outline-none border-none shadow-none">
-        <Card className="w-[400px] min-h-[308px] h-fit p-6">
+        <Card className="w-[400px] h-fit p-6">
           {/* Header */}
           <CardHeader className="w-full flex flex-col items-start gap-y-5">
             {/* <DeleteAccountHeaderIcon /> */}

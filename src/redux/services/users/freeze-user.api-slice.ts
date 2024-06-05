@@ -41,7 +41,7 @@ export const freezeUserApiSlice = baseApiSlice.injectEndpoints({
           "Content-Type": "application/json",
         },
       }),
-      invalidatesTags: (result, error, arg) => [{ type: "User", id: arg.id }],
+      invalidatesTags: ["getUser"],
     }),
   }),
 });

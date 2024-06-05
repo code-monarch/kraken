@@ -146,16 +146,7 @@ export const usersApiSlice = baseApiSlice.injectEndpoints({
           "Content-Type": "application/json",
         },
       }),
-      providesTags: (result, error, arg) =>
-        result
-          ? [
-              {
-                type: "User" as const,
-                id: result.data.id,
-              },
-              "User",
-            ]
-          : ["User"],
+      providesTags: ["getUser"],
     }),
 
     updateUser: builder.mutation<IUpdateUserResponse, IUserPayload>({
@@ -167,9 +158,7 @@ export const usersApiSlice = baseApiSlice.injectEndpoints({
         },
         body: status,
       }),
-      invalidatesTags: (result, error, arg) => [
-        { type: "User", id: arg.id },
-      ],
+      invalidatesTags: ["getUser"],
     }),
 
     // deleteUser: builder.mutation<IDeleteUserResponse, IUserPayload>({
