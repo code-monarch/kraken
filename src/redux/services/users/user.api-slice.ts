@@ -157,6 +157,7 @@ export const usersApiSlice = baseApiSlice.injectEndpoints({
           "Content-Type": "application/json",
         },
         body: status,
+        keepUnusedDataFor: 5,
       }),
       invalidatesTags: ["getUser"],
     }),

@@ -65,6 +65,7 @@ export const adminApiSlice = baseApiSlice.injectEndpoints({
         headers: {
           "Content-Type": "application/json",
         },
+        keepUnusedDataFor: 5,
       }),
       providesTags: ["getAdmin"],
     }),
@@ -76,6 +77,7 @@ export const adminApiSlice = baseApiSlice.injectEndpoints({
           "Content-Type": "application/json",
         },
         body: adminDetails,
+        keepUnusedDataFor: 5,
       }),
       invalidatesTags: ["getAdmin"]
     }),

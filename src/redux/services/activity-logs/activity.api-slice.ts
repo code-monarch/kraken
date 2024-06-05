@@ -43,6 +43,7 @@ export const activityApiSlice = baseApiSlice.injectEndpoints({
         headers: {
           "Content-Type": "application/json",
         },
+        keepUnusedDataFor: 5,
       }),
     }),
   }),

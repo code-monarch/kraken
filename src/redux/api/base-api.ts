@@ -115,5 +115,8 @@ export const baseApiSlice = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: ["getUser", "getAdmin", "getProfile"],
   refetchOnReconnect: true,
+  keepUnusedDataFor: 30,
+  refetchOnMountOrArgChange: 30,
+  refetchOnFocus: true,
   endpoints: () => ({}),
 })
