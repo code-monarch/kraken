@@ -66,7 +66,7 @@ export const adminApiSlice = baseApiSlice.injectEndpoints({
           "Content-Type": "application/json",
         },
       }),
-      providesTags: ["Admin"],
+      providesTags: ["getAdmin"],
     }),
     updateAdmin: builder.mutation<IUpdateAdminResponse, IUpdateAdminPayload>({
       query: (adminDetails) => ({
@@ -77,7 +77,7 @@ export const adminApiSlice = baseApiSlice.injectEndpoints({
         },
         body: adminDetails,
       }),
-      invalidatesTags: ["Admin"]
+      invalidatesTags: ["getAdmin"]
     }),
   }),
 });

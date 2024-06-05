@@ -107,16 +107,7 @@ export const usersMetricsApiSlice = baseApiSlice.injectEndpoints({
             "Content-Type": "application/json",
           },
         }),
-        providesTags: (result, error, arg) =>
-          result
-            ? [
-                ...result.data.results.map(({ _id }) => ({
-                  type: "User" as const,
-                  id: _id,
-                })),
-                "User",
-              ]
-            : ["User"],
+        providesTags: ["getUser"],
       }
     ),
   }),

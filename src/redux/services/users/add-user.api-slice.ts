@@ -47,7 +47,7 @@ export const addUserApiSlice = baseApiSlice.injectEndpoints({
         },
         body: addUserDetails,
       }),
-      invalidatesTags: ["User"],
+      invalidatesTags: ["getUser"],
     }),
   }),
 });
