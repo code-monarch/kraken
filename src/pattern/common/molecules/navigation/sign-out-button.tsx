@@ -1,5 +1,4 @@
 'use client'
-import React from 'react'
 import LogoutIcon from '../../atoms/icons/logout-icon'
 import { logoutAndClearStorage } from '@/lib/helper/logout'
 

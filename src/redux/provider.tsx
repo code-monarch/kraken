@@ -1,4 +1,3 @@
-'use client'
 import NiceModal from '@ebay/nice-modal-react'
 import { persistor, store } from './store'
 import { Provider } from 'react-redux'
