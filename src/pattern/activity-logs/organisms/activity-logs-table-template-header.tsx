@@ -18,6 +18,8 @@ interface IProps {
   setActivityStatus: (value: string) => void;
   setOrder: (value: string) => void;
   totalActivities: number;
+  searchQuery: string;
+  setSearchQuery: (value: string) => void;
 }
 
 const ActivityLogsTableTemplateHeader = ({
@@ -29,6 +31,8 @@ const ActivityLogsTableTemplateHeader = ({
   setActivityStatus,
   setOrder,
   totalActivities,
+  searchQuery,
+  setSearchQuery,
 }: IProps) => {
   // const [filterString, setFilterString] = useState<string>("");
 
@@ -45,7 +49,7 @@ const ActivityLogsTableTemplateHeader = ({
 
   //  The number of tractions would be gotten from the length of the transaction endpoint
   let transactions = 7;
-  
+
   return (
     <div className="w-full px-6">
       {/* Top */}
@@ -74,7 +78,10 @@ const ActivityLogsTableTemplateHeader = ({
         <div className="flex items-center gap-3">
           {/* Search Input */}
           <div className="flex items-center gap-3">
-            <SearchInput />
+            <SearchInput
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
           </div>
 
           {/* Table search Filter Button */}

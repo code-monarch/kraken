@@ -43,7 +43,6 @@ const AddUserFormSchema = Yup.object().shape({
 const AddNewUserModal = create(() => {
   //   Controls value of Selected user type
   const [userType, setUserType] = useState<string>("");
-  console.log("userType: ",userType);
 
   const { resolve, remove, visible } = useModal();
 
@@ -72,8 +71,6 @@ const AddNewUserModal = create(() => {
     formState: { errors, isDirty },
   } = methods;
 
-  console.log("FORM ERRORR: ", errors);
-
   const [addUser, { isLoading, isSuccess, isError }] = useAddUserMutation();
 
   const onSubmit: SubmitHandler<any> = (data) => {
@@ -92,14 +89,12 @@ const AddNewUserModal = create(() => {
       .catch((err) => {
         handleCloseModal();
         if (err.status !== 401 || 500 || 501) {
-          show(ErrorModal, { message: err.data.responseMessage });
+          show(ErrorModal, { message: err?.data?.responseMessage });
         } else {
           show(ErrorModal, {
             message: "Something went wrong, please try again",
           });
         }
-        console.log(err);
-        console.log(err.data.responseMessage);
       });
   };
   return (

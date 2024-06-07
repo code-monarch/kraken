@@ -41,13 +41,14 @@ export interface IQuery {
   type?: string;
   startDate?: string;
   endDate?: string;
+  q: string;
 }
 
 export const activitiesApiSlice = baseApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getActivities: builder.query<IActivitiesResponse, IQuery>({
-      query: ({ page, pageSize, status, type, startDate, endDate }) => ({
-        url: `settings/admin/activities?page=${page}&pageSize=${pageSize}&status=${status}&type=${type}&startDate=${startDate}&endDate=${endDate}`,
+      query: ({ page, pageSize, status, type, startDate, endDate, q }) => ({
+        url: `settings/admin/get-activities?page=${page}&pageSize=${pageSize}&status=${status}&type=${type}&startDate=${startDate}&endDate=${endDate}&q=${q}`,
         method: "GET",
         headers: {
           "Content-Type": "application/json",

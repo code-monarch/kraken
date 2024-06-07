@@ -21,7 +21,10 @@ interface payload {
 
 const ChangePasswordFormSchema = Yup.object().shape({
   oldPassword: Yup.string().required("Please enter your old password"),
-  newPassword: Yup.string().required("Please enter your new password"),
+  newPassword: Yup.string().min(
+    8,
+    "Password must be at least 8 characters including letters, numbers and symbols"
+  ).required("Please enter your new password"),
   confirmNewPassword: Yup.string()
     .label("confirm password")
     .required("Please re-enter your new password")

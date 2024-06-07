@@ -3,32 +3,13 @@ import React, { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import MyDetailsTab from "../organisms/my-details-tab";
 import AccountSettingsTab from "../organisms/account-settings-tab";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
 
 const SettingsTemplate = () => {
-  const adminFirstname = useSelector(
-    (state: RootState) => state.userDetails?.firstname
-  );
-  const adminLastname = useSelector(
-    (state: RootState) => state.userDetails?.lastname
-  );
-  const adminEmail = useSelector(
-    (state: RootState) => state.userDetails?.email
-  );
-
   const tabs = [
     {
       tabName: "My Details",
       value: "details",
-      content: (
-        <MyDetailsTab
-          firstname={adminFirstname!}
-          lastname={adminLastname!}
-          email={adminEmail!}
-          profilePic={""}
-        />
-      ),
+      content: <MyDetailsTab />,
     },
     {
       tabName: "Account Settings",

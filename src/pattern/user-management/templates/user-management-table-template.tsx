@@ -12,7 +12,6 @@ import { PaginationState } from "@tanstack/react-table";
 import { UserTableColumns } from "../molecules/user-management-table-column";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { useGetUsersQuery } from "@/redux/services/users/user.api-slice";
 import { useGetUsersMetricsQuery } from "@/redux/services/users/user-metrics.api-alice";
 import useDebounce from "@/lib/hooks/useDebounce";
 import { Cross2Icon } from "@radix-ui/react-icons";
@@ -34,14 +33,6 @@ const UserManagementTableTemplate = () => {
   const [endDate, setEndDate] = useState<string>("");
 
   const debouncedSearchQuery = useDebounce(searchQuery, 2000);
-
-  // const { data, isLoading, isSuccess, isFetching, isError } = useGetUsersQuery({
-  //   page: pagination.pageIndex + 1,
-  //   limit: pagination.pageSize,
-  //   status: status,
-  //   startDate: startDate,
-  //   endDate: endDate,
-  // })
 
   const { data, isLoading, isSuccess, isFetching, isError } =
     useGetUsersMetricsQuery({
