@@ -1,6 +1,6 @@
 import { toast } from 'sonner'
 import { baseApiSlice } from '@/redux/api/base-api'
-import { clearLocalStorage } from './clear-storage'
+import LocalStore from './storage-manager'
 
 let store: any
 
@@ -13,7 +13,7 @@ export const logoutAndClearStorage = async () => {
     .dispatch(baseApiSlice.endpoints.logout?.initiate())
     ?.then((res: any) => {
       console.log("LOG OUT RESPONSE: ", res)
-      clearLocalStorage()
+      LocalStore.clearStore()
     })?.catch((err: { data: { responseMessage: any } }) => {
       toast.error('Unexpected error', {
         description: `${err?.data?.responseMessage ??

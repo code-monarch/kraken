@@ -9,7 +9,6 @@ import { Mutex } from 'async-mutex'
 import { LOGIN_API_KEY, SERVICE_ACCOUNT_API_KEY } from '@/lib/constants'
 import LocalStore from '@/lib/helper/storage-manager'
 import { ILogoutResponse } from '../types'
-// import { clearLocalStorage } from '@/lib/helper/clear-storage'
 
 // Instantiate a mutex instance
 const mutex = new Mutex()
@@ -90,8 +89,7 @@ const baseQueryWithReauth: BaseQueryFn<
           // retry the original query with new API key
           result = await baseQuery(args, api, extraOptions)
         } else {
-          console.log("error")
-          // clearLocalStorage()
+          LocalStore.clearStore()
         }
       } finally {
         // release must be called once the mutex should be released again.
