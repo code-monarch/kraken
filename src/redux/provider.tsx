@@ -8,7 +8,7 @@ import { injectStore } from '@/lib/helper/logout'
 
 export const Providers = ({ children }: { children: React.ReactNode }) => {
   injectStore(store)
-  
+
   return (
     <div>
       <Provider store={store}>

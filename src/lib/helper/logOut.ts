@@ -10,11 +10,11 @@ import { IGlobalState } from '@/redux/slices/global'
 import { IUserSlice } from '@/redux/slices/user-slice'
 import { PersistPartial } from 'redux-persist/es/persistReducer'
 
-let store: { dispatch: (arg0: ThunkAction<MutationActionCreatorResult<MutationDefinition<void, BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError>, "getUser" | "getAdmin" | "getProfile", ILogoutResponse, "baseApi">>, any, any, UnknownAction>) => Promise<any> }
+// let store: { dispatch: (arg0: ThunkAction<MutationActionCreatorResult<MutationDefinition<void, BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError>, "getUser" | "getAdmin" | "getProfile", ILogoutResponse, "baseApi">>, any, any, UnknownAction>) => Promise<any> }
 
-export const injectStore = (_store: EnhancedStore<{ baseApi: CombinedState<{ logout: MutationDefinition<void, BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError>, "getUser" | "getAdmin" | "getProfile", ILogoutResponse, "baseApi"> }, "getUser" | "getAdmin" | "getProfile", "baseApi">; globalState: IGlobalState & PersistPartial; authState: IAuthState & PersistPartial; userDetails: IUserSlice & PersistPartial } & PersistPartial, Action, Tuple<[StoreEnhancer<{ dispatch: ThunkDispatch<{ baseApi: CombinedState<{ logout: MutationDefinition<void, BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError>, "getUser" | "getAdmin" | "getProfile", ILogoutResponse, "baseApi"> }, "getUser" | "getAdmin" | "getProfile", "baseApi">; globalState: IGlobalState & PersistPartial; authState: IAuthState & PersistPartial; userDetails: IUserSlice & PersistPartial } & PersistPartial, undefined, UnknownAction> }>, StoreEnhancer]>>) => {
-  store = _store
-}
+// export const injectStore = (_store: EnhancedStore<{ baseApi: CombinedState<{ logout: MutationDefinition<void, BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError>, "getUser" | "getAdmin" | "getProfile", ILogoutResponse, "baseApi"> }, "getUser" | "getAdmin" | "getProfile", "baseApi">; globalState: IGlobalState & PersistPartial; authState: IAuthState & PersistPartial; userDetails: IUserSlice & PersistPartial } & PersistPartial, Action, Tuple<[StoreEnhancer<{ dispatch: ThunkDispatch<{ baseApi: CombinedState<{ logout: MutationDefinition<void, BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError>, "getUser" | "getAdmin" | "getProfile", ILogoutResponse, "baseApi"> }, "getUser" | "getAdmin" | "getProfile", "baseApi">; globalState: IGlobalState & PersistPartial; authState: IAuthState & PersistPartial; userDetails: IUserSlice & PersistPartial } & PersistPartial, undefined, UnknownAction> }>, StoreEnhancer]>>) => {
+//   store = _store
+// }
 
 export const clearLocalStorage = () => {
   LocalStore.clearStore()
@@ -24,8 +24,8 @@ export const clearLocalStorage = () => {
 }
 
 export const logoutAndClearStorage = async () => {
-  await store
-    .dispatch(baseApiSlice.endpoints.logout.initiate())
+  // await store
+  //   .dispatch(baseApiSlice.endpoints.logout.initiate())
     .then((res) => {
       console.log("LOG OUT RESPONSE: ", res)
       clearLocalStorage()
