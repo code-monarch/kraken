@@ -7,13 +7,9 @@ import {
 } from '@reduxjs/toolkit/query/react'
 import { Mutex } from 'async-mutex'
 import { LOGIN_API_KEY, SERVICE_ACCOUNT_API_KEY } from '@/lib/constants'
-import { logOut } from '@/lib/helper/logOut'
 import LocalStore from '@/lib/helper/storage-manager'
-
-const loginApiKey = LocalStore.getItem({ key: LOGIN_API_KEY })
-const serviceAccountApiKey = LocalStore.getItem({
-  key: SERVICE_ACCOUNT_API_KEY,
-})
+import { clearLocalStorage } from '@/lib/helper/logout'
+import { ILogoutResponse } from '../types'
 
 // Instantiate a mutex instance
 const mutex = new Mutex()
@@ -28,7 +24,7 @@ const baseQuery = fetchBaseQuery({
   // credentials: "same-origin",
   // credentials: "include",
   mode: 'cors',
-  prepareHeaders: (headers, {}) => {
+  prepareHeaders: (headers, { }) => {
     headers.set('Accept', 'application/json')
     headers.set('Content-Type', 'application/json; charset=UTF-8')
 
@@ -41,7 +37,6 @@ const baseQuery = fetchBaseQuery({
       headers.set(
         'x-service-account-key',
         `${serviceAccountApiKey}`,
-        // "a24bc9ef5497fea18a61dccb5ebf0a48a3533c265d2e98be"
       )
     }
 
@@ -95,7 +90,7 @@ const baseQueryWithReauth: BaseQueryFn<
           // retry the original query with new API key
           result = await baseQuery(args, api, extraOptions)
         } else {
-          logOut()
+          clearLocalStorage()
         }
       } finally {
         // release must be called once the mutex should be released again.
@@ -118,5 +113,16 @@ export const baseApiSlice = createApi({
   keepUnusedDataFor: 30,
   refetchOnMountOrArgChange: 30,
   refetchOnFocus: true,
-  endpoints: () => ({}),
+  endpoints: (builder) => ({
+    logout: builder.mutation<ILogoutResponse, void>({
+      query: () => ({
+        url: 'auth/admin/logout',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        keepUnusedDataFor: 5,
+      }),
+    }),
+  }),
 })
