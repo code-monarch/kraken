@@ -4,10 +4,10 @@ import { persistor, store } from './store'
 import { Provider } from 'react-redux'
 import { Toaster } from '@/components/ui/sonner'
 import { PersistGate } from 'redux-persist/integration/react'
-import { injectStore } from '@/lib/helper/logout'
+// import { injectStore } from '@/lib/helper/logout'
 
 export const Providers = ({ children }: { children: React.ReactNode }) => {
-  injectStore(store)
+  // injectStore(store)
 
   return (
     <div>

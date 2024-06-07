@@ -8,8 +8,8 @@ import {
 import { Mutex } from 'async-mutex'
 import { LOGIN_API_KEY, SERVICE_ACCOUNT_API_KEY } from '@/lib/constants'
 import LocalStore from '@/lib/helper/storage-manager'
-import { clearLocalStorage } from '@/lib/helper/logout'
 import { ILogoutResponse } from '../types'
+import { clearLocalStorage } from '@/lib/helper/clear-storage'
 
 // Instantiate a mutex instance
 const mutex = new Mutex()

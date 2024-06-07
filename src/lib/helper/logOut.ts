@@ -11,10 +11,10 @@ export const injectStore = (_store: unknown) => {
 export const logoutAndClearStorage = async () => {
   await store
     .dispatch(baseApiSlice.endpoints.logout?.initiate())
-    .then((res: any) => {
+    ?.then((res: any) => {
       console.log("LOG OUT RESPONSE: ", res)
       clearLocalStorage()
-    }).catch((err: { data: { responseMessage: any } }) => {
+    })?.catch((err: { data: { responseMessage: any } }) => {
       toast.error('Unexpected error', {
         description: `${err?.data?.responseMessage ??
           'We encountered an error while logging you out, Please try again'
