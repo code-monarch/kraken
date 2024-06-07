@@ -1,19 +1,11 @@
-import LocalStore from './storage-manager'
-import { AUTH_PATHS } from '../routes'
 import { toast } from 'sonner'
 import { baseApiSlice } from '@/redux/api/base-api'
+import { clearLocalStorage } from './clear-storage'
 
 let store: any
 
 export const injectStore = (_store: unknown) => {
   store = _store
-}
-
-export const clearLocalStorage = () => {
-  LocalStore.clearStore()
-  if (typeof window !== 'undefined') {
-    location.replace(`${AUTH_PATHS.login}`)
-  }
 }
 
 export const logoutAndClearStorage = async () => {
