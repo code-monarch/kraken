@@ -7,32 +7,42 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import PasswordInput from "@/pattern/common/molecules/inputs/password-input";
 import LoadingButton from "@/pattern/common/molecules/controls/loading-button";
 import {
-  IChangePasswordPayload,
-  useChangePasswordMutation,
-} from "@/redux/services/auth/change-password.api-slice";
+  IResetPasswordPayload,
+  useResetPasswordMutation,
+} from "@/redux/services/auth/reset-password.api-slice";
+import { useRouter, useSearchParams } from "next/navigation";
+import LocalStore from "@/lib/helper/storage-manager";
+import { EMAIL_TO_CONFIRM } from "@/lib/constants";
+import { toast } from "sonner";
 
 const CreateNewPasswordFormSchema = Yup.object().shape({
   password: Yup.string()
     .min(
       8,
-      "Password must be at least 8 characters including letters, numbers and symbols"
+      "Password must be at least 8 characters including letters, numbers and symbols",
     )
     .required("Password is required"),
   newPassword: Yup.string()
-    .min(
-      8,
-      "Password must be at least 8 characters including letters, numbers and symbols"
-    )
-    .required("Password is required"),
+    .required("Please re-enter your new password")
+    .oneOf([Yup.ref("password"), ""], "Passwords must match"),
 });
 
 const CreateNewPasswordTemplate = () => {
+  const { push } = useRouter();
+  const searchParams = useSearchParams();
+
+  // Get search param
+  const resetPasswordToken = searchParams.get("token");
+
+  // Get email
+  const emailToConfirm = LocalStore.getItem({ key: EMAIL_TO_CONFIRM });
+
   const defaultValues = {
     password: "",
     newPassword: "",
   };
 
-  const [changePassword, { isLoading }] = useChangePasswordMutation();
+  const [resetPassword, { isLoading }] = useResetPasswordMutation();
 
   const methods = useForm({
     mode: "onChange",
@@ -47,16 +57,35 @@ const CreateNewPasswordTemplate = () => {
     formState: { errors, isDirty },
   } = methods;
 
-  const onSubmit: SubmitHandler<IChangePasswordPayload> = (data) => {
-    changePassword({
+  const onSubmit: SubmitHandler<any> = (data) => {
+    resetPassword({
+      email: emailToConfirm!,
       password: data.password,
-      newPassword: data.newPassword,
+      token: resetPasswordToken!,
     })
       .unwrap()
       .then((res) => {
-        console.log(res.responseMessage);
+        toast.success("Successfull", {
+          description: `${res?.responseMessage ?? "Your password has been successfully reset"}`,
+          duration: 8000,
+          cancel: {
+            label: "Ok",
+            onClick: () => console.log("Cancel!"),
+          },
+        });
+
+        push("login");
+      })
+      .catch((err) => {
+        toast.error("Unexpected error", {
+          description: `${err?.data?.responseMessage ?? "Password reset error"}`,
+          duration: 8000,
+          cancel: {
+            label: "Cancel",
+            onClick: () => console.log("Cancel!"),
+          },
+        });
       });
-    console.log("DATA TO SUBMIT: ");
   };
   return (
     <>
@@ -83,7 +112,11 @@ const CreateNewPasswordTemplate = () => {
             />
 
             {/* Control */}
-            <LoadingButton loading={false} disabled={!isDirty} type="submit">
+            <LoadingButton
+              loading={isLoading}
+              disabled={!isDirty}
+              type="submit"
+            >
               Continue
             </LoadingButton>
           </form>

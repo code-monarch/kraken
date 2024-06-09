@@ -8,8 +8,8 @@ import EmailInput from "@/pattern/common/molecules/inputs/email-input";
 import LoadingButton from "@/pattern/common/molecules/controls/loading-button";
 import { CONFIRM_EMAIL, EMAIL_TO_CONFIRM } from "@/lib/constants";
 import {
-  IResetPasswordPayload,
-  useResetPasswordMutation,
+  IResetPasswordRequestPayload,
+  useResetPasswordRequestMutation,
 } from "@/redux/services/auth/reset-password.api-slice";
 import LocalStore from "@/lib/helper/storage-manager";
 import { useRouter } from "next/navigation";
@@ -38,7 +38,7 @@ const ResetPasswordTemplate = () => {
   });
 
   // Reset Password API mutation
-  const [resetPassword, { isLoading }] = useResetPasswordMutation();
+  const [resetPasswordRequest, { isLoading }] = useResetPasswordRequestMutation();
 
   const {
     handleSubmit,
@@ -46,9 +46,9 @@ const ResetPasswordTemplate = () => {
   } = methods;
 
 
-  const onSubmit: SubmitHandler<IResetPasswordPayload> = (data) => {
+  const onSubmit: SubmitHandler<IResetPasswordRequestPayload> = (data) => {
     LocalStore.setItem({ key: EMAIL_TO_CONFIRM, value: data.email })
-    resetPassword({
+    resetPasswordRequest({
       email: data.email,
     })
       .unwrap()

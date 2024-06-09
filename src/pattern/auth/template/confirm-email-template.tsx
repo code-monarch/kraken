@@ -5,14 +5,17 @@ import ConfirmEmailInfoBanner from "../molecules/confirm-email-info-banner";
 import { useCountdown } from "@/lib/hooks/useCountdown";
 import Hidden from "@/pattern/common/molecules/data-display/hidden";
 import { LinkButton } from "@/pattern/common/molecules/controls/link-button";
-import { CREATE_PASSWORD_TRIGGER_TIME, EMAIL_TO_CONFIRM } from "@/lib/constants";
+import {
+  CREATE_PASSWORD_TRIGGER_TIME,
+  EMAIL_TO_CONFIRM,
+} from "@/lib/constants";
 import LocalStore from "@/lib/helper/storage-manager";
-import { useResetPasswordMutation } from "@/redux/services/auth/reset-password.api-slice";
+import { useResetPasswordRequestMutation } from "@/redux/services/auth/reset-password.api-slice";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 const ConfirmEmailTemplate = () => {
-  const { push } = useRouter()
+  const { push } = useRouter();
 
   // helper functions for starting and reseting trigger timer
   const [count, { start, reset }] = useCountdown({
@@ -20,34 +23,33 @@ const ConfirmEmailTemplate = () => {
   });
 
   // Get entered Email for resending Email verification email
-  const emailToConfirm = LocalStore.getItem({ key: EMAIL_TO_CONFIRM })
+  const emailToConfirm = LocalStore.getItem({ key: EMAIL_TO_CONFIRM });
 
-  // Reset Password API mutation
-  const [resetPassword, { isLoading, isError, isSuccess }] = useResetPasswordMutation();
+  // Reset Password Request API mutation
+  const [resetPasswordRequest, { isLoading, isError, isSuccess }] =
+    useResetPasswordRequestMutation();
 
   useEffect(() => {
     if (isLoading) {
       // display Loading toast
       toast.loading("Sending...", {
         description: "Sending password reset email",
-        id: "sending-email"
-      })
+        id: "sending-email",
+      });
     } else if (isError || isSuccess) {
       toast.dismiss("sending-email");
     }
-  }, [isLoading, isError, isSuccess])
-
+  }, [isLoading, isError, isSuccess]);
 
   // Start countdown timer on template render if user has access to re confirm Email
   useEffect(() => {
     start();
   }, [start]);
 
-
   const handleResendPassword = useCallback(() => {
     // reset timer
     reset();
-    resetPassword({
+    resetPasswordRequest({
       email: `${emailToConfirm}`,
     })
       .unwrap()
@@ -57,43 +59,44 @@ const ConfirmEmailTemplate = () => {
           description: `${res?.responseMessage ?? "A password reset link has been sent to your email address"}`,
           duration: 8000,
           cancel: {
-            label: 'Ok',
-            onClick: () => console.log('Cancel!'),
+            label: "Ok",
+            onClick: () => console.log("Cancel!"),
           },
-        })
+        });
 
         // route to confirm Email page
-        push("confirm-email")
-      }).catch((err) => {
+        push("confirm-email");
+      })
+      .catch((err) => {
         // display error message
         toast.error("Unexpected error", {
           description: `${err?.data?.responseMessage ?? "Password reset request error"}`,
           duration: 8000,
           cancel: {
-            label: 'Cancel',
-            onClick: () => console.log('Cancel!'),
+            label: "Cancel",
+            onClick: () => console.log("Cancel!"),
           },
-        })
-      })
+        });
+      });
     start();
-  }, [push, reset, resetPassword, start, emailToConfirm]);
+  }, [push, reset, resetPasswordRequest, start, emailToConfirm]);
 
   return (
     <>
       <AuthCard
-        title='Confirm your account'
-        description='Click on the password reset link from your email to change your password.'
-        className='!min-h-[321px] h-[321px]'
+        title="Confirm your account"
+        description="Click on the password reset link from your email to change your password."
+        className="!min-h-[321px] h-[321px]"
       >
-        <div className='space-y-[24px]'>
-          <ConfirmEmailInfoBanner email='adiejoel14@gmail.com' />
-          <div className='space-y-[12px]'>
-            <p className='text-sm text-card-foreground font-raleway font-normal leading-22'>
+        <div className="space-y-[24px]">
+          <ConfirmEmailInfoBanner email="adiejoel14@gmail.com" />
+          <div className="space-y-[12px]">
+            <p className="text-sm text-card-foreground font-raleway font-normal leading-22">
               Didn&apos;t receive the email? Please check your spam folder or
               try to resend.
             </p>
             <Hidden visible={count > 0}>
-              <p className='text-base text-secondary font-raleway font-semibold'>
+              <p className="text-base text-secondary font-raleway font-semibold">
                 Resend password reset link in <span>{count}s</span>
               </p>
             </Hidden>
