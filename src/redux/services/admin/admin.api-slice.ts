@@ -21,6 +21,30 @@ export interface IGetAdminResponse {
   };
 }
 
+export interface IGetAdminProfileResponse {
+  error: boolean;
+  responseCode: string;
+  responseMessage: string;
+  data: {
+    _id: string;
+    email: string;
+    userType: string;
+    twoFactor: boolean;
+    clientId: string;
+    lastLogin: string;
+    createdAt: string;
+    updatedAt: string;
+    apiKey: string;
+    firstname: string;
+    lastname: string;
+    status: string;
+    phoneNumber: string;
+    emailVerified: boolean;
+    totp2FA: boolean;
+    imageUrl: string;
+  };
+}
+
 export interface IUpdateAdminResponse {
   error: boolean;
   responseCode: string;
@@ -69,6 +93,18 @@ export const adminApiSlice = baseApiSlice.injectEndpoints({
       }),
       providesTags: ["getAdmin"],
     }),
+
+    getAdminProfile: builder.query<IGetAdminProfileResponse, void>({
+      query: () => ({
+        url: `settings/admin/profile`,
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }),
+      providesTags: ["getAdmin"],
+    }),
+
     updateAdmin: builder.mutation<IUpdateAdminResponse, IUpdateAdminPayload>({
       query: (adminDetails) => ({
         url: `settings/admin/update-profile`,
@@ -79,9 +115,9 @@ export const adminApiSlice = baseApiSlice.injectEndpoints({
         body: adminDetails,
         keepUnusedDataFor: 5,
       }),
-      invalidatesTags: ["getAdmin"]
+      invalidatesTags: ["getAdmin"],
     }),
   }),
 });
 
-export const { useGetAdminQuery, useUpdateAdminMutation } = adminApiSlice;
+export const { useGetAdminQuery, useGetAdminProfileQuery, useUpdateAdminMutation } = adminApiSlice;

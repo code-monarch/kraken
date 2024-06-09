@@ -85,7 +85,7 @@ const SettingsImageInput: FC<IProps> = ({
               src={props.selectedFile}
               width={96}
               height={96}
-              style={{ objectFit: "fill", borderRadius: "999px" }}
+              style={{ objectFit: "fill", borderRadius: "999px", width: '96px', height: '96px' }}
             />
             <label htmlFor={name} className="absolute bottom-0 right-0 cursor-pointer">
               <CameraIcon />
