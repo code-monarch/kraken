@@ -9,6 +9,7 @@ import {
 } from "../molecules/activity-logs-table-column";
 import { useGetActivitiesQuery } from "@/redux/services/activity-logs/activities.api-slice";
 import { DateRange } from "react-day-picker";
+import useDebounce from "@/lib/hooks/useDebounce";
 
 const ActivityLogsTableTemplate = () => {
   const [pagination, setPagination] = useState<PaginationState>({
@@ -22,6 +23,9 @@ const ActivityLogsTableTemplate = () => {
   const [order, setOrder] = useState<string>("");
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
+  const debouncedSearchQuery = useDebounce(searchQuery, 2000);
 
   const { data, isLoading, isSuccess, isFetching, isError } =
     useGetActivitiesQuery({
@@ -31,6 +35,7 @@ const ActivityLogsTableTemplate = () => {
       type: type === "all" ? "" : type,
       startDate: startDate,
       endDate: endDate,
+      q: searchQuery,
     });
 
   useEffect(() => {
@@ -40,23 +45,23 @@ const ActivityLogsTableTemplate = () => {
   }, [data]);
 
   const sortedData = useMemo(() => {
-    let result = data?.data.result
+    let result = data?.data.result;
 
-    if (data?.data.result && order === 'descending') {
+    if (data?.data.result && order === "descending") {
       result = [...data?.data.result].sort((a, b) => {
-        return b.type.localeCompare(a.type)
-      })
-    } else if (data?.data.result && order === 'ascending') {
+        return b.type.localeCompare(a.type);
+      });
+    } else if (data?.data.result && order === "ascending") {
       result = [...data?.data.result].sort((a, b) => {
-        return a.type.localeCompare(b.type)
-      })
+        return a.type.localeCompare(b.type);
+      });
     }
 
-    return result
-  }, [data, order])
+    return result;
+  }, [data, order]);
 
   return (
-    <div className='w-full bg-card'>
+    <div className="w-full bg-card">
       <ActivityLogsTableTemplateHeader
         filterString={type}
         setFilterString={setType}
@@ -66,6 +71,8 @@ const ActivityLogsTableTemplate = () => {
         setActivityStatus={setStatus}
         setOrder={setOrder}
         totalActivities={data?.data.pagination.totalResults!}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
       />
       <ActivityLogsTable
         columns={ActivityLogsColumns}

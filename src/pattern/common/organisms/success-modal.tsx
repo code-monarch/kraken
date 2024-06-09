@@ -38,7 +38,7 @@ export const SuccessModal = create(({ message }: IProps) => {
 
           {/* Content */}
           <CardContent className="space-y-[16px] mb-[8px]">
-            <p className="text-sm font-medium text-primary">
+            <p className="text-base font-medium text-foreground">
               {message}
             </p>
           </CardContent>

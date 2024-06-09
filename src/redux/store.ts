@@ -13,8 +13,6 @@ import rootReducer, { rootPersistConfig } from "./root-reducer";
 import { baseApiSlice } from "./api/base-api";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
-// const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
-
 const reducer = persistReducer<ReturnType<typeof rootReducer>>(rootPersistConfig, rootReducer);
 
 export const store = configureStore({
@@ -37,3 +35,4 @@ setupListeners(store.dispatch);
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 export const persistor = persistStore(store);
+

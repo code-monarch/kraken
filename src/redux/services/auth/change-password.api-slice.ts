@@ -39,6 +39,7 @@ export const changePasswordApiSlice = baseApiSlice.injectEndpoints({
           "Content-Type": "application/json",
         },
         body: changePasswordDetails,
+        keepUnusedDataFor: 5,
       }),
     }),
   }),

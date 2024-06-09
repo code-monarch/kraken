@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import { FC } from "react";
 import { Badge } from "@/components/ui/badge";
 import ButtonWithIcon from "@/pattern/common/molecules/controls/button-with-icon";
 import { ExcelIcon } from "@/pattern/common/atoms/icons/excel-icon";
@@ -10,15 +10,21 @@ import { show } from "@ebay/nice-modal-react";
 import TransactionsTableViewFilter from "../molecules/transactions-table-view-filters";
 import { TransactionsSearchFilterModal } from "./transactions-search-filter-modal";
 
-const TransactionsTableTemplateHeader = () => {
-  const { push } = useRouter();
+interface IProps {
+  transactionsLength: number
+}
+
+const TransactionsTableTemplateHeader: FC<IProps> = ({
+  transactionsLength,
+}) => {
+  const { push } = useRouter()
 
   const handleShowSearchFilterModal = () => {
-    show(TransactionsSearchFilterModal);
-  };
+    show(TransactionsSearchFilterModal)
+  }
 
   //   The number of tractions would be gotten from the length of the transaction endpoint
-  let transactions = 7;
+  let transactions = transactionsLength ?? 0
   return (
     <div className='w-full px-6'>
       {/* Top */}
@@ -60,7 +66,7 @@ const TransactionsTableTemplateHeader = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default TransactionsTableTemplateHeader;

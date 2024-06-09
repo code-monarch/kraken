@@ -7,14 +7,13 @@ import TopbarProfileTag from '../molecules/data-display/top-bar-profile-tag'
 import { getInitials } from '@/lib/helper/get-initials'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/redux/store'
+import { useGetAdminProfileQuery } from '@/redux/services/admin/admin.api-slice'
 
 const Topbar = () => {
-  const firstname = useSelector(
-    (state: RootState) => state.userDetails?.firstname,
-  )
-  const lastname = useSelector((state: RootState) => state.userDetails?.lastname)
+  // Get Admin API query
+  const { data, isLoading } = useGetAdminProfileQuery()
 
-  const initials = getInitials(`${firstname} ${lastname}`)
+  const initials = getInitials(`${data?.data.firstname} ${data?.data.lastname}`)
 
   return (
     <div
@@ -31,7 +30,7 @@ const Topbar = () => {
         {/* Welcome Message */}
         <h4 className='font-medium text-[1.25rem]'>
           Welcome back,{' '}
-          <span className='text-primary'>{firstname ?? "null"}</span>
+          <span className='text-primary'>{data?.data.firstname ?? ""}</span>
         </h4>
 
         {/* Wallet/Currency Summary, Notification and more options */}

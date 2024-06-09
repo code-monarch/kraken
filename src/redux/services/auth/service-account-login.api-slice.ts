@@ -25,6 +25,7 @@ export const serviceAccountLoginApiSlice = baseApiSlice.injectEndpoints({
           "Content-Type": "application/json",
         },
         body: loginDetails,
+        keepUnusedDataFor: 5,
       }),
     }),
   }),

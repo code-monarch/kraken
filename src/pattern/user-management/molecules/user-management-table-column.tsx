@@ -12,12 +12,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { formatDate } from "@/lib/helper/format-date";
-import { UserType, Status } from "@/pattern/types";
 import ArrowDownIcon from "@/pattern/common/atoms/icons/arrow-down-icon";
 import { show } from "@ebay/nice-modal-react";
 import { FreezeAccountModal } from "../organisms/freeze-account-modal";
 import { DeleteAccountModal } from "../organisms/delete-account-modal";
-import { DASHBOARD_PATHS } from "@/lib/routes";
 import { IUser } from "@/redux/services/users/user.api-slice";
 import ViewDetailsBtn from "../atoms/view-details-btn";
 

@@ -25,6 +25,7 @@ export const searchUserApiSlice = baseApiSlice.injectEndpoints({
         headers: {
           "Content-Type": "application/json",
         },
+        keepUnusedDataFor: 5,
       }),
     }),
   }),

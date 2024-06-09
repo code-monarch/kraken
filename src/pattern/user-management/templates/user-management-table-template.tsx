@@ -12,11 +12,8 @@ import { PaginationState } from "@tanstack/react-table";
 import { UserTableColumns } from "../molecules/user-management-table-column";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { useGetUsersQuery } from "@/redux/services/users/user.api-slice";
 import { useGetUsersMetricsQuery } from "@/redux/services/users/user-metrics.api-alice";
 import useDebounce from "@/lib/hooks/useDebounce";
-import { Cross2Icon } from "@radix-ui/react-icons";
-import Hidden from "@/pattern/common/molecules/data-display/hidden";
 
 const UserManagementTableTemplate = () => {
   const [tabValue, setTabValue] = useState("all");
@@ -34,14 +31,6 @@ const UserManagementTableTemplate = () => {
   const [endDate, setEndDate] = useState<string>("");
 
   const debouncedSearchQuery = useDebounce(searchQuery, 2000);
-
-  // const { data, isLoading, isSuccess, isFetching, isError } = useGetUsersQuery({
-  //   page: pagination.pageIndex + 1,
-  //   limit: pagination.pageSize,
-  //   status: status,
-  //   startDate: startDate,
-  //   endDate: endDate,
-  // })
 
   const { data, isLoading, isSuccess, isFetching, isError } =
     useGetUsersMetricsQuery({
@@ -163,7 +152,7 @@ const UserManagementTableTemplate = () => {
                 className="rounded-none text-base py-3 px-6"
               >
                 User
-                <Badge variant="accent">{data?.data.users.total ?? 1000}</Badge>
+                <Badge variant="accent">{data?.data.users.total ?? 0}</Badge>
               </TabsTrigger>
               <Separator
                 className={
@@ -182,7 +171,7 @@ const UserManagementTableTemplate = () => {
               >
                 Agent
                 <Badge variant="accent">
-                  {data?.data.agents.total ?? 1000}
+                  {data?.data.agents.total ?? 0}
                 </Badge>
               </TabsTrigger>
               <Separator
@@ -196,7 +185,6 @@ const UserManagementTableTemplate = () => {
           </TabsList>
           <TabsContent value="all">
             <UserManagementTable
-              columns={UserTableColumns}
               data={sortedData!}
               isLoading={isLoading}
               isError={isError}
@@ -211,7 +199,6 @@ const UserManagementTableTemplate = () => {
           {/* Users */}
           <TabsContent value="user">
             <UserManagementTable
-              columns={UserTableColumns}
               data={allUsers!}
               isLoading={isLoading}
               isError={isError}
@@ -226,7 +213,6 @@ const UserManagementTableTemplate = () => {
           {/* Agents */}
           <TabsContent value="agent">
             <UserManagementTable
-              columns={UserTableColumns}
               data={allAgents!}
               isLoading={isLoading}
               isError={isError}
@@ -252,7 +238,7 @@ const UserManagementTableTemplate = () => {
             prefixIcon={<FilterIcon />}
             variant="outline"
             size="sm"
-            className={`w-[125px] h-[44px] text-base`}
+            className="w-[125px] h-[44px] text-base"
             onClick={handleShowSearchFilterModal}
           >
             Filters

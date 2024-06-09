@@ -34,6 +34,7 @@ export const createAdminApiSlice = baseApiSlice.injectEndpoints({
           "Content-Type": "application/json",
         },
         body: createDetails,
+        keepUnusedDataFor: 5,
       }),
     }),
   }),
