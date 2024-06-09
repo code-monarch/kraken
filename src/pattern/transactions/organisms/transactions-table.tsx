@@ -1,5 +1,5 @@
-"use client";
-import React, { useMemo, useState } from "react";
+'use client'
+import React, { useMemo, useState } from 'react'
 import {
   Table,
   TableBody,
@@ -7,52 +7,51 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table'
 import {
-  ColumnDef,
   PaginationState,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
   useReactTable,
-} from "@tanstack/react-table";
-import PulsePlaceholder from "@/pattern/common/atoms/icons/pulse-placeholder-icon";
-import { Pagination } from "@/pattern/common/organisms/table/pagination";
+} from '@tanstack/react-table'
+import PulsePlaceholder from '@/pattern/common/atoms/icons/pulse-placeholder-icon'
+import { Pagination } from '@/pattern/common/organisms/table/pagination'
 import {
-  Transactions,
   TransactionsTableColumns,
-} from "../molecules/transactions-table-column";
+} from '../molecules/transactions-table-column'
+import { Transactions } from '@/redux/services/transactions/get-transactions.api-slice'
 
-const columns = TransactionsTableColumns;
+const columns = TransactionsTableColumns
 
-interface ITransactionsTableProps<TData, TValue> {
-  data: Transactions[];
-  pageCount?: number;
-  pagination?: PaginationState;
-  setPagination?: any;
-  isLoading?: boolean;
-  isFetching?: boolean;
+interface ITransactionsTableProps {
+  data: Transactions[]
+  pageCount?: number
+  pagination?: PaginationState
+  setPagination?: any
+  isLoading?: boolean
+  isFetching?: boolean
 }
 
-export function TransactionsTable<TData, TValue>({
+export const TransactionsTable = ({
   data,
   isLoading,
   pagination,
   pageCount,
   setPagination,
-}: ITransactionsTableProps<TData, TValue>) {
-  const [rowSelection, setRowSelection] = useState({});
+}: ITransactionsTableProps) => {
+  const [rowSelection, setRowSelection] = useState({})
 
   if (!pagination) {
-    pagination = { pageIndex: 0, pageSize: 10 };
+    pagination = { pageIndex: 0, pageSize: 10 }
   }
 
-  const defaultData = useMemo(() => [], []);
+  const defaultData = useMemo(() => [], [])
 
   const transactionsTable = useReactTable({
     data: data ?? defaultData,
-    columns,
-    pageCount,
+    columns: columns,
+    pageCount: pageCount,
     rowCount: data?.length,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -64,25 +63,25 @@ export function TransactionsTable<TData, TValue>({
     onPaginationChange: setPagination,
     manualPagination: true,
     debugTable: true,
-  });
+  })
   return (
     <div>
       <Table>
         {/* Header */}
         <TableHeader>
-          {transactionsTable.getHeaderGroups().map((headerGroup) => (
+          {transactionsTable.getHeaderGroups().map(headerGroup => (
             <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
+              {headerGroup.headers.map(header => {
                 return (
                   <TableHead key={header.id}>
                     {header.isPlaceholder
                       ? null
                       : flexRender(
                           header.column.columnDef.header,
-                          header.getContext()
+                          header.getContext(),
                         )}
                   </TableHead>
-                );
+                )
               })}
             </TableRow>
           ))}
@@ -91,7 +90,7 @@ export function TransactionsTable<TData, TValue>({
         {/* Body */}
         <TableBody>
           {/* Display placeholder when it is loading */}
-          {isLoading && data.length === 0 && (
+          {isLoading && data?.length === 0 && (
             <TableRow>
               <TableCell colSpan={columns.length} className='h-24 text-center'>
                 <PulsePlaceholder />
@@ -101,12 +100,12 @@ export function TransactionsTable<TData, TValue>({
 
           {/* Display table rows when data is done loading and the table rows are not empty */}
           {!isLoading && transactionsTable.getRowModel().rows?.length ? (
-            transactionsTable.getRowModel().rows.map((row) => (
+            transactionsTable.getRowModel().rows.map(row => (
               <TableRow
                 key={row.id}
-                data-state={row.getIsSelected() && "selected"}
+                data-state={row.getIsSelected() && 'selected'}
               >
-                {row.getVisibleCells().map((cell) => (
+                {row.getVisibleCells().map(cell => (
                   <TableCell key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
@@ -135,5 +134,5 @@ export function TransactionsTable<TData, TValue>({
       {/* {pageCount && pageCount > 1 && <Pagination table={transactionsTable} />} */}
       <Pagination table={transactionsTable} />
     </div>
-  );
+  )
 }

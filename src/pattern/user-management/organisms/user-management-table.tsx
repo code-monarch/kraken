@@ -20,12 +20,10 @@ import PulsePlaceholder from '@/pattern/common/atoms/icons/pulse-placeholder-ico
 import { UserTableColumns } from '../molecules/user-management-table-column'
 import { Pagination } from '@/pattern/common/organisms/table/pagination'
 import { IUser } from '@/redux/services/users/user.api-slice'
-import { ScrollArea } from '@/components/ui/scroll-area'
 
 const columns = UserTableColumns
 
 interface IUserManagementTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
   data: IUser[]
   pageCount?: number
   pagination?: PaginationState
@@ -56,8 +54,8 @@ export function UserManagementTable<TData, TValue>({
 
   const userManagementTable = useReactTable({
     data: data ?? defaultData,
-    columns,
-    pageCount,
+    columns: columns,
+    pageCount: pageCount,
     rowCount: data?.length,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),

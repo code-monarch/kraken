@@ -5,13 +5,6 @@ import { useGetUsersQuery } from "@/redux/services/users/user.api-slice";
 import { useGetUsersMetricsQuery } from "@/redux/services/users/user-metrics.api-alice";
 
 const UserManagementMetricGrid = () => {
-  // const { data, isLoading, isSuccess, isFetching, isError } = useGetUsersQuery({
-  //   page: 1,
-  //   limit: 4,
-  //   status: "",
-  //   startDate: "",
-  //   endDate: "",
-  // });
   const { data, isLoading, isSuccess, isFetching, isError } =
     useGetUsersMetricsQuery({
       page: 1,

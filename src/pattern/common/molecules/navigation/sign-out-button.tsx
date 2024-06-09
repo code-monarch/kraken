@@ -39,7 +39,7 @@ const SignOutButton = () => {
       onClick={() => logoutAndClearStorage()}
     >
       {isLoading ? <LoaderDark className='animate-spin' /> : <LogoutIcon />}
-      <span>{isLoading ? 'logging you out...' : 'Log out'}</span>
+      <span>Log out</span>
     </button>
   )
 }
