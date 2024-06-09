@@ -35,6 +35,7 @@ export const twoFALoginApiSlice = baseApiSlice.injectEndpoints({
                     "Content-Type": "application/json",
                 },
                 body: loginDetails,
+                keepUnusedDataFor: 5,
             }),
         }),
     }),

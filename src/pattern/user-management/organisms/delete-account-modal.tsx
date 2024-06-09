@@ -75,7 +75,7 @@ export const DeleteAccountModal = create(({ userId, name }: IProps) => {
             <p className="text-sm text-[#4F627D]">
               Are you sure you want to delete the account of the user
               <span className="text-secondary">&lsquo;{name}&lsquo;</span> (User
-              ID: <span className="text-secondary">{userId}</span>)? This action
+              ID: <span className="text-secondary">{userId}</span>). This action
               cannot be undone, and all associated data will be removed from the
               system.
             </p>

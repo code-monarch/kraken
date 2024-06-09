@@ -1,4 +1,5 @@
 import { ADMIN_ID, ADMIN_ROLE, LOGIN_API_KEY, SERVICE_ACCOUNT_API_KEY } from "../constants";
+import { AUTH_PATHS } from "../routes";
 
 interface ISessionProps {
   key: string | undefined;
@@ -41,6 +42,7 @@ const removeItem = ({ key }: ISessionProps) => {
 const clearStore = () => {
   if (typeof window !== 'undefined') {
     localStorage.clear();
+    location.replace(`${AUTH_PATHS.login}`)
   }
 };
 

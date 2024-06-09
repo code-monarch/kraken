@@ -101,11 +101,12 @@ export const usersMetricsApiSlice = baseApiSlice.injectEndpoints({
           endDate,
           q,
         }) => ({
-          url: `settings/admin/user-metrics?page=${page}&limit=${pageSize}&userType=${userType}&status=${status}&startDate=${startDate}&endDate=${endDate}&q=${q}`,
+          url: `settings/admin/user-metrics?page=${page}&limit=${pageSize}${userType ? `&userType=${userType}` : ""}${status ? `&status=${status}` : ""}${startDate ? `&startDate=${startDate}` : ""}${endDate ? `&endDate=${endDate}` : ""}${q ? `&q=${q}` : ""}`,
           method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
+          keepUnusedDataFor: 5,
         }),
         providesTags: ["getUser"],
       }

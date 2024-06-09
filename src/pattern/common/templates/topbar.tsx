@@ -30,7 +30,7 @@ const Topbar = () => {
         {/* Welcome Message */}
         <h4 className='font-medium text-[1.25rem]'>
           Welcome back,{' '}
-          <span className='text-primary'>{data?.data.firstname ?? "null"}</span>
+          <span className='text-primary'>{data?.data.firstname ?? ""}</span>
         </h4>
 
         {/* Wallet/Currency Summary, Notification and more options */}

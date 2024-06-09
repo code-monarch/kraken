@@ -63,6 +63,7 @@ export const resetPasswordApiSlice = baseApiSlice.injectEndpoints({
           "Content-Type": "application/json",
         },
         body: resetPasswordDetails,
+        keepUnusedDataFor: 5,
       }),
     }),
 

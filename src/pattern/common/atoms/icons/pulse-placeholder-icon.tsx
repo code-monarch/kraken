@@ -33,7 +33,7 @@ const PulsePlaceholder = ({
         y='14'
         width={barWidth ?? '16'}
         height={barHeight ?? '72'}
-        fill='#08C168'
+        fill='#08C1684D'
       >
         <animate
           attributeName='y'
@@ -61,7 +61,7 @@ const PulsePlaceholder = ({
         y='14'
         width={barWidth ?? '16'}
         height={barHeight ?? '72'}
-        fill='#08C168'
+        fill='#08C1684D'
       >
         <animate
           attributeName='y'
@@ -89,7 +89,7 @@ const PulsePlaceholder = ({
         y='14'
         width={barWidth ?? '16'}
         height={barHeight ?? '72'}
-        fill='#08C168'
+        fill='#08C1684D'
       >
         <animate
           attributeName='y'

@@ -7,13 +7,8 @@ import {
 } from '@reduxjs/toolkit/query/react'
 import { Mutex } from 'async-mutex'
 import { LOGIN_API_KEY, SERVICE_ACCOUNT_API_KEY } from '@/lib/constants'
-import { logOut } from '@/lib/helper/logOut'
 import LocalStore from '@/lib/helper/storage-manager'
-
-const loginApiKey = LocalStore.getItem({ key: LOGIN_API_KEY })
-const serviceAccountApiKey = LocalStore.getItem({
-  key: SERVICE_ACCOUNT_API_KEY,
-})
+import { ILogoutResponse } from '../types'
 
 // Instantiate a mutex instance
 const mutex = new Mutex()
@@ -28,7 +23,7 @@ const baseQuery = fetchBaseQuery({
   // credentials: "same-origin",
   // credentials: "include",
   mode: 'cors',
-  prepareHeaders: (headers, {}) => {
+  prepareHeaders: (headers, { }) => {
     headers.set('Accept', 'application/json')
     headers.set('Content-Type', 'application/json; charset=UTF-8')
 
@@ -41,7 +36,6 @@ const baseQuery = fetchBaseQuery({
       headers.set(
         'x-service-account-key',
         `${serviceAccountApiKey}`,
-        // "a24bc9ef5497fea18a61dccb5ebf0a48a3533c265d2e98be"
       )
     }
 
@@ -64,8 +58,8 @@ const baseQueryWithReauth: BaseQueryFn<
 
   if (result.error && result?.error?.status === 600) {
     // Remove expired API key
-    // LocalStore.removeItem({ key: LOGIN_API_KEY })
-    // LocalStore.removeItem({ key: SERVICE_ACCOUNT_API_KEY })
+    LocalStore.removeItem({ key: LOGIN_API_KEY })
+    LocalStore.removeItem({ key: SERVICE_ACCOUNT_API_KEY })
 
     // checking whether the mutex is locked
     if (!mutex.isLocked()) {
@@ -95,7 +89,7 @@ const baseQueryWithReauth: BaseQueryFn<
           // retry the original query with new API key
           result = await baseQuery(args, api, extraOptions)
         } else {
-          logOut()
+          LocalStore.clearStore()
         }
       } finally {
         // release must be called once the mutex should be released again.
@@ -113,7 +107,21 @@ const baseQueryWithReauth: BaseQueryFn<
 export const baseApiSlice = createApi({
   reducerPath: 'baseApi',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ["getUser", "getAdmin", "getProfile"],
+  tagTypes: ["getUser", "getAdmin", "getProfile", "getTransactions"],
   refetchOnReconnect: true,
-  endpoints: () => ({}),
+  keepUnusedDataFor: 30,
+  refetchOnMountOrArgChange: 30,
+  refetchOnFocus: true,
+  endpoints: (builder) => ({
+    logout: builder.mutation<ILogoutResponse, void>({
+      query: () => ({
+        url: 'auth/admin/logout',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        keepUnusedDataFor: 5,
+      }),
+    }),
+  }),
 })

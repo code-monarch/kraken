@@ -43,6 +43,7 @@ export const toggleTotpApiSlice = baseApiSlice.injectEndpoints({
             "Content-Type": "application/json",
           },
           body: tokenDetails,
+          keepUnusedDataFor: 5,
         }),
       }
     ),
