@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import DashboardMetricCard from "@/pattern/common/organisms/dashboard-metric-card";
-import { useGetUsersQuery } from "@/redux/services/users/user.api-slice";
 import { useGetUsersMetricsQuery } from "@/redux/services/users/user-metrics.api-alice";
 
 const UserManagementMetricGrid = () => {
@@ -9,11 +8,6 @@ const UserManagementMetricGrid = () => {
     useGetUsersMetricsQuery({
       page: 1,
       pageSize: 5,
-      status: "",
-      userType: "",
-      startDate: "",
-      endDate: "",
-      q: "",
     });
   return (
     <div className="w-full grid grid-cols-3 gap-5">

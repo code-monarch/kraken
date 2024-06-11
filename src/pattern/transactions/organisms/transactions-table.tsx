@@ -120,7 +120,7 @@ export const TransactionsTable = ({
             ))}
 
           {/* Display Message when data is empty or an error is returned */}
-          {!isLoading && !isFetching && data?.length === 0 && (
+          {!isLoading && !isFetching && isSuccess && data?.length === 0 && (
             <TableRow>
               <TableCell colSpan={columns.length} className="h-24 text-center">
                 No Record Found.

@@ -12,6 +12,9 @@ import AddMessageRecipientWidget from "../organisms/add-message-recipient-widget
 const NUMBER_OF_STEPS = 3;
 
 const SendMessageModal = create(() => {
+  const [message, setMessage] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
+
   // Handles current step of stepper
   const [currentStep, setCurrentStep] = useState(1);
 
@@ -30,14 +33,19 @@ const SendMessageModal = create(() => {
 
   return (
     <Dialog open={visible} onOpenChange={handleCloseModal}>
-      <DialogContent className='bg-transparent w-fit max-w-[600px] h-fit outline-none border-none shadow-none'>
-        <Card className='min-w-[300px] w-[600px] min-h-[337px] h-fit gap-y-[32px] pt-6'>
+      <DialogContent className="bg-transparent w-fit max-w-[600px] h-fit outline-none border-none shadow-none">
+        <Card className="min-w-[300px] w-[600px] min-h-[337px] h-fit gap-y-[32px] pt-6">
           {/* Stepper */}
           <Stepper currentStep={currentStep} numberOfSteps={NUMBER_OF_STEPS} />
 
           {/* Step 1 */}
           <Hidden visible={currentStep === 1}>
-            <SendMessageWidget submitHandler={goToNextStep} />
+            <SendMessageWidget
+              submitHandler={goToNextStep}
+              message={message}
+              setMessage={setMessage}
+              setTitle={setTitle}
+            />
           </Hidden>
 
           {/* Step 2 */}
@@ -45,6 +53,8 @@ const SendMessageModal = create(() => {
             <AddMessageRecipientWidget
               submitHandler={goToNextStep}
               back={goToPreviousStep}
+              message={message}
+              title={title}
             />
           </Hidden>
 
