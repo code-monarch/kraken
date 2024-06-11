@@ -12,7 +12,7 @@ const OverviewRecentTransactionsTemplate = () => {
   })
   const [pageCount, setPageCount] = useState<number>(1)
 
-  const { data, isLoading, isError, isSuccess } = useGetTransactionsQuery({
+  const { data, isLoading, isError, isSuccess, isFetching } = useGetTransactionsQuery({
     page: pagination.pageIndex + 1,
     pageSize: pagination.pageSize,
   })
@@ -28,6 +28,9 @@ const OverviewRecentTransactionsTemplate = () => {
       <TransactionsTable
         data={data?.data as Transactions[]}
         isLoading={isLoading}
+        isError={isError}
+        isSuccess={isSuccess}
+        isFetching={isFetching}
         pageCount={pageCount}
         pagination={pagination}
         setPagination={setPagination}

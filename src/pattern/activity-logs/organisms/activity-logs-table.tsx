@@ -89,7 +89,7 @@ export function ActivityLogsTable<TData, TValue>({
                       ? null
                       : flexRender(
                           header.column.columnDef.header,
-                          header.getContext()
+                          header.getContext(),
                         )}
                   </TableHead>
                 );
@@ -128,22 +128,26 @@ export function ActivityLogsTable<TData, TValue>({
             ))}
 
           {/* Display Message when data is empty or an error is returned */}
-          {
-            // Else render error message
-            !isLoading &&
-              (isError ||
-                !activityLogsTable.getRowModel().rows?.length ||
-                data?.length === 0) && (
-                <TableRow>
-                  <TableCell
-                    colSpan={columns.length}
-                    className="h-24 text-center"
-                  >
-                    No Record Found.
-                  </TableCell>
-                </TableRow>
-              )
-          }
+          {!isLoading && !isFetching && isSuccess && data?.length === 0 && (
+            <TableRow>
+              <TableCell colSpan={columns.length} className="h-24 text-center">
+                No Record Found.
+              </TableCell>
+            </TableRow>
+          )}
+
+          {/* Else render error message */}
+          {!isLoading && !isFetching && isError && (
+            <TableRow>
+              <TableCell
+                colSpan={columns.length}
+                className="h-24 text-center text-destructive"
+              >
+                An error occured while trying to fetch the activities. Please
+                refresh and try again.
+              </TableCell>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
       {/* {pageCount && pageCount > 1 && <Pagination table={activityLogsTable} />} */}
