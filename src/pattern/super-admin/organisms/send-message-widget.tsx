@@ -1,5 +1,5 @@
 "use clientn";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import {
   CardContent,
   CardFooter,
@@ -21,11 +21,19 @@ const SendMessageFormSchema = Yup.object().shape({
 
 interface ISendMessageWidgetProps {
   submitHandler: () => void;
+  message: string;
+  setMessage: (value: string) => void;
+  setTitle: (value: string) => void;
 }
 
-const SendMessageWidget: FC<ISendMessageWidgetProps> = ({ submitHandler }) => {
+const SendMessageWidget: FC<ISendMessageWidgetProps> = ({
+  submitHandler,
+  message,
+  setMessage,
+  setTitle,
+}) => {
   // Controls value of comment
-  const [message, setMessage] = useState<string>("");
+  // const [message, setMessage] = useState<string>("");
 
   const { resolve, remove, visible } = useModal();
 
@@ -48,6 +56,7 @@ const SendMessageWidget: FC<ISendMessageWidgetProps> = ({ submitHandler }) => {
   const {
     handleSubmit,
     formState: { errors, isDirty },
+    watch,
   } = methods;
 
   console.log("FORM ERRORR: ", errors);
@@ -55,32 +64,41 @@ const SendMessageWidget: FC<ISendMessageWidgetProps> = ({ submitHandler }) => {
   const goToNextStep = () => {
     submitHandler();
   };
+
+  // Sync form value with parent state
+  useEffect(() => {
+    const subscription = watch((value) => {
+      setTitle(value?.title!);
+    });
+    return () => subscription.unsubscribe();
+  }, [watch, setTitle]);
+
   return (
     <FormProvider {...methods}>
       <form
         onSubmit={handleSubmit(goToNextStep)}
-        className='w-full flex flex-col gap-5'
+        className="w-full flex flex-col gap-5"
       >
         {/* Header */}
         <CardHeader>
-          <CardTitle className='text-[1.125rem] font-semibold font-raleway'>
+          <CardTitle className="text-[1.125rem] font-semibold font-raleway">
             Send Message
           </CardTitle>
         </CardHeader>
         {/* Content */}
-        <CardContent className='space-y-[16px] mb-[8px]'>
+        <CardContent className="space-y-[16px] mb-[8px]">
           {/* Title */}
           <FormInput
-            label='Title'
-            name='title'
-            placeholder='Message title'
+            label="Title"
+            name="title"
+            placeholder="Message title"
             error={errors["title"]}
-            className='min-w-full pl-2'
+            className="min-w-full pl-2"
           />
           {/* Comment */}
           <CommentInput
-            label='Message Content'
-            placeholder='Type your message here'
+            label="Message Content"
+            placeholder="Type your message here"
             value={message}
             setValue={setMessage}
           />
@@ -89,19 +107,19 @@ const SendMessageWidget: FC<ISendMessageWidgetProps> = ({ submitHandler }) => {
         {/* Footer */}
         <CardFooter>
           {/* Controls */}
-          <div className='w-full flex items-center justify-end'>
-            <div className='flex items-center justify-end gap-x-3'>
+          <div className="w-full flex items-center justify-end">
+            <div className="flex items-center justify-end gap-x-3">
               {/* Cancel Button */}
-              <Button size='sm' variant='outline' onClick={handleCloseModal}>
+              <Button size="sm" variant="outline" onClick={handleCloseModal}>
                 Cancel
               </Button>
 
               {/* Add User Button */}
               <LoadingButton
-                size='sm'
+                size="sm"
                 loading={false}
-                disabled={!isDirty}
-                type='submit'
+                disabled={!isDirty || !message}
+                type="submit"
               >
                 Next
               </LoadingButton>
