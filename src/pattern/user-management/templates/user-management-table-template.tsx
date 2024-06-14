@@ -9,7 +9,6 @@ import { UserManagementTableSearchFilterModal } from "../organisms/user-manageme
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { UserManagementTable } from "../organisms/user-management-table";
 import { PaginationState } from "@tanstack/react-table";
-import { UserTableColumns } from "../molecules/user-management-table-column";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { useGetUsersMetricsQuery } from "@/redux/services/users/user-metrics.api-alice";

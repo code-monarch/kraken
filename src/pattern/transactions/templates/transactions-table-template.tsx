@@ -28,9 +28,7 @@ const TransactionsTableTemplate = () => {
 
   return (
     <div className='w-full bg-card'>
-      <TransactionsTableTemplateHeader
-        transactionsLength={data?.data?.length as number}
-      />
+      <TransactionsTableTemplateHeader pagination={pagination} />
       <TransactionsTable
         data={data?.data as Transactions[]}
         isLoading={isLoading}

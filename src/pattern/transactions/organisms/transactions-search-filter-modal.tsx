@@ -1,75 +1,110 @@
-"use client";
-import React, { useState } from "react";
-import { create, show, useModal } from "@ebay/nice-modal-react";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+'use client'
+import React, { useState } from 'react'
+import { create, show, useModal } from '@ebay/nice-modal-react'
+import { Dialog, DialogContent } from '@/components/ui/dialog'
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import SheetCloseIcon from "@/pattern/common/atoms/icons/sheet-close-icon";
-import { FilterSelectInput } from "@/pattern/common/molecules/inputs/filter-select-input";
-import { Separator } from "@/components/ui/separator";
-import FilterToggle from "@/pattern/common/atoms/filter-toggle";
-import { DateRangeFilterModal } from "@/pattern/common/organisms/date-range-filter-modal";
-import DateInput from "@/pattern/common/molecules/inputs/date-input";
-import { LinkButton } from "@/pattern/common/molecules/controls/link-button";
-import { IListType } from "@/pattern/types";
+} from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import SheetCloseIcon from '@/pattern/common/atoms/icons/sheet-close-icon'
+import { FilterSelectInput } from '@/pattern/common/molecules/inputs/filter-select-input'
+import { Separator } from '@/components/ui/separator'
+import FilterToggle from '@/pattern/common/atoms/filter-toggle'
+import { DateRangeFilterModal } from '@/pattern/common/organisms/date-range-filter-modal'
+import DateInput from '@/pattern/common/molecules/inputs/date-input'
+import { LinkButton } from '@/pattern/common/molecules/controls/link-button'
+import { IListType } from '@/pattern/types'
 
 const rolesFilterSetting: IListType[] = [
   {
-    label: "All",
-    value: "all",
+    label: 'All',
+    value: 'all',
   },
   {
-    label: "Pilgrim",
-    value: "pilgrim",
+    label: 'Pilgrim',
+    value: 'pilgrim',
   },
   {
-    label: "Agent",
-    value: "agent",
+    label: 'Agent',
+    value: 'agent',
   },
-];
+]
 
 const TransactionTypeFilterSetting: IListType[] = [
   {
-    label: "Trade",
-    value: "trade",
+    label: 'Trade',
+    value: 'trade',
   },
   {
-    label: "Deposit",
-    value: "deposit",
+    label: 'Deposit',
+    value: 'deposit',
   },
   {
-    label: "Withdrawal",
-    value: "withdrawal",
+    label: 'Withdrawal',
+    value: 'withdrawal',
   },
   {
-    label: "Swap",
-    value: "swap",
+    label: 'Swap',
+    value: 'swap',
   },
-];
+]
 
 export const TransactionsSearchFilterModal = create(() => {
-  const [order, setOrder] = useState<string>("");
+  const [order, setOrder] = useState<string>('')
+  const [transactionType, setTransactionType] = useState<
+    'Trade' | 'Withdrawal' | 'Swap' | 'Deposit'
+  >()
+  const [status, setStatus] = useState<
+    'COMPLETED' | 'PENDING' | 'FAILED' | null
+  >()
+  const [startDate, setStartDate] = useState<string>('')
+  const [endDate, setEndDate] = useState<string>('')
+  const [dateRange, setDateRange] = useState<string>('')
 
-  const { resolve, remove, visible } = useModal();
+  const { resolve, remove, visible } = useModal()
 
-  const showDateRangeFilterModal = () => {
-    show(DateRangeFilterModal);
-  };
+  const showDateRangeFilterModal = async () => {
+    const result: any = await show(DateRangeFilterModal)
+    if (result.resolved) {
+      setStartDate(result.startDate)
+      setEndDate(result.endDate)
+      setDateRange(`${result.startDate} - ${result.endDate}`)
+    }
+  }
 
   const handleCloseModal = () => {
-    resolve({ resolved: true });
-    remove();
-  };
+    resolve({
+      resolved: true,
+      transactionType,
+      status,
+      startDate,
+      endDate,
+      order,
+    })
+    remove()
+  }
 
   const handleSaveFilterSettings = () => {
-    handleCloseModal();
-  };
+    handleCloseModal()
+  }
+
+  const isButtonDisabled = !(
+    transactionType ||
+    status ||
+    startDate ||
+    endDate ||
+    order
+  )
+
+  const resetValues = () => {
+    setStartDate('')
+    setEndDate('')
+    setOrder('')
+  }
   return (
     <Dialog open={visible} onOpenChange={handleCloseModal}>
       <DialogContent className='w-fit h-fit p-0 outline-none border-none shadow-none'>
@@ -134,10 +169,15 @@ export const TransactionsSearchFilterModal = create(() => {
 
           {/* Footer */}
           <CardFooter className='w-full pb-4 px-6'>
-            <Button onClick={handleSaveFilterSettings}>Save</Button>
+            <Button
+              disabled={isButtonDisabled}
+              onClick={handleSaveFilterSettings}
+            >
+              Save
+            </Button>
           </CardFooter>
         </Card>
       </DialogContent>
     </Dialog>
-  );
-});
+  )
+})
