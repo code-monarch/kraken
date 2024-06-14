@@ -56,7 +56,7 @@ const baseQueryWithReauth: BaseQueryFn<
   await mutex.waitForUnlock()
   let result = await baseQuery(args, api, extraOptions)
 
-  if (result.error && result?.error?.status === 600) {
+  if (result.error && result?.error?.status === 426) {
     // Remove expired API key
     LocalStore.removeItem({ key: LOGIN_API_KEY })
     LocalStore.removeItem({ key: SERVICE_ACCOUNT_API_KEY })
@@ -110,8 +110,8 @@ export const baseApiSlice = createApi({
   tagTypes: ["getUser", "getAdmin", "getProfile", "getTransactions"],
   refetchOnReconnect: true,
   keepUnusedDataFor: 30,
-  refetchOnMountOrArgChange: 30,
-  refetchOnFocus: true,
+  // refetchOnMountOrArgChange: 30,
+  // refetchOnFocus: true,
   endpoints: (builder) => ({
     logout: builder.mutation<ILogoutResponse, void>({
       query: () => ({
