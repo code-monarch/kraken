@@ -1,30 +1,56 @@
-"use client";
-import { FC } from "react";
-import { Badge } from "@/components/ui/badge";
-import ButtonWithIcon from "@/pattern/common/molecules/controls/button-with-icon";
-import { ExcelIcon } from "@/pattern/common/atoms/icons/excel-icon";
-import SearchInput from "@/pattern/common/molecules/inputs/search-input";
-import FilterIcon from "@/pattern/common/atoms/icons/filter-icon";
-import { useRouter } from "next/navigation";
-import { show } from "@ebay/nice-modal-react";
-import TransactionsTableViewFilter from "../molecules/transactions-table-view-filters";
-import { TransactionsSearchFilterModal } from "./transactions-search-filter-modal";
+'use client'
+import { FC, useState } from 'react'
+import { Badge } from '@/components/ui/badge'
+import ButtonWithIcon from '@/pattern/common/molecules/controls/button-with-icon'
+import { ExcelIcon } from '@/pattern/common/atoms/icons/excel-icon'
+import SearchInput from '@/pattern/common/molecules/inputs/search-input'
+import FilterIcon from '@/pattern/common/atoms/icons/filter-icon'
+import { show } from '@ebay/nice-modal-react'
+import TransactionsTableViewFilter from '../molecules/transactions-table-view-filters'
+import { TransactionsSearchFilterModal } from './transactions-search-filter-modal'
+import { useGetTransactionsQuery } from '@/redux/services/transactions/get-transactions.api-slice'
+import { PaginationState } from '@tanstack/react-table'
 
 interface IProps {
-  transactionsLength: number
+  pagination: PaginationState
 }
 
-const TransactionsTableTemplateHeader: FC<IProps> = ({
-  transactionsLength,
-}) => {
-  const { push } = useRouter()
+const TransactionsTableTemplateHeader: FC<IProps> = ({ pagination }) => {
+  const [transactionType, setTransactionType] = useState<
+    'Trade' | 'Withdrawal' | 'Swap' | 'Deposit'
+  >()
+  const [searchQuery, setSearchQuery] = useState<string>('')
+  const [status, setStatus] = useState<
+    'COMPLETED' | 'PENDING' | 'FAILED' | null
+  >()
+  const [role, setRole] = useState<string>('')
+  const [order, setOrder] = useState<string>('')
+  const [startDate, setStartDate] = useState<string>('')
+  const [endDate, setEndDate] = useState<string>('')
 
-  const handleShowSearchFilterModal = () => {
-    show(TransactionsSearchFilterModal)
+  const { data, isLoading, isError, isSuccess, isFetching } =
+    useGetTransactionsQuery({
+      page: pagination.pageIndex + 1,
+      pageSize: pagination.pageSize,
+      searchQuery: searchQuery,
+      filterby: { label: 'status', value: status! },
+      type: transactionType,
+    })
+
+  const handleShowSearchFilterModal = async () => {
+    const result: any = await show(TransactionsSearchFilterModal)
+    if (result.resolved) {
+      setTransactionType(result.transactionType)
+      setStatus(result.status)
+      setRole(result.userRole === 'all' ? '' : result.userRole)
+      setOrder(result.order)
+      setStartDate(result.startDate)
+      setEndDate(result.endDate)
+    }
   }
 
   //   The number of tractions would be gotten from the length of the transaction endpoint
-  let transactions = transactionsLength ?? 0
+  let transactions = data?.data?.length ?? 0
   return (
     <div className='w-full px-6'>
       {/* Top */}
@@ -50,7 +76,10 @@ const TransactionsTableTemplateHeader: FC<IProps> = ({
         <div className='flex items-center gap-3'>
           {/* Search Input */}
           <div className='flex items-center gap-3'>
-            <SearchInput />
+            <SearchInput
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+            />
           </div>
 
           {/* Table search Filter Button */}
@@ -69,4 +98,4 @@ const TransactionsTableTemplateHeader: FC<IProps> = ({
   )
 }
 
-export default TransactionsTableTemplateHeader;
+export default TransactionsTableTemplateHeader

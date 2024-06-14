@@ -47,17 +47,15 @@ export interface ITransactionsResponse {
 interface ITransactionsPayload {
   pageSize?: number
   page?: number
-  searchQuery?: string // search query
-  filterby?: { label: "status", value: "COMPLETED" | "PENDING" | "FAILED" }
-  type?: "Trade" | "Withdrawal" | "Swap" | "Deposit";
+  q?: string // search query
 }
 
-export const getTransactionsApiSlice = baseApiSlice.injectEndpoints({
+export const getTransactionsMatrixApiSlice = baseApiSlice.injectEndpoints({
   endpoints: builder => ({
-    getTransactions: builder.query<ITransactionsResponse, ITransactionsPayload>(
+    getTransactionsMatrix: builder.query<ITransactionsResponse, ITransactionsPayload>(
       {
-        query: ({ pageSize, page, searchQuery, filterby, type }) => ({
-          url: `admin/transactions?page=${page}&limit=${pageSize}${filterby ? `&filterby=${filterby.label};${filterby.value},type;${type},` : ""}${searchQuery ? `&searchQuery=${searchQuery}` : ""}`,
+        query: ({ pageSize, page, q }) => ({
+          url: `admin/transactions?page=${page}&limit=${pageSize}${q ? `&q=${q}` : ''}`,
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -70,4 +68,4 @@ export const getTransactionsApiSlice = baseApiSlice.injectEndpoints({
   }),
 })
 
-export const { useGetTransactionsQuery } = getTransactionsApiSlice
+export const { useGetTransactionsMatrixQuery } = getTransactionsMatrixApiSlice
