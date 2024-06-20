@@ -7,7 +7,7 @@ interface Iprops extends React.HTMLAttributes<HTMLSpanElement> {
   userId: string
 }
 
-const ViewDetailsBtn: FC<Iprops> = ({ userId, children }) => {
+const ViewUserDetailsBtn: FC<Iprops> = ({ userId, children }) => {
   const { push } = useRouter()
   return (
     <span
@@ -19,4 +19,4 @@ const ViewDetailsBtn: FC<Iprops> = ({ userId, children }) => {
   )
 }
 
-export default ViewDetailsBtn
+export default ViewUserDetailsBtn

@@ -22,7 +22,7 @@ const metricPercentageVariants = cva("min-w-[51px] h-[24px] rounded-[8px] p-[4px
 
 export interface IDashboardMetricValueProps
   extends VariantProps<typeof metricPercentageVariants> {
-  metricPercentage: string;
+  metricPercentage?: string;
 }
 
 const DashboardMetricPercentage: FC<IDashboardMetricValueProps> = ({
@@ -32,7 +32,7 @@ const DashboardMetricPercentage: FC<IDashboardMetricValueProps> = ({
   return (
     <div className={cn(metricPercentageVariants({ variant }))}>
       <DashboardMetricValueIcon />
-      {metricPercentage}%
+      {metricPercentage ?? 0}%
     </div>
   );
 };

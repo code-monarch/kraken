@@ -8,6 +8,7 @@ export const AUTH_PATHS = {
 export const DASHBOARD_PATHS = {
   index: "/",
   userManagement: "/user-management",
+  cashOutRequest: "/cash-out-request",
   transactions: "/transactions",
   settings: "/settings",
   activityLogs: "/activity-logs",

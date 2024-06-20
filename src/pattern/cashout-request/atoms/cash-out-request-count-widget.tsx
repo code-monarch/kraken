@@ -1,0 +1,44 @@
+'use client'
+import React, { FC } from 'react'
+import { VariantProps, cva } from 'class-variance-authority'
+import { cn } from '@/lib/utils'
+import { formatNumber } from '@/lib/helper/format-number'
+
+// Number of cash out request thus far
+const NUMBER_OF_CASHOUT_REQUEST = 2400000
+
+const cashoutRequestCountVariants = cva(
+  'min-w-[23px] w-fit max-w-[70px] h-[20px] rounded-[2px] p-[5px]',
+  {
+    variants: {
+      variant: {
+        default:
+          'bg-[hsla(146,100%,97%,1)] flex justify-center items-center font-raleway text-sm text-primary',
+        active:
+          'bg-primary flex justify-center items-center font-raleway text-sm text-white',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+    },
+  },
+)
+
+export interface ICashoutRequestCountProps
+  extends VariantProps<typeof cashoutRequestCountVariants> {}
+
+const CashOutRequestCountWidget: FC<ICashoutRequestCountProps> = ({
+  variant,
+}) => {
+  return (
+    <div className={cn(cashoutRequestCountVariants({ variant }))}>
+      {formatNumber({
+        number: NUMBER_OF_CASHOUT_REQUEST,
+        average: true,
+        mantissa: 1
+      })}
+    </div>
+  )
+}
+
+export default CashOutRequestCountWidget

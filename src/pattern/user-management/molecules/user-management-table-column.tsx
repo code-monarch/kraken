@@ -17,7 +17,7 @@ import { show } from "@ebay/nice-modal-react";
 import { FreezeAccountModal } from "../organisms/freeze-account-modal";
 import { DeleteAccountModal } from "../organisms/delete-account-modal";
 import { IUser } from "@/redux/services/users/user.api-slice";
-import ViewDetailsBtn from "../atoms/view-details-btn";
+import ViewUserDetailsBtn from "../atoms/view-user-details-btn";
 
 export const UserTableColumns: ColumnDef<IUser>[] = [
   {
@@ -124,16 +124,16 @@ export const UserTableColumns: ColumnDef<IUser>[] = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <span className="cursor-pointer">
-              <span className="sr-only">Open menu</span>
+            <span className='cursor-pointer'>
+              <span className='sr-only'>Open menu</span>
               <MoreVerticalIcon />
             </span>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align='end'>
             <DropdownMenuItem>
-              <ViewDetailsBtn userId={row.original._id}>
+              <ViewUserDetailsBtn userId={row.original._id}>
                 View Details
-              </ViewDetailsBtn>
+              </ViewUserDetailsBtn>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>Edit</DropdownMenuItem>
@@ -147,24 +147,26 @@ export const UserTableColumns: ColumnDef<IUser>[] = [
                 })
               }
             >
-              {row.original.status === "Frozen" ? "Unfreeze Account" : "Freeze Account"}
+              {row.original.status === 'Frozen'
+                ? 'Unfreeze Account'
+                : 'Freeze Account'}
               {/* Freeze Account */}
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
-              className="text-[#d62f4b]"
+              className='text-[#d62f4b]'
               onClick={() => {
                 show(DeleteAccountModal, {
                   userId: row.original._id,
                   name: `${row.original.firstname} ${row.original.lastname}`,
-                });
+                })
               }}
             >
               Delete
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      );
+      )
     },
   },
 ];

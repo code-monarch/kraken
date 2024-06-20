@@ -143,7 +143,7 @@ export function ActivityLogsTable<TData, TValue>({
                 columns={columns}
                 message={
                   <span>
-                    An error occured while trying to fetch all Platform
+                    An error occurred while trying to fetch all Platform
                     activities. <br /> To retry, kindly refresh this page.
                   </span>
                 }

@@ -22,7 +22,16 @@ import DashboardMetricCard from '@/pattern/common/organisms/dashboard-metric-car
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import UserManagementTableTemplate from '@/pattern/user-management/templates/user-management-table-template'
-import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@/components/ui/input-otp'
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from '@/components/ui/input-otp'
+import { ConfirmApprovalModal } from '@/pattern/cashout-request/organisms/confirm-approval-modal'
+import { ApprovalSuccessfulModal } from '@/pattern/cashout-request/organisms/approval-successful-modal'
+import { DeclineRequestModal } from '@/pattern/cashout-request/organisms/decline-request-modal'
+import { RequestDeclinedModal } from '@/pattern/cashout-request/organisms/request-declined-modal'
 
 export default function ComponentsPage() {
   const WishlistFormSchema = Yup.object().shape({
@@ -164,6 +173,11 @@ export default function ComponentsPage() {
           <InputOTPSlot index={5} />
         </InputOTPGroup>
       </InputOTP>
+
+      <button onClick={() => show(ConfirmApprovalModal)}>Confirm Approval</button>
+      <button onClick={() => show(ApprovalSuccessfulModal)}>Approval Successful</button>
+      <button onClick={() => show(DeclineRequestModal)}>Decline Request</button>
+      <button onClick={() => show(RequestDeclinedModal)}>Request Declined</button>
     </main>
   )
 }
