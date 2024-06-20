@@ -13,7 +13,7 @@ const Divider = ({ width, height, color, className }: IIconProps) => {
     >
       <path
         d='M1 1H85'
-        stroke={"#F1F5F9" ?? color}
+        stroke={color ?? "#F1F5F9"}
         strokeWidth='1.5'
         strokeLinecap='round'
       />

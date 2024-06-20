@@ -32,6 +32,7 @@ import { ConfirmApprovalModal } from '@/pattern/cashout-request/organisms/confir
 import { ApprovalSuccessfulModal } from '@/pattern/cashout-request/organisms/approval-successful-modal'
 import { DeclineRequestModal } from '@/pattern/cashout-request/organisms/decline-request-modal'
 import { RequestDeclinedModal } from '@/pattern/cashout-request/organisms/request-declined-modal'
+import CashoutSlideOutMenu from '@/pattern/cashout-request/templates/cahsout-slideout-menu'
 
 export default function ComponentsPage() {
   const WishlistFormSchema = Yup.object().shape({
@@ -174,10 +175,36 @@ export default function ComponentsPage() {
         </InputOTPGroup>
       </InputOTP>
 
-      <button onClick={() => show(ConfirmApprovalModal)}>Confirm Approval</button>
-      <button onClick={() => show(ApprovalSuccessfulModal)}>Approval Successful</button>
+      <button onClick={() => show(ConfirmApprovalModal)}>
+        Confirm Approval
+      </button>
+      <button onClick={() => show(ApprovalSuccessfulModal)}>
+        Approval Successful
+      </button>
       <button onClick={() => show(DeclineRequestModal)}>Decline Request</button>
-      <button onClick={() => show(RequestDeclinedModal)}>Request Declined</button>
+      <button onClick={() => show(RequestDeclinedModal)}>
+        Request Declined
+      </button>
+      <button
+        onClick={() =>
+          show(CashoutSlideOutMenu, {
+            accountName: 'Cecilia Davis',
+            accountNumber: '2078672378',
+            bankName: 'GTCO',
+            amount: '100,000.00',
+            date: '2024-05-09T01:08:33.271Z',
+            transactionId: '1234567890',
+            transactionType: 'Cashout',
+            status: 'approved',
+            name: 'Cecilia Davis',
+            phoneNumber: '08166687292',
+            totalRewards: '100,00.00',
+            withdrawableAmount: '80',
+          })
+        }
+      >
+        View Cashout Slideout
+      </button>
     </main>
   )
 }
