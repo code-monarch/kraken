@@ -44,7 +44,7 @@ const TwoFactorAuthSection = () => {
         toast.error('Unexpected error', {
           description: `${
             err?.data?.responseMessage ??
-            'An error occured while trying to complete the action. Please try again'
+            'An error occurred while trying to complete the action. Please try again'
           }`,
           duration: 8000,
           cancel: {

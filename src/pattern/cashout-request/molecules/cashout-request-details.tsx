@@ -1,8 +1,9 @@
 import React from 'react'
 import { Label } from '@/components/ui/label'
+import { formatNumber } from '@/lib/helper/format-number'
 
 interface IProps {
-  amount: string | number
+  amount: number
   accountName: string
   accountNumber: string
   bankName: string
@@ -29,12 +30,20 @@ const CashoutRequestDetails = ({
             Amount Requested:
           </Label>
           <div className='flex flex-col items-end'>
-            <div id='amount' className='font-medium'>
-              {amount} NGN
-            </div>
-            <div id='amount' className='text-xs font-medium text-[#6D7786]'>
-              {amount} SAR
-            </div>
+            <span id='amount' className='font-medium'>
+              {formatNumber({
+                number: amount,
+                mantissa: 2,
+              })}
+              NGN
+            </span>
+            <span id='amount' className='text-xs font-medium text-[#6D7786]'>
+              {formatNumber({
+                number: amount,
+                mantissa: 2,
+              })}
+              SAR
+            </span>
           </div>
         </div>
 

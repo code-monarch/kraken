@@ -100,7 +100,6 @@ const MyDetailsTab = () => {
             onClick: () => console.log("Cancel!"),
           },
         });
-        // show(ErrorModal, { message: err.data.responseMessage ?? "Something went wrong" });
       });
   };
 

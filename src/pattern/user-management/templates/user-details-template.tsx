@@ -18,7 +18,7 @@ import { useSearchParams } from "next/navigation";
 import ErrorFallback from "@/pattern/common/atoms/error-fallback";
 
 const ERROR_MESSAGE =
-  "we encountered an unexpected error while getting the information of this user. kindly refresh this page and try again.";
+  "we encountered an error while getting the information of this user. kindly refresh this page and try again.";
 
 const UserDetailsTemplate = () => {
   const searchParams = useSearchParams();

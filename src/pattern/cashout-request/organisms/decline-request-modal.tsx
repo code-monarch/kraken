@@ -59,7 +59,7 @@ export const DeclineRequestModal = create(() => {
             />
 
             <CashoutRequestDetails
-              amount={'100,000.00'}
+              amount={100000}
               accountName='Cecilia Davis'
               accountNumber='1234567890'
               bankName='GTCO'

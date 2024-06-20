@@ -19,7 +19,7 @@ const ErrorTableWidget: FC<IProps> = ({ message, columns }) => {
       <br />
       {message ?? (
         <span>
-          An error occured while trying to fetch the data for this table. <br /> To
+          A error occurred while trying to fetch the data for this table. <br /> To
           retry, kindly refresh this page.
         </span>
       )}

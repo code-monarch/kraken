@@ -9,7 +9,6 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import {
-  ColumnDef,
   PaginationState,
   flexRender,
   getCoreRowModel,
@@ -137,7 +136,7 @@ export function UserManagementTable<TData, TValue>({
                 columns={columns}
                 message={
                   <span>
-                    An error occured while trying to fetch all users. <br /> To
+                    An error occurred while trying to fetch all users. <br /> To
                     retry, kindly refresh this page.
                   </span>
                 }
