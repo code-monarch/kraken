@@ -11,9 +11,13 @@ interface IProps {
 const NameCell = ({ name, image, phoneNumber }: IProps) => {
   return (
     <div className='flex items-center gap-2'>
-      <div className='w-[40px] h-[40px] rounded-full'>
-        <Image alt='' src={userImg} width={40} height={40} />
-      </div>
+        <Image
+          alt='User Image'
+          src={userImg}
+          width={40}
+          height={40}
+          className='rounded-full'
+        />
 
       <div>
         <p className='text-sm whitespace-nowrap'>{name}</p>
@@ -22,7 +26,7 @@ const NameCell = ({ name, image, phoneNumber }: IProps) => {
         </p>
       </div>
     </div>
-  );
+  )
 };
 
 export default NameCell;

@@ -40,6 +40,12 @@ export interface IUseIntervalProps {
   delay: number | null;
 }
 export interface IFormatCurrencyProps {
-  amount: number | string;
-  totalLength?: number;
+  amount: number;
+  mantissa?: number;
+  average?: boolean; // formats 1000 to 1k
+}
+export interface IFormatNumberProps {
+  number: number;
+  mantissa?: number; // e.g 1.1 or 1.12
+  average?: boolean; // formats 1000 to 1k
 }
