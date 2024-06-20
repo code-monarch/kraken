@@ -10,24 +10,13 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { useDeleteUserMutation } from '@/redux/services/users/delete-user.api-slice'
 import LoadingButton from '@/pattern/common/molecules/controls/loading-button'
-import { ErrorModal } from '@/pattern/common/organisms/error-modal'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { DASHBOARD_PATHS } from '@/lib/routes'
-import { SuccessModal } from '@/pattern/common/organisms/success-modal'
-import ConfirmCashoutApprovalHeaderIcon from '@/pattern/common/atoms/icons/confirm-cashout-approval-header-icon'
 import CashoutRequestDetails from '../molecules/cashout-request-details'
 import DeclineRequestHeaderIcon from '@/pattern/common/atoms/icons/decline-request-header-icon'
 import { CommentInput } from '@/pattern/common/molecules/inputs/comment-input'
 import { RequestDeclinedModal } from './request-declined-modal'
 
-interface IProps {
-  userId: string
-  name: string
-}
-
-export const DeclineRequestModal = create(({ userId, name }: IProps) => {
+export const DeclineRequestModal = create(() => {
   const [comment, setComment] = useState<string>(
     `The agent's request was denied due to insufficient funds in the account.`,
   )
@@ -41,7 +30,7 @@ export const DeclineRequestModal = create(({ userId, name }: IProps) => {
 
   const handleDeclineRequest = () => {
     show(RequestDeclinedModal, { comment: comment })
-    handleCloseModal();
+    handleCloseModal()
   }
 
   return (

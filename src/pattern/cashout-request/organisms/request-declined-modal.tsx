@@ -33,8 +33,6 @@ export const RequestDeclinedModal = create(({ comment }: IProps) => {
     remove()
   }
 
-  const handleDeclineRequest = () => {}
-
   return (
     <Dialog open={visible} onOpenChange={handleCloseModal}>
       <DialogContent className='w-fit h-fit p-0 outline-none border-none shadow-none'>

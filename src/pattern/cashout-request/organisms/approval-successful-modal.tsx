@@ -10,22 +10,10 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { useDeleteUserMutation } from '@/redux/services/users/delete-user.api-slice'
-import LoadingButton from '@/pattern/common/molecules/controls/loading-button'
-import { ErrorModal } from '@/pattern/common/organisms/error-modal'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { DASHBOARD_PATHS } from '@/lib/routes'
-import { SuccessModal } from '@/pattern/common/organisms/success-modal'
-import ConfirmCashoutApprovalHeaderIcon from '@/pattern/common/atoms/icons/confirm-cashout-approval-header-icon'
 import CashoutRequestDetails from '../molecules/cashout-request-details'
 import VerifyStatusHeaderIcon from '@/pattern/common/atoms/icons/verify-status-header-icon'
 
-interface IProps {
-  userId: string
-  name: string
-}
-
-export const ApprovalSuccessfulModal = create(({ userId, name }: IProps) => {
+export const ApprovalSuccessfulModal = create(() => {
   const { resolve, remove, visible } = useModal()
 
   const handleCloseModal = () => {
