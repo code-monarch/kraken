@@ -26,7 +26,6 @@ const ApprovedCashOutRequestTabContent = () => {
   }, [])
   return (
     <CashOutRequestTabLayout>
-      <div className='grid grid-cols-3 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
         {!isLoading &&
           dataQuery?.map((data, idx) => (
             <CashOutRequestTicketCard
@@ -40,7 +39,6 @@ const ApprovedCashOutRequestTabContent = () => {
               date={format(data?.date?.toLocaleString(), 'MM/dd/yyyy')}
             />
           ))}
-      </div>
       {isLoading && <PulsePlaceholder />}
     </CashOutRequestTabLayout>
   )

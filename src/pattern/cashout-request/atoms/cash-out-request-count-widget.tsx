@@ -8,7 +8,7 @@ import { formatNumber } from '@/lib/helper/format-number'
 const NUMBER_OF_CASHOUT_REQUEST = 2400000
 
 const cashoutRequestCountVariants = cva(
-  'min-w-[23px] w-fit max-w-[70px] h-[20px] rounded-[2px] p-[5px]',
+  'min-w-[23px] w-fit max-w-[70px] h-[20px] text-xs p-[5px] rounded-[2px]',
   {
     variants: {
       variant: {

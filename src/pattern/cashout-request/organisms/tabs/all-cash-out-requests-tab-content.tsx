@@ -26,21 +26,19 @@ const AllCashOutRequestTabContent = () => {
   }, [])
   return (
     <CashOutRequestTabLayout>
-      <div className='grid grid-cols-3 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
-        {!isLoading &&
-          dataQuery?.map((data, idx) => (
-            <CashOutRequestTicketCard
-              key={idx}
-              amount={data?.amount}
-              status={data?.status}
-              ticketId={data?.ticketId}
-              ticketNumber={data?.ticketNumber}
-              userName={data?.userName}
-              userImage={data?.userImage}
-              date={format(data?.date?.toLocaleString(), 'MM/dd/yyyy')}
-            />
-          ))}
-      </div>
+      {!isLoading &&
+        dataQuery?.map((data, idx) => (
+          <CashOutRequestTicketCard
+            key={idx}
+            amount={data?.amount}
+            status={data?.status}
+            ticketId={data?.ticketId}
+            ticketNumber={data?.ticketNumber}
+            userName={data?.userName}
+            userImage={data?.userImage}
+            date={format(data?.date?.toLocaleString(), 'MM/dd/yyyy')}
+          />
+        ))}
       {isLoading && <PulsePlaceholder />}
     </CashOutRequestTabLayout>
   )

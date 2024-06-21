@@ -10,7 +10,7 @@ const CashOutRequestTabLayout: FC<IProps> = ({ children }) => {
   return (
     <div className='w-full flex flex-col space-y-[20px]'>
       <CashOutRequestsTabHeader />
-      {children}
+      <div className='w-full flex items-center flex-wrap gap-5'>{children}</div>
     </div>
   )
 }
