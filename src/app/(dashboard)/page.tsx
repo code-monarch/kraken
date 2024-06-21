@@ -8,10 +8,9 @@ import OverviewMetricGrid from "@/pattern/overview/templates/overview-metric-gri
 import OverviewRecentTransactionsTemplate from "@/pattern/overview/templates/overview-recent-transactions-template";
 import SuperAdminOverviewMetricGrid from "@/pattern/super-admin/organisms/super-admin-overview-metric-grid";
 import {
-  useGetAdminProfileQuery,
-  useGetAdminQuery,
+  useGetAdminProfileQuery
 } from "@/redux/services/admin/admin.api-slice";
-import { set2FaPreference, setAdminInfo } from "@/redux/slices/user-slice";
+import { setAdminInfo } from "@/redux/slices/user-slice";
 import { RootState } from "@/redux/store";
 
 const OverviewPage = () => {

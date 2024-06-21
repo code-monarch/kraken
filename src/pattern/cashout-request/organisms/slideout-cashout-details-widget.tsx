@@ -83,7 +83,7 @@ const SlideOutCahsoutDetailsWidget: FC<IProps> = ({
                   ? 'pending'
                   : 'failed'
             }
-            className='min-h-[24px] min-w-[139px] rounded-[10px] capitalize'
+            className="h-[23px] max-w-[69px] capitalize"
           >
             {status}
           </Badge>

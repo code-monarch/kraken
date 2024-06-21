@@ -6,7 +6,6 @@ import DashboardMetricPercentage, {
 import { Label } from "@/components/ui/label";
 import { DOLLAR_CURRENCY_SYMBOL } from "@/lib/constants";
 import { formatNumber } from "@/lib/helper/format-number";
-import { formatCurrency } from "@/lib/helper/format-currency";
 import Hidden from "../molecules/data-display/hidden";
 
 export interface IDashboardMetricCardProps
@@ -34,8 +33,8 @@ const DashboardMetricCard: FC<IDashboardMetricCardProps> = ({
           <Hidden visible={isAmount}>
             <>
               <span className='text-base'>{DOLLAR_CURRENCY_SYMBOL}</span>
-              {formatCurrency({
-                amount: metricValue,
+              {formatNumber({
+                number: metricValue,
               })}
             </>
           </Hidden>

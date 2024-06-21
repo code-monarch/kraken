@@ -14,7 +14,7 @@ import DashboardMetricPercentage from "@/pattern/common/atoms/dashboard-metric-p
 import { DOLLAR_CURRENCY_SYMBOL } from "@/lib/constants";
 import ChartLegend from "../molecules/chart-legend";
 import OverviewMetricCard from "../organisms/overview-metric-card";
-import { formatCurrency } from "@/lib/helper/format-currency";
+import { formatNumber } from "@/lib/helper/format-number";
 
 const OverviewChartSection = () => {
   return (
@@ -58,8 +58,8 @@ const OverviewChartSection = () => {
               <div className='flex items-center gap-x-4'>
                 <p className='text-[hsl(216,26%,30%,1)] text-[1.75rem] font-semibold font-raleway flex items-center gap-[2px]'>
                   <span className='text-base'>{DOLLAR_CURRENCY_SYMBOL}</span>
-                  {formatCurrency({
-                    amount: 10000,
+                  {formatNumber({
+                    number: 10000,
                   })}
                 </p>
                 <DashboardMetricPercentage metricPercentage={`2.5`} />
