@@ -35,8 +35,9 @@ const SignOutButton = () => {
   }
   return (
     <button
-      className='w-full h-[40px] flex items-center justify-start space-x-[8px] text-[1.125rem] text-[hsla(215,23%,40%,1)] text-center font-raleway font-medium !whitespace-pre px-4 py-[10px] cursor-pointer'
+      className='w-full h-[40px] flex items-center justify-start space-x-[8px] text-[1.125rem] text-[hsla(215,23%,40%,1)] disabled:text-input text-center font-raleway font-medium !whitespace-pre px-4 py-[10px] disabled:cursor-not-allowed'
       onClick={() => logoutAndClearStorage()}
+      disabled={isLoading}
     >
       {isLoading ? <LoaderDark className='animate-spin' /> : <LogoutIcon />}
       <span>Log out</span>

@@ -19,7 +19,7 @@ const ErrorTableWidget: FC<IProps> = ({ message, columns }) => {
       <br />
       {message ?? (
         <span>
-          A error occurred while trying to get the content of this table. <br /> To
+          An error occurred while trying to get the content of this table. <br /> To
           retry, kindly refresh this page.
         </span>
       )}

@@ -29,7 +29,7 @@ const CashOutRequestTicketCard: FC<ICashOutRequestTicketCardProps> = ({
   date,
 }) => {
   return (
-    <div className='bg-white max-w-[352px] h-[188px] flex flex-col items-start justify-between py-4 px-5 border border-border rounded-xl'>
+    <div className='flex-1 bg-white min-w-[352px] max-w-[352px] h-[188px] flex flex-col items-start justify-between py-4 px-5 border border-border rounded-xl'>
       <div className='w-full flex items-center justify-between'>
         {/* Ticket number */}
         <span className='text-[#6D7786] text-sm font-medium'>
@@ -100,7 +100,9 @@ const CashOutRequestTicketCard: FC<ICashOutRequestTicketCardProps> = ({
           </div>
 
           {/* Date */}
-          <span className='text-[#6D7786] font-medium'>{date as string}</span>
+          <span className='text-[#6D7786] text-sm font-medium'>
+            {date as string}
+          </span>
         </div>
       </div>
     </div>

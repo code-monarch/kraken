@@ -55,7 +55,7 @@ export const getTransactionsMatrixApiSlice = baseApiSlice.injectEndpoints({
     getTransactionsMatrix: builder.query<ITransactionsResponse, ITransactionsPayload>(
       {
         query: ({ pageSize, page, q }) => ({
-          url: `admin/transactions?page=${page}&limit=${pageSize}${q ? `&q=${q}` : ''}`,
+          url: `transactions/admin?page=${page}&limit=${pageSize}${q ? `&q=${q}` : ''}`,
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

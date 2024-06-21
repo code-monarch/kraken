@@ -8,7 +8,6 @@ import {
 import { Mutex } from 'async-mutex'
 import { LOGIN_API_KEY, SERVICE_ACCOUNT_API_KEY } from '@/lib/constants'
 import LocalStore from '@/lib/helper/storage-manager'
-import { ILogoutResponse } from '../types'
 
 // Instantiate a mutex instance
 const mutex = new Mutex()
@@ -112,16 +111,5 @@ export const baseApiSlice = createApi({
   keepUnusedDataFor: 30,
   // refetchOnMountOrArgChange: 30,
   // refetchOnFocus: true,
-  endpoints: (builder) => ({
-    logout: builder.mutation<ILogoutResponse, void>({
-      query: () => ({
-        url: 'auth/admin/logout',
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        keepUnusedDataFor: 5,
-      }),
-    }),
-  }),
+  endpoints: (builder) => ({}),
 })
