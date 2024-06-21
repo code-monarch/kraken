@@ -27,7 +27,7 @@ const RequestsCardMoreOptionsDropdown: FC<IProps> = ({ ticketId }) => {
       </DropdownMenuTrigger>
       {/* Trigger End */}
 
-      <DropdownMenuContent align='end'>
+      <DropdownMenuContent align='center' >
         <DropdownMenuItem
           onClick={() =>
             show(CashoutSlideOutMenu, {
