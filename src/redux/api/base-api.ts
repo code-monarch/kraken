@@ -60,6 +60,12 @@ const baseQueryWithReauth: BaseQueryFn<
     LocalStore.removeItem({ key: LOGIN_API_KEY })
     LocalStore.removeItem({ key: SERVICE_ACCOUNT_API_KEY })
 
+    // Reload page. 
+    // The Application AuthGuard will change the user's route to the login seeing that they are no API keys available anymore
+    if(typeof window !== "undefined"){
+      window.location.reload();
+    }
+
     // checking whether the mutex is locked
     if (!mutex.isLocked()) {
       const release = await mutex.acquire()
@@ -106,7 +112,7 @@ const baseQueryWithReauth: BaseQueryFn<
 export const baseApiSlice = createApi({
   reducerPath: 'baseApi',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ["getUser", "getAdmin", "getProfile", "getTransactions"],
+  tagTypes: ["getUser", "getAdmin", "getProfile", "getTransactions", "getTransactionMatrix", "getTransactionMatrixAlltime"],
   refetchOnReconnect: true,
   keepUnusedDataFor: 30,
   // refetchOnMountOrArgChange: 30,
