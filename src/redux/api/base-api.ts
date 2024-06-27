@@ -60,12 +60,6 @@ const baseQueryWithReauth: BaseQueryFn<
     LocalStore.removeItem({ key: LOGIN_API_KEY })
     LocalStore.removeItem({ key: SERVICE_ACCOUNT_API_KEY })
 
-    // Reload page. 
-    // The Application AuthGuard will change the user's route to the login seeing that they are no API keys available anymore
-    if(typeof window !== "undefined"){
-      window.location.reload();
-    }
-
     // checking whether the mutex is locked
     if (!mutex.isLocked()) {
       const release = await mutex.acquire()
@@ -94,7 +88,14 @@ const baseQueryWithReauth: BaseQueryFn<
           // retry the original query with new API key
           result = await baseQuery(args, api, extraOptions)
         } else {
-          LocalStore.clearStore()
+          LocalStore.removeItem({ key: LOGIN_API_KEY })
+          LocalStore.removeItem({ key: SERVICE_ACCOUNT_API_KEY })
+
+          // Reload page. 
+          // The Application AuthGuard will change the user's route to the login seeing that they are no API keys available anymore
+          if (typeof window !== "undefined") {
+            window.location.reload();
+          }
         }
       } finally {
         // release must be called once the mutex should be released again.
