@@ -5,8 +5,6 @@ import { cn } from '@/lib/utils'
 import NotificationWidget from '../molecules/data-display/notification-widget'
 import TopbarProfileTag from '../molecules/data-display/top-bar-profile-tag'
 import { getInitials } from '@/lib/helper/get-initials'
-import { useSelector } from 'react-redux'
-import { RootState } from '@/redux/store'
 import { useGetAdminProfileQuery } from '@/redux/services/admin/admin.api-slice'
 
 const Topbar = () => {

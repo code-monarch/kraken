@@ -56,7 +56,7 @@ const ChangePasswordSection = () => {
 
   const [
     changePassword,
-    { isLoading, isSuccess, isError, error: changePasswordError },
+    { isLoading, error: changePasswordError },
   ] = useChangePasswordMutation();
 
   const onSubmit: SubmitHandler<payload> = (data) => {

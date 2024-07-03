@@ -16,10 +16,10 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 const SetTransactionFeesFormSchema = Yup.object().shape({
-  depositFees: Yup.string().required("Deposit fees is Required"),
-  withdrawalFees: Yup.string().required("Withdrawal fees is Required"),
-  exchangeFees: Yup.string().required("Exchange fees is Required"),
-});
+  depositFees: Yup.string().required('Deposit fees is Required'),
+  withdrawalFees: Yup.string().required('Withdrawal fees is Required'),
+  cashoutRewards: Yup.string().required('Cashout rewards is Required'),
+})
 
 const SetTransactionFeesModal = create(() => {
   const { resolve, remove, visible } = useModal();
@@ -32,7 +32,7 @@ const SetTransactionFeesModal = create(() => {
   const defaultValues = {
     depositFees: "0.00",
     withdrawalFees: "0.00",
-    exchangeFees: "0.00",
+    cashoutRewards: "0.00",
   };
 
   const methods = useForm({
@@ -75,7 +75,7 @@ const SetTransactionFeesModal = create(() => {
                   label='Deposit Fees'
                   name='depositFees'
                   placeholder='10'
-                  error={errors["depositFees"]}
+                  error={errors['depositFees']}
                 />
 
                 {/* Withdrawal Fees */}
@@ -83,15 +83,15 @@ const SetTransactionFeesModal = create(() => {
                   label='Withdrawal Fees'
                   name='withdrawalFees'
                   placeholder='10'
-                  error={errors["withdrawalFees"]}
+                  error={errors['withdrawalFees']}
                 />
 
-                {/* Exchange Fees */}
+                {/* Cashout Rewards */}
                 <PercentInput
-                  label='Exchange Fees'
-                  name='exchangeFees'
+                  label='Cashout Rewards'
+                  name='cashoutRewards'
                   placeholder='10'
-                  error={errors["exchangeFees"]}
+                  error={errors['cashoutRewards']}
                 />
               </CardContent>
 
@@ -126,7 +126,7 @@ const SetTransactionFeesModal = create(() => {
         </Card>
       </DialogContent>
     </Dialog>
-  );
+  )
 });
 
 export default SetTransactionFeesModal;
