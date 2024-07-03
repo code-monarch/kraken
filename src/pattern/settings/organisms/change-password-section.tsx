@@ -73,8 +73,8 @@ const ChangePasswordSection = () => {
               "Password changed successfully. Please wait, you're being redirected to the login page to sign in with your new password",
             duration: 8000,
             cancel: {
-              label: "Cancel",
-              onClick: () => console.log("Cancel!"),
+              label: "Close",
+              onClick: () => console.log("Close!"),
             },
           });
           // show(SuccessModal, {
@@ -88,7 +88,6 @@ const ChangePasswordSection = () => {
         }).then(() => {
           LocalStore.clearStore();
           replace(`${AUTH_PATHS.login}`);
-          // window.location.reload();
         });
       })
       .catch((err) => {

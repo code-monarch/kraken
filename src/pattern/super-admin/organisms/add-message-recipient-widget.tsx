@@ -106,8 +106,8 @@ const AddMessageRecipientWidget: FC<IAddMessageRecipientWidgetProps> = ({
           description: `${err?.data?.responseMessage ?? "Something went wrong"}`,
           duration: 8000,
           cancel: {
-            label: "Cancel",
-            onClick: () => console.log("Cancel!"),
+            label: "Close",
+            onClick: () => console.log("Close!"),
           },
         });
       });
