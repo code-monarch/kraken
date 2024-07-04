@@ -23,7 +23,7 @@ const TransactionsPage = () => {
         <TransactionFeesBanner
           depositFees='10'
           withdrawalFees='10'
-          exchangeFees='0.5'
+          cashoutRewards='0.5'
         />
       </Hidden>
       <TransactionsTableTemplate />
