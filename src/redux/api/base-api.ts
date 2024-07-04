@@ -88,7 +88,14 @@ const baseQueryWithReauth: BaseQueryFn<
           // retry the original query with new API key
           result = await baseQuery(args, api, extraOptions)
         } else {
-          LocalStore.clearStore()
+          LocalStore.removeItem({ key: LOGIN_API_KEY })
+          LocalStore.removeItem({ key: SERVICE_ACCOUNT_API_KEY })
+
+          // Reload page. 
+          // The Application AuthGuard will change the user's route to the login seeing that they are no API keys available anymore
+          if (typeof window !== "undefined") {
+            window.location.reload();
+          }
         }
       } finally {
         // release must be called once the mutex should be released again.
@@ -106,7 +113,7 @@ const baseQueryWithReauth: BaseQueryFn<
 export const baseApiSlice = createApi({
   reducerPath: 'baseApi',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ["getUser", "getAdmin", "getProfile", "getTransactions"],
+  tagTypes: ["getUser", "getAdmin", "getProfile", "getTransactions", "getTransactionMatrix", "getTransactionMatrixAlltime", "getCashoutRequests"],
   refetchOnReconnect: true,
   keepUnusedDataFor: 30,
   // refetchOnMountOrArgChange: 30,

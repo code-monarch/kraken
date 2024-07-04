@@ -10,13 +10,13 @@ import FeeWidget from "../molecules/fee-widget";
 interface ITransactionFeesBannerProps {
   depositFees: string;
   withdrawalFees: string;
-  exchangeFees: string;
+  cashoutRewards: string;
 }
 
 const TransactionFeesBanner: FC<ITransactionFeesBannerProps> = ({
   depositFees,
   withdrawalFees,
-  exchangeFees,
+  cashoutRewards,
 }) => {
   const handleUpdateFees = () => {
     show(SetTransactionFeesModal);
@@ -50,11 +50,11 @@ const TransactionFeesBanner: FC<ITransactionFeesBannerProps> = ({
         {/* Withdrawal Fees */}
         <FeeWidget label='Withdrawal Fees' value={withdrawalFees} />
 
-        {/* Exchange Fees */}
-        <FeeWidget label='Exchange Fees' value={exchangeFees} />
+        {/* Cashout Rewards */}
+        <FeeWidget label='Cashout Rewards' value={cashoutRewards} />
       </div>
     </div>
-  );
+  )
 };
 
 export default TransactionFeesBanner;

@@ -60,7 +60,7 @@ const ConfirmEmailTemplate = () => {
           duration: 8000,
           cancel: {
             label: "Ok",
-            onClick: () => console.log("Cancel!"),
+            onClick: () => console.log("Ok!"),
           },
         });
 
@@ -73,8 +73,8 @@ const ConfirmEmailTemplate = () => {
           description: `${err?.data?.responseMessage ?? "Password reset request error"}`,
           duration: 8000,
           cancel: {
-            label: "Cancel",
-            onClick: () => console.log("Cancel!"),
+            label: "Close",
+            onClick: () => console.log("Close!"),
           },
         });
       });

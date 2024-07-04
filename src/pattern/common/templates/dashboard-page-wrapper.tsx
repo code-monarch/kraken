@@ -1,7 +1,7 @@
 'use client'
 import React, { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
-import Sidebar from './sidebar'
+import Sidebar from '../organisms/sidebar'
 
 // Wrapper for pages that are not authentication pages
 const PageWrapper = ({ children }: { children: ReactNode }) => {
