@@ -7,36 +7,42 @@ import CashOutRequestTabLayout from '../../molecules/cash-out-request-tab-layout
 import { fetchCashOutRequest } from '@/lib/fetchCashOutRequests'
 import { format } from 'date-fns'
 import PulsePlaceholder from '@/pattern/common/atoms/icons/pulse-placeholder-icon'
+import { useGetCashoutRequestsQuery } from '@/redux/services/transactions/get-cashout-requests.api-slice'
+import userImg from '@/public/images/user-img.png'
 
 const AllCashOutRequestTabContent = () => {
   const [dataQuery, setDataQuery] = useState<ICashOutRequestTicketCardProps[]>()
-  const [isLoading, setIsLoading] = useState<boolean>()
+  // const [isLoading, setIsLoading] = useState<boolean>()
 
-  useEffect(() => {
-    async function fetchDataAndUpdate() {
-      const data = await fetchCashOutRequest()
-      setIsLoading(true)
-      if (data) {
-        setIsLoading(false)
-        setDataQuery(data?.data)
-      }
-    }
+  const { data, isLoading, isFetching, isSuccess, isError } =
+    useGetCashoutRequestsQuery()
 
-    fetchDataAndUpdate()
-  }, [])
+  // useEffect(() => {
+  //   async function fetchDataAndUpdate() {
+  //     const data = await fetchCashOutRequest()
+  //     setIsLoading(true)
+  //     if (data) {
+  //       setIsLoading(false)
+  //       setDataQuery(data?.data)
+  //     }
+  //   }
+
+  //   fetchDataAndUpdate()
+  // }, [])
+
   return (
     <CashOutRequestTabLayout>
       {!isLoading &&
-        dataQuery?.map((data, idx) => (
+        data?.data.map((data, idx) => (
           <CashOutRequestTicketCard
             key={idx}
             amount={data?.amount}
             status={data?.status}
-            ticketId={data?.ticketId}
-            ticketNumber={data?.ticketNumber}
-            userName={data?.userName}
-            userImage={data?.userImage}
-            date={format(data?.date?.toLocaleString(), 'MM/dd/yyyy')}
+            ticketId={data?.id}
+            ticketNumber={data?.id}
+            userName={"Blessing Okonkwo"}
+            userImage={userImg}
+            date={format(data?.createdAt?.toLocaleString(), 'MM/dd/yyyy')}
           />
         ))}
       {isLoading && <PulsePlaceholder />}
