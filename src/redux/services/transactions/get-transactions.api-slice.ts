@@ -63,7 +63,6 @@ export const getTransactionsApiSlice = baseApiSlice.injectEndpoints({
             'Content-Type': 'application/json',
           },
           keepUnusedDataFor: 5,
-          mode: 'no-cors',
         }),
         providesTags: ['getTransactions'],
       },
