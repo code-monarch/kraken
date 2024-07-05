@@ -13,7 +13,7 @@ export interface ICashOutRequestTicketCardProps
   ticketNumber: string | number
   ticketId: string | number
   amount: number
-  status: 'Pending' | 'Declined' | 'Approved' | string
+  status: 'pending' | 'declined' | 'approved' | string
   userName: string
   userImage: string | StaticImport
   date: Date | string
@@ -36,15 +36,15 @@ const CashOutRequestTicketCard: FC<ICashOutRequestTicketCardProps> = ({
           Ticket {`#${ticketNumber}` ?? '1234'}{' '}
         </span>
 
-        <div className='flex items-center gap-4'>
+        <div className='flex items-center gap-4 capitalize'>
           {/* Status */}
-          <Hidden visible={status === 'Approved'}>
+          <Hidden visible={status === 'approved'}>
             <Badge variant='active'>{status}</Badge>
           </Hidden>
-          <Hidden visible={status === 'Declined'}>
+          <Hidden visible={status === 'declined'}>
             <Badge variant='failed'>{status}</Badge>
           </Hidden>
-          <Hidden visible={status === 'Pending'}>
+          <Hidden visible={status === 'pending'}>
             <Badge variant='pending'>{status}</Badge>
           </Hidden>
 
