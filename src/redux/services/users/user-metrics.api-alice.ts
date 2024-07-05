@@ -1,31 +1,5 @@
 import { baseApiSlice } from "@/redux/api/base-api";
-
-export type IUser = {
-  roles: [];
-  _id: string;
-  id: number;
-  phoneNumber: string;
-  twoFactor: boolean;
-  isVerified: boolean;
-  verificationCode: string;
-  emailVerified: boolean;
-  lastLogin: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-  address: string;
-  bvn: string;
-  country: string;
-  email: string;
-  firstname: string;
-  lastname: string;
-  middlename: string;
-  nin: string;
-  passportID: string;
-  state: string;
-  userType: string;
-  status: string;
-};
+import { IUser } from "./user.api-slice";
 
 export type IAdminUser = {
   _id: string;

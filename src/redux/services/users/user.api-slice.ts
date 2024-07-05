@@ -25,6 +25,7 @@ export type IUser = {
   state: string;
   userType: string;
   status: string;
+  imageUrl: string;
 };
 
 export interface IGetUsersResponse {
@@ -46,31 +47,7 @@ export interface IGetSingleUserResponse {
   error: boolean;
   responseCode: string;
   responseMessage: string;
-  data: {
-    id: number;
-    phoneNumber: string;
-    twoFactor: boolean;
-    isVerified: boolean;
-    verificationCode: string;
-    emailVerified: boolean;
-    lastLogin: string;
-    createdAt: string;
-    updatedAt: string;
-    address: string;
-    bvn: string;
-    country: string;
-    email: string;
-    firstname: string;
-    lastname: string;
-    middlename: string;
-    nin: string;
-    passportID: string;
-    state: string;
-    userType: string;
-    status: string;
-    totp2FASecret: string;
-    totp2FA: boolean;
-  };
+  data: IUser
 }
 
 // interface IDeleteUserResponse {

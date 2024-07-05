@@ -61,9 +61,9 @@ export const UserTableColumns: ColumnDef<IUser>[] = [
         <NameCell
           name={name}
           phoneNumber={row.original.phoneNumber}
-          image={""}
+          image={row.original.imageUrl}
         />
-      );
+      )
     },
   },
 

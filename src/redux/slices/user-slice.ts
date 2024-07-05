@@ -1,16 +1,3 @@
-import {
-  ADMIN_ROLE,
-  TWO_FA_PREFERENCE,
-  USER_EMAIL,
-  ADMIN_ID,
-  USER_PHONE,
-  ADMIN_INFO,
-  ADMIN_FIRSTNAME,
-  ADMIN_LASTNAME,
-  ADMIN_PHONENUMBER,
-  ADMIN_EMAIL,
-} from "@/lib/constants";
-import LocalStore from "@/lib/helper/storage-manager";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface IUserSlice {

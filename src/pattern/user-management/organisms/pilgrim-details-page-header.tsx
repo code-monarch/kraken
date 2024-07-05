@@ -34,7 +34,7 @@ export const PilgrimDetailsPageHeader: FC<IPilgrimBioDataProps> = ({
     });
   };
   return (
-    <div className="w-full flex items-start justify-between">
+    <div className="w-full flex items-start justify-between pb-3">
       <PilgrimBioData
         email={email}
         firstName={firstName}
@@ -44,6 +44,7 @@ export const PilgrimDetailsPageHeader: FC<IPilgrimBioDataProps> = ({
         status={status}
         userType={userType}
       />
+
       <div className="h-[44px] flex items-center gap-4">
         <Button
           variant="outlineSecondary"

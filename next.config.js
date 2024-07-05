@@ -2,9 +2,18 @@
 module.exports = {
   swcMinify: true,
   output: 'export',
-  images: { unoptimized: true },
   distDir: 'dist',
-  //   images: { loader: "custom" },
+  images: {
+    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'ummrah-images.s3.us-east-1.amazonaws.com',
+        port: '',
+        // pathname: '/account123/**',
+      },
+    ],
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
