@@ -1,22 +1,21 @@
-"use client";
-import React, { FC } from "react";
-import Image from "next/image";
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
-import { LinkIcon } from "@/pattern/common/atoms/icons/link-icon";
-import VerifiedTagIcon from "@/pattern/common/atoms/icons/verified-tag-icon";
-import PhoneIcon from "@/pattern/common/atoms/icons/phone-icon";
-import { Status, UserType } from "@/pattern/types";
-import { Badge } from "@/components/ui/badge";
+'use client'
+import React, { FC } from 'react'
+import Image from 'next/image'
+import { StaticImport } from 'next/dist/shared/lib/get-img-props'
+import { LinkIcon } from '@/pattern/common/atoms/icons/link-icon'
+import VerifiedTagIcon from '@/pattern/common/atoms/icons/verified-tag-icon'
+import PhoneIcon from '@/pattern/common/atoms/icons/phone-icon'
+import { Badge } from '@/components/ui/badge'
 
 export interface IPilgrimBioDataProps {
-  userImg: string | StaticImport;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
-  status: "active" | "inactive" | string;
-  userType: "user" | "agent" | string;
-  id?: string;
+  userImg: string | StaticImport
+  firstName: string
+  lastName: string
+  email: string
+  phoneNumber: string
+  status: 'active' | 'inactive' | string
+  userType: 'user' | 'agent' | string
+  id?: string
 }
 
 export const PilgrimBioData: FC<IPilgrimBioDataProps> = ({
@@ -29,9 +28,15 @@ export const PilgrimBioData: FC<IPilgrimBioDataProps> = ({
   userType,
 }) => {
   return (
-    <div className='flex items-start gap-6'>
+    <div className='w-full flex items-start gap-6'>
       <div className='relative w-[96px] h-[96px] rounded-full'>
-        <Image alt='profile picture' src={userImg} width={96} height={96} />
+        {/* User Avatar */}
+        {userImg ? (
+          <Image alt='profile picture' src={userImg} width={96} height={96} />
+        ) : (
+          <span className='bg-slate-300 w-[96px] h-[96px] rounded-full'></span>
+        )}
+
         <span className='absolute bottom-0 right-0'>
           <VerifiedTagIcon />
         </span>
@@ -49,31 +54,41 @@ export const PilgrimBioData: FC<IPilgrimBioDataProps> = ({
             <span>
               <LinkIcon />
             </span>
-            <span>{email}</span>
+            <a href={`mailto:${email}`}>{email}</a>
           </p>
           {/* Phone Number */}
           <p className='flex items-center gap-1'>
             <span>
               <PhoneIcon />
             </span>
-            <span className='text-base text-secondary whitespace-nowrap'>
-              {phoneNumber}
-            </span>
+            <a
+              href={`tel:${phoneNumber}`}
+              aria-label={`Call this user on ${phoneNumber}`}
+              className='text-base text-secondary whitespace-nowrap'
+            >
+             +{phoneNumber}
+            </a>
           </p>
         </div>
 
         <div className='flex items-center gap-1'>
           {/* User */}
-          <Badge variant='outline'>
-            {userType}
-          </Badge>
+          <Badge variant='outline'>{userType}</Badge>
 
           {/* Status */}
-          <Badge variant={status === "Active" ? "active" : status === "Frozen" ? "flagged" : "inactive"}>
+          <Badge
+            variant={
+              status === 'Active'
+                ? 'active'
+                : status === 'Frozen'
+                  ? 'flagged'
+                  : 'inactive'
+            }
+          >
             {status}
           </Badge>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

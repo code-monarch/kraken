@@ -72,7 +72,6 @@ export function UserManagementTable<TData, TValue>({
   return (
     <>
       <Table>
-        {/* <ScrollArea className='w-full h-full' orientation='horizontal'> */}
         {/* Header */}
         <TableHeader className='w-full'>
           {userManagementTable.getHeaderGroups().map(headerGroup => (
@@ -136,7 +135,7 @@ export function UserManagementTable<TData, TValue>({
                 columns={columns}
                 message={
                   <span>
-                    An error occurred while trying to fetch all users. <br /> To
+                    An error occurred while trying to the content of this table. <br /> To
                     retry, kindly refresh this page.
                   </span>
                 }
@@ -144,6 +143,7 @@ export function UserManagementTable<TData, TValue>({
             </TableRow>
           )}
         </TableBody>
+
         {/* Pagination */}
       </Table>
       {!isLoading &&

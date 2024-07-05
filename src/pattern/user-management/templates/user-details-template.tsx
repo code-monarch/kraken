@@ -30,7 +30,7 @@ const UserDetailsTemplate = () => {
     id: `${id}`,
   });
 
-  // Display error modal for bad Network error else display generic error modal
+  // Display error modal for when bad Network connection is bad else display generic error modal
   useEffect(() => {
     if (
       isError &&
@@ -85,42 +85,44 @@ const UserDetailsTemplate = () => {
   const [tabValue, setTabValue] = useState(tabs[0].value);
 
   return (
-    <div className="w-full h-full">
-      <GoBackWidget page="User details" />
+    <div className='w-full h-full'>
+      <GoBackWidget page='User details' />
 
-      <div className="bg-card w-full min-h-[760px] h-fit space-y-[32px] p-6">
+      <div className='bg-card w-full min-h-[760px] h-fit space-y-[32px] p-6'>
         {isLoading && (
-          <div className="h-24 text-center">
+          <div className='h-24 text-center'>
             <PulsePlaceholder />
           </div>
         )}
+
         {!isLoading && isSuccess && (
           <div>
             <PilgrimDetailsPageHeader
-              email={data?.data.email ?? "User Email"}
-              firstName={data?.data.firstname ?? "Firstname"}
-              lastName={data?.data.lastname ?? "Lastname"}
-              phoneNumber={data?.data.phoneNumber ?? "PhoneNumber"}
-              userImg={userImg}
-              status={data?.data.status ?? "Status"}
-              userType={data?.data.userType! ?? "UserType"}
+              email={data?.data.email ?? 'User Email'}
+              firstName={data?.data.firstname ?? 'Firstname'}
+              lastName={data?.data.lastname ?? 'Lastname'}
+              phoneNumber={data?.data.phoneNumber ?? 'PhoneNumber'}
+              userImg={data?.data.imageUrl}
+              status={data?.data.status ?? 'Status'}
+              userType={data?.data.userType! ?? 'UserType'}
               id={`${id}`}
             />
+
             {/* Tabs */}
             <Tabs
               value={tabValue}
               onValueChange={setTabValue}
-              className="w-full"
+              className='w-full'
             >
-              <TabsList className="w-full py-4 border-y">
-                {tabs.map((tab) => (
+              <TabsList className='w-full py-4 border-y'>
+                {tabs.map(tab => (
                   <div
                     key={tab.value}
-                    className="w-fit flex flex-col items-start"
+                    className='w-fit flex flex-col items-start'
                   >
                     <TabsTrigger
                       value={`${tab.value}`}
-                      className="flex items-center gap-2"
+                      className='flex items-center gap-2'
                     >
                       <span>
                         <tab.icon focused={tabValue === tab.value} />
@@ -130,8 +132,8 @@ const UserDetailsTemplate = () => {
                   </div>
                 ))}
               </TabsList>
-              {tabs.map((tab) => (
-                <TabsContent key={tab.value} value={tab.value} className="px-6">
+              {tabs.map(tab => (
+                <TabsContent key={tab.value} value={tab.value} className='px-6'>
                   {tab.content}
                 </TabsContent>
               ))}
@@ -142,7 +144,7 @@ const UserDetailsTemplate = () => {
         {isError && <ErrorFallback message={ERROR_MESSAGE} />}
       </div>
     </div>
-  );
+  )
 };
 
 export default UserDetailsTemplate;
