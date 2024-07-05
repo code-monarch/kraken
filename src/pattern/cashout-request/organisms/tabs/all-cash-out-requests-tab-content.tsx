@@ -14,7 +14,7 @@ const AllCashOutRequestTabContent = () => {
   const [dataQuery, setDataQuery] = useState<ICashOutRequestTicketCardProps[]>()
   // const [isLoading, setIsLoading] = useState<boolean>()
 
-  const { data, isLoading, isFetching, isSuccess, isError } =
+  const { data, isLoading, isSuccess, isError } =
     useGetCashoutRequestsQuery()
 
   // useEffect(() => {
@@ -38,8 +38,8 @@ const AllCashOutRequestTabContent = () => {
             key={idx}
             amount={data?.amount}
             status={data?.status}
-            ticketId={data?.id}
-            ticketNumber={data?.id}
+            ticketId={data?.transaction.id}
+            ticketNumber={data?.transaction.reference}
             userName={"Blessing Okonkwo"}
             userImage={userImg}
             date={format(data?.createdAt?.toLocaleString(), 'MM/dd/yyyy')}

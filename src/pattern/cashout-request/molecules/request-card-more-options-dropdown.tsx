@@ -13,12 +13,17 @@ import { ConfirmApprovalModal } from '../organisms/confirm-approval-modal'
 import { DeclineRequestModal } from '../organisms/decline-request-modal'
 import CashoutSlideOutMenu from '../templates/cahsout-slideout-menu'
 import Hidden from '@/pattern/common/molecules/data-display/hidden'
+import { useGetSingleCashoutRequestQuery } from '@/redux/services/transactions/get-cashout-requests.api-slice'
 
 interface IProps {
   ticketId: string
 }
 
 const RequestsCardMoreOptionsDropdown: FC<IProps> = ({ ticketId }) => {
+  const { data, isLoading } = useGetSingleCashoutRequestQuery({
+    id: ticketId,
+  })
+
   return (
     <DropdownMenu>
       {/* Trigger */}
@@ -27,7 +32,7 @@ const RequestsCardMoreOptionsDropdown: FC<IProps> = ({ ticketId }) => {
       </DropdownMenuTrigger>
       {/* Trigger End */}
 
-      <DropdownMenuContent align='center' >
+      <DropdownMenuContent align='center'>
         <DropdownMenuItem
           onClick={() =>
             show(CashoutSlideOutMenu, {
