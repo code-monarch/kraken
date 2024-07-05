@@ -4,7 +4,7 @@ import { TransactionsTable } from '@/pattern/transactions/organisms/transactions
 import { PaginationState } from '@tanstack/react-table'
 import TransactionsTableTemplateHeader from '../organisms/transactions-table-template-header'
 import {
-  Transactions,
+  Transaction,
   useGetTransactionsQuery,
 } from '@/redux/services/transactions/get-transactions.api-slice'
 
@@ -30,7 +30,7 @@ const TransactionsTableTemplate = () => {
     <div className='w-full bg-card'>
       <TransactionsTableTemplateHeader pagination={pagination} />
       <TransactionsTable
-        data={data?.data as Transactions[]}
+        data={data?.data as Transaction[]}
         isLoading={isLoading}
         isError={isError}
         isSuccess={isSuccess}

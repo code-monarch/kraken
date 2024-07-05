@@ -15,24 +15,28 @@ import SlideOutDivider from "../../molecules/data-display/slide-out-divider";
 import { Badge } from "@/components/ui/badge";
 import UserDetailCard from "../../molecules/data-display/user-detail-card";
 
-const TransactionsSlideOutMenu = create(() => {
-  const { resolve, remove, visible } = useModal();
-  const [scrollHeight, setScrollHeight] = useState(window.innerHeight - 30);
+interface IProps {
+  transactionId: string
+}
+
+const TransactionsSlideOutMenu = create(({ transactionId }: IProps) => {
+  const { resolve, remove, visible } = useModal()
+  const [scrollHeight, setScrollHeight] = useState(window.innerHeight - 30)
 
   useEffect(() => {
     function handleResize() {
-      setScrollHeight(window.innerHeight - 30);
+      setScrollHeight(window.innerHeight - 30)
     }
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize)
 
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const handleCloseModal = () => {
-    resolve({ resolved: true });
-    remove();
-  };
+    resolve({ resolved: true })
+    remove()
+  }
   return (
     <Sheet modal open={visible} onOpenChange={handleCloseModal}>
       <SheetContent>
@@ -124,7 +128,7 @@ const TransactionsSlideOutMenu = create(() => {
         </div>
       </SheetContent>
     </Sheet>
-  );
-});
+  )
+})
 
 export default TransactionsSlideOutMenu;

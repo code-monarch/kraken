@@ -19,7 +19,7 @@ const NameCell = ({ name, image, phoneNumber }: IProps) => {
           src={`https://${image}`}
           width={40}
           height={40}
-          className='rounded-full w-[40px] h-[40px]'
+          className='bg-slate-100 w-[40px] h-[40px] rounded-full '
         />
       ) : (
         <span className='bg-slate-100 w-[40px] h-[40px] rounded-full'></span>

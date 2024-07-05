@@ -1,6 +1,6 @@
 import { baseApiSlice } from '@/redux/api/base-api'
 
-export type Transactions = {
+export type Transaction = {
   id: string
   userid: string
   description: string
@@ -37,9 +37,11 @@ export interface ITransactionsResponse {
   error: boolean
   responseCode: string
   responseMessage: string
-  data: Transactions[]
+  data: Transaction[]
   // Placeholder type for Pagination
   pagination: {
+    totalResults: number
+    currentPage: number
     totalPages: number
   }
 }

@@ -15,9 +15,9 @@ import { formatDate } from "@/lib/helper/format-date";
 import { show } from "@ebay/nice-modal-react";
 import AgentCell from "./agent-cell";
 import { DeleteAccountModal } from "@/pattern/user-management/organisms/delete-account-modal";
-import { Transactions } from "@/redux/services/transactions/get-transactions.api-slice";
+import { Transaction } from "@/redux/services/transactions/get-transactions.api-slice";
 
-export const TransactionsTableColumns: ColumnDef<Transactions>[] = [
+export const TransactionsTableColumns: ColumnDef<Transaction>[] = [
   {
     id: 'select',
     header: ({ table }) => (

@@ -18,14 +18,14 @@ import {
 import PulsePlaceholder from '@/pattern/common/atoms/icons/pulse-placeholder-icon'
 import { Pagination } from '@/pattern/common/organisms/table/pagination'
 import { TransactionsTableColumns } from '../molecules/transactions-table-column'
-import { Transactions } from '@/redux/services/transactions/get-transactions.api-slice'
+import { Transaction } from '@/redux/services/transactions/get-transactions.api-slice'
 import ErrorTableWidget from '@/pattern/common/molecules/data-display/error-table-widget'
 import EmptyTableWidget from '@/pattern/common/molecules/data-display/empty-table-widget'
 
 const columns = TransactionsTableColumns
 
 interface ITransactionsTableProps {
-  data: Transactions[]
+  data: Transaction[]
   pageCount?: number
   pagination?: PaginationState
   setPagination?: any

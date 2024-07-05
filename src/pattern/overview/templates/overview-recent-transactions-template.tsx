@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import RecentTransactionsHeader from '../organisms/recent-transactions-header';
 import { TransactionsTable } from '@/pattern/transactions/organisms/transactions-table';
 import { PaginationState } from '@tanstack/react-table';
-import { Transactions, useGetTransactionsQuery } from '@/redux/services/transactions/get-transactions.api-slice';
+import { Transaction, useGetTransactionsQuery } from '@/redux/services/transactions/get-transactions.api-slice';
 
 const OverviewRecentTransactionsTemplate = () => {
   const [pagination, setPagination] = useState<PaginationState>({
@@ -26,7 +26,7 @@ const OverviewRecentTransactionsTemplate = () => {
     <div className='w-full bg-card'>
       <RecentTransactionsHeader />
       <TransactionsTable
-        data={data?.data as Transactions[]}
+        data={data?.data as Transaction[]}
         isLoading={isLoading}
         isError={isError}
         isSuccess={isSuccess}
