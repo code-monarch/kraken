@@ -9,12 +9,14 @@ const OverviewMetricGrid = () => {
         metric='Total Revenue'
         metricPercentage='10'
         metricValue={10000}
+        isLoading={false}
       />
       {/* Total Agent Earnings */}
       <DashboardMetricCard
         metric='Total Agent Earnings'
         metricPercentage='10'
         metricValue={4876.00}
+        isLoading={false}
       />
       {/* Total Number of transactions */}
       <DashboardMetricCard
@@ -22,6 +24,7 @@ const OverviewMetricGrid = () => {
         metricPercentage='10'
         metricValue={5687}
         isAmount={false}
+        isLoading={false}
       />
     </div>
   );

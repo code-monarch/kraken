@@ -59,6 +59,8 @@
     --spacing: 8px;
     --topbar-height: 64px;
     --sidebar-width: 280px;
+
+    --skeleton-gradient: rgb(255, 255, 255, 0.30);
   }
 
   .dark {

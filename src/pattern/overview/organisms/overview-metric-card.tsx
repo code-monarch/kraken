@@ -44,6 +44,7 @@ const OverviewMetricCard = () => {
               metric={`${metric}`}
               metricPercentage={`${metricPercentage}`}
               metricValue={Number(metricValue)}
+              isLoading={isLoading || isFetching}
             />
           ),
         )}

@@ -10,12 +10,14 @@ const SuperAdminOverviewMetricGrid = () => {
         metric='Total Revenue'
         metricPercentage='10'
         metricValue={10000}
+        isLoading={false}
       />
       {/* Total Agent Earnings */}
       <DashboardMetricCard
         metric='Total Agent Earnings'
         metricPercentage='10'
         metricValue= {4876.00}
+        isLoading={false}
       />
       {/* Total Number of transactions */}
       <DashboardMetricCard
@@ -23,6 +25,7 @@ const SuperAdminOverviewMetricGrid = () => {
         metricPercentage='10'
         metricValue= {5687}
         isAmount={false}
+        isLoading={false}
       />
       {/* Total Admin */}
       <DashboardMetricCard
@@ -31,6 +34,7 @@ const SuperAdminOverviewMetricGrid = () => {
         metricValue= {5687}
         hideMetricPercentage={true}
         isAmount={false}
+        isLoading={false}
       />
     </div>
   );

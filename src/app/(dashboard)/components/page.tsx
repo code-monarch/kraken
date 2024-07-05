@@ -83,6 +83,7 @@ export default function ComponentsPage() {
           metric='Total Revenue'
           metricPercentage='50'
           metricValue={10000}
+          isLoading={false}
         />
       </div>
       <Button variant='outline' onClick={showTransactionSheet}>

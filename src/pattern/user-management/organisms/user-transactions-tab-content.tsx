@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { TransactionsTable } from '@/pattern/transactions/organisms/transactions-table'
 import { PaginationState } from '@tanstack/react-table'
 import TransactionsTableTemplateHeader from '@/pattern/transactions/organisms/transactions-table-template-header'
-import { Transactions, useGetTransactionsQuery } from '@/redux/services/transactions/get-transactions.api-slice'
+import { Transaction, useGetTransactionsQuery } from '@/redux/services/transactions/get-transactions.api-slice'
 
 const UserTransactionsTabContent = () => {
   const [pagination, setPagination] = useState<PaginationState>({
@@ -29,7 +29,7 @@ const UserTransactionsTabContent = () => {
         pagination={pagination}
       />
       <TransactionsTable
-        data={data?.data as Transactions[]}
+        data={data?.data as Transaction[]}
         isLoading={isLoading}
         isError={isError}
         isSuccess={isSuccess}
