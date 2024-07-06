@@ -11,6 +11,11 @@ module.exports = {
         hostname: 'ummrah-images.s3.us-east-1.amazonaws.com',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'umrah-doc.s3.us-east-1.amazonaws.com',
+        port: '',
+      },
     ],
   },
   webpack(config) {
@@ -18,7 +23,6 @@ module.exports = {
       test: /\.svg$/,
       use: ['@svgr/webpack'],
     })
-    1
 
     return config
   },

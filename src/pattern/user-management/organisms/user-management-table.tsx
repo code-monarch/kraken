@@ -95,19 +95,19 @@ export function UserManagementTable<TData, TValue>({
         {/* Body */}
         <TableBody className='w-full'>
           {/* Display placeholder when it is loading */}
-          {(isLoading || isFetching) && (
+          {(isLoading || isFetching) ? (
             <TableRow>
               <TableCell colSpan={columns.length} className='h-24 text-center'>
                 <PulsePlaceholder />
               </TableCell>
             </TableRow>
-          )}
+          ): null}
 
           {/* Display table rows when data is done loading and the table rows are not empty */}
           {!isLoading &&
             !isFetching &&
             isSuccess &&
-            userManagementTable.getRowModel().rows?.length &&
+            userManagementTable.getRowModel().rows?.length ?
             userManagementTable.getRowModel().rows.map(row => (
               <TableRow
                 key={row.id}
@@ -119,17 +119,17 @@ export function UserManagementTable<TData, TValue>({
                   </TableCell>
                 ))}
               </TableRow>
-            ))}
+            )): null}
 
           {/* Display Message when data is empty or an error is returned */}
-          {!isLoading && !isFetching && isSuccess && data?.length === 0 && (
+          {!isLoading && !isFetching && isSuccess && data?.length === 0 ? (
             <TableRow>
               <EmptyTableWidget columns={columns} />
             </TableRow>
-          )}
+          ): null}
 
           {/* Else render error message */}
-          {!isLoading && !isFetching && isError && (
+          {!isLoading && !isFetching && isError ? (
             <TableRow>
               <ErrorTableWidget
                 columns={columns}
@@ -141,7 +141,7 @@ export function UserManagementTable<TData, TValue>({
                 }
               />
             </TableRow>
-          )}
+          ): null}
         </TableBody>
 
         {/* Pagination */}
@@ -149,9 +149,9 @@ export function UserManagementTable<TData, TValue>({
       {!isLoading &&
         !isFetching &&
         isSuccess &&
-        userManagementTable.getRowModel().rows?.length && (
+        userManagementTable.getRowModel().rows?.length ? (
           <Pagination table={userManagementTable} />
-        )}
+        ): null}
     </>
   )
 }
