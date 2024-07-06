@@ -15,6 +15,7 @@ const TransactionsTableTemplate = () => {
   })
   const [pageCount, setPageCount] = useState<number>(1)
 
+  // Get TRansactions API query
   const { data, isLoading, isError, isSuccess, isFetching } = useGetTransactionsQuery({
     page: pagination.pageIndex + 1,
     pageSize: pagination.pageSize,

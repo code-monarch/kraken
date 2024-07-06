@@ -10,8 +10,6 @@ import { useGetCashoutRequestsQuery } from '@/redux/services/transactions/get-ca
 import userImg from '@/public/images/user-img.png'
 
 const AllCashOutRequestTabContent = () => {
-  const [dataQuery, setDataQuery] = useState<ICashOutRequestTicketCardProps[]>()
-
   const { data, isLoading, isSuccess, isError } =
     useGetCashoutRequestsQuery()
 
