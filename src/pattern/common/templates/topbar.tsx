@@ -6,6 +6,8 @@ import NotificationWidget from '../molecules/data-display/notification-widget'
 import TopbarProfileTag from '../molecules/data-display/top-bar-profile-tag'
 import { getInitials } from '@/lib/helper/get-initials'
 import { useGetAdminProfileQuery } from '@/redux/services/admin/admin.api-slice'
+import ButtonWithIcon from '../molecules/controls/button-with-icon'
+import FundDisbursementWalletBtn from '@/pattern/user-management/atoms/fund-disbursement-wallet-btn'
 
 const Topbar = () => {
   // Get Admin API query
@@ -28,13 +30,17 @@ const Topbar = () => {
         {/* Welcome Message */}
         <h4 className='font-medium text-[1.25rem]'>
           Welcome back,{' '}
-          <span className='text-primary'>{data?.data.firstname ?? ""}</span>
+          <span className='text-primary'>{data?.data.firstname ?? ''}</span>
         </h4>
 
-        {/* Wallet/Currency Summary, Notification and more options */}
-        <div className='flex items-center gap-x-4'>
-          <NotificationWidget />
-          <TopbarProfileTag initials={initials} />
+        <div className='flex items-center gap-x-9'>
+          <FundDisbursementWalletBtn />
+
+          {/* Wallet/Currency Summary, Notification and more options */}
+          <div className='flex items-center gap-x-4'>
+            <NotificationWidget />
+            <TopbarProfileTag initials={initials} />
+          </div>
         </div>
       </div>
     </div>

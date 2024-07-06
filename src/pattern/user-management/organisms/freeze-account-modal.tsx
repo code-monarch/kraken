@@ -14,8 +14,6 @@ import { FreezeAccountHeaderIcon } from '@/pattern/common/atoms/icons/freeze-acc
 import LoadingButton from '@/pattern/common/molecules/controls/loading-button'
 import { useFreezeUserMutation } from '@/redux/services/users/freeze-user.api-slice'
 import { SuccessModal } from '@/pattern/common/organisms/success-modal'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { DASHBOARD_PATHS } from '@/lib/routes'
 import { ErrorModal } from '@/pattern/common/organisms/error-modal'
 
 interface IProps {
@@ -25,12 +23,6 @@ interface IProps {
 }
 
 export const FreezeAccountModal = create(({ userId, name, status }: IProps) => {
-  const searchParams = useSearchParams()
-  const router = useRouter()
-
-  // Returns a boolean if the current URL has a 'userId' search param
-  const id = searchParams.has('userId')
-
   const { resolve, remove, visible } = useModal()
 
   const handleCloseModal = () => {
@@ -51,9 +43,6 @@ export const FreezeAccountModal = create(({ userId, name, status }: IProps) => {
         show(SuccessModal, {
           message: res.responseMessage ?? 'Account frozen successfully',
         })
-        // if (id) {
-        //   router.push(`${DASHBOARD_PATHS.userManagement}`);
-        // }
       })
       .catch(err => {
         handleCloseModal()
@@ -83,7 +72,7 @@ export const FreezeAccountModal = create(({ userId, name, status }: IProps) => {
                   &lsquo;{name}&lsquo;
                 </span>{' '}
                 (User ID: <span className='text-secondary'>{userId}</span>).
-                 Unfreezing the account will give the user access to perform
+                Unfreezing the account will give the user access to perform
                 transactions and access the UmrahCash services
               </p>
             ) : (
@@ -98,13 +87,6 @@ export const FreezeAccountModal = create(({ userId, name, status }: IProps) => {
                 services
               </p>
             )}
-            {/* <p className="text-sm text-[#4F627D]">
-              Are you sure you want to freeze the account of the user
-              <span className="text-secondary">&lsquo;{name}&lsquo;</span> (User
-              ID: <span className="text-secondary">{userId}</span>)? Freezing
-              the account will temporarily disable the user&lsquo;s ability to
-              perform transactions and access the UmrahCash services
-            </p> */}
           </CardContent>
 
           {/* Footer */}

@@ -198,3 +198,16 @@ input:-webkit-autofill:active {
   font-family: var(--font-raleway) !important;
   font-size: 0.9rem;
 }
+
+/* Hide the default number input control buttons */
+.hide-number-input-control-btns::-webkit-inner-spin-button,
+.hide-number-input-control-btns::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.hide-number-input-control-btns {
+  /* Firefox */
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
