@@ -1,5 +1,5 @@
 'use client'
-import { FC, useState } from 'react'
+import { FC, useMemo, useState } from 'react'
 import { Badge } from '@/components/ui/badge'
 import ButtonWithIcon from '@/pattern/common/molecules/controls/button-with-icon'
 import { ExcelIcon } from '@/pattern/common/atoms/icons/excel-icon'
@@ -28,14 +28,21 @@ const TransactionsTableTemplateHeader: FC<IProps> = ({ pagination }) => {
   const [startDate, setStartDate] = useState<string>('')
   const [endDate, setEndDate] = useState<string>('')
 
-  const { data, isLoading, isError, isSuccess, isFetching } =
-    useGetTransactionsQuery({
-      page: pagination.pageIndex + 1,
-      pageSize: pagination.pageSize,
-      searchQuery: searchQuery,
-      filterby: { label: 'status', value: status! },
-      type: transactionType,
-    })
+  const {
+    data: transactions,
+    isLoading,
+    isError,
+    isSuccess,
+    isFetching,
+  } = useGetTransactionsQuery({
+    page: pagination.pageIndex + 1,
+    pageSize: pagination.pageSize,
+    searchQuery: searchQuery,
+    filterby: { label: 'status', value: status! },
+    type: transactionType,
+    startDate: startDate,
+    endDate: endDate,
+  })
 
   const handleShowSearchFilterModal = async () => {
     const result: any = await show(TransactionsSearchFilterModal)
@@ -50,7 +57,7 @@ const TransactionsTableTemplateHeader: FC<IProps> = ({ pagination }) => {
   }
 
   // Total number of Ummrahcash transactions
-  const TRANSACTIONS = data?.data?.paginate?.totalResults ?? 0
+  const TRANSACTIONS = transactions?.data?.paginate?.totalResults ?? 0
 
   return (
     <div className='w-full px-6'>

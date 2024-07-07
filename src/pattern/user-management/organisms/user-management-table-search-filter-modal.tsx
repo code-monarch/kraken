@@ -54,13 +54,6 @@ export const UserManagementTableSearchFilterModal = create(
 
     const { resolve, remove, visible } = useModal()
 
-    // const showDateCalendarModal = async () => {
-    //   const result: any = await show(CalendarModal);
-    //   if (result.resolved) {
-    //     setRegisteredOn(result.registeredOn);
-    //   }
-    // };
-
     const showDateRangeFilterModal = async () => {
       const result: any = await show(DateRangeFilterModal)
       if (result.resolved) {
@@ -141,9 +134,6 @@ export const UserManagementTableSearchFilterModal = create(
                     Roles
                   </label>
                   <div className='w-full max-w-full flex items-center gap-2 flex-wrap'>
-                    {/* {rolesFilterSetting.map(({ value, label }) => (
-                  <FilterToggle key={value} label={label} value={value} />
-                ))} */}
                     <ToggleGroup
                       type='single'
                       value={userRole}

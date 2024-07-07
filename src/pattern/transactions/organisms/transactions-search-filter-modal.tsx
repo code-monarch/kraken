@@ -18,6 +18,7 @@ import { DateRangeFilterModal } from '@/pattern/common/organisms/date-range-filt
 import DateInput from '@/pattern/common/molecules/inputs/date-input'
 import { LinkButton } from '@/pattern/common/molecules/controls/link-button'
 import { IListType } from '@/pattern/types'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 
 const rolesFilterSetting: IListType[] = [
   {
@@ -55,12 +56,9 @@ const TransactionTypeFilterSetting: IListType[] = [
 
 export const TransactionsSearchFilterModal = create(() => {
   const [order, setOrder] = useState<string>('')
-  const [transactionType, setTransactionType] = useState<
-    'Trade' | 'Withdrawal' | 'Swap' | 'Deposit'
-  >()
-  const [status, setStatus] = useState<
-    'COMPLETED' | 'PENDING' | 'FAILED' | null
-  >()
+  const [role, setRole] = useState<string>('')
+  const [transactionType, setTransactionType] = useState<string>()
+  const [status, setStatus] = useState<string>()
   const [startDate, setStartDate] = useState<string>('')
   const [endDate, setEndDate] = useState<string>('')
   const [dateRange, setDateRange] = useState<string>('')
@@ -114,7 +112,9 @@ export const TransactionsSearchFilterModal = create(() => {
             <CardTitle>Filters</CardTitle>
             <div className='flex items-center gap-x-[32px] pt-[2px] !m-0'>
               {/* Clear all button */}
-              <LinkButton className='text-[18px]'>Clear All</LinkButton>
+              <LinkButton className='text-[18px]' onClick={resetValues}>
+                Clear All
+              </LinkButton>
               <span onClick={handleCloseModal} className='!m-0 cursor-pointer'>
                 <SheetCloseIcon />
               </span>
@@ -136,6 +136,7 @@ export const TransactionsSearchFilterModal = create(() => {
                   label='Date range'
                   placeholder='Select a date range'
                   onClick={showDateRangeFilterModal}
+                  value={dateRange}
                 />
               </div>
             </div>
@@ -147,9 +148,17 @@ export const TransactionsSearchFilterModal = create(() => {
                 Roles
               </label>
               <div className='w-full max-w-full flex items-center gap-2 flex-wrap'>
-                {rolesFilterSetting.map(({ value, label }) => (
-                  <FilterToggle key={value} label={label} value={value} />
-                ))}
+                <ToggleGroup type='single' value={role} onValueChange={setRole}>
+                  {rolesFilterSetting.map(({ value, label }) => (
+                    <ToggleGroupItem
+                      key={value}
+                      value={value}
+                      aria-label={value}
+                    >
+                      {label}
+                    </ToggleGroupItem>
+                  ))}
+                </ToggleGroup>
               </div>
             </div>
             <Separator />
@@ -160,9 +169,21 @@ export const TransactionsSearchFilterModal = create(() => {
                 Transaction type
               </label>
               <div className='w-full flex items-center gap-2'>
-                {TransactionTypeFilterSetting.map(({ value, label }) => (
-                  <FilterToggle key={value} label={label} value={value} />
-                ))}
+                <ToggleGroup
+                  type='single'
+                  value={transactionType}
+                  onValueChange={setTransactionType}
+                >
+                  {TransactionTypeFilterSetting.map(({ value, label }) => (
+                    <ToggleGroupItem
+                      key={value}
+                      value={value}
+                      aria-label={value}
+                    >
+                      {label}
+                    </ToggleGroupItem>
+                  ))}
+                </ToggleGroup>
               </div>
             </div>
           </CardContent>

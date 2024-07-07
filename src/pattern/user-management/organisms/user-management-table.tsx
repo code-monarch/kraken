@@ -147,7 +147,7 @@ export function UserManagementTable<TData, TValue>({
       {/* Pagination */}
       <Hidden visible={isSuccess && !isLoading && !isFetching}>
         {userManagementTable.getRowModel().rows?.length ? (
-          <Pagination table={userManagementTable} className='pr-4' />
+          <Pagination table={userManagementTable} className='pr-6' />
         ) : null}
       </Hidden>
     </>

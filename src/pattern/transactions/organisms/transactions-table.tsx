@@ -163,7 +163,7 @@ export const TransactionsTable = ({
       {/* Pagination */}
       <Hidden visible={isSuccess && !isLoading && !isFetching}>
         {transactionsTable.getRowModel().rows?.length ? (
-          <Pagination table={transactionsTable} className='pr-4' />
+          <Pagination table={transactionsTable} className='pr-6' />
         ) : null}
       </Hidden>
     </>

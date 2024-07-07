@@ -10,7 +10,7 @@ const TableSkeleton = ({
   return (
     <div
       className={cn(
-        'bg-[#fff] w-full h-full flex flex-col gap-3',
+        'bg-[#fff] w-full h-full flex flex-col gap-3 px-8',
         className,
       )}
       {...props}
