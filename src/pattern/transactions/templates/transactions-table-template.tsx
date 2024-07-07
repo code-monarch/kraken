@@ -16,14 +16,14 @@ const TransactionsTableTemplate = () => {
   const [pageCount, setPageCount] = useState<number>(1)
 
   // Get TRansactions API query
-  const { data, isLoading, isError, isSuccess, isFetching } = useGetTransactionsQuery({
+  const { data, isLoading, error, isError, isSuccess, isFetching } = useGetTransactionsQuery({
     page: pagination.pageIndex + 1,
     pageSize: pagination.pageSize,
   })
 
   useEffect(() => {
     if (data && data.data) {
-      setPageCount(data?.pagination?.totalPages)
+      setPageCount(data?.data?.paginate?.totalPages)
     }
   }, [data])
 
@@ -31,8 +31,9 @@ const TransactionsTableTemplate = () => {
     <div className='w-full bg-card'>
       <TransactionsTableTemplateHeader pagination={pagination} />
       <TransactionsTable
-        data={data?.data as Transaction[]}
+        data={data?.data?.contents as Transaction[]}
         isLoading={isLoading}
+        error={error}
         isError={isError}
         isSuccess={isSuccess}
         isFetching={isFetching}

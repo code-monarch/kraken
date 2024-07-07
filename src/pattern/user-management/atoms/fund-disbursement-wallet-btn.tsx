@@ -17,7 +17,7 @@ const FundDisbursementWalletBtn = () => {
       className='min-w-[190px] w-fit h-[45px] bg-[hsla(215,100%,94%,1)] text-[1.125rem] text-secondary hover:bg-[hsla(215,100%,94%,1)] rounded-[6px]'
       onClick={handleFundDisbursementWallet}
     >
-      Fund disbursement wallet
+      Fund wallet
     </ButtonWithIcon>
   )
 }

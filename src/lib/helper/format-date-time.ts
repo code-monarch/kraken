@@ -1,4 +1,4 @@
-function formatDateTime(dateString: string) {
+const formatDateTime = (dateString: string) => {
   const months = [
     "Jan",
     "Feb",

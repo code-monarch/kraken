@@ -49,15 +49,16 @@ const TransactionsTableTemplateHeader: FC<IProps> = ({ pagination }) => {
     }
   }
 
-  //   The number of tractions would be gotten from the length of the transaction endpoint
-  let transactions = data?.data?.length ?? 0
+  // Total number of Ummrahcash transactions
+  const TRANSACTIONS = data?.data?.paginate?.totalResults ?? 0
+
   return (
     <div className='w-full px-6'>
       {/* Top */}
       <div className='w-full h-[76px] bg-inherit flex items-center justify-between py-[26px]'>
         <div className='flex items-center gap-2'>
           <h3 className='text-[1.125rem] font-semibold'>Transactions</h3>
-          <Badge variant='accent'>{transactions} transactions</Badge>
+          <Badge variant='accent'>{TRANSACTIONS} transactions</Badge>
         </div>
         <ButtonWithIcon
           variant='outlinePrimary'

@@ -7,7 +7,6 @@ import { Label } from '@/components/ui/label'
 import { DOLLAR_CURRENCY_SYMBOL } from '@/lib/constants'
 import { formatNumber } from '@/lib/helper/format-number'
 import Hidden from '../molecules/data-display/hidden'
-import { Skeleton } from '@/components/ui/skeleton'
 import { cn } from '@/lib/utils'
 import DashboardMetricCardSkeleton from '../molecules/skeletons/dashboard-metric-card-skeleton'
 
