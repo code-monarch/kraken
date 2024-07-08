@@ -22,30 +22,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   setEndDateFilter,
   setOrderFilter,
+  setSearchQueryFilter,
   setStartDateFilter,
   setStatusFilter,
   setTransactionTypeFilter,
 } from '@/redux/slices/transactions-filter'
 import { RootState } from '@/redux/store'
-
-const statusFilterSetting: IListType[] = [
-  {
-    label: 'All',
-    value: 'all',
-  },
-  {
-    label: 'Completed',
-    value: 'COMPLETED',
-  },
-  {
-    label: 'Pending',
-    value: 'PENDING',
-  },
-  {
-    label: 'Failed',
-    value: 'FAILED',
-  },
-]
 
 const TransactionTypeFilterSetting: IListType[] = [
   {
@@ -74,33 +56,27 @@ export const TransactionsFilterModal = create(() => {
   const dispatch = useDispatch()
   const { resolve, hide, visible } = useModal()
 
-    const transactionTypeFilter = useSelector(
-      (state: RootState) => state.transactionsFilter.transactionType,
-    )
-    const startDateFilter = useSelector(
-      (state: RootState) => state.transactionsFilter.startDate,
-    )
-    const endDateFilter = useSelector(
-      (state: RootState) => state.transactionsFilter.endDate,
-    )
-    const statusFilter = useSelector(
-      (state: RootState) => state.transactionsFilter.status,
-    )
+  const transactionTypeFilter = useSelector(
+    (state: RootState) => state.transactionsFilter.transactionType,
+  )
+  const startDateFilter = useSelector(
+    (state: RootState) => state.transactionsFilter.startDate,
+  )
+  const endDateFilter = useSelector(
+    (state: RootState) => state.transactionsFilter.endDate,
+  )
+  const searchQueryFilter = useSelector(
+    (state: RootState) => state.transactionsFilter.searchQuery,
+  )
 
   const [order, setOrder] =
     useState<ITransactionsTableHeaderProps['order']>('asc')
   const [transactionType, setTransactionType] = useState<
     ITransactionsTableHeaderProps['transactionType']
   >(transactionTypeFilter)
-  const [status, setStatus] =
-    useState<ITransactionsTableHeaderProps['status']>(statusFilter)
   const [startDate, setStartDate] = useState<string>(startDateFilter)
   const [endDate, setEndDate] = useState<string>(endDateFilter)
   const [dateRange, setDateRange] = useState<string>('')
-
-  const handleStatusChange = (value: string) => {
-    setStatus(value as ITransactionsTableHeaderProps['status'])
-  }
 
   const handleTransactionTypeChange = (value: string) => {
     setTransactionType(
@@ -122,11 +98,13 @@ export const TransactionsFilterModal = create(() => {
   }
 
   const handleSaveFilterSettings = () => {
-    dispatch(setStatusFilter(status!))
     dispatch(setOrderFilter(order))
     dispatch(setStartDateFilter(startDate))
     dispatch(setEndDateFilter(endDate))
     dispatch(setTransactionTypeFilter(transactionType!))
+    if (searchQueryFilter) {
+      dispatch(setSearchQueryFilter(''))
+    }
     resolve({
       resolved: true,
     })
@@ -174,32 +152,6 @@ export const TransactionsFilterModal = create(() => {
                   onClick={showDateRangeFilterModal}
                   value={dateRange}
                 />
-              </div>
-            </div>
-            <Separator />
-
-            {/* Status Filters */}
-            <div className='space-y-[16px] pt-4 px-6 mb-4'>
-              <label htmlFor='' className='text-sm font-medium'>
-                Status
-              </label>
-              <div className='w-full max-w-full flex items-center gap-2 flex-wrap'>
-                <ToggleGroup
-                  type='single'
-                  value={status}
-                  defaultValue='all'
-                  onValueChange={value => handleStatusChange(value)}
-                >
-                  {statusFilterSetting.map(({ value, label }) => (
-                    <ToggleGroupItem
-                      key={value}
-                      value={value}
-                      aria-label={value}
-                    >
-                      {label}
-                    </ToggleGroupItem>
-                  ))}
-                </ToggleGroup>
               </div>
             </div>
             <Separator />

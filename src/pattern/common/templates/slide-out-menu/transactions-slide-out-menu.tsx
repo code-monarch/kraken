@@ -27,6 +27,7 @@ import { formatNumber } from '@/lib/helper/format-number'
 import { TransactionSlideOutMenuIcon } from '../../atoms/icons/transaction-slideout-menu-icon'
 import Hidden from '../../molecules/data-display/hidden'
 import TransactionsSlideOutMenuSkeleton from '../../molecules/skeletons/transactions-slide-out-menu-skeleton'
+import { getInitials } from '@/lib/helper/get-initials'
 
 interface IProps {
   transactionId: string
@@ -66,6 +67,13 @@ const TransactionsSlideOutMenu = create(({ transactionId }: IProps) => {
         setIconColour(PENDING_ICON_COLOUR)
     }
   }, [data?.data?.status])
+
+    const agentInitials = getInitials(
+      `${data?.data?.metadata?.agent?.firstname} ${data?.data?.metadata?.agent?.firstname}`,
+    )
+    const customerInitials = getInitials(
+      `${data?.data?.metadata?.customer?.firstname} ${data?.data?.metadata?.customer?.firstname}`,
+    )
 
   const handleCloseModal = () => {
     resolve({ resolved: true })
@@ -122,7 +130,7 @@ const TransactionsSlideOutMenu = create(({ transactionId }: IProps) => {
             <Hidden visible={!isLoading}>
               <div
                 className={cn(
-                  'w-full mt-[72px] px-[24px] pt-[24px] font-raleway space-y-[16px]'
+                  'w-full mt-[72px] px-[24px] pt-[24px] font-raleway space-y-[16px]',
                 )}
               >
                 <div className='w-full h-[204px] flex flex-col items-center justify-center gap-y-6'>
@@ -135,9 +143,9 @@ const TransactionsSlideOutMenu = create(({ transactionId }: IProps) => {
                       {data?.data?.order_amount}{' '}
                       <span>{data?.data?.currency}</span>
                     </h3>
-                    <p className='text-accent-foreground text-base font-medium'>
+                    {/* <p className='text-accent-foreground text-base font-medium'>
                       100,000.00 SAR
-                    </p>
+                    </p> */}
 
                     {/* Status */}
                     <h4
@@ -154,9 +162,9 @@ const TransactionsSlideOutMenu = create(({ transactionId }: IProps) => {
                 </div>
 
                 {/* Flag Transaction Button */}
-                {data?.data?.status === 'PENDING' ? (
+                {/* {data?.data?.status === 'PENDING' ? (
                   <Button variant='outlineDestructive'>Flag transaction</Button>
-                ) : null}
+                ) : null} */}
 
                 <div className='px-4 space-y-[16px]'>
                   {/* Transaction Details */}
@@ -172,41 +180,51 @@ const TransactionsSlideOutMenu = create(({ transactionId }: IProps) => {
                   />
 
                   {/* Pilgrim details */}
-                  <div className='w-full h-[192px] space-y-[30px] py-4'>
-                    <SlideOutDivider>
-                      <Badge
-                        variant='accent'
-                        className='min-h-[24px] min-w-[139px] rounded-[10px]'
-                      >
-                        Pilgrim details
-                      </Badge>
-                    </SlideOutDivider>
-                    <UserDetailCard
-                      ImageFallback='JA'
-                      name='Josh to funny'
-                      number='+2349036075477'
-                    />
-                  </div>
+                  <Hidden
+                    visible={data?.data?.metadata?.customer ? true : false}
+                  >
+                    <div className='w-full h-[192px] space-y-[30px] py-4'>
+                      <SlideOutDivider>
+                        <Badge
+                          variant='accent'
+                          className='min-h-[24px] min-w-[139px] rounded-[10px]'
+                        >
+                          Pilgrim details
+                        </Badge>
+                      </SlideOutDivider>
+                      <UserDetailCard
+                        imageUrl={data?.data?.metadata?.customer?.imageUrl}
+                        ImageFallback={customerInitials}
+                        name={`${data?.data?.metadata?.customer?.firstname} ${data?.data?.metadata?.customer?.lastname}`}
+                        number={data?.data?.metadata?.customer?.phoneNumber!}
+                      />
+                    </div>
+                  </Hidden>
 
                   {/* Agent details */}
-                  <div className='w-full h-[192px] space-y-[30px] py-4'>
-                    <SlideOutDivider>
-                      <Badge
-                        variant='accent'
-                        className='min-h-[24px] min-w-[139px] rounded-[10px]'
-                      >
-                        Agent details
-                      </Badge>
-                    </SlideOutDivider>
-                    <UserDetailCard
-                      ImageFallback='JA'
-                      name='Josh to funny'
-                      number='+2349036075477'
-                    />
-                  </div>
+                  <Hidden
+                    visible={data?.data?.metadata?.customer ? true : false}
+                  >
+                    <div className='w-full h-[192px] space-y-[30px] py-4'>
+                      <SlideOutDivider>
+                        <Badge
+                          variant='accent'
+                          className='min-h-[24px] min-w-[139px] rounded-[10px]'
+                        >
+                          Agent details
+                        </Badge>
+                      </SlideOutDivider>
+                      <UserDetailCard
+                        imageUrl={data?.data?.metadata?.customer?.imageUrl}
+                        ImageFallback={agentInitials}
+                        name={`${data?.data?.metadata?.agent?.firstname} ${data?.data?.metadata?.agent?.lastname}`}
+                        number={data?.data?.metadata?.agent.phoneNumber!}
+                      />
+                    </div>
+                  </Hidden>
 
                   {/* User message */}
-                  <div className='w-full h-[192px] space-y-[30px]'>
+                  {/* <div className='w-full h-[192px] space-y-[30px]'>
                     <SlideOutDivider>
                       <Badge
                         variant='accent'
@@ -220,7 +238,7 @@ const TransactionsSlideOutMenu = create(({ transactionId }: IProps) => {
                       I received shows a different amount. Please investigate
                       and resolve the issue. Thank you.
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </Hidden>

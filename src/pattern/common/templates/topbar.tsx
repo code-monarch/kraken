@@ -5,7 +5,6 @@ import { cn } from '@/lib/utils'
 import TopbarProfileTag from '../molecules/data-display/top-bar-profile-tag'
 import { getInitials } from '@/lib/helper/get-initials'
 import { useGetAdminProfileQuery } from '@/redux/services/admin/admin.api-slice'
-import FundDisbursementWalletBtn from '@/pattern/user-management/atoms/fund-disbursement-wallet-btn'
 
 const Topbar = () => {
   // Get Admin API query
@@ -32,8 +31,6 @@ const Topbar = () => {
         </h4>
 
         <div className='flex items-center gap-x-9'>
-          <FundDisbursementWalletBtn />
-
           {/* Profile tag */}
           <div className='flex items-center gap-x-4'>
             <TopbarProfileTag initials={initials} />

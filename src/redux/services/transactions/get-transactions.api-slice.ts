@@ -1,5 +1,15 @@
 import { baseApiSlice } from '@/redux/api/base-api'
 
+type Metadata = {
+  lastname: string,
+  firstname: string,
+  phoneNumber: string,
+  address: string,
+  id: string,
+  email: string
+  imageUrl: string
+}
+
 export type Transaction = {
   id: string
   userid: string
@@ -12,11 +22,9 @@ export type Transaction = {
   currency: string // e.g. "USD",
   status: "COMPLETED" | "PENDING" | "FAILED",
   metadata: {
-    customer: {
-      email: string
-      customerid: string
-    }
-  }
+    agent: Metadata
+    customer: Metadata
+  },
   createdAt: string // e.g. 2024-05-31T01:31:21.761Z,
   updatedAt: string // e.g. 2024-05-31T01:31:21.761Z,
   history: {
