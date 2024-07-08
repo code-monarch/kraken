@@ -74,8 +74,8 @@ export const baseApiSlice = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: ["getUser", "getAdmin", "getProfile", "getTransactions", "getSingleTransactions", "getTransactionMatrix", "getTransactionMatrixAlltime", "getCashoutRequests"],
   refetchOnReconnect: true,
-  keepUnusedDataFor: 30,
-  // refetchOnMountOrArgChange: 30,
+  // keepUnusedDataFor: 30,
+  refetchOnMountOrArgChange: true,
   // refetchOnFocus: true,
   endpoints: (builder) => ({}),
 })

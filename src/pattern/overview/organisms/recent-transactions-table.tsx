@@ -101,12 +101,10 @@ export const RecentTransactionsTable = ({
               </TableRow>
             ))}
           </TableHeader>
-
           {/* Body */}
           <TableBody>
             {/* Display table rows when data is done loading and the table rows are not empty */}
             <Hidden visible={isSuccess && !isLoading && !isFetching}>
-              {' '}
               {transactionsTable.getRowModel().rows?.length
                 ? transactionsTable.getRowModel().rows.map(row => (
                     <TableRow

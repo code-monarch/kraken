@@ -44,6 +44,18 @@ export const TransactionsTableColumns: ColumnDef<Transaction>[] = [
     header: 'Trx ID',
   },
   {
+    accessorKey: 'pilgrim',
+    header: 'Pilgrim',
+    cell: ({ row }) => {
+      const name: string = row.getValue('pilgrim')
+      return (
+        <div className='mr-[60px]'>
+          <AgentCell name={name ?? 'John Doe'} />
+        </div>
+      )
+    },
+  },
+  {
     accessorKey: 'order_amount',
     header: () => <div className=''>Amount</div>,
     cell: ({ row }) => {
@@ -61,7 +73,11 @@ export const TransactionsTableColumns: ColumnDef<Transaction>[] = [
     header: 'Agent',
     cell: ({ row }) => {
       const name: string = row.getValue('agent')
-    return <AgentCell name={name ?? 'John Doe'} />
+      return (
+        <div className='mr-[35px]'>
+          <AgentCell name={name ?? 'John Doe'} />
+        </div>
+      )
     },
   },
   {

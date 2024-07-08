@@ -47,12 +47,12 @@ export interface ITransactionsResponse {
   }
 }
 
-interface ITransactionsPayload {
+export interface ITransactionsPayload {
   pageSize?: number
   page?: number
   searchQuery?: string // search query
-  filterby?: { label: 'status'; value: 'COMPLETED' | 'PENDING' | 'FAILED' }
-  type?: 'Trade' | 'Withdrawal' | 'Swap' | 'Deposit'
+  filterby?: { label: 'status'; value: 'COMPLETED' | 'PENDING' | 'FAILED' | null | undefined }
+  type?: 'Trade' | 'Withdrawal' | 'Swap' | 'Deposit' | null | undefined
   startDate?: string
   endDate?: string
 }
@@ -62,17 +62,28 @@ export const getTransactionsApiSlice = baseApiSlice.injectEndpoints({
     getTransactions: builder.query<ITransactionsResponse, ITransactionsPayload>(
       {
         query: ({ pageSize, page, searchQuery, filterby, type, startDate, endDate }) => ({
-          url: `transactions/admin?page=${page}&limit=${pageSize}${filterby ? `&filterby=${filterby.label}=${filterby.value ?? 'COMPLETED'}` : ''}${type ? `,type=${type}` : ''}${searchQuery ? `&searchQuery=${searchQuery}` : ''}${startDate ? `&startDate=${startDate}` : ''}${endDate ? `&endDate=${endDate}` : ''}`,
+          url: `transactions/admin?page=${page}&limit=${pageSize}${filterby && filterby.value ? `&filterby=${filterby.label}=${filterby.value}` : ''}${type ?? ''}${searchQuery ? `&searchQuery=${searchQuery}` : ''}${startDate ? `&startDate=${startDate}` : ''}${endDate ? `&endDate=${endDate}` : ''}`,
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-          },
-          keepUnusedDataFor: 5,
+          }
         }),
         providesTags: ['getTransactions'],
+        transformErrorResponse: (response) => {
+          // Check if original status code === 401 and modify the response as needed
+          if (response.status === 401) {
+            localStorage.clear()
+            return {
+              status: 426,
+              message: 'Invalid API key',
+            };
+          }
+          // Default case, return the original response
+          return response
+        },
       },
     ),
   }),
 })
 
-export const { useGetTransactionsQuery } = getTransactionsApiSlice
+export const { useGetTransactionsQuery, useLazyGetTransactionsQuery } = getTransactionsApiSlice

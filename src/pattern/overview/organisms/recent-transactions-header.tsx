@@ -1,30 +1,30 @@
-"use client";
-import React from "react";
-import { Badge } from "@/components/ui/badge";
-import ButtonWithIcon from "@/pattern/common/molecules/controls/button-with-icon";
-import { ExcelIcon } from "@/pattern/common/atoms/icons/excel-icon";
-import ViewAllCaretIcon from "@/pattern/common/atoms/icons/view-all-caret-icon";
-import SearchInput from "@/pattern/common/molecules/inputs/search-input";
-import FilterIcon from "@/pattern/common/atoms/icons/filter-icon";
-import OverviewTableViewFilter from "../molecules/overview-table-view-filters";
-import { useRouter } from "next/navigation";
-import { DASHBOARD_PATHS } from "@/lib/routes";
-import { show } from "@ebay/nice-modal-react";
-import { RecentTransactionsSearchFilterModal } from "./recent-transactions-search-filter-modal";
+'use client'
+import React from 'react'
+import { Badge } from '@/components/ui/badge'
+import ButtonWithIcon from '@/pattern/common/molecules/controls/button-with-icon'
+import { ExcelIcon } from '@/pattern/common/atoms/icons/excel-icon'
+import ViewAllCaretIcon from '@/pattern/common/atoms/icons/view-all-caret-icon'
+import SearchInput from '@/pattern/common/molecules/inputs/search-input'
+import FilterIcon from '@/pattern/common/atoms/icons/filter-icon'
+import OverviewTableViewFilter from '../molecules/overview-table-view-filters'
+import { useRouter } from 'next/navigation'
+import { DASHBOARD_PATHS } from '@/lib/routes'
+import { show } from '@ebay/nice-modal-react'
+import { TransactionsFilterModal } from '@/pattern/transactions/organisms/transactions-filter-modal'
 
 const RecentTransactionsHeader = () => {
-  const { push } = useRouter();
+  const { push } = useRouter()
 
   const handleTransactionRoute = () => {
-    push(`${DASHBOARD_PATHS.transactions}`);
-  };
+    push(`${DASHBOARD_PATHS.transactions}`)
+  }
 
-  const handleShowSearchFilterModal = ()=>{
-   show(RecentTransactionsSearchFilterModal);
+  const handleShowSearchFilterModal = () => {
+    show(TransactionsFilterModal)
   }
 
   //   The number of tractions would be gotten from the length of the transaction endpoint
-  let transactions = 7;
+  let transactions = 7
   return (
     <div className='w-full px-6'>
       {/* Top */}
@@ -52,18 +52,18 @@ const RecentTransactionsHeader = () => {
           </ButtonWithIcon>
         </div>
       </div>
+
       {/* Bottom */}
-      <div className='w-full h-[76px] bg-inherit flex items-center justify-between py-[26px]'>
-        {/* View all Filter Button */}
+      {/* <div className='w-full h-[76px] bg-inherit flex items-center justify-between py-[26px]'>
+
         <OverviewTableViewFilter />
 
         <div className='flex items-center gap-3'>
-          {/* Search Input */}
+
           <div className='flex items-center gap-3'>
             <SearchInput />
           </div>
 
-          {/* Table search Filter Button */}
           <ButtonWithIcon
             prefixIcon={<FilterIcon />}
             variant='outline'
@@ -74,9 +74,9 @@ const RecentTransactionsHeader = () => {
             Filters
           </ButtonWithIcon>
         </div>
-      </div>
+      </div> */}
     </div>
-  );
-};
+  )
+}
 
-export default RecentTransactionsHeader;
+export default RecentTransactionsHeader

@@ -11,31 +11,47 @@ import {
 } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import SheetCloseIcon from '@/pattern/common/atoms/icons/sheet-close-icon'
-import { FilterSelectInput } from '@/pattern/common/molecules/inputs/filter-select-input'
 import { Separator } from '@/components/ui/separator'
-import FilterToggle from '@/pattern/common/atoms/filter-toggle'
 import { DateRangeFilterModal } from '@/pattern/common/organisms/date-range-filter-modal'
 import DateInput from '@/pattern/common/molecules/inputs/date-input'
 import { LinkButton } from '@/pattern/common/molecules/controls/link-button'
-import { IListType } from '@/pattern/types'
+import { IListType, ITransactionsTableHeaderProps } from '@/pattern/types'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
+import { OrderFilterSelectInput } from '@/pattern/common/molecules/inputs/order-filter-select-input'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  setEndDateFilter,
+  setOrderFilter,
+  setStartDateFilter,
+  setStatusFilter,
+  setTransactionTypeFilter,
+} from '@/redux/slices/transactions-filter'
+import { RootState } from '@/redux/store'
 
-const rolesFilterSetting: IListType[] = [
+const statusFilterSetting: IListType[] = [
   {
     label: 'All',
     value: 'all',
   },
   {
-    label: 'Pilgrim',
-    value: 'pilgrim',
+    label: 'Completed',
+    value: 'COMPLETED',
   },
   {
-    label: 'Agent',
-    value: 'agent',
+    label: 'Pending',
+    value: 'PENDING',
+  },
+  {
+    label: 'Failed',
+    value: 'FAILED',
   },
 ]
 
 const TransactionTypeFilterSetting: IListType[] = [
+  {
+    label: 'All',
+    value: 'all',
+  },
   {
     label: 'Trade',
     value: 'trade',
@@ -54,16 +70,43 @@ const TransactionTypeFilterSetting: IListType[] = [
   },
 ]
 
-export const TransactionsSearchFilterModal = create(() => {
-  const [order, setOrder] = useState<string>('')
-  const [role, setRole] = useState<string>('')
-  const [transactionType, setTransactionType] = useState<string>()
-  const [status, setStatus] = useState<string>()
-  const [startDate, setStartDate] = useState<string>('')
-  const [endDate, setEndDate] = useState<string>('')
+export const TransactionsFilterModal = create(() => {
+  const dispatch = useDispatch()
+  const { resolve, hide, visible } = useModal()
+
+    const transactionTypeFilter = useSelector(
+      (state: RootState) => state.transactionsFilter.transactionType,
+    )
+    const startDateFilter = useSelector(
+      (state: RootState) => state.transactionsFilter.startDate,
+    )
+    const endDateFilter = useSelector(
+      (state: RootState) => state.transactionsFilter.endDate,
+    )
+    const statusFilter = useSelector(
+      (state: RootState) => state.transactionsFilter.status,
+    )
+
+  const [order, setOrder] =
+    useState<ITransactionsTableHeaderProps['order']>('asc')
+  const [transactionType, setTransactionType] = useState<
+    ITransactionsTableHeaderProps['transactionType']
+  >(transactionTypeFilter)
+  const [status, setStatus] =
+    useState<ITransactionsTableHeaderProps['status']>(statusFilter)
+  const [startDate, setStartDate] = useState<string>(startDateFilter)
+  const [endDate, setEndDate] = useState<string>(endDateFilter)
   const [dateRange, setDateRange] = useState<string>('')
 
-  const { resolve, remove, visible } = useModal()
+  const handleStatusChange = (value: string) => {
+    setStatus(value as ITransactionsTableHeaderProps['status'])
+  }
+
+  const handleTransactionTypeChange = (value: string) => {
+    setTransactionType(
+      value as ITransactionsTableHeaderProps['transactionType'],
+    )
+  }
 
   const showDateRangeFilterModal = async () => {
     const result: any = await show(DateRangeFilterModal)
@@ -75,33 +118,26 @@ export const TransactionsSearchFilterModal = create(() => {
   }
 
   const handleCloseModal = () => {
-    resolve({
-      resolved: true,
-      transactionType,
-      status,
-      startDate,
-      endDate,
-      order,
-    })
-    remove()
+    hide()
   }
 
   const handleSaveFilterSettings = () => {
+    dispatch(setStatusFilter(status!))
+    dispatch(setOrderFilter(order))
+    dispatch(setStartDateFilter(startDate))
+    dispatch(setEndDateFilter(endDate))
+    dispatch(setTransactionTypeFilter(transactionType!))
+    resolve({
+      resolved: true,
+    })
     handleCloseModal()
   }
-
-  const isButtonDisabled = !(
-    transactionType ||
-    status ||
-    startDate ||
-    endDate ||
-    order
-  )
-
   const resetValues = () => {
-    setStartDate('')
-    setEndDate('')
-    setOrder('')
+    dispatch(setStatusFilter())
+    dispatch(setOrderFilter('asc'))
+    dispatch(setStartDateFilter(''))
+    dispatch(setEndDateFilter(''))
+    dispatch(setTransactionTypeFilter())
   }
   return (
     <Dialog open={visible} onOpenChange={handleCloseModal}>
@@ -124,7 +160,7 @@ export const TransactionsSearchFilterModal = create(() => {
           {/* Content */}
           <CardContent className='pt-0 pb-[23px]'>
             <div className='w-full space-y-[16px] px-6 pt-2 mb-4'>
-              <FilterSelectInput order={order} setOrder={setOrder} />
+              <OrderFilterSelectInput order={order} setOrder={setOrder} />
             </div>
             <Separator />
 
@@ -142,14 +178,19 @@ export const TransactionsSearchFilterModal = create(() => {
             </div>
             <Separator />
 
-            {/* Roles Filters */}
+            {/* Status Filters */}
             <div className='space-y-[16px] pt-4 px-6 mb-4'>
               <label htmlFor='' className='text-sm font-medium'>
-                Roles
+                Status
               </label>
               <div className='w-full max-w-full flex items-center gap-2 flex-wrap'>
-                <ToggleGroup type='single' value={role} onValueChange={setRole}>
-                  {rolesFilterSetting.map(({ value, label }) => (
+                <ToggleGroup
+                  type='single'
+                  value={status}
+                  defaultValue='all'
+                  onValueChange={value => handleStatusChange(value)}
+                >
+                  {statusFilterSetting.map(({ value, label }) => (
                     <ToggleGroupItem
                       key={value}
                       value={value}
@@ -172,7 +213,8 @@ export const TransactionsSearchFilterModal = create(() => {
                 <ToggleGroup
                   type='single'
                   value={transactionType}
-                  onValueChange={setTransactionType}
+                  defaultValue='all'
+                  onValueChange={value => handleTransactionTypeChange(value)}
                 >
                   {TransactionTypeFilterSetting.map(({ value, label }) => (
                     <ToggleGroupItem
@@ -190,12 +232,7 @@ export const TransactionsSearchFilterModal = create(() => {
 
           {/* Footer */}
           <CardFooter className='w-full pb-4 px-6'>
-            <Button
-              disabled={isButtonDisabled}
-              onClick={handleSaveFilterSettings}
-            >
-              Save
-            </Button>
+            <Button onClick={handleSaveFilterSettings}>Save</Button>
           </CardFooter>
         </Card>
       </DialogContent>

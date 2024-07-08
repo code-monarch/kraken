@@ -10,22 +10,22 @@ const TableSkeleton = ({
   return (
     <div
       className={cn(
-        'bg-[#fff] w-full h-full flex flex-col gap-3 px-8',
+        'bg-[#fff] w-full h-full flex flex-col gap-2 px-8',
         className,
       )}
       {...props}
     >
-        <Skeleton className='bg-accent h-[60px] w-full rounded-md' />
-        <Skeleton className='bg-accent h-[60px] w-full rounded-md' />
-        <Skeleton className='bg-accent h-[60px] w-full rounded-md' />
-        <Skeleton className='bg-accent h-[60px] w-full rounded-md' />
-        <Skeleton className='bg-accent h-[60px] w-full rounded-md' />
-        <Skeleton className='bg-accent h-[60px] w-full rounded-md' />
-        <Skeleton className='bg-accent h-[60px] w-full rounded-md' />
-        <Skeleton className='bg-accent h-[60px] w-full rounded-md' />
-        <Skeleton className='bg-accent h-[60px] w-full rounded-md' />
-        <Skeleton className='bg-accent h-[60px] w-full rounded-md' />
-        <Skeleton className='bg-accent h-[60px] w-full rounded-md' />
+        <Skeleton className='h-[40px] w-full' />
+        <Skeleton className='h-[40px] w-full' />
+        <Skeleton className='h-[40px] w-full' />
+        <Skeleton className='h-[40px] w-full' />
+        <Skeleton className='h-[40px] w-full' />
+        <Skeleton className='h-[40px] w-full' />
+        <Skeleton className='h-[40px] w-full' />
+        <Skeleton className='h-[40px] w-full' />
+        <Skeleton className='h-[40px] w-full' />
+        <Skeleton className='h-[40px] w-full' />
+        <Skeleton className='h-[40px] w-full' />
     </div>
   )
 }

@@ -1,5 +1,5 @@
 'use client'
-import { FC, useMemo, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Badge } from '@/components/ui/badge'
 import ButtonWithIcon from '@/pattern/common/molecules/controls/button-with-icon'
 import { ExcelIcon } from '@/pattern/common/atoms/icons/excel-icon'
@@ -7,65 +7,37 @@ import SearchInput from '@/pattern/common/molecules/inputs/search-input'
 import FilterIcon from '@/pattern/common/atoms/icons/filter-icon'
 import { show } from '@ebay/nice-modal-react'
 import TransactionsTableViewFilter from '../molecules/transactions-table-view-filters'
-import { TransactionsSearchFilterModal } from './transactions-search-filter-modal'
-import { useGetTransactionsQuery } from '@/redux/services/transactions/get-transactions.api-slice'
-import { PaginationState } from '@tanstack/react-table'
+import { TransactionsFilterModal } from './transactions-filter-modal'
+import { ITransactionsTableHeaderProps } from '@/pattern/types'
+import {
+  setSearchQueryFilter,
+  setStartDateFilter,
+} from '@/redux/slices/transactions-filter'
+import { useDispatch } from 'react-redux'
 
-interface IProps {
-  pagination: PaginationState
-}
+interface IProps
+  extends Pick<ITransactionsTableHeaderProps, 'totalTransations'> {}
 
-const TransactionsTableTemplateHeader: FC<IProps> = ({ pagination }) => {
-  const [transactionType, setTransactionType] = useState<
-    'Trade' | 'Withdrawal' | 'Swap' | 'Deposit'
-  >()
-  const [searchQuery, setSearchQuery] = useState<string>('')
-  const [status, setStatus] = useState<
-    'COMPLETED' | 'PENDING' | 'FAILED' | null
-  >()
-  const [role, setRole] = useState<string>('')
-  const [order, setOrder] = useState<string>('')
-  const [startDate, setStartDate] = useState<string>('')
-  const [endDate, setEndDate] = useState<string>('')
+const TransactionsTableTemplateHeader: FC<IProps> = ({ totalTransations }) => {
+  const dispatch = useDispatch()
+  const [searchQuery, setSearchQuery] = useState('')
 
-  const {
-    data: transactions,
-    isLoading,
-    isError,
-    isSuccess,
-    isFetching,
-  } = useGetTransactionsQuery({
-    page: pagination.pageIndex + 1,
-    pageSize: pagination.pageSize,
-    searchQuery: searchQuery,
-    filterby: { label: 'status', value: status! },
-    type: transactionType,
-    startDate: startDate,
-    endDate: endDate,
-  })
-
-  const handleShowSearchFilterModal = async () => {
-    const result: any = await show(TransactionsSearchFilterModal)
-    if (result.resolved) {
-      setTransactionType(result.transactionType)
-      setStatus(result.status)
-      setRole(result.userRole === 'all' ? '' : result.userRole)
-      setOrder(result.order)
-      setStartDate(result.startDate)
-      setEndDate(result.endDate)
+  useEffect(() => {
+    if (searchQuery) {
+      dispatch(setSearchQueryFilter(searchQuery))
     }
+  }, [dispatch, searchQuery])
+
+  const handleShowSearchFilterModal = () => {
+    show(TransactionsFilterModal)
   }
-
-  // Total number of Ummrahcash transactions
-  const TRANSACTIONS = transactions?.data?.paginate?.totalResults ?? 0
-
   return (
     <div className='w-full px-6'>
       {/* Top */}
       <div className='w-full h-[76px] bg-inherit flex items-center justify-between py-[26px]'>
         <div className='flex items-center gap-2'>
           <h3 className='text-[1.125rem] font-semibold'>Transactions</h3>
-          <Badge variant='accent'>{TRANSACTIONS} transactions</Badge>
+          <Badge variant='accent'>{totalTransations ?? 0} transactions</Badge>
         </div>
         <ButtonWithIcon
           variant='outlinePrimary'

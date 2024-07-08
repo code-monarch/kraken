@@ -92,9 +92,20 @@ export const getTransactionMatrixApiSlice = baseApiSlice.injectEndpoints({
         headers: {
           'Content-Type': 'application/json',
         },
-        keepUnusedDataFor: 5,
       }),
       providesTags: ['getTransactionMatrix'],
+      transformErrorResponse: (response) => {
+        // Check if original status code === 401 and modify the response as needed
+        if (response.status === 401) {
+          localStorage.clear()
+          return {
+            status: 426,
+            message: 'Invalid API key',
+          };
+        }
+        // Default case, return the original response
+        return response
+      },
     }),
   }),
 })

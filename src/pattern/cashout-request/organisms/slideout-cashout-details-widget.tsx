@@ -29,7 +29,7 @@ const SlideOutCahsoutDetailsWidget: FC<IProps> = ({
           variant='accent'
           className='min-h-[24px] min-w-[139px] rounded-[10px]'
         >
-          Cashout amount
+          Cashout reward
         </Badge>
       </SlideOutDivider>
 
