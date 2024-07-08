@@ -3,6 +3,8 @@ import { Skeleton } from '@/components/ui/skeleton'
 import React, { HTMLAttributes } from 'react'
 import { cn } from '@/lib/utils'
 
+const array = new Array(10).fill(10)
+
 const TableSkeleton = ({
   className,
   ...props
@@ -10,22 +12,14 @@ const TableSkeleton = ({
   return (
     <div
       className={cn(
-        'bg-[#fff] w-full h-full flex flex-col gap-2 px-8',
+        'bg-[#fff] w-full h-full flex flex-col gap-6 px-[30px] pb-[150px]',
         className,
       )}
       {...props}
     >
-        <Skeleton className='h-[40px] w-full' />
-        <Skeleton className='h-[40px] w-full' />
-        <Skeleton className='h-[40px] w-full' />
-        <Skeleton className='h-[40px] w-full' />
-        <Skeleton className='h-[40px] w-full' />
-        <Skeleton className='h-[40px] w-full' />
-        <Skeleton className='h-[40px] w-full' />
-        <Skeleton className='h-[40px] w-full' />
-        <Skeleton className='h-[40px] w-full' />
-        <Skeleton className='h-[40px] w-full' />
-        <Skeleton className='h-[40px] w-full' />
+      {array.map((item, idx) => (
+        <Skeleton key={idx} className='h-[25px] w-full rounded-md' />
+      ))}
     </div>
   )
 }
