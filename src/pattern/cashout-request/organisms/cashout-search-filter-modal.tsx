@@ -12,31 +12,13 @@ import {
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import SheetCloseIcon from '@/pattern/common/atoms/icons/sheet-close-icon'
-import { FilterSelectInput } from '@/pattern/common/molecules/inputs/filter-select-input'
-import FilterToggle from '@/pattern/common/atoms/filter-toggle'
 import DateInput from '@/pattern/common/molecules/inputs/date-input'
 import { LinkButton } from '@/pattern/common/molecules/controls/link-button'
 import { IListType } from '@/pattern/types'
-import CalendarModal from '@/pattern/common/organisms/calendar-modal'
 import { Badge } from '@/components/ui/badge'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { DateRangeFilterModal } from '@/pattern/common/organisms/date-range-filter-modal'
 import Hidden from '@/pattern/common/molecules/data-display/hidden'
-
-const rolesFilterSetting: IListType[] = [
-  {
-    label: 'All',
-    value: 'all',
-  },
-  {
-    label: 'User',
-    value: 'USER',
-  },
-  {
-    label: 'Agent',
-    value: 'AGENT',
-  },
-]
 
 interface IProps {
   tab?: string

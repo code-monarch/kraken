@@ -11,14 +11,13 @@ import {
 } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import SheetCloseIcon from '@/pattern/common/atoms/icons/sheet-close-icon'
-import { FilterSelectInput } from '@/pattern/common/molecules/inputs/filter-select-input'
 import { Separator } from '@/components/ui/separator'
-import FilterToggle from '@/pattern/common/atoms/filter-toggle'
 import { DateRangeFilterModal } from '@/pattern/common/organisms/date-range-filter-modal'
 import DateInput from '@/pattern/common/molecules/inputs/date-input'
 import { LinkButton } from '@/pattern/common/molecules/controls/link-button'
 import { IListType } from '@/pattern/types'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
+import { OrderFilterSelectInput } from '@/pattern/common/molecules/inputs/order-filter-select-input'
 
 const rolesFilterSetting: IListType[] = [
   {
@@ -69,7 +68,7 @@ export const ActivityLogsSearchFilterModal = create(() => {
   const [dateRange, setDateRange] = useState<string>('')
   const [activityType, setActivityType] = useState<string>('')
   const [activityStatus, setActivityStatus] = useState<string>('')
-  const [order, setOrder] = useState<string>('')
+  const [order, setOrder] = useState<'asc' | 'desc'>('asc')
 
   const showDateRangeFilterModal = async () => {
     const result: any = await show(DateRangeFilterModal)
@@ -96,7 +95,7 @@ export const ActivityLogsSearchFilterModal = create(() => {
     handleCloseModal()
   }
 
-  const isButtonDisabled = !(
+  const disableSaveButton = !(
     activityStatus ||
     activityType ||
     startDate ||
@@ -110,7 +109,7 @@ export const ActivityLogsSearchFilterModal = create(() => {
     setActivityType('')
     setStartDate('')
     setEndaDate('')
-    setOrder('')
+    setOrder('asc')
     setDateRange('')
   }
 
@@ -126,7 +125,13 @@ export const ActivityLogsSearchFilterModal = create(() => {
             <CardTitle>Filters</CardTitle>
             <div className='flex items-center gap-x-[32px] pt-[2px] !m-0'>
               {/* Clear all button */}
-              <LinkButton onClick={resetValues} disabled={isButtonDisabled} className='text-[18px]'>Clear All</LinkButton>
+              <LinkButton
+                onClick={resetValues}
+                disabled={disableSaveButton}
+                className='text-[18px]'
+              >
+                Clear All
+              </LinkButton>
               <span onClick={() => remove()} className='!m-0 cursor-pointer'>
                 <SheetCloseIcon />
               </span>
@@ -136,7 +141,7 @@ export const ActivityLogsSearchFilterModal = create(() => {
           {/* Content */}
           <CardContent className='pt-0 pb-[23px]'>
             <div className='w-full space-y-[16px] px-6 pt-2 mb-4'>
-              <FilterSelectInput order={order} setOrder={setOrder} />
+              <OrderFilterSelectInput order={order} setOrder={setOrder} />
             </div>
             <Separator />
 
@@ -213,7 +218,12 @@ export const ActivityLogsSearchFilterModal = create(() => {
 
           {/* Footer */}
           <CardFooter className='w-full pb-4 px-6'>
-            <Button disabled={isButtonDisabled} onClick={handleSaveFilterSettings}>Save</Button>
+            <Button
+              disabled={disableSaveButton}
+              onClick={handleSaveFilterSettings}
+            >
+              Save
+            </Button>
           </CardFooter>
         </Card>
       </DialogContent>

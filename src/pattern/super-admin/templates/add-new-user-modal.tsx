@@ -20,11 +20,9 @@ import LoadingButton from "../../common/molecules/controls/loading-button";
 import { Button } from "@/components/ui/button";
 import AddNewUserSuccessModal from "./add-new-user-success-modal";
 import {
-  IAddUserPayload,
   useAddUserMutation,
 } from "@/redux/services/users/add-user.api-slice";
 import { ErrorModal } from "@/pattern/common/organisms/error-modal";
-import { toast } from "sonner";
 
 const USER_TYPES = [
   { label: "Agent", value: "AGENT" },
@@ -41,7 +39,7 @@ const AddUserFormSchema = Yup.object().shape({
 });
 
 const AddNewUserModal = create(() => {
-  //   Controls value of Selected user type
+  // Controls value of Selected user type
   const [userType, setUserType] = useState<string>("");
 
   const { resolve, remove, visible } = useModal();

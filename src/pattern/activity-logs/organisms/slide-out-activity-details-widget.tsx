@@ -34,31 +34,43 @@ date,
         {/* Type */}
         <div className='w-full flex items-start justify-between'>
           <Label htmlFor='type'>Type:</Label>
-          <div id='type'>{type}</div>
+          <div id='type' className='text-right'>
+            {type}
+          </div>
         </div>
+
         {/* Status */}
         <div className='w-full flex items-start justify-between'>
           <Label htmlFor='status'>Status:</Label>
-          <div id='status'>{status}</div>
+          <div id='status' className='text-right'>
+            {status}
+          </div>
         </div>
+
         {/* IP Address */}
         <div className='w-full flex items-start justify-between'>
           <Label htmlFor='ip'>IP Address</Label>
           <div id='ip'>{IP}</div>
         </div>
+
         {/* Device */}
-        <div className='w-full flex items-start justify-between'>
+        <div className='w-full flex items-start justify-between gap-9'>
           <Label htmlFor='device'>Device</Label>
-          <div id='device'>{device}</div>
+          <div id='device' className='text-right'>
+            {device}
+          </div>
         </div>
+        
         {/* Date */}
         <div className='w-full flex items-start justify-between'>
           <Label htmlFor='date'>Date</Label>
-          <div id='date'>{date}</div>
+          <div id='date' className='text-right'>
+            {date}
+          </div>
         </div>
 
         <Separator />
       </div>
     </div>
-  );
+  )
 };

@@ -14,6 +14,7 @@ const CashOutRequestMetricGrid = () => {
         metricValue={data?.data.totalCashout as number}
         hideMetricPercentage
         isAmount={false}
+        isLoading={false}
       />
       {/* Approved Requests */}
       <DashboardMetricCard
@@ -21,6 +22,7 @@ const CashOutRequestMetricGrid = () => {
         metricValue={data?.data.approvedCashout as number}
         hideMetricPercentage
         isAmount={false}
+        isLoading={false}
       />
       {/* Pending Requests */}
       <DashboardMetricCard
@@ -28,6 +30,7 @@ const CashOutRequestMetricGrid = () => {
         metricValue={data?.data.pendingCashout as number}
         hideMetricPercentage
         isAmount={false}
+        isLoading={false}
       />
       {/* Declined Requests */}
       <DashboardMetricCard
@@ -35,6 +38,7 @@ const CashOutRequestMetricGrid = () => {
         metricValue={data?.data.declinedCashout as number}
         hideMetricPercentage
         isAmount={false}
+        isLoading={false}
       />
     </div>
   )

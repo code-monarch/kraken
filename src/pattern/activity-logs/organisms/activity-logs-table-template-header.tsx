@@ -47,16 +47,13 @@ const ActivityLogsTableTemplateHeader = ({
     }
   };
 
-  //  The number of tractions would be gotten from the length of the transaction endpoint
-  let transactions = 7;
-
   return (
     <div className="w-full px-6">
       {/* Top */}
       <div className="w-full h-[76px] bg-inherit flex items-center justify-between py-[26px]">
         <div className="flex items-center gap-2">
           <h3 className="text-[1.125rem] font-semibold">Activity List</h3>
-          <Badge variant="accent">{totalActivities} activities</Badge>
+          <Badge variant="accent">{totalActivities  ?? 0} activities</Badge>
         </div>
         <ButtonWithIcon
           variant="outlinePrimary"

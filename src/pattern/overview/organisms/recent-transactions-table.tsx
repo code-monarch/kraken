@@ -9,19 +9,17 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import {
-  PaginationState,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import { Pagination } from '@/pattern/common/organisms/table/pagination'
-import { TransactionsTableColumns } from '../molecules/transactions-table-column'
 import { Transaction } from '@/redux/services/transactions/get-transactions.api-slice'
 import ErrorTableWidget from '@/pattern/common/molecules/data-display/error-table-widget'
 import EmptyTableWidget from '@/pattern/common/molecules/data-display/empty-table-widget'
 import { show } from '@ebay/nice-modal-react'
 import { ErrorModal } from '@/pattern/common/organisms/error-modal'
+import { TransactionsTableColumns } from '@/pattern/transactions/molecules/transactions-table-column'
 import TableSkeleton from '@/pattern/common/molecules/skeletons/table-skeleton'
 import Hidden from '@/pattern/common/molecules/data-display/hidden'
 
@@ -29,9 +27,6 @@ const columns = TransactionsTableColumns
 
 interface ITransactionsTableProps {
   data: Transaction[]
-  pageCount?: number
-  pagination?: PaginationState
-  setPagination?: any
   isLoading: boolean
   isFetching: boolean
   isSuccess: boolean
@@ -39,16 +34,13 @@ interface ITransactionsTableProps {
   isError: boolean
 }
 
-export const TransactionsTable = ({
+export const RecentTransactionsTable = ({
   data,
   isLoading,
   isFetching,
   isSuccess,
   error,
   isError,
-  pagination,
-  pageCount,
-  setPagination,
 }: ITransactionsTableProps) => {
   const [rowSelection, setRowSelection] = useState({})
 
@@ -65,26 +57,18 @@ export const TransactionsTable = ({
       })
     }
   }, [error, isError])
-
-  if (!pagination) {
-    pagination = { pageIndex: 0, pageSize: 10 }
-  }
-
   const defaultData = useMemo(() => [], [])
 
   const transactionsTable = useReactTable({
     data: data ?? defaultData,
     columns: columns,
-    pageCount: pageCount,
     rowCount: data?.length,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onRowSelectionChange: setRowSelection,
     state: {
-      pagination,
       rowSelection,
     },
-    onPaginationChange: setPagination,
     manualPagination: true,
     debugTable: true,
   })
@@ -95,7 +79,7 @@ export const TransactionsTable = ({
         <TableSkeleton />
       </Hidden>
 
-      {/* Display table data is done loading */}
+      {/* Display table data is done loading/fetching */}
       <Hidden visible={!isLoading && !isFetching}>
         <Table>
           {/* Header */}
@@ -117,7 +101,6 @@ export const TransactionsTable = ({
               </TableRow>
             ))}
           </TableHeader>
-
           {/* Body */}
           <TableBody>
             {/* Display table rows when data is done loading and the table rows are not empty */}
@@ -158,13 +141,6 @@ export const TransactionsTable = ({
             </Hidden>
           </TableBody>
         </Table>
-      </Hidden>
-
-      {/* Pagination */}
-      <Hidden visible={isSuccess && !isLoading && !isFetching}>
-        {transactionsTable.getRowModel().rows?.length ? (
-          <Pagination table={transactionsTable} className='pr-6' />
-        ) : null}
       </Hidden>
     </>
   )

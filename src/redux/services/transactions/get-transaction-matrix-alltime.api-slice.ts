@@ -15,25 +15,32 @@ export interface ITransactionMatrixAlltimeResponse {
   }
 }
 
-interface ITransactionMatrixAlltimePayload {
-  q?: string // search query
-}
-
 export const getTransactionMatrixApiSlice = baseApiSlice.injectEndpoints({
   endpoints: builder => ({
     getTransactionMatrixAlltime: builder.query<
       ITransactionMatrixAlltimeResponse,
-      ITransactionMatrixAlltimePayload
+      void
     >({
-      query: ({ q }) => ({
-        url: `transactions/admin/matrix${q ? `?q=${q}` : ''}`,
+      query: () => ({
+        url: `transactions/admin/matrix/alltime`,
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-        },
-        keepUnusedDataFor: 5,
+        }
       }),
       providesTags: ['getTransactionMatrixAlltime'],
+      transformErrorResponse: (response) => {
+        // Check if original status code === 401 and modify the response as needed
+        if (response.status === 401) {
+          localStorage.clear()
+          return {
+            status: 426,
+            message: 'Invalid API key',
+          };
+        }
+        // Default case, return the original response
+        return response
+      },
     }),
   }),
 })

@@ -1,23 +1,22 @@
-"use client";
-import { Badge } from "@/components/ui/badge";
-import { ColumnDef } from "@tanstack/react-table";
-import { Checkbox } from "@/components/ui/checkbox";
-import TransactionsSlideOutMenu from "@/pattern/common/templates/slide-out-menu/transactions-slide-out-menu";
+'use client'
+import { Badge } from '@/components/ui/badge'
+import { ColumnDef } from '@tanstack/react-table'
+import { Checkbox } from '@/components/ui/checkbox'
+import TransactionsSlideOutMenu from '@/pattern/common/templates/slide-out-menu/transactions-slide-out-menu'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import MoreVerticalIcon from "@/pattern/common/atoms/icons/more-vertical-icon";
-import { formatDate } from "@/lib/helper/format-date";
-import { show } from "@ebay/nice-modal-react";
-import AgentCell from "./agent-cell";
-import { DeleteAccountModal } from "@/pattern/user-management/organisms/delete-account-modal";
-import { Transactions } from "@/redux/services/transactions/get-transactions.api-slice";
+} from '@/components/ui/dropdown-menu'
+import MoreVerticalIcon from '@/pattern/common/atoms/icons/more-vertical-icon'
+import { formatDate } from '@/lib/helper/format-date'
+import { show } from '@ebay/nice-modal-react'
+import AgentCell from './agent-cell'
+import { Transaction } from '@/redux/services/transactions/get-transactions.api-slice'
 
-export const TransactionsTableColumns: ColumnDef<Transactions>[] = [
+export const TransactionsTableColumns: ColumnDef<Transaction>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -58,14 +57,6 @@ export const TransactionsTableColumns: ColumnDef<Transactions>[] = [
     },
   },
   {
-    accessorKey: 'agent',
-    header: 'Agent',
-    cell: ({ row }) => {
-      const name = row.getValue('agent')
-      return <AgentCell name='John Doe' />
-    },
-  },
-  {
     accessorKey: 'type',
     header: 'Type',
     cell: ({ row }) => {
@@ -96,7 +87,7 @@ export const TransactionsTableColumns: ColumnDef<Transactions>[] = [
   },
   {
     id: 'actions',
-    cell: () => {
+    cell: ({ row }) => {
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -108,18 +99,14 @@ export const TransactionsTableColumns: ColumnDef<Transactions>[] = [
           <DropdownMenuContent align='end'>
             <DropdownMenuItem
               onClick={() => {
-                show(TransactionsSlideOutMenu)
+                show(TransactionsSlideOutMenu, {
+                  transactionId: row.original.id as string,
+                })
               }}
             >
               View Details
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem
-              className='text-destructive'
-              onClick={() => show(DeleteAccountModal)}
-            >
-              Delete
-            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )

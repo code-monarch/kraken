@@ -18,3 +18,7 @@ export const ADMIN_LASTNAME = "UC-admin_lastname"
 export const ADMIN_EMAIL = "UC-admin_email"
 export const ADMIN_PHONENUMBER = "UC-admin_phoneNumber"
 export const ADMIN_INFO = "UC-admin_info"
+export const TRANSACTION_ID = "transaction_id"
+export const SUCCESSFUL_ICON_COLOUR = '#08C168'
+export const PENDING_ICON_COLOUR = "#FAAD14"
+export const FAILED_ICON_COLOUR = "#D62E4A"

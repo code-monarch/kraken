@@ -12,16 +12,14 @@ import {
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import SheetCloseIcon from '@/pattern/common/atoms/icons/sheet-close-icon'
-import { FilterSelectInput } from '@/pattern/common/molecules/inputs/filter-select-input'
-import FilterToggle from '@/pattern/common/atoms/filter-toggle'
 import DateInput from '@/pattern/common/molecules/inputs/date-input'
 import { LinkButton } from '@/pattern/common/molecules/controls/link-button'
 import { IListType } from '@/pattern/types'
-import CalendarModal from '@/pattern/common/organisms/calendar-modal'
 import { Badge } from '@/components/ui/badge'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { DateRangeFilterModal } from '@/pattern/common/organisms/date-range-filter-modal'
 import Hidden from '@/pattern/common/molecules/data-display/hidden'
+import { OrderFilterSelectInput } from '@/pattern/common/molecules/inputs/order-filter-select-input'
 
 const rolesFilterSetting: IListType[] = [
   {
@@ -49,17 +47,10 @@ export const UserManagementTableSearchFilterModal = create(
     // const [registeredOn, setRegisteredOn] = useState<string>("");
     const [startDate, setStartDate] = useState<string>('')
     const [endDate, setEndDate] = useState<string>('')
-    const [order, setOrder] = useState<string>('')
+    const [order, setOrder] = useState<'asc' | 'desc'>('asc')
     const [dateRange, setDateRange] = useState<string>('')
 
     const { resolve, remove, visible } = useModal()
-
-    // const showDateCalendarModal = async () => {
-    //   const result: any = await show(CalendarModal);
-    //   if (result.resolved) {
-    //     setRegisteredOn(result.registeredOn);
-    //   }
-    // };
 
     const showDateRangeFilterModal = async () => {
       const result: any = await show(DateRangeFilterModal)
@@ -99,7 +90,7 @@ export const UserManagementTableSearchFilterModal = create(
       setUserRole('')
       setStartDate('')
       setEndDate('')
-      setOrder('')
+      setOrder('asc')
     }
 
     return (
@@ -130,7 +121,7 @@ export const UserManagementTableSearchFilterModal = create(
             {/* Content */}
             <CardContent className='pt-0 pb-[23px]'>
               <div className='w-full space-y-[16px] px-6 pt-2 mb-4'>
-                <FilterSelectInput order={order} setOrder={setOrder} />
+                <OrderFilterSelectInput order={order} setOrder={setOrder} />
               </div>
               <Separator />
 
@@ -141,9 +132,6 @@ export const UserManagementTableSearchFilterModal = create(
                     Roles
                   </label>
                   <div className='w-full max-w-full flex items-center gap-2 flex-wrap'>
-                    {/* {rolesFilterSetting.map(({ value, label }) => (
-                  <FilterToggle key={value} label={label} value={value} />
-                ))} */}
                     <ToggleGroup
                       type='single'
                       value={userRole}

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { TransactionsTable } from '@/pattern/transactions/organisms/transactions-table'
 import { PaginationState } from '@tanstack/react-table'
 import TransactionsTableTemplateHeader from '@/pattern/transactions/organisms/transactions-table-template-header'
-import { Transactions, useGetTransactionsQuery } from '@/redux/services/transactions/get-transactions.api-slice'
+import { Transaction, useGetTransactionsQuery } from '@/redux/services/transactions/get-transactions.api-slice'
 
 const UserTransactionsTabContent = () => {
   const [pagination, setPagination] = useState<PaginationState>({
@@ -12,25 +12,26 @@ const UserTransactionsTabContent = () => {
   })
   const [pageCount, setPageCount] = useState<number>(1)
 
-  const { data, isLoading, isError, isSuccess, isFetching } = useGetTransactionsQuery({
+  const { data: transactions, isLoading, error, isError, isSuccess, isFetching } = useGetTransactionsQuery({
     page: pagination.pageIndex + 1,
     pageSize: pagination.pageSize,
   })
 
   useEffect(() => {
-    if (data && data.data) {
-      setPageCount(data?.pagination?.totalPages)
+    if (transactions && transactions.data?.contents) {
+      setPageCount(transactions?.data?.paginate?.totalPages)
     }
-  }, [data])
+  }, [transactions])
 
   return (
     <div className='w-full bg-card'>
       <TransactionsTableTemplateHeader
-        pagination={pagination}
+        totalTransations={transactions?.data?.paginate?.totalResults!}
       />
       <TransactionsTable
-        data={data?.data as Transactions[]}
+        data={transactions?.data?.contents as Transaction[]}
         isLoading={isLoading}
+        error={error}
         isError={isError}
         isSuccess={isSuccess}
         isFetching={isFetching}

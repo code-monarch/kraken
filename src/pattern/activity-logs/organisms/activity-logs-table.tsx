@@ -158,7 +158,7 @@ export function ActivityLogsTable<TData, TValue>({
         !isFetching &&
         isSuccess &&
         activityLogsTable.getRowModel().rows?.length && (
-          <Pagination table={activityLogsTable} />
+          <Pagination table={activityLogsTable} className='pr-11' />
         )}
     </div>
   )

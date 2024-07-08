@@ -13,6 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { useGetUsersMetricsQuery } from "@/redux/services/users/user-metrics.api-alice";
 import useDebounce from "@/lib/hooks/useDebounce";
+import { IUser } from "@/redux/services/users/user.api-slice";
 
 const UserManagementTableTemplate = () => {
   const [tabValue, setTabValue] = useState("all");
@@ -31,7 +32,7 @@ const UserManagementTableTemplate = () => {
 
   const debouncedSearchQuery = useDebounce(searchQuery, 2000);
 
-  const { data, isLoading, isSuccess, isFetching, isError } =
+  const { data: userMetricsData, isLoading, isSuccess, isFetching, isError } =
     useGetUsersMetricsQuery({
       page: pagination.pageIndex + 1,
       pageSize: pagination.pageSize,
@@ -42,11 +43,13 @@ const UserManagementTableTemplate = () => {
       q: searchQuery,
     });
 
+    console.log('USER METRICS DATA: ', userMetricsData)
+
   useEffect(() => {
-    if (data && data.data) {
-      setPageCount(data.data.pagination.totalPages);
+    if (userMetricsData && userMetricsData.data) {
+      setPageCount(userMetricsData.data.pagination?.totalPages)
     }
-  }, [data]);
+  }, [userMetricsData]);
 
   const handleShowSearchFilterModal = async () => {
     const result: any = await show(UserManagementTableSearchFilterModal, {
@@ -62,23 +65,23 @@ const UserManagementTableTemplate = () => {
   };
 
   /* This either returns the fetched users array 
-  as it is or an alphabeticaaly sorted array bases 
-  on whether the user selected a sorting order or not */
+  as it is or an alphabeticaaly sorted array based 
+  on the sorting order that was selected */
   const sortedData = useMemo(() => {
-    let result = data?.data.results;
+    let result = userMetricsData?.data.results
 
-    if (data?.data.results && order === "descending") {
-      result = [...data?.data.results].sort((a, b) => {
-        return b.firstname.localeCompare(a.firstname);
-      });
-    } else if (data?.data.results && order === "ascending") {
-      result = [...data?.data.results].sort((a, b) => {
-        return a.firstname.localeCompare(b.firstname);
-      });
+    if (userMetricsData?.data.results && order === 'descending') {
+      result = [...userMetricsData?.data.results].sort((a, b) => {
+        return b.firstname.localeCompare(a.firstname)
+      })
+    } else if (userMetricsData?.data.results && order === 'ascending') {
+      result = [...userMetricsData?.data.results].sort((a, b) => {
+        return a.firstname.localeCompare(b.firstname)
+      })
     }
 
-    return result;
-  }, [order, data]);
+    return result
+  }, [order, userMetricsData])
 
   // This filters through the sorted state of the data and returns only users with user type of "USER"
   const allUsers = sortedData?.filter((item) => item.userType === "USER");
@@ -106,85 +109,87 @@ const UserManagementTableTemplate = () => {
   };
 
   return (
-    <div className="w-full h-fit bg-card px-6 overflow-auto">
+    <div className='w-full h-fit bg-card px-6 overflow-auto'>
       {/* Top */}
-      <div className="w-full h-[76px] bg-inherit flex items-center justify-between py-[26px]">
-        <div className="flex items-center gap-2">
-          <h3 className="text-[1.125rem] font-semibold">User List</h3>
+      <div className='w-full h-[76px] bg-inherit flex items-center justify-between py-[26px]'>
+        <div className='flex items-center gap-2'>
+          <h3 className='text-[1.125rem] font-semibold'>User List</h3>
         </div>
         <ButtonWithIcon
-          variant="outlinePrimary"
+          variant='outlinePrimary'
           prefixIcon={<ExcelIcon />}
-          size="sm"
-          className="w-[127px] h-[44px] text-base"
+          size='sm'
+          className='w-[127px] h-[44px] text-base'
         >
           Export
         </ButtonWithIcon>
       </div>
 
       {/* Bottom */}
-      <div className="!relative w-full h-fit bg-inherit flex items-center py-[26px] overflow-auto">
+      <div className='!relative w-full h-fit bg-inherit flex items-center py-[26px] overflow-auto'>
         {/* Tabs */}
-        <Tabs value={tabValue} onValueChange={setTabValue} className="w-full">
+        <Tabs value={tabValue} onValueChange={setTabValue} className='w-full'>
           <TabsList>
             {/* All Users */}
-            <div className="w-fit flex flex-col items-start">
+            <div className='w-fit flex flex-col items-start'>
               <TabsTrigger
-                value="all"
-                className="rounded-none text-base py-3 px-6"
+                value='all'
+                className='rounded-none text-base py-3 px-6'
               >
                 All
               </TabsTrigger>
               <Separator
                 className={
-                  tabValue === "all"
-                    ? "text-primary bg-primary"
-                    : "text-border bg-border"
+                  tabValue === 'all'
+                    ? 'text-primary bg-primary'
+                    : 'text-border bg-border'
                 }
               />
             </div>
 
             {/* Pilgrims */}
-            <div className="w-fit flex flex-col items-start">
+            <div className='w-fit flex flex-col items-start'>
               <TabsTrigger
-                value="user"
-                className="rounded-none text-base py-3 px-6"
+                value='user'
+                className='rounded-none text-base py-3 px-6'
               >
                 User
-                <Badge variant="accent">{data?.data.users.total ?? 0}</Badge>
+                <Badge variant='accent'>
+                  {userMetricsData?.data.users.total ?? 0}
+                </Badge>
               </TabsTrigger>
               <Separator
                 className={
-                  tabValue === "user"
-                    ? "text-primary bg-primary"
-                    : "text-border bg-border"
+                  tabValue === 'user'
+                    ? 'text-primary bg-primary'
+                    : 'text-border bg-border'
                 }
               />
             </div>
 
             {/* Agent */}
-            <div className="w-fit flex flex-col items-start">
+            <div className='w-fit flex flex-col items-start'>
               <TabsTrigger
-                value="agent"
-                className="rounded-none text-base py-3 px-6"
+                value='agent'
+                className='rounded-none text-base py-3 px-6'
               >
                 Agent
-                <Badge variant="accent">
-                  {data?.data.agents.total ?? 0}
+                <Badge variant='accent'>
+                  {userMetricsData?.data.agents.total ?? 0}
                 </Badge>
               </TabsTrigger>
               <Separator
                 className={
-                  tabValue === "agent"
-                    ? "text-primary bg-primary"
-                    : "text-border bg-border"
+                  tabValue === 'agent'
+                    ? 'text-primary bg-primary'
+                    : 'text-border bg-border'
                 }
               />
             </div>
           </TabsList>
-          <TabsContent value="all">
+          <TabsContent value='all'>
             <UserManagementTable
-              data={sortedData!}
+              data={sortedData as IUser[]}
               isLoading={isLoading}
               isError={isError}
               isFetching={isFetching}
@@ -196,9 +201,9 @@ const UserManagementTableTemplate = () => {
           </TabsContent>
 
           {/* Users */}
-          <TabsContent value="user">
+          <TabsContent value='user'>
             <UserManagementTable
-              data={allUsers!}
+              data={allUsers as IUser[]}
               isLoading={isLoading}
               isError={isError}
               isFetching={isFetching}
@@ -210,9 +215,9 @@ const UserManagementTableTemplate = () => {
           </TabsContent>
 
           {/* Agents */}
-          <TabsContent value="agent">
+          <TabsContent value='agent'>
             <UserManagementTable
-              data={allAgents!}
+              data={allAgents as IUser[]}
               isLoading={isLoading}
               isError={isError}
               isFetching={isFetching}
@@ -225,19 +230,19 @@ const UserManagementTableTemplate = () => {
         </Tabs>
         {/* Tabs End */}
 
-        <div className="absolute top-[30px] right-0 w-fit flex items-center gap-3">
+        <div className='absolute top-[30px] right-0 w-fit flex items-center gap-3'>
           {/* Search Input */}
           <SearchInput
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={e => setSearchQuery(e.target.value)}
           />
 
           {/* Table search Filter Button */}
           <ButtonWithIcon
             prefixIcon={<FilterIcon />}
-            variant="outline"
-            size="sm"
-            className="w-[125px] h-[44px] text-base"
+            variant='outline'
+            size='sm'
+            className='w-[125px] h-[44px] text-base'
             onClick={handleShowSearchFilterModal}
           >
             Filters
@@ -250,7 +255,7 @@ const UserManagementTableTemplate = () => {
         </div>
       </div>
     </div>
-  );
+  )
 };
 
 export default UserManagementTableTemplate;
