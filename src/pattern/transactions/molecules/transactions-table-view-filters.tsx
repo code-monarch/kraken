@@ -67,7 +67,7 @@ const TransactionsTableViewFilter = () => {
               }
               variant='outline'
               size='sm'
-              className='w-[138px] h-[44px] text-base capitalize'
+              className='w-[138px] h-[44px] text-sm capitalize'
             >
               {status}
             </ButtonWithIcon>
