@@ -24,6 +24,8 @@ import {
   setAdminRole,
   setEmail,
 } from '@/redux/slices/user-slice'
+import { show } from '@ebay/nice-modal-react'
+import { ErrorModal } from '@/pattern/common/organisms/error-modal'
 
 const LoginFormSchema = Yup.object().shape({
   email: Yup.string()
@@ -104,20 +106,29 @@ const LoginTemplate = () => {
               }
             })
           })
-          .catch(err => {
-            console.log(`${err.error || err?.data?.message || err}`)
-            // display error message
-            toast.error('Unexpected error', {
-              description: `${
-                err?.data?.responseMessage ??
-                'We encountered an error while trying to log you in'
-              }`,
-              duration: 8000,
-              cancel: {
-                label: 'Close',
-                onClick: () => console.log('Close!'),
-              },
-            })
+          .catch(error => {
+            if (
+              'error' in error &&
+              error?.error === 'TypeError: Failed to fetch'
+            ) {
+              show(ErrorModal, {
+                message:
+                  'Something went wrong, please check your network and try again',
+              })
+            } else {
+              // display error message
+              toast.error('Unexpected error', {
+                description: `${
+                  error?.data?.responseMessage ??
+                  'We encountered an error while trying to log you in'
+                }`,
+                duration: 8000,
+                cancel: {
+                  label: 'Close',
+                  onClick: () => console.log('Close!'),
+                },
+              })
+            }
           })
       })
       .catch(err => {

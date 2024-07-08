@@ -6,33 +6,71 @@ import TransactionsTableTemplateHeader from '../organisms/transactions-table-tem
 import {
   Transaction,
   useGetTransactionsQuery,
+  useLazyGetTransactionsQuery,
 } from '@/redux/services/transactions/get-transactions.api-slice'
+import { RootState } from '@/redux/store'
+import { useSelector } from 'react-redux'
 
 const TransactionsTableTemplate = () => {
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 10,
   })
+
   const [pageCount, setPageCount] = useState<number>(1)
 
-  // Get TRansactions API query
-  const { data, isLoading, isError, isSuccess, isFetching } = useGetTransactionsQuery({
+  const searchQuery = useSelector(
+    (state: RootState) => state.transactionsFilter.searchQuery,
+  )
+  const transactionType = useSelector(
+    (state: RootState) => state.transactionsFilter.transactionType,
+  )
+  const startDate = useSelector(
+    (state: RootState) => state.transactionsFilter.startDate,
+  )
+  const endDate = useSelector(
+    (state: RootState) => state.transactionsFilter.endDate,
+  )
+  const status = useSelector(
+    (state: RootState) => state.transactionsFilter.status,
+  )
+
+  // Get Transactions API query
+  const {
+    data: transactions,
+    isLoading,
+    error,
+    isError,
+    isSuccess,
+    isFetching,
+  } = useGetTransactionsQuery({
     page: pagination.pageIndex + 1,
     pageSize: pagination.pageSize,
+    searchQuery: searchQuery,
+    filterby: {
+      label: 'status',
+      value: status === 'all' ? null : status,
+    },
+    type: transactionType === 'all' ? null : transactionType,
+    startDate: startDate,
+    endDate: endDate,
   })
 
   useEffect(() => {
-    if (data && data.data) {
-      setPageCount(data?.pagination?.totalPages)
+    if (transactions && transactions.data) {
+      setPageCount(transactions?.data?.paginate?.totalPages)
     }
-  }, [data])
+  }, [transactions])
 
   return (
     <div className='w-full bg-card'>
-      <TransactionsTableTemplateHeader pagination={pagination} />
+      <TransactionsTableTemplateHeader
+        totalTransations={transactions?.data?.paginate?.totalResults!}
+      />
       <TransactionsTable
-        data={data?.data as Transaction[]}
+        data={transactions?.data?.contents as Transaction[]}
         isLoading={isLoading}
+        error={error}
         isError={isError}
         isSuccess={isSuccess}
         isFetching={isFetching}

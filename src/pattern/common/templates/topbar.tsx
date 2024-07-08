@@ -2,11 +2,9 @@
 import React from 'react'
 import BrandLogoIcon from '../atoms/icons/brand-logo-icon'
 import { cn } from '@/lib/utils'
-import NotificationWidget from '../molecules/data-display/notification-widget'
 import TopbarProfileTag from '../molecules/data-display/top-bar-profile-tag'
 import { getInitials } from '@/lib/helper/get-initials'
 import { useGetAdminProfileQuery } from '@/redux/services/admin/admin.api-slice'
-import ButtonWithIcon from '../molecules/controls/button-with-icon'
 import FundDisbursementWalletBtn from '@/pattern/user-management/atoms/fund-disbursement-wallet-btn'
 
 const Topbar = () => {
@@ -36,9 +34,8 @@ const Topbar = () => {
         <div className='flex items-center gap-x-9'>
           <FundDisbursementWalletBtn />
 
-          {/* Wallet/Currency Summary, Notification and more options */}
+          {/* Profile tag */}
           <div className='flex items-center gap-x-4'>
-            <NotificationWidget />
             <TopbarProfileTag initials={initials} />
           </div>
         </div>

@@ -15,124 +15,143 @@ import { Separator } from '@/components/ui/separator'
 import { DateRangeFilterModal } from '@/pattern/common/organisms/date-range-filter-modal'
 import DateInput from '@/pattern/common/molecules/inputs/date-input'
 import { LinkButton } from '@/pattern/common/molecules/controls/link-button'
-import { IListType } from '@/pattern/types'
+import { IListType, ITransactionsTableHeaderProps } from '@/pattern/types'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { OrderFilterSelectInput } from '@/pattern/common/molecules/inputs/order-filter-select-input'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  setEndDateFilter,
+  setOrderFilter,
+  setStartDateFilter,
+  setStatusFilter,
+  setTransactionTypeFilter,
+} from '@/redux/slices/transactions-filter'
+import { RootState } from '@/redux/store'
 
-const rolesFilterSetting: IListType[] = [
+const statusFilterSetting: IListType[] = [
   {
     label: 'All',
     value: 'all',
   },
   {
-    label: 'Successful',
-    value: 'Successful',
+    label: 'Completed',
+    value: 'COMPLETED',
+  },
+  {
+    label: 'Pending',
+    value: 'PENDING',
   },
   {
     label: 'Failed',
-    value: 'Failed',
+    value: 'FAILED',
   },
 ]
 
-const ActivityTypeFilterSetting: IListType[] = [
+const TransactionTypeFilterSetting: IListType[] = [
   {
     label: 'All',
     value: 'all',
   },
   {
-    label: 'Login',
-    value: 'Login',
+    label: 'Trade',
+    value: 'trade',
   },
   {
-    label: 'Export',
-    value: 'Export',
+    label: 'Deposit',
+    value: 'deposit',
   },
   {
-    label: 'User Update',
-    value: 'User Update',
+    label: 'Withdrawal',
+    value: 'withdrawal',
   },
   {
-    label: 'Transaction',
-    value: 'Transaction',
-  },
-  {
-    label: 'Report',
-    value: 'Report',
+    label: 'Swap',
+    value: 'swap',
   },
 ]
 
-export const ActivityLogsSearchFilterModal = create(() => {
-  const { resolve, remove, visible } = useModal()
-  const [startDate, setStartDate] = useState<string>('')
-  const [endDate, setEndaDate] = useState<string>('')
+export const TransactionsFilterModal = create(() => {
+  const dispatch = useDispatch()
+  const { resolve, hide, visible } = useModal()
+
+    const transactionTypeFilter = useSelector(
+      (state: RootState) => state.transactionsFilter.transactionType,
+    )
+    const startDateFilter = useSelector(
+      (state: RootState) => state.transactionsFilter.startDate,
+    )
+    const endDateFilter = useSelector(
+      (state: RootState) => state.transactionsFilter.endDate,
+    )
+    const statusFilter = useSelector(
+      (state: RootState) => state.transactionsFilter.status,
+    )
+
+  const [order, setOrder] =
+    useState<ITransactionsTableHeaderProps['order']>('asc')
+  const [transactionType, setTransactionType] = useState<
+    ITransactionsTableHeaderProps['transactionType']
+  >(transactionTypeFilter)
+  const [status, setStatus] =
+    useState<ITransactionsTableHeaderProps['status']>(statusFilter)
+  const [startDate, setStartDate] = useState<string>(startDateFilter)
+  const [endDate, setEndDate] = useState<string>(endDateFilter)
   const [dateRange, setDateRange] = useState<string>('')
-  const [activityType, setActivityType] = useState<string>('')
-  const [activityStatus, setActivityStatus] = useState<string>('')
-  const [order, setOrder] = useState<'asc' | 'desc'>('asc')
+
+  const handleStatusChange = (value: string) => {
+    setStatus(value as ITransactionsTableHeaderProps['status'])
+  }
+
+  const handleTransactionTypeChange = (value: string) => {
+    setTransactionType(
+      value as ITransactionsTableHeaderProps['transactionType'],
+    )
+  }
 
   const showDateRangeFilterModal = async () => {
     const result: any = await show(DateRangeFilterModal)
     if (result.resolved) {
       setStartDate(result.startDate)
-      setEndaDate(result.endDate)
+      setEndDate(result.endDate)
       setDateRange(`${result.startDate} - ${result.endDate}`)
     }
   }
 
   const handleCloseModal = () => {
-    resolve({
-      resolved: true,
-      startDate,
-      endDate,
-      activityType,
-      activityStatus,
-      order,
-    })
-    remove()
+    hide()
   }
 
   const handleSaveFilterSettings = () => {
+    dispatch(setStatusFilter(status!))
+    dispatch(setOrderFilter(order))
+    dispatch(setStartDateFilter(startDate))
+    dispatch(setEndDateFilter(endDate))
+    dispatch(setTransactionTypeFilter(transactionType!))
+    resolve({
+      resolved: true,
+    })
     handleCloseModal()
   }
-
-  const disableSaveButton = !(
-    activityStatus ||
-    activityType ||
-    startDate ||
-    endDate ||
-    order ||
-    dateRange
-  )
-
   const resetValues = () => {
-    setActivityStatus('')
-    setActivityType('')
-    setStartDate('')
-    setEndaDate('')
-    setOrder('asc')
-    setDateRange('')
+    dispatch(setStatusFilter())
+    dispatch(setOrderFilter('asc'))
+    dispatch(setStartDateFilter(''))
+    dispatch(setEndDateFilter(''))
+    dispatch(setTransactionTypeFilter())
   }
-
   return (
     <Dialog open={visible} onOpenChange={handleCloseModal}>
-      <DialogContent
-        onInteractOutside={e => e.preventDefault()}
-        className='w-fit h-fit p-0 outline-none border-none shadow-none'
-      >
+      <DialogContent className='w-fit h-fit p-0 outline-none border-none shadow-none'>
         <Card className='w-[350px] min-h-[578px] h-fit p-0'>
           {/* Header */}
           <CardHeader className='w-full h-[64px] flex flex-row items-center justify-between py-[10px] px-6 border-b border-b-[hsla(218,19%,92%,1)]'>
             <CardTitle>Filters</CardTitle>
             <div className='flex items-center gap-x-[32px] pt-[2px] !m-0'>
               {/* Clear all button */}
-              <LinkButton
-                onClick={resetValues}
-                disabled={disableSaveButton}
-                className='text-[18px]'
-              >
+              <LinkButton className='text-[18px]' onClick={resetValues}>
                 Clear All
               </LinkButton>
-              <span onClick={() => remove()} className='!m-0 cursor-pointer'>
+              <span onClick={handleCloseModal} className='!m-0 cursor-pointer'>
                 <SheetCloseIcon />
               </span>
             </div>
@@ -159,21 +178,19 @@ export const ActivityLogsSearchFilterModal = create(() => {
             </div>
             <Separator />
 
-            {/* Roles Filters */}
+            {/* Status Filters */}
             <div className='space-y-[16px] pt-4 px-6 mb-4'>
               <label htmlFor='' className='text-sm font-medium'>
                 Status
               </label>
               <div className='w-full max-w-full flex items-center gap-2 flex-wrap'>
-                {/* {rolesFilterSetting.map(({ value, label }) => (
-                  <FilterToggle key={value} label={label} value={value} />
-                ))} */}
                 <ToggleGroup
                   type='single'
-                  value={activityStatus}
-                  onValueChange={setActivityStatus}
+                  value={status}
+                  defaultValue='all'
+                  onValueChange={value => handleStatusChange(value)}
                 >
-                  {rolesFilterSetting.map(({ value, label }) => (
+                  {statusFilterSetting.map(({ value, label }) => (
                     <ToggleGroupItem
                       key={value}
                       value={value}
@@ -190,19 +207,16 @@ export const ActivityLogsSearchFilterModal = create(() => {
             {/* Transaction type Filters */}
             <div className='space-y-[16px] py-4 px-6'>
               <label htmlFor='' className='text-sm font-medium'>
-                Activity type
+                Transaction type
               </label>
-              <div className='w-full flex flex-wrap items-center gap-2'>
-                {/* {ActivityTypeFilterSetting.map(({ value, label }) => (
-                  <FilterToggle key={value} label={label} value={value} />
-                ))} */}
+              <div className='w-full flex items-center gap-2'>
                 <ToggleGroup
                   type='single'
-                  value={activityType}
-                  onValueChange={setActivityType}
-                  className='flex items-center flex-wrap justify-start'
+                  value={transactionType}
+                  defaultValue='all'
+                  onValueChange={value => handleTransactionTypeChange(value)}
                 >
-                  {ActivityTypeFilterSetting.map(({ value, label }) => (
+                  {TransactionTypeFilterSetting.map(({ value, label }) => (
                     <ToggleGroupItem
                       key={value}
                       value={value}
@@ -218,12 +232,7 @@ export const ActivityLogsSearchFilterModal = create(() => {
 
           {/* Footer */}
           <CardFooter className='w-full pb-4 px-6'>
-            <Button
-              disabled={disableSaveButton}
-              onClick={handleSaveFilterSettings}
-            >
-              Save
-            </Button>
+            <Button onClick={handleSaveFilterSettings}>Save</Button>
           </CardFooter>
         </Card>
       </DialogContent>

@@ -3,16 +3,21 @@ import { Table } from '@tanstack/react-table'
 import { Button } from '@/components/ui/button'
 import ArrowLeftIcon from '../../atoms/icons/arrow-left-icon'
 import ArrowRightIcon from '../../atoms/icons/arrow-right-icon'
+import { cn } from '@/lib/utils'
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>
+  className?: string
 }
 
-export function Pagination<TData>({ table }: DataTablePaginationProps<TData>) {
+export function Pagination<TData>({
+  table,
+  className,
+}: DataTablePaginationProps<TData>) {
   const pageCount = table.getPageCount()
 
   return (
-    <div className='w-full flex items-center justify-end py-4'>
+    <div className={cn('w-full flex items-center justify-end py-4', className)}>
       <div className='flex items-center'>
         {/* Previous Button */}
         <Button
@@ -85,7 +90,8 @@ export function Pagination<TData>({ table }: DataTablePaginationProps<TData>) {
             </span> */}
 
             <span className='text-primary font-medium border h-[32px h-full py-2.5 px-4 w-[80px] text-center min-w-fit min-h-fit text-sm rounded-none'>
-              {table.getState().pagination.pageIndex > 2 && table.getState().pagination.pageIndex < pageCount - 3
+              {table.getState().pagination.pageIndex > 2 &&
+              table.getState().pagination.pageIndex < pageCount - 3
                 ? table.getState().pagination.pageIndex + 1
                 : '...'}
             </span>

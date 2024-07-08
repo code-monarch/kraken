@@ -10,7 +10,7 @@ export type Transaction = {
   order_amount: number | string
   fee: string
   currency: string // e.g. "USD",
-  status: string //e.g. "COMPLETED",
+  status: "COMPLETED" | "PENDING" | "FAILED",
   metadata: {
     customer: {
       email: string
@@ -37,39 +37,53 @@ export interface ITransactionsResponse {
   error: boolean
   responseCode: string
   responseMessage: string
-  data: Transaction[]
-  // Placeholder type for Pagination
-  pagination: {
-    totalResults: number
-    currentPage: number
-    totalPages: number
+  data: {
+    contents: Transaction[],
+    paginate: {
+      totalResults: number,
+      currentPage: number,
+      totalPages: number
+    }
   }
 }
 
-interface ITransactionsPayload {
+export interface ITransactionsPayload {
   pageSize?: number
   page?: number
   searchQuery?: string // search query
-  filterby?: { label: 'status'; value: 'COMPLETED' | 'PENDING' | 'FAILED' }
-  type?: 'Trade' | 'Withdrawal' | 'Swap' | 'Deposit'
+  filterby?: { label: 'status'; value: 'COMPLETED' | 'PENDING' | 'FAILED' | null | undefined }
+  type?: 'Trade' | 'Withdrawal' | 'Swap' | 'Deposit' | null | undefined
+  startDate?: string
+  endDate?: string
 }
 
 export const getTransactionsApiSlice = baseApiSlice.injectEndpoints({
   endpoints: builder => ({
     getTransactions: builder.query<ITransactionsResponse, ITransactionsPayload>(
       {
-        query: ({ pageSize, page, searchQuery, filterby, type }) => ({
-          url: `transactions/admin?page=${page}&limit=${pageSize}${filterby ? `&filterby=${filterby.label};${filterby.value ?? 'COMPLETED'},type;${type ?? 'Deposit'},` : ''}${searchQuery ? `&searchQuery=${searchQuery}` : ''}`,
+        query: ({ pageSize, page, searchQuery, filterby, type, startDate, endDate }) => ({
+          url: `transactions/admin?page=${page}&limit=${pageSize}${filterby && filterby.value ? `&filterby=${filterby.label}=${filterby.value}` : ''}${type ?? ''}${searchQuery ? `&searchQuery=${searchQuery}` : ''}${startDate ? `&startDate=${startDate}` : ''}${endDate ? `&endDate=${endDate}` : ''}`,
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-          },
-          keepUnusedDataFor: 5,
+          }
         }),
         providesTags: ['getTransactions'],
+        transformErrorResponse: (response) => {
+          // Check if original status code === 401 and modify the response as needed
+          if (response.status === 401) {
+            localStorage.clear()
+            return {
+              status: 426,
+              message: 'Invalid API key',
+            };
+          }
+          // Default case, return the original response
+          return response
+        },
       },
     ),
   }),
 })
 
-export const { useGetTransactionsQuery } = getTransactionsApiSlice
+export const { useGetTransactionsQuery, useLazyGetTransactionsQuery } = getTransactionsApiSlice

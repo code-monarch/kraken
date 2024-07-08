@@ -1,17 +1,17 @@
-"use client";
-import React, { FC } from "react";
-import SlideOutDivider from "../molecules/data-display/slide-out-divider";
-import { Badge } from "@/components/ui/badge";
-import { Label } from "@/components/ui/label";
-import Divider from "../atoms/icons/divider";
-import { Separator } from "@/components/ui/separator";
+'use client'
+import React, { FC } from 'react'
+import SlideOutDivider from '../molecules/data-display/slide-out-divider'
+import { Badge } from '@/components/ui/badge'
+import { Label } from '@/components/ui/label'
+import Divider from '../atoms/icons/divider'
+import { Separator } from '@/components/ui/separator'
 
 interface IProps {
-  amount: string | number;
-  transactionFee: string | number;
-  transationType: string;
-  transactionId: string;
-  date: string;
+  amount: string | number
+  transactionFee: string | number
+  transationType: string
+  transactionId: string
+  date: string
 }
 
 const SlideOutTransactionDetailsWidget: FC<IProps> = ({
@@ -35,33 +35,47 @@ const SlideOutTransactionDetailsWidget: FC<IProps> = ({
         {/* Amount */}
         <div className='w-full flex items-start justify-between'>
           <Label htmlFor='amount'>Amount:</Label>
-          <div id='amount'>100,000.00 NGN</div>
+          <div id='amount' className='text-right'>
+            {amount}
+          </div>
         </div>
+
         {/* Transaction Fee */}
         <div className='w-full flex items-start justify-between'>
-          <Label htmlFor='amount'>Transaction fee:</Label>
-          <div id='amount'>0.00 NGN</div>
+          <Label htmlFor='fee'>Transaction fee:</Label>
+          <div id='fee' className='text-right'>
+            {transactionFee}
+          </div>
         </div>
+
         {/* Transaction Type */}
         <div className='w-full flex items-start justify-between'>
-          <Label htmlFor='amount'>Transaction type:</Label>
-          <div id='amount'>Withdrawal</div>
+          <Label htmlFor='type'>Transaction type:</Label>
+          <div id='type' className='text-right uppercase'>
+            {transationType}
+          </div>
         </div>
+
         {/* Transaction ID */}
         <div className='w-full flex items-start justify-between'>
-          <Label htmlFor='amount'>Transaction ID:</Label>
-          <div id='amount'>1234567899</div>
+          <Label htmlFor='id'>Transaction ID:</Label>
+          <div id='id' className='text-right pl-7'>
+            {transactionId}
+          </div>
         </div>
+
         {/* Date */}
         <div className='w-full flex items-start justify-between'>
           <Label htmlFor='amount'>Date</Label>
-          <div id='amount'>18/10/2023. | 12:45 pm</div>
+          <div id='amount' className='text-right'>
+            {date}
+          </div>
         </div>
 
         <Separator />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SlideOutTransactionDetailsWidget;
+export default SlideOutTransactionDetailsWidget
