@@ -50,7 +50,13 @@ export const DeclineRequestModal = create(
       })
         .unwrap()
         .then(res => {
-          show(RequestDeclinedModal, { comment: comment })
+          show(RequestDeclinedModal, {
+            comment: comment,
+            amount: amount,
+            accountName: accountName,
+            accountNumber: accountNumber,
+            bankName: bankName,
+          })
           handleCloseModal()
         })
         .catch(err => {
@@ -105,7 +111,7 @@ export const DeclineRequestModal = create(
                 size='sm'
                 variant='destructive'
                 onClick={handleDeclineRequest}
-                loading={false}
+                loading={isLoading}
               >
                 Decline Request
               </LoadingButton>

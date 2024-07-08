@@ -43,7 +43,12 @@ const ConfirmApprovalModal = create(
       })
         .unwrap()
         .then(res => {
-          show(ApprovalSuccessfulModal)
+          show(ApprovalSuccessfulModal, {
+            amount: amount,
+            accountName: accountName,
+            accountNumber: accountNumber,
+            bankName: bankName,
+          })
           handleCloseModal()
         })
         .catch(err => {

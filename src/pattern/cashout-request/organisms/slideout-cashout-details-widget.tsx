@@ -8,11 +8,12 @@ import { formatDateTime } from '@/lib/helper/format-date-time'
 import SlideOutDivider from '@/pattern/common/molecules/data-display/slide-out-divider'
 
 interface IProps {
-  amount: string | number
+  amount: number
   transactionType: string
   transactionId: string
   status: string
   date: string
+  currency: string
 }
 
 const SlideOutCahsoutDetailsWidget: FC<IProps> = ({
@@ -21,6 +22,7 @@ const SlideOutCahsoutDetailsWidget: FC<IProps> = ({
   transactionId,
   date,
   status,
+  currency,
 }) => {
   return (
     <div className='w-full min-h-[273px] h-fit space-y-[20px] py-4'>
@@ -35,7 +37,7 @@ const SlideOutCahsoutDetailsWidget: FC<IProps> = ({
 
       <div className='w-full flex flex-col items-center space-y-[4px]'>
         <h3 className='text-foreground text-24 font-raleway font-semibold'>
-          {amount} <span>NGN</span>
+          {amount} <span>{currency}</span>
         </h3>
         <p className='text-accent-foreground text-base font-medium'>
           {amount} SAR
@@ -48,7 +50,7 @@ const SlideOutCahsoutDetailsWidget: FC<IProps> = ({
           <Label htmlFor='amount'>Cashout Amount:</Label>
           <div className='flex flex-col items-end'>
             <div id='amount' className='font-medium text-[#2a2e33]'>
-              {amount} NGN
+              {amount} {currency}
             </div>
             <div id='amount' className='text-xs font-medium text-[#6D7786]'>
               {amount} SAR
@@ -83,7 +85,7 @@ const SlideOutCahsoutDetailsWidget: FC<IProps> = ({
                   ? 'pending'
                   : 'failed'
             }
-            className="h-[23px] max-w-[69px] capitalize"
+            className='h-[23px] max-w-[69px] capitalize'
           >
             {status}
           </Badge>

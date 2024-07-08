@@ -52,8 +52,9 @@ export const RequestDeclinedModal = create(
 
             {/* Content */}
             <CardContent className='space-y-[16px] mb-[8px]'>
-              <div>
-                <p>Reason for decline</p>
+              <p>The cashout request was successfully declined.</p>
+              <div className='space-y-2'>
+                <p className='font-semibold'>Reason for decline</p>
                 <p className='text-sm text-[#4F627D]'>{comment}</p>
               </div>
 

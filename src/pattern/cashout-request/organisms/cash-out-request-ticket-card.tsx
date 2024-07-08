@@ -13,30 +13,10 @@ import { format } from 'date-fns'
 export interface ICashOutRequestTicketCardProps
   extends HTMLAttributes<HTMLDivElement> {
   data: ICashoutRequest
-  // ticketNumber: string | number
-  // ticketId: string | number
-  // amount: number
-  // status: 'pending' | 'declined' | 'approved' | string
-  // userName: string
-  // userImage: string | StaticImport
-  // date: Date | string
-  // accountName: string
-  // accountNumber: string
-  // bankName: string
 }
 
 const CashOutRequestTicketCard: FC<ICashOutRequestTicketCardProps> = ({
   data,
-  // ticketNumber,
-  // ticketId,
-  // amount,
-  // status,
-  // userName,
-  // userImage,
-  // date,
-  // accountName,
-  // accountNumber,
-  // bankName,
 }) => {
   return (
     <div className='flex-1 bg-white min-w-[352px] max-w-[352px] h-[188px] flex flex-col items-start justify-between py-4 px-5 border border-border rounded-xl'>
@@ -85,7 +65,7 @@ const CashOutRequestTicketCard: FC<ICashOutRequestTicketCardProps> = ({
                 number: data?.amount,
                 mantissa: 2,
               })}
-              &nbsp; NGN
+              &nbsp; {data?.currency}
             </span>
             <span
               id='amount'

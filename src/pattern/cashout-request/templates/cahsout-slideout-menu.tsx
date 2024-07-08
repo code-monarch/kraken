@@ -20,9 +20,10 @@ import AgentDetailsCard from '../molecules/agent-detail-card'
 import ConfirmApprovalModal from '../organisms/confirm-approval-modal'
 import { ApprovalSuccessfulModal } from '../organisms/approval-successful-modal'
 import { useGetSingleCashoutRequestQuery } from '@/redux/services/transactions/get-cashout-requests.api-slice'
-import PulsePlaceholder from '@/pattern/common/atoms/icons/pulse-placeholder-icon'
 import { RequestDeclinedModal } from '../organisms/request-declined-modal'
 import { DeclineRequestModal } from '../organisms/decline-request-modal'
+import { formatNumber } from '@/lib/helper/format-number'
+import TransactionsSlideOutMenuSkeleton from '@/pattern/common/molecules/skeletons/transactions-slide-out-menu-skeleton'
 
 interface IProps {
   transactionId: string
@@ -66,7 +67,7 @@ const CashoutSlideOutMenu = create(({ transactionId }: IProps) => {
         accountName: 'Cecilia Davis',
         accountNumber: '2078672378',
         bankName: 'GTCO',
-        comment: data?.data.comment,
+        comment: data?.data.comment ?? 'Reason for decline',
       })
     }
   }
@@ -81,17 +82,20 @@ const CashoutSlideOutMenu = create(({ transactionId }: IProps) => {
             <SheetHeader className='absolute top-0 right-0 left-0 z-10'>
               <SheetTitle>Request Summary</SheetTitle>
             </SheetHeader>
-            {isLoading && <PulsePlaceholder />}
-            {isSuccess && (
+            {/* Display skeleton when loading content */}
+            {isLoading && <TransactionsSlideOutMenuSkeleton />}
+            
+            {isSuccess && !isLoading && (
               <div className='w-full mt-[72px] px-[24px] pt-[24px] font-raleway space-y-[16px]'>
                 <div className='px-4 space-y-[16px]'>
                   {/* Cashout Details */}
                   <SlideOutCahsoutDetailsWidget
-                    amount={data?.data.amount ?? ''}
-                    date={data?.data.createdAt!}
-                    transactionId={data?.data.transaction.reference!}
-                    transactionType={data?.data.transaction.type!}
-                    status={data?.data.status!}
+                    amount={data?.data.amount as number}
+                    date={data?.data.createdAt as string}
+                    transactionId={data?.data.transaction.reference as string}
+                    transactionType={data?.data.transaction.type as string}
+                    status={data?.data.status as string}
+                    currency={data?.data.currency as string}
                   />
 
                   {/* Payment information */}
@@ -152,9 +156,13 @@ const CashoutSlideOutMenu = create(({ transactionId }: IProps) => {
                         <AgentDetailsCard
                           ImageFallback='JA'
                           name={`${data?.data.transaction.metadata.agent.firstname} ${data?.data.transaction.metadata.agent.lastname}`}
-                          number={'08166687292'}
+                          number={
+                            data?.data.transaction.metadata.agent.phoneNumber ??
+                            '08166687292'
+                          }
                           imageUrl={
-                            data?.data.transaction.metadata.agent.imageUrl!
+                            data?.data.transaction.metadata.agent.imageUrl ??
+                            'https://ummrah-images.s3.us-east-1.amazonaws.com/1718735160802-Dave.jpg'
                           }
                         />
 
@@ -165,13 +173,21 @@ const CashoutSlideOutMenu = create(({ transactionId }: IProps) => {
                               id='amount'
                               className='font-medium text-[#2A2E33]'
                             >
-                              100,000.00 NGN
+                              {formatNumber({
+                                number: data?.data.rewards,
+                                mantissa: 2,
+                              })}{' '}
+                              {data?.data.currency}
                             </div>
                             <div
                               id='amount'
                               className='text-xs font-medium text-[#6D7786]'
                             >
-                              100,000.00 SAR
+                              {formatNumber({
+                                number: data?.data.rewards,
+                                mantissa: 2,
+                              })}{' '}
+                              {data?.data.currency}
                             </div>
                           </div>
                         </div>
@@ -179,7 +195,7 @@ const CashoutSlideOutMenu = create(({ transactionId }: IProps) => {
                         <div className='w-full flex items-start justify-between text-sm'>
                           <Label htmlFor='amount'>Withdrawable Amount:</Label>
                           <div id='amount' className='text-[#2A2E33]'>
-                            {80} SAR
+                            {data?.data.amount} {data?.data.currency}
                           </div>
                         </div>
                       </div>

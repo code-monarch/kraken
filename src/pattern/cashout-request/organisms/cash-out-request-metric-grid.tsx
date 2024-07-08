@@ -5,7 +5,7 @@ import { useGetCashoutMatrixQuery } from '@/redux/services/transactions/get-cash
 
 const CashOutRequestMetricGrid = () => {
   //  Fetch Cash out request metric
-  const { data, isLoading } = useGetCashoutMatrixQuery()
+  const { data, isLoading, isFetching } = useGetCashoutMatrixQuery()
   return (
     <div className='w-full grid grid-cols-4 gap-5'>
       {/* Total Request */}
@@ -14,7 +14,7 @@ const CashOutRequestMetricGrid = () => {
         metricValue={data?.data.totalCashout as number}
         hideMetricPercentage
         isAmount={false}
-        isLoading={false}
+        isLoading={isLoading || isFetching}
       />
       {/* Approved Requests */}
       <DashboardMetricCard
@@ -22,7 +22,7 @@ const CashOutRequestMetricGrid = () => {
         metricValue={data?.data.approvedCashout as number}
         hideMetricPercentage
         isAmount={false}
-        isLoading={false}
+        isLoading={isLoading || isFetching}
       />
       {/* Pending Requests */}
       <DashboardMetricCard
@@ -30,7 +30,7 @@ const CashOutRequestMetricGrid = () => {
         metricValue={data?.data.pendingCashout as number}
         hideMetricPercentage
         isAmount={false}
-        isLoading={false}
+        isLoading={isLoading || isFetching}
       />
       {/* Declined Requests */}
       <DashboardMetricCard
@@ -38,7 +38,7 @@ const CashOutRequestMetricGrid = () => {
         metricValue={data?.data.declinedCashout as number}
         hideMetricPercentage
         isAmount={false}
-        isLoading={false}
+        isLoading={isLoading || isFetching}
       />
     </div>
   )

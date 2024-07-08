@@ -8,6 +8,7 @@ export interface ICashoutRequest {
   approved_by: null
   status: string
   amount: number
+  rewards: number
   currency: string
   matadata: null
   createdAt: string
@@ -26,8 +27,12 @@ export interface ICashoutRequest {
     status: string
     metadata: {
       agent: {
-        firstname: string
         lastname: string
+        firstname: string
+        phoneNumber: string
+        address: string
+        id: string
+        email: string
         imageUrl: string
       }
     }
@@ -48,6 +53,7 @@ interface ISingleCashoutRequestResponse {
     approved_by: null
     status: string
     amount: number
+    rewards: number
     currency: string
     matadata: null
     createdAt: string
@@ -66,8 +72,12 @@ interface ISingleCashoutRequestResponse {
       status: string
       metadata: {
         agent: {
-          firstname: string
           lastname: string
+          firstname: string
+          phoneNumber: string
+          address: string
+          id: string
+          email: string
           imageUrl: string
         }
       }
@@ -141,17 +151,17 @@ export const getCashoutRequestsApiSlice = baseApiSlice.injectEndpoints({
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-        }
+        },
       }),
       providesTags: ['getCashoutRequests'],
-      transformErrorResponse: (response) => {
+      transformErrorResponse: response => {
         // Check if original status code === 401 and modify the response as needed
         if (response.status === 401) {
           localStorage.clear()
           return {
             status: 426,
             message: 'Invalid API key',
-          };
+          }
         }
         // Default case, return the original response
         return response
