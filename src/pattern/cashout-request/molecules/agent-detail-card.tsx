@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import Link from 'next/link'
 
 interface IAgentDetailsCardProps {
-  imageUrl?: string
+  imageUrl: string
   ImageFallback: string
   name: string // Agent Name
   number: string

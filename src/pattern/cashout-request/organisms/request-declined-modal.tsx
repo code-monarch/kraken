@@ -23,51 +23,57 @@ import { CommentInput } from '@/pattern/common/molecules/inputs/comment-input'
 
 interface IProps {
   comment: string
+  amount: number
+  accountName: string
+  accountNumber: string
+  bankName: string
 }
 
-export const RequestDeclinedModal = create(({ comment }: IProps) => {
-  const { resolve, remove, visible } = useModal()
+export const RequestDeclinedModal = create(
+  ({ comment, amount, accountName, accountNumber, bankName }: IProps) => {
+    const { resolve, remove, visible } = useModal()
 
-  const handleCloseModal = () => {
-    resolve({ resolved: true })
-    remove()
-  }
+    const handleCloseModal = () => {
+      resolve({ resolved: true })
+      remove()
+    }
 
-  return (
-    <Dialog open={visible} onOpenChange={handleCloseModal}>
-      <DialogContent className='w-fit h-fit p-0 outline-none border-none shadow-none'>
-        <Card className='w-[400px] min-h-[308px] h-fit p-6'>
-          {/* Header */}
-          <CardHeader className='w-full flex !flex-row gap-5 items-start gap-y-5'>
-            <DeclineRequestHeaderIcon />
-            <CardTitle className='text-[1.125rem] text-foreground font-semibold'>
-              Request Declined
-            </CardTitle>
-          </CardHeader>
+    return (
+      <Dialog open={visible} onOpenChange={handleCloseModal}>
+        <DialogContent className='w-fit h-fit p-0 outline-none border-none shadow-none'>
+          <Card className='w-[400px] min-h-[308px] h-fit p-6'>
+            {/* Header */}
+            <CardHeader className='w-full flex !flex-row gap-5 items-start gap-y-5'>
+              <DeclineRequestHeaderIcon />
+              <CardTitle className='text-[1.125rem] text-foreground font-semibold'>
+                Request Declined
+              </CardTitle>
+            </CardHeader>
 
-          {/* Content */}
-          <CardContent className='space-y-[16px] mb-[8px]'>
-            <div>
-              <p>Reason for decline</p>
-              <p className='text-sm text-[#4F627D]'>{comment}</p>
-            </div>
+            {/* Content */}
+            <CardContent className='space-y-[16px] mb-[8px]'>
+              <div>
+                <p>Reason for decline</p>
+                <p className='text-sm text-[#4F627D]'>{comment}</p>
+              </div>
 
-            <CashoutRequestDetails
-              amount={100000}
-              accountName='Cecilia Davis'
-              accountNumber='1234567890'
-              bankName='GTCO'
-            />
-          </CardContent>
+              <CashoutRequestDetails
+                amount={amount}
+                accountName={accountName}
+                accountNumber={accountNumber}
+                bankName={bankName}
+              />
+            </CardContent>
 
-          {/* Footer */}
-          <CardFooter className='w-full flex items-center justify-between gap-3'>
-            <Button size='sm' variant='outline' onClick={handleCloseModal}>
-              Close
-            </Button>
-          </CardFooter>
-        </Card>
-      </DialogContent>
-    </Dialog>
-  )
-})
+            {/* Footer */}
+            <CardFooter className='w-full flex items-center justify-between gap-3'>
+              <Button size='sm' variant='outline' onClick={handleCloseModal}>
+                Close
+              </Button>
+            </CardFooter>
+          </Card>
+        </DialogContent>
+      </Dialog>
+    )
+  },
+)

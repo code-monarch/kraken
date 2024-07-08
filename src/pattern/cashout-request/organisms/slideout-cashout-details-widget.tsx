@@ -67,7 +67,7 @@ const SlideOutCahsoutDetailsWidget: FC<IProps> = ({
         {/* Transaction ID */}
         <div className='w-full flex items-start justify-between'>
           <Label htmlFor='id'>Trx/Ticket ID:</Label>
-          <div id='id' className='text-[#2a2e33]'>
+          <div id='id' className='text-[#2a2e33] max-w-[100px]'>
             {transactionId}
           </div>
         </div>
@@ -77,7 +77,7 @@ const SlideOutCahsoutDetailsWidget: FC<IProps> = ({
           <Label htmlFor='status'>Status:</Label>
           <Badge
             variant={
-              status.toLowerCase() === 'approved'
+              status?.toLowerCase() === 'approved'
                 ? 'completed'
                 : status === 'pending'
                   ? 'pending'
