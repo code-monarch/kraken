@@ -1,11 +1,6 @@
 'use client'
-import React, { useEffect, useState } from 'react'
-import CashOutRequestTicketCard, {
-  ICashOutRequestTicketCardProps,
-} from '../cash-out-request-ticket-card'
-import CashOutRequestTabLayout from '../../molecules/cash-out-request-tab-layout'
-import { fetchCashOutRequest } from '@/lib/fetchCashOutRequests'
-import { format } from 'date-fns'
+import React from 'react'
+import CashOutRequestTicketCard from '../cash-out-request-ticket-card'
 import PulsePlaceholder from '@/pattern/common/atoms/icons/pulse-placeholder-icon'
 import { IGetCashoutRequestsResponse } from '@/redux/services/transactions/get-cashout-requests.api-slice'
 
@@ -24,19 +19,6 @@ const ApprovedCashOutRequestTabContent = ({
   isError,
   isSuccess,
 }: IProps) => {
-  // useEffect(() => {
-  //   async function fetchDataAndUpdate() {
-  //     const data = await fetchCashOutRequest()
-  //     setIsLoading(true)
-  //     if (data) {
-  //       setIsLoading(false)
-  //       setDataQuery(data?.data)
-  //     }
-  //   }
-
-  //   fetchDataAndUpdate()
-  // }, [])
-
   return (
     // <CashOutRequestTabLayout>
     <div className='w-full flex items-center flex-wrap gap-5'>

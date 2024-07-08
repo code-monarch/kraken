@@ -1,15 +1,10 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import CashOutRequestTicketCard, {
-  ICashOutRequestTicketCardProps,
+  
 } from '../cash-out-request-ticket-card'
-import CashOutRequestTabLayout from '../../molecules/cash-out-request-tab-layout'
-import { fetchCashOutRequest } from '@/lib/fetchCashOutRequests'
-import { format } from 'date-fns'
 import PulsePlaceholder from '@/pattern/common/atoms/icons/pulse-placeholder-icon'
 import { IGetCashoutRequestsResponse } from '@/redux/services/transactions/get-cashout-requests.api-slice'
-import EmptyTableWidget from '@/pattern/common/molecules/data-display/empty-table-widget'
-import ErrorTableWidget from '@/pattern/common/molecules/data-display/error-table-widget'
 
 interface IProps {
   data: IGetCashoutRequestsResponse
@@ -26,19 +21,6 @@ const AllCashOutRequestTabContent = ({
   isError,
   isSuccess,
 }: IProps) => {
-
-  // useEffect(() => {
-  //   async function fetchDataAndUpdate() {
-  //     const data = await fetchCashOutRequest()
-  //     setIsLoading(true)
-  //     if (data) {
-  //       setIsLoading(false)
-  //       setDataQuery(data?.data)
-  //     }
-  //   }
-
-  //   fetchDataAndUpdate()
-  // }, [])
 
   return (
     // <CashOutRequestTabLayout onFilterClick={() => {}}>
