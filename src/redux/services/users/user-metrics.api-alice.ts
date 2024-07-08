@@ -2,24 +2,31 @@ import { baseApiSlice } from "@/redux/api/base-api";
 import { IUser } from "./user.api-slice";
 
 export type IAdminUser = {
-  _id: string;
-  email: string;
-  userType: string;
-  twoFactor: boolean;
-  clientId: string;
-  transactions: [];
-  lastLogin: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-  apiKey: string;
-  firstname: string;
-  lastname: string;
-  phoneNumber: string;
-  emailVerified: boolean;
-  isVerified: boolean;
-  status: string;
-  totp2FA: boolean;
+  phoneNumber: string,
+  twoFactor: boolean,
+  isVerified: boolean,
+  verificationCode: boolean,
+  emailVerified: boolean,
+  lastLogin: string,
+  createdAt: string,
+  updatedAt: string,
+  __v: number,
+  address: string,
+  bvn: string,
+  country: string,
+  email: string,
+  firstname: string,
+  lastname: string,
+  middlename: string,
+  nin: string,
+  passportID: string,
+  state: string,
+  status: string // e.g "Frozen",
+  userType: "AGENT" | "PILGRIM",
+  totp2FA: false,
+  imageUrl: string,
+  kycMessage: string,
+  kycVerification: string
 };
 
 export interface IGetUsersMetricsResponse {

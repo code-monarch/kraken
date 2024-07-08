@@ -41,7 +41,11 @@ const FundDisbursementWalletFormSchema = Yup.object().shape({
   amount: Yup.number().required('Enter an amount'),
 })
 
-export const FundDisbursementWalletModal = create(() => {
+interface IProps {
+  agentId: string
+}
+
+export const FundDisbursementWalletModal = create(({ agentId }: IProps) => {
   const { resolve, remove, visible } = useModal()
 
   const handleCloseModal = () => {

@@ -44,18 +44,6 @@ export const TransactionsTableColumns: ColumnDef<Transaction>[] = [
     header: 'Trx ID',
   },
   {
-    accessorKey: 'pilgrim',
-    header: 'Pilgrim',
-    cell: ({ row }) => {
-      const name: string = row.getValue('pilgrim')
-      return (
-        <div className='mr-[60px]'>
-          <AgentCell name={name ?? 'John Doe'} />
-        </div>
-      )
-    },
-  },
-  {
     accessorKey: 'order_amount',
     header: () => <div className=''>Amount</div>,
     cell: ({ row }) => {
@@ -66,18 +54,6 @@ export const TransactionsTableColumns: ColumnDef<Transaction>[] = [
       }).format(amount)
 
       return <div className='font-medium'>{formattedAmount}</div>
-    },
-  },
-  {
-    accessorKey: 'agent',
-    header: 'Agent',
-    cell: ({ row }) => {
-      const name: string = row.getValue('agent')
-      return (
-        <div className='mr-[35px]'>
-          <AgentCell name={name ?? 'John Doe'} />
-        </div>
-      )
     },
   },
   {
