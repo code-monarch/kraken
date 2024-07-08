@@ -102,6 +102,7 @@ export const TransactionsFilterModal = create(() => {
     dispatch(setStartDateFilter(startDate))
     dispatch(setEndDateFilter(endDate))
     dispatch(setTransactionTypeFilter(transactionType!))
+    dispatch(setStatusFilter("all"))
     if (searchQueryFilter) {
       dispatch(setSearchQueryFilter(''))
     }
@@ -115,7 +116,6 @@ export const TransactionsFilterModal = create(() => {
     dispatch(setOrderFilter('asc'))
     dispatch(setStartDateFilter(''))
     dispatch(setEndDateFilter(''))
-    dispatch(setTransactionTypeFilter())
   }
   return (
     <Dialog open={visible} onOpenChange={handleCloseModal}>
