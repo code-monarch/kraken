@@ -72,7 +72,7 @@ const baseQueryWithReauth: BaseQueryFn<
 export const baseApiSlice = createApi({
   reducerPath: 'baseApi',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ["getUser", "getAdmin", "getProfile", "getTransactions", "getSingleTransactions", "getTransactionMatrix", "getTransactionMatrixAlltime", "getCashoutRequests"],
+  tagTypes: ["getUser", "getAdmin", "getProfile", "getTransactions", "getSingleTransactions", "getTransactionMatrix", "getTransactionMatrixAlltime", "getCashoutRequests", "getTransactionMatrixChart"],
   refetchOnReconnect: true,
   // keepUnusedDataFor: 30,
   refetchOnMountOrArgChange: true,

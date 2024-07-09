@@ -1,3 +1,4 @@
+import { LOGIN_API_KEY, SERVICE_ACCOUNT_API_KEY } from '@/lib/constants'
 import { baseApiSlice } from '@/redux/api/base-api'
 
 type Metadata = {
@@ -80,11 +81,8 @@ export const getTransactionsApiSlice = baseApiSlice.injectEndpoints({
         transformErrorResponse: (response) => {
           // Check if original status code === 401 and modify the response as needed
           if (response.status === 401) {
-            localStorage.clear()
-            return {
-              status: 426,
-              message: 'Invalid API key',
-            };
+            localStorage.removeItem(LOGIN_API_KEY)
+            localStorage.removeItem(SERVICE_ACCOUNT_API_KEY)
           }
           // Default case, return the original response
           return response
