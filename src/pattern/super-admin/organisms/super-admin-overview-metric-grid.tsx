@@ -1,43 +1,49 @@
-"use client"
-import React from "react";
-import DashboardMetricCard from "@/pattern/common/organisms/dashboard-metric-card";
+'use client'
+import React from 'react'
+import DashboardMetricCard from '@/pattern/common/organisms/dashboard-metric-card'
+import { useGetTransactionMatrixAlltimeQuery } from '@/redux/services/transactions/get-transaction-matrix-alltime.api-slice'
 
 const SuperAdminOverviewMetricGrid = () => {
+  const { data, isLoading, isFetching } = useGetTransactionMatrixAlltimeQuery()
   return (
     <div className='w-full grid grid-cols-4 gap-5'>
       {/* Total Users Metric */}
       <DashboardMetricCard
-        metric='Total Revenue'
+        metric='Total Balance NGN'
         metricPercentage='10'
-        metricValue={10000}
-        isLoading={false}
+        metricValue={data?.data.balance.settlemet.NGN as number}
+        isLoading={isLoading || isFetching}
+        isNaira={true}
       />
       {/* Total Agent Earnings */}
       <DashboardMetricCard
-        metric='Total Agent Earnings'
+        metric='Total Balance SAR'
         metricPercentage='10'
-        metricValue= {4876.00}
-        isLoading={false}
+        metricValue={data?.data.balance.settlemet.SAR as number}
+        isLoading={isLoading || isFetching}
+        isNaira={false}
       />
       {/* Total Number of transactions */}
       <DashboardMetricCard
-        metric='Total No. of transactions'
+        metric='Total Disbursement Balance'
         metricPercentage='10'
-        metricValue= {5687}
-        isAmount={false}
-        isLoading={false}
+        metricValue={data?.data.balance.disbursement.NGN as number}
+        // isAmount={false}
+        isLoading={isLoading || isFetching}
+        isNaira={true}
       />
       {/* Total Admin */}
       <DashboardMetricCard
-        metric='Total Admin'
+        metric='Total Transaction Volume'
         metricPercentage='10'
-        metricValue= {5687}
+        metricValue={data?.data.total_volume as number}
         hideMetricPercentage={true}
-        isAmount={false}
-        isLoading={false}
+        // isAmount={false}
+        isLoading={isLoading || isFetching}
+        isNaira={true}
       />
     </div>
-  );
-};
+  )
+}
 
-export default SuperAdminOverviewMetricGrid;
+export default SuperAdminOverviewMetricGrid
