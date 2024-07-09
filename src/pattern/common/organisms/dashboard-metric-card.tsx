@@ -18,6 +18,7 @@ export interface IDashboardMetricCardProps
   isAmount?: boolean // if true formatAmount else apply thousand seperator
   hideMetricPercentage?: boolean
   isLoading: boolean // determines whether API call for getting the data is still in-progress
+  isNaira?: boolean
 }
 
 export const DashboardMetricCardStyle = {
@@ -33,6 +34,7 @@ const DashboardMetricCard: FC<IDashboardMetricCardProps> = ({
   isAmount = true,
   hideMetricPercentage = false,
   isLoading,
+  isNaira = true,
 }) => {
   return (
     <>
@@ -52,7 +54,9 @@ const DashboardMetricCard: FC<IDashboardMetricCardProps> = ({
               {/* If Metric value is an isAmount  */}
               <Hidden visible={isAmount}>
                 <>
-                  <span className='text-base'>{NAIRA_CURRENCY_SYMBOL}</span>
+                  <span className='text-base'>
+                    {isNaira ? NAIRA_CURRENCY_SYMBOL : 'SAR'}
+                  </span>
                   {formatNumber({
                     number: metricValue,
                     mantissa: 2,
