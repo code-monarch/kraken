@@ -31,8 +31,8 @@ export const getTransactionMatrixApiSlice = baseApiSlice.injectEndpoints({
       }),
       providesTags: ['getTransactionMatrixAlltime'],
       transformErrorResponse: (response) => {
-        // Check if original status code === 401 and modify the response as needed
-        if (response.status === 401) {
+        // Check if original status code === 426 and modify the response as needed
+        if (response.status === 426) {
           localStorage.removeItem(LOGIN_API_KEY)
           localStorage.removeItem(SERVICE_ACCOUNT_API_KEY)
         }

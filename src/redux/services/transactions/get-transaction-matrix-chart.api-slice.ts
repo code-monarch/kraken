@@ -1,79 +1,16 @@
 import { LOGIN_API_KEY, SERVICE_ACCOUNT_API_KEY } from '@/lib/constants'
 import { baseApiSlice } from '@/redux/api/base-api'
+import { IChartResponse } from '@/redux/types'
 
 export interface ITransactionMatrixChartResponse {
-    error: boolean
-    responseCode: string
-    responseMessage: string
+    error: boolean,
+    responseCode: string,
+    responseMessage: string,
     data: {
-        today: {
-            deposit: {
-                total_volume: number
-                total_tranx: number
-                average_tranx: number
-            }
-            Withdrawal: {
-                total_volume: number
-                total_tranx: number
-                average_tranx: number
-            }
-            Cashout: {
-                total_volume: number
-                total_tranx: number
-                average_tranx: number
-            }
-        }
-        last30Days: {
-            deposit: {
-                total_volume: number
-                total_tranx: number
-                average_tranx: number
-            }
-            Withdrawal: {
-                total_volume: number
-                total_tranx: number
-                average_tranx: number
-            }
-            Cashout: {
-                total_volume: number
-                total_tranx: number
-                average_tranx: number
-            }
-        }
-        last90Days: {
-            deposit: {
-                total_volume: number
-                total_tranx: number
-                average_tranx: number
-            }
-            Withdrawal: {
-                total_volume: number
-                total_tranx: number
-                average_tranx: number
-            }
-            Cashout: {
-                total_volume: number
-                total_tranx: number
-                average_tranx: number
-            }
-        }
-        lastYear: {
-            deposit: {
-                total_volume: number
-                total_tranx: number
-                average_tranx: number
-            }
-            Withdrawal: {
-                total_volume: number
-                total_tranx: number
-                average_tranx: number
-            }
-            Cashout: {
-                total_volume: number
-                total_tranx: number
-                average_tranx: number
-            }
-        }
+        weekly: IChartResponse,
+        last30Days: IChartResponse,
+        last90Days: IChartResponse,
+        lastYear: IChartResponse
     }
 }
 
@@ -98,8 +35,8 @@ export const getTransactionMatrixChartApiSlice = baseApiSlice.injectEndpoints({
             }),
             providesTags: ['getTransactionMatrixChart'],
             transformErrorResponse: (response) => {
-                // Check if original status code === 401 and modify the response as needed
-                if (response.status === 401) {
+                // Check if original status code === 426 and modify the response as needed
+                if (response.status === 426) {
                     localStorage.removeItem(LOGIN_API_KEY)
                     localStorage.removeItem(SERVICE_ACCOUNT_API_KEY)
                 }

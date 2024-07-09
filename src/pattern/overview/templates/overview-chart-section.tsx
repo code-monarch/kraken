@@ -19,7 +19,7 @@ import { useGetTransactionMatrixChartQuery } from "@/redux/services/transactions
 
 const OverviewChartSection = () => {
   const {
-    data: transactionsChart,
+    data: chartData,
     isLoading,
     isError,
     error,
@@ -27,7 +27,7 @@ const OverviewChartSection = () => {
   } = useGetTransactionMatrixChartQuery({
     interval: "yearly"
   })
-  console.log('TRANSACTIONS CHART: ', transactionsChart)
+  console.log('TRANSACTIONS CHART: ', chartData)
   return (
     <div className='w-full flex flex-col items-start gap-y-5'>
       <div className='w-full h-[32px] flex items-center justify-between'>
@@ -83,7 +83,9 @@ const OverviewChartSection = () => {
               ))}
             </div>
           </div>
-          <OverviewChart />
+
+          {/* Chart */}
+          <OverviewChart chartData={chartData?.data?.weekly!} />
         </div>
 
         {/* Overview metric */}

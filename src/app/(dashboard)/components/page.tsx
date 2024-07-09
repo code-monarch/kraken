@@ -52,7 +52,6 @@ export default function ComponentsPage() {
   } = methods
 
   const onSubmit = () => {
-    console.log('DATA TO SUBMIT: ')
   }
 
   const showTransactionSheet = () => {
