@@ -13,7 +13,7 @@ import { Dialog, DialogContent } from '@/components/ui/dialog'
 import LoadingButton from '@/pattern/common/molecules/controls/loading-button'
 import FormInput from '@/pattern/common/molecules/inputs/form-input'
 import SelectInput from '@/pattern/common/molecules/inputs/select-input'
-import { create, useModal } from '@ebay/nice-modal-react'
+import { create, show, useModal } from '@ebay/nice-modal-react'
 import * as Yup from 'yup'
 import {
   Controller,
@@ -25,17 +25,23 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useAddUserMutation } from '@/redux/services/users/add-user.api-slice'
 import { FieldSet } from '@/pattern/common/molecules/inputs/fieldset'
 import InputErrorMessage from '@/pattern/common/molecules/feedback/input-error-message'
+import {
+  IFundDisbursementWalletPayload,
+  useFundDisbursementWalletMutation,
+} from '@/redux/services/wallet/fund-disbursement-wallet.api-slice'
+import { ErrorModal } from '@/pattern/common/organisms/error-modal'
+import { SuccessModal } from '@/pattern/common/organisms/success-modal'
 
 const DISBURSEMENT_TYPES = [
-  { label: 'Fund', value: 'fund' },
+  { label: 'Credit', value: 'credit' },
   { label: 'Liquidate', value: 'liquidate' },
 ]
 
 const FundDisbursementWalletFormSchema = Yup.object().shape({
   type: Yup.string()
     .oneOf(
-      ['fund', 'liquidate'],
-      'Invalid type. Allowed values are fund or liquidate.',
+      ['credit', 'liquidate'],
+      'Invalid type. Allowed values are credit or liquidate.',
     )
     .required('Disbursement type is Required'),
   amount: Yup.number().required('Enter an amount'),
@@ -47,23 +53,29 @@ interface IProps {
 
 export const FundDisbursementWalletModal = create(({ agentId }: IProps) => {
   const { resolve, remove, visible } = useModal()
+  const [type, setType] = useState<'credit' | 'liquidate'>('credit')
 
   const handleCloseModal = () => {
     resolve({ resolved: true })
     remove()
   }
 
-  const defaultValues = {
-    type: 'fund',
+  const defaultValues: Omit<
+    IFundDisbursementWalletPayload,
+    'currency' | 'userid'
+  > = {
+    type: '' as any,
     amount: 0,
   }
 
-  const methods = useForm({
+  const methods = useForm<
+    Omit<IFundDisbursementWalletPayload, 'currency' | 'userid'>
+  >({
     mode: 'onChange',
     resolver: yupResolver(FundDisbursementWalletFormSchema),
     reValidateMode: 'onChange',
     delayError: 2000,
-    // defaultValues: defaultValues,
+    defaultValues: defaultValues,
   })
 
   const {
@@ -71,9 +83,32 @@ export const FundDisbursementWalletModal = create(({ agentId }: IProps) => {
     formState: { errors, isDirty },
   } = methods
 
-  const [addUser, { isLoading, isSuccess, isError }] = useAddUserMutation()
+  // const [addUser, { isLoading, isSuccess, isError }] = useAddUserMutation()
+  const [fundWallet, { isLoading, isSuccess, isError }] =
+    useFundDisbursementWalletMutation()
 
-  const onSubmit: SubmitHandler<any> = data => {
+  const onSubmit: SubmitHandler<
+    Omit<IFundDisbursementWalletPayload, 'currency' | 'userid'>
+  > = data => {
+    fundWallet({
+      userid: agentId,
+      currency: 'NGN',
+      amount: data.amount,
+      type: data.type,
+    })
+      .unwrap()
+      .then(res => {
+        show(SuccessModal, {
+          message: res?.responseMessage ?? 'Fund successful',
+        })
+      })
+      .catch(err => {
+        show(ErrorModal, {
+          message:
+            err?.data.responseMessage ??
+            'Something went wrong, please try again',
+        })
+      })
     console.log('DATA: ', data)
   }
 
@@ -87,7 +122,7 @@ export const FundDisbursementWalletModal = create(({ agentId }: IProps) => {
               Fund wallet
             </CardTitle>
             <CardDescription className='!mt-0'>
-              fund an agent&apos;s disbursement wallet
+              Fund an agent&apos;s disbursement wallet
             </CardDescription>
           </CardHeader>
 
@@ -98,7 +133,7 @@ export const FundDisbursementWalletModal = create(({ agentId }: IProps) => {
             >
               {/* Content */}
               <CardContent className='w-full space-y-[16px] mb-[8px]'>
-                {/* Disbursement type: Fund | Liquidate */}
+                {/* Disbursement type: Credit | Liquidate */}
                 <Controller
                   name='type'
                   control={methods.control}
@@ -149,6 +184,7 @@ export const FundDisbursementWalletModal = create(({ agentId }: IProps) => {
                       loading={isLoading}
                       disabled={!isDirty}
                       type='submit'
+                      // onClick={handleSubmit(onSubmit)}
                     >
                       Fund Wallet
                     </LoadingButton>

@@ -1,23 +1,28 @@
-"use client";
-import React from "react";
+'use client'
+import React from 'react'
 import dynamic from 'next/dynamic'
-import { ApexOptions } from "apexcharts";
-import numbro from "numbro";
+import { ApexOptions } from 'apexcharts'
+import numbro from 'numbro'
+import { IChartResponse } from '@/redux/types'
 
 const Chart = dynamic(() => import('react-apexcharts'), {
   ssr: false,
 })
 
 export const OVERVIEW_CHART_LEGEND = [
-  { label: "Deposit", color: "#CBD5E1" },
-  { label: "Withdrawal", color: "#39CD86" },
-  { label: "Deposit", color: "#08C168" },
-];
+  { label: 'Deposit', color: '#CBD5E1' },
+  { label: 'Withdrawal', color: '#39CD86' },
+  { label: 'Cashout', color: '#08C168' },
+]
 
-const OverviewChart = () => {
+interface IProps {
+  chartData: IChartResponse
+}
+
+const OverviewChart = ({ chartData }: IProps) => {
   const options: ApexOptions = {
     chart: {
-      type: "bar",
+      type: 'bar',
       stacked: true,
       toolbar: {
         show: false,
@@ -36,9 +41,9 @@ const OverviewChart = () => {
     },
     grid: {
       show: true,
-      borderColor: "#E2E8F0",
+      borderColor: '#E2E8F0',
       strokeDashArray: 3,
-      position: "back",
+      position: 'back',
       xaxis: {
         lines: {
           show: false,
@@ -60,22 +65,22 @@ const OverviewChart = () => {
       show: false,
     },
     xaxis: {
-      type: "datetime",
-      categories: [
-        "12/01/2024 GMT",
-        "01/01/2024 GMT",
-        "02/01/2024 GMT",
-        "03/01/2024 GMT",
-        "04/01/2024 GMT",
-        "05/01/2024 GMT",
-        "06/01/2024 GMT",
-        "07/01/2024 GMT",
-        "08/01/2024 GMT",
-        "09/01/2024 GMT",
-        "10/01/2024 GMT",
-        "11/01/2024 GMT",
+      type: 'datetime',
+      categories: chartData?.xAxis ?? [
+        '12/01/2024 GMT',
+        '01/01/2024 GMT',
+        '02/01/2024 GMT',
+        '03/01/2024 GMT',
+        '04/01/2024 GMT',
+        '05/01/2024 GMT',
+        '06/01/2024 GMT',
+        '07/01/2024 GMT',
+        '08/01/2024 GMT',
+        '09/01/2024 GMT',
+        '10/01/2024 GMT',
+        '11/01/2024 GMT',
       ],
-      position: "bottom",
+      position: 'bottom',
       labels: {
         show: true,
         rotate: -45,
@@ -86,9 +91,9 @@ const OverviewChart = () => {
         minHeight: undefined,
         maxHeight: 120,
         style: {
-          colors: "#7D8494",
-          fontSize: "12px",
-          fontFamily: "inherit",
+          colors: '#7D8494',
+          fontSize: '12px',
+          fontFamily: 'inherit',
           fontWeight: 500,
         },
         offsetX: 0,
@@ -97,10 +102,10 @@ const OverviewChart = () => {
         formatter: undefined,
         datetimeUTC: true,
         datetimeFormatter: {
-          year: "yyyy",
+          year: 'yyyy',
           month: "MMM 'yy",
-          day: "dd MMM",
-          hour: "HH:mm",
+          day: 'dd MMM',
+          hour: 'HH:mm',
         },
       },
       axisBorder: {
@@ -116,8 +121,8 @@ const OverviewChart = () => {
         offsetY: 0,
         style: {
           color: undefined,
-          fontSize: "12px",
-          fontFamily: "inherit",
+          fontSize: '12px',
+          fontFamily: 'inherit',
           fontWeight: 600,
         },
       },
@@ -129,8 +134,8 @@ const OverviewChart = () => {
         formatter: undefined,
         offsetY: 0,
         style: {
-          fontSize: "16px",
-          fontFamily: "inherit",
+          fontSize: '16px',
+          fontFamily: 'inherit',
         },
       },
     },
@@ -142,13 +147,13 @@ const OverviewChart = () => {
       decimalsInFloat: 2,
       labels: {
         show: true,
-        align: "left",
+        align: 'left',
         minWidth: 0,
         maxWidth: 160,
         style: {
-          colors: "#7D8494",
-          fontSize: "12px",
-          fontFamily: "inherit",
+          colors: '#7D8494',
+          fontSize: '12px',
+          fontFamily: 'inherit',
           fontWeight: 500,
         },
         offsetX: 0,
@@ -160,7 +165,7 @@ const OverviewChart = () => {
             spaceSeparated: true,
             average: true,
             totalLength: 2,
-          });
+          })
         },
       },
       axisBorder: {
@@ -175,9 +180,9 @@ const OverviewChart = () => {
         offsetX: 0,
         offsetY: 0,
         style: {
-          color: "#7D8494",
-          fontSize: "12px",
-          fontFamily: "inherit",
+          color: '#7D8494',
+          fontSize: '12px',
+          fontFamily: 'inherit',
           fontWeight: 500,
         },
       },
@@ -188,30 +193,30 @@ const OverviewChart = () => {
         enabled: false,
       },
     },
-    colors: ["#08C168", "#39CD86", "#E2E8F0"],
+    colors: ['#08C168', '#39CD86', '#E2E8F0'],
     dataLabels: {
       enabled: false,
     },
     tooltip: {
       style: {
-        fontFamily: "inherit",
+        fontFamily: 'inherit',
       },
     },
-  };
+  }
   const series = [
     {
-      name: "Deposit",
+      name: 'Deposit',
       data: [388, 160, 420, 500, 275, 230, 400, 220, 150, 600, 180, 150],
     },
     {
-      name: "Withdrawal",
+      name: 'Withdrawal',
       data: [439, 390, 315, 430, 390, 310, 330, 300, 300, 200, 340, 200],
     },
     {
-      name: "Deposit",
+      name: 'Cashout',
       data: [290, 400, 298, 378, 450, 400, 290, 460, 200, 250, 230, 300],
     },
-  ];
+  ]
 
   return (
     <div className='h-fit w-full max-w-[1200px]'>
@@ -223,7 +228,7 @@ const OverviewChart = () => {
         height='187'
       />
     </div>
-  );
-};
+  )
+}
 
-export default OverviewChart;
+export default OverviewChart

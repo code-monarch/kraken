@@ -66,7 +66,6 @@ const LoginTemplate = () => {
   const onSubmit: SubmitHandler<
     Omit<ILoginPayload, 'serviceAccountApiKey'>
   > = data => {
-    console.log('DATA TO SUBMIT: ', data)
 
     serviceAccountLogin({
       clientId: `${process.env.NEXT_PUBLIC_CLIENT_ID}`,

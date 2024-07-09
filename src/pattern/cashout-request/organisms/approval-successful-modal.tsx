@@ -13,49 +13,58 @@ import { Button } from '@/components/ui/button'
 import CashoutRequestDetails from '../molecules/cashout-request-details'
 import VerifyStatusHeaderIcon from '@/pattern/common/atoms/icons/verify-status-header-icon'
 
-export const ApprovalSuccessfulModal = create(() => {
-  const { resolve, remove, visible } = useModal()
+interface IProps {
+  amount: number
+  accountName: string
+  accountNumber: string
+  bankName: string
+}
 
-  const handleCloseModal = () => {
-    resolve({ resolved: true })
-    remove()
-  }
+export const ApprovalSuccessfulModal = create(
+  ({ amount, accountName, accountNumber, bankName }: IProps) => {
+    const { resolve, remove, visible } = useModal()
 
-  return (
-    <Dialog open={visible} onOpenChange={handleCloseModal}>
-      <DialogContent className='w-fit h-fit p-0 outline-none border-none shadow-none'>
-        <Card className='w-[400px] min-h-[308px] h-fit p-6'>
-          {/* Header */}
-          <CardHeader className='w-full flex !flex-row gap-5 items-start gap-y-5'>
-            <VerifyStatusHeaderIcon />
-            <CardTitle className='text-[1.125rem] text-foreground font-semibold'>
-              Approval Successful
-            </CardTitle>
-          </CardHeader>
+    const handleCloseModal = () => {
+      resolve({ resolved: true })
+      remove()
+    }
 
-          {/* Content */}
-          <CardContent className='space-y-[16px] mb-[8px]'>
-            <p className='text-sm text-[#4F627D]'>
-              The requested amount has been successfully sent to the
-              agent&apos;s bank account.
-            </p>
+    return (
+      <Dialog open={visible} onOpenChange={handleCloseModal}>
+        <DialogContent className='w-fit h-fit p-0 outline-none border-none shadow-none'>
+          <Card className='w-[400px] min-h-[308px] h-fit p-6'>
+            {/* Header */}
+            <CardHeader className='w-full flex !flex-row gap-5 items-start gap-y-5'>
+              <VerifyStatusHeaderIcon />
+              <CardTitle className='text-[1.125rem] text-foreground font-semibold'>
+                Approval Successful
+              </CardTitle>
+            </CardHeader>
 
-            <CashoutRequestDetails
-              amount={100000}
-              accountName='Cecilia Davis'
-              accountNumber='1234567890'
-              bankName='GTCO'
-            />
-          </CardContent>
+            {/* Content */}
+            <CardContent className='space-y-[16px] mb-[8px]'>
+              <p className='text-sm text-[#4F627D]'>
+                The requested amount has been successfully sent to the
+                agent&apos;s bank account.
+              </p>
 
-          {/* Footer */}
-          <CardFooter className='w-full flex items-center justify-between gap-3'>
-            <Button size='sm' variant='outline' onClick={handleCloseModal}>
-              Close
-            </Button>
-          </CardFooter>
-        </Card>
-      </DialogContent>
-    </Dialog>
-  )
-})
+              <CashoutRequestDetails
+                amount={amount}
+                accountName={accountName}
+                accountNumber={accountNumber}
+                bankName={bankName}
+              />
+            </CardContent>
+
+            {/* Footer */}
+            <CardFooter className='w-full flex items-center justify-between gap-3'>
+              <Button size='sm' variant='outline' onClick={handleCloseModal}>
+                Close
+              </Button>
+            </CardFooter>
+          </Card>
+        </DialogContent>
+      </Dialog>
+    )
+  },
+)

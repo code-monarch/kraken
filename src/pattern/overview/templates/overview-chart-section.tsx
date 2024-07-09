@@ -15,8 +15,19 @@ import { DOLLAR_CURRENCY_SYMBOL } from "@/lib/constants";
 import ChartLegend from "../molecules/chart-legend";
 import OverviewMetricCard from "../organisms/overview-metric-card";
 import { formatNumber } from "@/lib/helper/format-number";
+import { useGetTransactionMatrixChartQuery } from "@/redux/services/transactions/get-transaction-matrix-chart.api-slice";
 
 const OverviewChartSection = () => {
+  const {
+    data: chartData,
+    isLoading,
+    isError,
+    error,
+    isSuccess,
+  } = useGetTransactionMatrixChartQuery({
+    interval: "yearly"
+  })
+  console.log('TRANSACTIONS CHART: ', chartData)
   return (
     <div className='w-full flex flex-col items-start gap-y-5'>
       <div className='w-full h-[32px] flex items-center justify-between'>
@@ -72,7 +83,9 @@ const OverviewChartSection = () => {
               ))}
             </div>
           </div>
-          <OverviewChart />
+
+          {/* Chart */}
+          <OverviewChart chartData={chartData?.data?.weekly!} />
         </div>
 
         {/* Overview metric */}

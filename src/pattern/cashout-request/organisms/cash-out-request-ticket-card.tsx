@@ -7,49 +7,46 @@ import { Label } from '@/components/ui/label'
 import { formatNumber } from '@/lib/helper/format-number'
 import Image from 'next/image'
 import { StaticImport } from 'next/dist/shared/lib/get-img-props'
+import { ICashoutRequest } from '@/redux/services/transactions/get-cashout-requests.api-slice'
+import { format } from 'date-fns'
 
 export interface ICashOutRequestTicketCardProps
   extends HTMLAttributes<HTMLDivElement> {
-  ticketNumber: string | number
-  ticketId: string | number
-  amount: number
-  status: 'pending' | 'declined' | 'approved' | string
-  userName: string
-  userImage: string | StaticImport
-  date: Date | string
+  data: ICashoutRequest
 }
 
 const CashOutRequestTicketCard: FC<ICashOutRequestTicketCardProps> = ({
-  ticketNumber,
-  ticketId,
-  amount,
-  status,
-  userName,
-  userImage,
-  date,
+  data,
 }) => {
   return (
     <div className='flex-1 bg-white min-w-[352px] max-w-[352px] h-[188px] flex flex-col items-start justify-between py-4 px-5 border border-border rounded-xl'>
       <div className='w-full flex items-center justify-between'>
         {/* Ticket number */}
         <span className='text-[#6D7786] text-sm font-medium'>
-          Ticket {`#${ticketNumber}` ?? '1234'}{' '}
+          Ticket {`#${data.transaction.reference}` ?? '1234'}{' '}
         </span>
 
         <div className='flex items-center gap-4 capitalize'>
           {/* Status */}
-          <Hidden visible={status === 'approved'}>
-            <Badge variant='active'>{status}</Badge>
+          <Hidden visible={data?.status === 'approved'}>
+            <Badge variant='active'>{data?.status}</Badge>
           </Hidden>
-          <Hidden visible={status === 'declined'}>
-            <Badge variant='failed'>{status}</Badge>
+          <Hidden visible={data?.status === 'declined'}>
+            <Badge variant='failed'>{data?.status}</Badge>
           </Hidden>
-          <Hidden visible={status === 'pending'}>
-            <Badge variant='pending'>{status}</Badge>
+          <Hidden visible={data?.status === 'pending'}>
+            <Badge variant='pending'>{data?.status}</Badge>
           </Hidden>
 
           {/* More button */}
-          <RequestsCardMoreOptionsDropdown ticketId={ticketId as string} />
+          <RequestsCardMoreOptionsDropdown
+            transactionId={data?.transactionid as string}
+            accountName={'Cecilia Davis'}
+            accountNumber={'2078672378'}
+            bankName={'GTCO'}
+            amount={data?.amount}
+            status={data?.status}
+          />
         </div>
       </div>
 
@@ -65,17 +62,17 @@ const CashOutRequestTicketCard: FC<ICashOutRequestTicketCardProps> = ({
               className='font-semibold text-sm text-[hsla(210,10%,12%,1)]'
             >
               {formatNumber({
-                number: amount,
+                number: data?.amount,
                 mantissa: 2,
               })}
-              &nbsp; NGN
+              &nbsp; {data?.currency}
             </span>
             <span
               id='amount'
               className='text-sm text-card-foreground font-medium'
             >
               {formatNumber({
-                number: amount,
+                number: data?.amount,
                 mantissa: 2,
               })}
               &nbsp; SAR
@@ -89,19 +86,23 @@ const CashOutRequestTicketCard: FC<ICashOutRequestTicketCardProps> = ({
           <div className='flex items-center gap-2'>
             <Image
               alt='User avatar'
-              src={userImage}
+              src={
+                data?.transaction.metadata.agent.imageUrl ??
+                'https://ummrah-images.s3.us-east-1.amazonaws.com/1718735160802-Dave.jpg'
+              }
               width={24}
               height={24}
-              className='rounded-full'
+              className='rounded-full w-[24px] h-[24px]'
             />
             <p className='text-sm text-[hsla(221,43%,11%,1)] whitespace-nowrap'>
-              {userName}
+              {`${data?.transaction.metadata.agent.firstname} ${data?.transaction.metadata.agent.lastname}`}
             </p>
           </div>
 
           {/* Date */}
           <span className='text-[#6D7786] text-sm font-medium'>
-            {date as string}
+            {/* {data?.createdAt as string} */}
+            {format(data?.createdAt?.toLocaleString(), 'MM/dd/yyyy')}
           </span>
         </div>
       </div>

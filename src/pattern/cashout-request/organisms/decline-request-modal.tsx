@@ -15,73 +15,113 @@ import CashoutRequestDetails from '../molecules/cashout-request-details'
 import DeclineRequestHeaderIcon from '@/pattern/common/atoms/icons/decline-request-header-icon'
 import { CommentInput } from '@/pattern/common/molecules/inputs/comment-input'
 import { RequestDeclinedModal } from './request-declined-modal'
+import {
+  useApproveCashoutRequestMutation,
+  useDeclineCashoutRequestMutation,
+} from '@/redux/services/transactions/get-cashout-requests.api-slice'
+import { toast } from 'sonner'
 
-export const DeclineRequestModal = create(() => {
-  const [comment, setComment] = useState<string>(
-    `The agent's request was denied due to insufficient funds in the account.`,
-  )
+interface IProps {
+  accountName: string
+  accountNumber: string
+  bankName: string
+  amount: number
+  transactionId: string
+}
 
-  const { resolve, remove, visible } = useModal()
+export const DeclineRequestModal = create(
+  ({ accountName, accountNumber, bankName, amount, transactionId }: IProps) => {
+    const [comment, setComment] = useState<string>('')
 
-  const handleCloseModal = () => {
-    resolve({ resolved: true })
-    remove()
-  }
+    const { resolve, remove, visible } = useModal()
 
-  const handleDeclineRequest = () => {
-    show(RequestDeclinedModal, { comment: comment })
-    handleCloseModal()
-  }
+    const handleCloseModal = () => {
+      resolve({ resolved: true })
+      remove()
+    }
 
-  return (
-    <Dialog open={visible} onOpenChange={handleCloseModal}>
-      <DialogContent className='w-fit h-fit p-0 outline-none border-none shadow-none'>
-        <Card className='w-[400px] min-h-[308px] h-fit p-6'>
-          {/* Header */}
-          <CardHeader className='w-full flex !flex-row gap-5 items-start gap-y-5'>
-            <DeclineRequestHeaderIcon />
-            <CardTitle className='text-[1.125rem] text-foreground font-semibold'>
-              Decline Request
-            </CardTitle>
-          </CardHeader>
+    const [declineCashout, { isLoading, isSuccess }] =
+      useDeclineCashoutRequestMutation()
 
-          {/* Content */}
-          <CardContent className='space-y-[16px] mb-[8px]'>
-            <p className='text-sm text-[#4F627D]'>
-              Are you sure you want to decline this cashout request?
-            </p>
+    const handleDeclineRequest = () => {
+      declineCashout({
+        id: transactionId,
+        comment: comment,
+      })
+        .unwrap()
+        .then(res => {
+          show(RequestDeclinedModal, {
+            comment: comment,
+            amount: amount,
+            accountName: accountName,
+            accountNumber: accountNumber,
+            bankName: bankName,
+          })
+          handleCloseModal()
+        })
+        .catch(err => {
+          console.log(err)
+          toast.error('Unexpected error', {
+            description: `${err?.data.responseMessage ?? 'An error occurred'}`,
+            duration: 8000,
+            cancel: {
+              label: 'Close',
+              onClick: () => console.log('Close!'),
+            },
+          })
+        })
+    }
 
-            <CommentInput
-              label='Reason For Decline'
-              placeholder='Enter reason'
-              value={comment}
-              setValue={setComment}
-            />
+    return (
+      <Dialog open={visible} onOpenChange={handleCloseModal}>
+        <DialogContent className='w-fit h-fit p-0 outline-none border-none shadow-none'>
+          <Card className='w-[400px] min-h-[308px] h-fit p-6'>
+            {/* Header */}
+            <CardHeader className='w-full flex !flex-row gap-5 items-start gap-y-5'>
+              <DeclineRequestHeaderIcon />
+              <CardTitle className='text-[1.125rem] text-foreground font-semibold'>
+                Decline Request
+              </CardTitle>
+            </CardHeader>
 
-            <CashoutRequestDetails
-              amount={100000}
-              accountName='Cecilia Davis'
-              accountNumber='1234567890'
-              bankName='GTCO'
-            />
-          </CardContent>
+            {/* Content */}
+            <CardContent className='space-y-[16px] mb-[8px]'>
+              <p className='text-sm text-[#4F627D]'>
+                Are you sure you want to decline this cashout request?
+              </p>
 
-          {/* Footer */}
-          <CardFooter className='w-full flex flex-col items-center justify-between gap-3'>
-            <LoadingButton
-              size='sm'
-              variant='destructive'
-              onClick={handleDeclineRequest}
-              loading={false}
-            >
-              Decline Request
-            </LoadingButton>
-            <Button size='sm' variant='outline' onClick={handleCloseModal}>
-              Cancel
-            </Button>
-          </CardFooter>
-        </Card>
-      </DialogContent>
-    </Dialog>
-  )
-})
+              <CommentInput
+                label='Reason For Decline'
+                placeholder='Enter reason'
+                value={comment}
+                setValue={setComment}
+              />
+
+              <CashoutRequestDetails
+                amount={amount}
+                accountName={accountName}
+                accountNumber={accountNumber}
+                bankName={bankName}
+              />
+            </CardContent>
+
+            {/* Footer */}
+            <CardFooter className='w-full flex flex-col items-center justify-between gap-3'>
+              <LoadingButton
+                size='sm'
+                variant='destructive'
+                onClick={handleDeclineRequest}
+                loading={isLoading}
+              >
+                Decline Request
+              </LoadingButton>
+              <Button size='sm' variant='outline' onClick={handleCloseModal}>
+                Cancel
+              </Button>
+            </CardFooter>
+          </Card>
+        </DialogContent>
+      </Dialog>
+    )
+  },
+)
