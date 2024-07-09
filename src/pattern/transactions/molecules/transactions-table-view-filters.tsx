@@ -11,7 +11,10 @@ import { Separator } from '@/components/ui/separator'
 import { IListType, ITransactionsTableHeaderProps } from '@/pattern/types'
 import { RootState } from '@/redux/store'
 import { useDispatch, useSelector } from 'react-redux'
-import { setSearchQueryFilter, setStatusFilter } from '@/redux/slices/transactions-filter'
+import {
+  setSearchQueryFilter,
+  setStatusFilter,
+} from '@/redux/slices/transactions-filter'
 
 const statusFilterSetting: IListType[] = [
   {
@@ -48,6 +51,12 @@ const TransactionsTableViewFilter = () => {
   )
 
   useEffect(() => {
+    if (statusFilter) {
+      setStatus(statusFilter)
+    }
+  }, [statusFilter])
+
+  useEffect(() => {
     if (status) {
       dispatch(setStatusFilter(status!))
       if (searchQueryFilter) {
@@ -67,7 +76,7 @@ const TransactionsTableViewFilter = () => {
               }
               variant='outline'
               size='sm'
-              className='w-[138px] h-[44px] text-base capitalize'
+              className='w-[138px] h-[44px] text-sm capitalize'
             >
               {status}
             </ButtonWithIcon>

@@ -102,6 +102,7 @@ export const TransactionsFilterModal = create(() => {
     dispatch(setStartDateFilter(startDate))
     dispatch(setEndDateFilter(endDate))
     dispatch(setTransactionTypeFilter(transactionType!))
+    dispatch(setStatusFilter("all"))
     if (searchQueryFilter) {
       dispatch(setSearchQueryFilter(''))
     }
@@ -115,12 +116,11 @@ export const TransactionsFilterModal = create(() => {
     dispatch(setOrderFilter('asc'))
     dispatch(setStartDateFilter(''))
     dispatch(setEndDateFilter(''))
-    dispatch(setTransactionTypeFilter())
   }
   return (
     <Dialog open={visible} onOpenChange={handleCloseModal}>
       <DialogContent className='w-fit h-fit p-0 outline-none border-none shadow-none'>
-        <Card className='w-[350px] min-h-[578px] h-fit p-0'>
+        <Card className='w-[350px] min-h-[550px] h-fit p-0'>
           {/* Header */}
           <CardHeader className='w-full h-[64px] flex flex-row items-center justify-between py-[10px] px-6 border-b border-b-[hsla(218,19%,92%,1)]'>
             <CardTitle>Filters</CardTitle>

@@ -33,7 +33,6 @@ const OverviewChartDateFilterPopOver = () => {
   } = methods;
 
   const onSubmit = () => {
-    console.log("DATA TO SUBMIT: ");
   };
 
   const showCalendarModal = () => {

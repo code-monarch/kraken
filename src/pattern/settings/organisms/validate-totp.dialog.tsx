@@ -66,7 +66,6 @@ const ValidateTotpDialog = create(() => {
     useValidateTotpMutation()
 
   const onSubmit: SubmitHandler<IValidateTotpPayload> = data => {
-    console.log('DATA TO SUBMIT: ')
     validateTotp({
       token: data.token,
       emailOtp: data.emailOtp,

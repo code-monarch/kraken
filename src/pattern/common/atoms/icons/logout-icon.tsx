@@ -1,7 +1,5 @@
 import React from 'react'
-import { NAV_ICON_INACTIVE } from '@/lib/constants'
 import { IIconProps } from '@/pattern/types'
-import { cn } from '@/lib/utils'
 
 const LogoutIcon = ({ width, height, className }: IIconProps) => {
   return (
