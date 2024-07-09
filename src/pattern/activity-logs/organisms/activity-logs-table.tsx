@@ -28,19 +28,21 @@ import {
 } from '@/redux/services/activity-logs/activities.api-slice'
 import ErrorTableWidget from '@/pattern/common/molecules/data-display/error-table-widget'
 import EmptyTableWidget from '@/pattern/common/molecules/data-display/empty-table-widget'
+import Hidden from '@/pattern/common/molecules/data-display/hidden'
+import TableSkeleton from '@/pattern/common/molecules/skeletons/table-skeleton'
 
 const columns = ActivityLogsColumns
 
 interface IActivityLogsTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: IActivity[]
-  pageCount?: number
-  pagination?: PaginationState
-  setPagination?: any
-  isLoading?: boolean
-  isError?: boolean
-  isFetching?: boolean
-  isSuccess?: boolean
+  pageCount: number
+  pagination: PaginationState
+  setPagination: any
+  isLoading: boolean
+  isError: boolean
+  isFetching: boolean
+  isSuccess: boolean
 }
 
 export function ActivityLogsTable<TData, TValue>({
@@ -78,80 +80,82 @@ export function ActivityLogsTable<TData, TValue>({
     debugTable: true,
   })
   return (
-    <div>
-      <Table>
-        {/* Header */}
-        <TableHeader>
-          {activityLogsTable.getHeaderGroups().map(headerGroup => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map(header => {
-                return (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
-                  </TableHead>
-                )
-              })}
-            </TableRow>
-          ))}
-        </TableHeader>
+    <>
+      {/* Display placeholder when it is loading */}
+      <Hidden visible={isLoading || isFetching}>
+        <TableSkeleton />
+      </Hidden>
 
-        {/* Body */}
-        <TableBody>
-          {/* Display placeholder when it is loading */}
-          {(isLoading || isFetching) && (
-            <TableRow>
-              <TableCell colSpan={columns.length} className='h-24 text-center'>
-                <PulsePlaceholder />
-              </TableCell>
-            </TableRow>
-          )}
-
-          {/* Display table rows when data is done loading and the table rows are not empty */}
-          {!isLoading &&
-            !isFetching &&
-            isSuccess &&
-            activityLogsTable.getRowModel().rows?.length &&
-            activityLogsTable.getRowModel().rows.map(row => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && 'selected'}
-              >
-                {row.getVisibleCells().map(cell => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
+      {/* Display table data is done loading */}
+      <Hidden visible={!isLoading && !isFetching}>
+        <Table>
+          {/* Header */}
+          <TableHeader>
+            {activityLogsTable.getHeaderGroups().map(headerGroup => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map(header => {
+                  return (
+                    <TableHead key={header.id}>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
+                    </TableHead>
+                  )
+                })}
               </TableRow>
             ))}
+          </TableHeader>
 
-          {/* Display Message when data is empty or an error is returned */}
-          {!isLoading && !isFetching && isSuccess && data?.length === 0 && (
-            <TableRow>
-              <EmptyTableWidget columns={columns} />
-            </TableRow>
-          )}
+          {/* Body */}
+          <TableBody>
+            {/* Display table rows when data is done loading and the table rows are not empty */}
+            {!isLoading &&
+              !isFetching &&
+              isSuccess &&
+              activityLogsTable.getRowModel().rows?.length &&
+              activityLogsTable.getRowModel().rows.map(row => (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && 'selected'}
+                >
+                  {row.getVisibleCells().map(cell => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
 
-          {/* Else render error message */}
-          {!isLoading && !isFetching && isError && (
-            <TableRow>
-              <ErrorTableWidget
-                columns={columns}
-                message={
-                  <span>
-                    An error occurred while trying to fetch all Platform
-                    activities. <br /> To retry, kindly refresh this page.
-                  </span>
-                }
-              />
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+            {/* Display Message when data is empty or an error is returned */}
+            {!isLoading && !isFetching && isSuccess && data?.length === 0 ? (
+              <TableRow>
+                <EmptyTableWidget columns={columns} />
+              </TableRow>
+            ) : null}
+
+            {/* Else render error message */}
+            {!isLoading && !isFetching && isError && (
+              <TableRow>
+                <ErrorTableWidget
+                  columns={columns}
+                  message={
+                    <span>
+                      An error occurred while trying to fetch all Platform
+                      activities. <br /> To retry, kindly refresh this page.
+                    </span>
+                  }
+                />
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </Hidden>
 
       {/* Pagination */}
       {!isLoading &&
@@ -160,6 +164,6 @@ export function ActivityLogsTable<TData, TValue>({
         activityLogsTable.getRowModel().rows?.length && (
           <Pagination table={activityLogsTable} className='pr-11' />
         )}
-    </div>
+    </>
   )
 }

@@ -28,7 +28,7 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from '@/components/ui/input-otp'
-import { ConfirmApprovalModal } from '@/pattern/cashout-request/organisms/confirm-approval-modal'
+import ConfirmApprovalModal from '@/pattern/cashout-request/organisms/confirm-approval-modal'
 import { ApprovalSuccessfulModal } from '@/pattern/cashout-request/organisms/approval-successful-modal'
 import { DeclineRequestModal } from '@/pattern/cashout-request/organisms/decline-request-modal'
 import { RequestDeclinedModal } from '@/pattern/cashout-request/organisms/request-declined-modal'

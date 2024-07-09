@@ -50,7 +50,7 @@ export const TransactionsTableColumns: ColumnDef<Transaction>[] = [
       const amount = parseFloat(row.getValue('order_amount'))
       const formattedAmount = new Intl.NumberFormat('en-US', {
         style: 'currency',
-        currency: 'USD',
+        currency: row.original.currency,
       }).format(amount)
 
       return <div className='font-medium'>{formattedAmount}</div>

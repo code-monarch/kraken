@@ -5,7 +5,7 @@ import { formatNumber } from '@/lib/helper/format-number'
 interface IProps {
   amount: number
   accountName: string
-  accountNumber: string
+  accountNumber: string | number
   bankName: string
 }
 

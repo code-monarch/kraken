@@ -4,6 +4,7 @@ export const EMAIL_TO_CONFIRM = "email-to-confirm";
 export const NAV_ICON_INACTIVE = "#4F627D";
 export const NAV_ICON_ACTIVE = "#384860";
 export const DOLLAR_CURRENCY_SYMBOL = "$";
+export const NAIRA_CURRENCY_SYMBOL = "₦";
 export const USER_ROLE: "Admin" | "SuperAdmin" = "SuperAdmin";
 export const FALLBACK_NAME = "John doe"
 export const LOGIN_API_KEY = "UC-kebab"  // Random browser local storage key

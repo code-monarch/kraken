@@ -4,7 +4,7 @@ import DashboardMetricPercentage, {
   IDashboardMetricValueProps,
 } from '../atoms/dashboard-metric-percentage'
 import { Label } from '@/components/ui/label'
-import { DOLLAR_CURRENCY_SYMBOL } from '@/lib/constants'
+import { DOLLAR_CURRENCY_SYMBOL, NAIRA_CURRENCY_SYMBOL } from '@/lib/constants'
 import { formatNumber } from '@/lib/helper/format-number'
 import Hidden from '../molecules/data-display/hidden'
 import { cn } from '@/lib/utils'
@@ -52,7 +52,7 @@ const DashboardMetricCard: FC<IDashboardMetricCardProps> = ({
               {/* If Metric value is an isAmount  */}
               <Hidden visible={isAmount}>
                 <>
-                  <span className='text-base'>{DOLLAR_CURRENCY_SYMBOL}</span>
+                  <span className='text-base'>{NAIRA_CURRENCY_SYMBOL}</span>
                   {formatNumber({
                     number: metricValue,
                     mantissa: 2,
