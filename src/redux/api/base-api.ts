@@ -22,7 +22,7 @@ const baseQuery = fetchBaseQuery({
   // credentials: "same-origin",
   // credentials: "include",
   mode: 'cors',
-  prepareHeaders: (headers, { }) => {
+  prepareHeaders: (headers, {}) => {
     headers.set('Accept', 'application/json')
     headers.set('Content-Type', 'application/json; charset=UTF-8')
 
@@ -32,10 +32,7 @@ const baseQuery = fetchBaseQuery({
     })
 
     if (serviceAccountApiKey) {
-      headers.set(
-        'x-service-account-key',
-        `${serviceAccountApiKey}`,
-      )
+      headers.set('x-service-account-key', `${serviceAccountApiKey}`)
     }
 
     if (loginApiKey) {
@@ -60,7 +57,7 @@ const baseQueryWithReauth: BaseQueryFn<
     LocalStore.removeItem({ key: LOGIN_API_KEY })
     LocalStore.removeItem({ key: SERVICE_ACCOUNT_API_KEY })
 
-    // Reload app. 
+    // Reload app.
     // The Application AuthGuard will change the user's route to the login seeing that they are no API keys available anymore
     // if (typeof window !== "undefined") {
     //   window.location.reload();
@@ -72,10 +69,20 @@ const baseQueryWithReauth: BaseQueryFn<
 export const baseApiSlice = createApi({
   reducerPath: 'baseApi',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ["getUser", "getAdmin", "getProfile", "getTransactions", "getSingleTransactions", "getTransactionMatrix", "getTransactionMatrixAlltime", "getCashoutRequests"],
+  tagTypes: [
+    'getUser',
+    'getAdmin',
+    'getProfile',
+    'getTransactions',
+    'getSingleTransactions',
+    'getTransactionMatrix',
+    'getTransactionMatrixAlltime',
+    'getCashoutRequests',
+    'getTransactionMatrixChart',
+  ],
   refetchOnReconnect: true,
   // keepUnusedDataFor: 30,
   refetchOnMountOrArgChange: true,
   // refetchOnFocus: true,
-  endpoints: (builder) => ({}),
+  endpoints: builder => ({}),
 })

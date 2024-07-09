@@ -180,7 +180,7 @@ export const getCashoutRequestsApiSlice = baseApiSlice.injectEndpoints({
         },
         keepUnusedDataFor: 5,
       }),
-      invalidatesTags: ['getCashoutRequests'],
+      invalidatesTags: ['getCashoutRequests', 'getTransactionMatrixChart'],
     }),
 
     declineCashoutRequest: builder.mutation<
