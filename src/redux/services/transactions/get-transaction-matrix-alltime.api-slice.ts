@@ -10,8 +10,14 @@ export interface ITransactionMatrixAlltimeResponse {
     total_tranx: number
     average_tranx: number
     balance: {
-      NGN: number
-      SAR: number
+      settlemet: {
+        NGN: number
+        SAR: number
+      }
+      disbursement: {
+        NGN: number
+        SAR: number
+      }
     }
   }
 }
@@ -27,10 +33,10 @@ export const getTransactionMatrixApiSlice = baseApiSlice.injectEndpoints({
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-        }
+        },
       }),
       providesTags: ['getTransactionMatrixAlltime'],
-      transformErrorResponse: (response) => {
+      transformErrorResponse: response => {
         // Check if original status code === 426 and modify the response as needed
         if (response.status === 426) {
           localStorage.removeItem(LOGIN_API_KEY)

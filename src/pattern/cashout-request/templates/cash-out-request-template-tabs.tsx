@@ -153,13 +153,18 @@ const CashOutRequestTemplateTabs = () => {
         ))}
       </Tabs>
 
-      <div>
-        <CashoutPagination
-          pageCount={data?.data.paginate.totalPages as number}
-          pagination={pagination}
-          setPagination={setPagination}
-        />
-      </div>
+      {!isLoading &&
+        !isFetching &&
+        isSuccess &&
+        data?.data.paginate.totalPages > 1 && (
+          <div>
+            <CashoutPagination
+              pageCount={data?.data.paginate.totalPages as number}
+              pagination={pagination}
+              setPagination={setPagination}
+            />
+          </div>
+        )}
     </div>
   )
 }
