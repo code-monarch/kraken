@@ -37,7 +37,7 @@ const CashOutRequestCountWidget: FC<ICashoutRequestCountProps> = ({
       {formatNumber({
         number: data?.data.totalCashout as number,
         average: true,
-        mantissa: 1,
+        mantissa: 0,
       })}
     </div>
   )

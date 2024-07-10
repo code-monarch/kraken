@@ -73,7 +73,7 @@ const OverviewChartSection = () => {
                     number: 10000,
                   })}
                 </p>
-                <DashboardMetricPercentage metricPercentage={`2.5`} />
+                {/* <DashboardMetricPercentage metricPercentage={`2.5`} /> */}
               </div>
             </div>
             {/* Right */}

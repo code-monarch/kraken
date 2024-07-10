@@ -5,8 +5,7 @@ import { PaginationState } from '@tanstack/react-table'
 import TransactionsTableTemplateHeader from '../organisms/transactions-table-template-header'
 import {
   Transaction,
-  useGetTransactionsQuery,
-  useLazyGetTransactionsQuery,
+  useGetTransactionsQuery
 } from '@/redux/services/transactions/get-transactions.api-slice'
 import { RootState } from '@/redux/store'
 import { useSelector } from 'react-redux'

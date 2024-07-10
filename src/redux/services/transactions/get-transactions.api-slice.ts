@@ -61,7 +61,7 @@ export interface ITransactionsPayload {
   page?: number
   searchQuery?: string // search query
   filterby?: { label: 'status'; value: 'COMPLETED' | 'PENDING' | 'FAILED' | null | undefined }
-  type?: 'Trade' | 'Withdrawal' | 'Swap' | 'Deposit' | null | undefined
+  type?: "Withdrawal" | "Cashout" | "Deposit" | null | undefined
   startDate?: string
   endDate?: string
 }

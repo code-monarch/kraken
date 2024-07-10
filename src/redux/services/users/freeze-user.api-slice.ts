@@ -40,7 +40,6 @@ export const freezeUserApiSlice = baseApiSlice.injectEndpoints({
         headers: {
           "Content-Type": "application/json",
         },
-        keepUnusedDataFor: 5,
       }),
       invalidatesTags: ["getUser"],
     }),

@@ -35,7 +35,6 @@ export const loginApiSlice = baseApiSlice.injectEndpoints({
           email: email,
           password: password,
         },
-        keepUnusedDataFor: 5,
       }),
     }),
   }),
