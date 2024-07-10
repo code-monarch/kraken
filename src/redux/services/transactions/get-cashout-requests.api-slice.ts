@@ -154,7 +154,7 @@ export const getCashoutRequestsApiSlice = baseApiSlice.injectEndpoints({
         },
       }),
       providesTags: ['getCashoutRequests'],
-      transformErrorResponse: (response) => {
+      transformErrorResponse: response => {
         // Check if original status code === 426 and modify the response as needed
         if (response.status === 426) {
           localStorage.removeItem(LOGIN_API_KEY)
@@ -190,7 +190,7 @@ export const getCashoutRequestsApiSlice = baseApiSlice.injectEndpoints({
           'Content-Type': 'application/json',
         },
       }),
-      invalidatesTags: ['getCashoutRequests'],
+      invalidatesTags: ['getCashoutRequests', 'getTransactionMatrixChart'],
     }),
   }),
 })
