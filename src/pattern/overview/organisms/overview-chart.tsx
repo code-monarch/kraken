@@ -66,20 +66,7 @@ const OverviewChart = ({ chartData }: IProps) => {
     },
     xaxis: {
       type: 'datetime',
-      categories: chartData?.xAxis ?? [
-        '12/01/2024 GMT',
-        '01/01/2024 GMT',
-        '02/01/2024 GMT',
-        '03/01/2024 GMT',
-        '04/01/2024 GMT',
-        '05/01/2024 GMT',
-        '06/01/2024 GMT',
-        '07/01/2024 GMT',
-        '08/01/2024 GMT',
-        '09/01/2024 GMT',
-        '10/01/2024 GMT',
-        '11/01/2024 GMT',
-      ],
+      categories: chartData?.xAxis ?? [],
       position: 'bottom',
       labels: {
         show: true,
@@ -206,15 +193,15 @@ const OverviewChart = ({ chartData }: IProps) => {
   const series = [
     {
       name: 'Deposit',
-      data: [388, 160, 420, 500, 275, 230, 400, 220, 150, 600, 180, 150],
+      data: chartData?.yAxis?.[0]?.data ?? [],
     },
     {
       name: 'Withdrawal',
-      data: [439, 390, 315, 430, 390, 310, 330, 300, 300, 200, 340, 200],
+      data: chartData?.yAxis?.[1]?.data ?? [],
     },
     {
       name: 'Cashout',
-      data: [290, 400, 298, 378, 450, 400, 290, 460, 200, 250, 230, 300],
+      data: chartData?.yAxis?.[2]?.data ?? [],
     },
   ]
 

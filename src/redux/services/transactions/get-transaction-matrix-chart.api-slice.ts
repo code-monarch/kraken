@@ -6,12 +6,7 @@ export interface ITransactionMatrixChartResponse {
     error: boolean,
     responseCode: string,
     responseMessage: string,
-    data: {
-        weekly: IChartResponse,
-        last30Days: IChartResponse,
-        last90Days: IChartResponse,
-        lastYear: IChartResponse
-    }
+    data: IChartResponse
 }
 
 interface ITransactionMatrixPayload {

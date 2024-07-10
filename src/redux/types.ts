@@ -7,21 +7,18 @@ export interface ILogoutResponse {
 
 export interface IChartResponse {
     xAxis: Array<number>,
-    yAxis: {
-        deposit: {
-            total_volume: Array<number>,
-            total_tranx: Array<number>,
-            average_tranx: Array<number>,
+    yAxis: [
+        {
+            name: "deposit",
+            data: Array<number>
         },
-        Withdrawal: {
-            total_volume: Array<number>,
-            total_tranx: Array<number>,
-            average_tranx: Array<number>,
+        {
+            name: "Withdrawal",
+            data: Array<number>
         },
-        Cashout: {
-            total_volume: Array<number>,
-            total_tranx: Array<number>,
-            average_tranx: Array<number>,
+        {
+            name: "Cashout",
+            data: Array<number>
         }
-    }
+    ]
 }
