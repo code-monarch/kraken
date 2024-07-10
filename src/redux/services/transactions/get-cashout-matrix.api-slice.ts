@@ -25,7 +25,6 @@ export const getCashoutMatrixApiSlice = baseApiSlice.injectEndpoints({
         headers: {
           'Content-Type': 'application/json',
         },
-        keepUnusedDataFor: 5,
       }),
       providesTags: ['getCashoutRequests'],
     }),

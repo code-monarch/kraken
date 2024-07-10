@@ -19,7 +19,6 @@ export const logoutApiSlice = baseApiSlice.injectEndpoints({
                 headers: {
                     "Content-Type": "application/json",
                 },
-                keepUnusedDataFor: 5,
             }),
         }),
     }),

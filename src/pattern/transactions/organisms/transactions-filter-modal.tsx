@@ -35,10 +35,6 @@ const TransactionTypeFilterSetting: IListType[] = [
     value: 'all',
   },
   {
-    label: 'Trade',
-    value: 'trade',
-  },
-  {
     label: 'Deposit',
     value: 'deposit',
   },
@@ -47,8 +43,8 @@ const TransactionTypeFilterSetting: IListType[] = [
     value: 'withdrawal',
   },
   {
-    label: 'Swap',
-    value: 'swap',
+    label: 'Cashout',
+    value: 'cashout',
   },
 ]
 
@@ -101,7 +97,7 @@ export const TransactionsFilterModal = create(() => {
     dispatch(setOrderFilter(order))
     dispatch(setStartDateFilter(startDate))
     dispatch(setEndDateFilter(endDate))
-    dispatch(setTransactionTypeFilter(transactionType!))
+    dispatch(setTransactionTypeFilter(transactionType))
     dispatch(setStatusFilter("all"))
     if (searchQueryFilter) {
       dispatch(setSearchQueryFilter(''))

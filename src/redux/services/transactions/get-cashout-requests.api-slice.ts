@@ -138,7 +138,6 @@ export const getCashoutRequestsApiSlice = baseApiSlice.injectEndpoints({
         headers: {
           'Content-Type': 'application/json',
         },
-        keepUnusedDataFor: 5,
       }),
       providesTags: ['getCashoutRequests'],
     }),
@@ -176,7 +175,6 @@ export const getCashoutRequestsApiSlice = baseApiSlice.injectEndpoints({
         headers: {
           'Content-Type': 'application/json',
         },
-        keepUnusedDataFor: 5,
       }),
       invalidatesTags: ['getCashoutRequests', 'getTransactionMatrixChart'],
     }),
@@ -191,7 +189,6 @@ export const getCashoutRequestsApiSlice = baseApiSlice.injectEndpoints({
         headers: {
           'Content-Type': 'application/json',
         },
-        keepUnusedDataFor: 5,
       }),
       invalidatesTags: ['getCashoutRequests', 'getTransactionMatrixChart'],
     }),

@@ -1,21 +1,25 @@
-"use client";
-import React from "react";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { overviewChartToggle } from "@/lib/data";
+'use client'
+import React from 'react'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
+import { overviewChartToggle } from '@/lib/data'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import OverviewChartFilterTrigger from "../molecules/overview-chart-filter-trigger";
-import OverviewChartDateFilterPopOver from "../organisms/overview-chart-date-filter-pop-over";
-import OverviewChart, { OVERVIEW_CHART_LEGEND } from "../organisms/overview-chart";
-import DashboardMetricPercentage from "@/pattern/common/atoms/dashboard-metric-percentage";
-import { DOLLAR_CURRENCY_SYMBOL } from "@/lib/constants";
-import ChartLegend from "../molecules/chart-legend";
-import OverviewMetricCard from "../organisms/overview-metric-card";
-import { formatNumber } from "@/lib/helper/format-number";
-import { useGetTransactionMatrixChartQuery } from "@/redux/services/transactions/get-transaction-matrix-chart.api-slice";
+} from '@/components/ui/popover'
+import OverviewChartFilterTrigger from '../molecules/overview-chart-filter-trigger'
+import OverviewChartDateFilterPopOver from '../organisms/overview-chart-date-filter-pop-over'
+import OverviewChart, {
+  OVERVIEW_CHART_LEGEND,
+} from '../organisms/overview-chart'
+import DashboardMetricPercentage from '@/pattern/common/atoms/dashboard-metric-percentage'
+import { DOLLAR_CURRENCY_SYMBOL } from '@/lib/constants'
+import ChartLegend from '../molecules/chart-legend'
+import OverviewMetricCard from '../organisms/overview-metric-card'
+import { formatNumber } from '@/lib/helper/format-number'
+import { useGetTransactionMatrixChartQuery } from '@/redux/services/transactions/get-transaction-matrix-chart.api-slice'
+import PulsePlaceholder from '@/pattern/common/atoms/icons/pulse-placeholder-icon'
+import { IChartResponse } from '@/redux/types'
 
 const OverviewChartSection = () => {
   const {
@@ -25,7 +29,7 @@ const OverviewChartSection = () => {
     error,
     isSuccess,
   } = useGetTransactionMatrixChartQuery({
-    interval: "yearly"
+    interval: 'yearly',
   })
   console.log('TRANSACTIONS CHART: ', chartData)
   return (
@@ -67,13 +71,13 @@ const OverviewChartSection = () => {
             {/* Left */}
             <div className='w-full flex justify-between items-center'>
               <div className='flex items-center gap-x-4'>
-                <p className='text-[hsl(216,26%,30%,1)] text-[1.75rem] font-semibold font-raleway flex items-center gap-[2px]'>
+                {/* <p className='text-[hsl(216,26%,30%,1)] text-[1.75rem] font-semibold font-raleway flex items-center gap-[2px]'>
                   <span className='text-base'>{DOLLAR_CURRENCY_SYMBOL}</span>
                   {formatNumber({
                     number: 10000,
                   })}
-                </p>
-                <DashboardMetricPercentage metricPercentage={`2.5`} />
+                </p> */}
+                {/* <DashboardMetricPercentage metricPercentage={`2.5`} /> */}
               </div>
             </div>
             {/* Right */}
@@ -85,7 +89,21 @@ const OverviewChartSection = () => {
           </div>
 
           {/* Chart */}
-          <OverviewChart chartData={chartData?.data?.weekly!} />
+          {!isError && !isLoading ? (
+            <>
+              <OverviewChart chartData={chartData?.data as IChartResponse} />
+            </>
+          ) : null}
+          {isLoading ? (
+            <>
+              <PulsePlaceholder />
+            </>
+          ) : null}
+          {error && !isLoading ? (
+            <p className='text-center text-red-500 text-[1.25rem]'>
+              Error fetching chart content
+            </p>
+          ) : null}
         </div>
 
         {/* Overview metric */}
@@ -93,6 +111,6 @@ const OverviewChartSection = () => {
       </div>
     </div>
   )
-};
+}
 
-export default OverviewChartSection;
+export default OverviewChartSection
