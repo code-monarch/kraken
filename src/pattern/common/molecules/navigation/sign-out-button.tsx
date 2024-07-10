@@ -2,17 +2,53 @@
 import LocalStore from '@/lib/helper/storage-manager'
 import { LOGIN_API_KEY, SERVICE_ACCOUNT_API_KEY } from '@/lib/constants'
 import LogoutIcon from '../../atoms/icons/logout-icon'
+import { useLogoutMutation } from '@/redux/services/auth/logout.api-slice'
+import { useRouter } from 'next/navigation'
+import { AUTH_PATHS } from '@/lib/routes'
+import { ErrorModal } from '../../organisms/error-modal'
+import { show } from '@ebay/nice-modal-react'
+import { toast } from 'sonner'
 
 const SignOutButton = () => {
+  const { replace } = useRouter()
+  const [logout, { data, isLoading }] = useLogoutMutation()
 
   const logoutAndClearStorage = async () => {
-    const loginApiKey = LocalStore.getItem({ key: LOGIN_API_KEY })
-    const serviceAccountApiKey = LocalStore.getItem({
-      key: SERVICE_ACCOUNT_API_KEY,
-    })
-    if (loginApiKey || serviceAccountApiKey) {
-      LocalStore.clearStore()
-    }
+    logout()
+      .unwrap()
+      .then(res => {
+        LocalStore.clearStore()
+        replace(`${AUTH_PATHS.login}`)
+      })
+      .catch(error => {
+        if ('error' in error && error?.error === 'TypeError: Failed to fetch') {
+          show(ErrorModal, {
+            message:
+              'Something went wrong, please check your network and try again',
+          })
+        } else {
+          // display error message
+          toast.error('Unexpected error', {
+            description: `${
+              error?.data?.responseMessage ??
+              'We encountered an error while trying to log you out'
+            }`,
+            duration: 8000,
+            cancel: {
+              label: 'Close',
+              onClick: () => console.log('Close!'),
+            },
+          })
+        }
+      })
+
+    // const loginApiKey = LocalStore.getItem({ key: LOGIN_API_KEY })
+    // const serviceAccountApiKey = LocalStore.getItem({
+    //   key: SERVICE_ACCOUNT_API_KEY,
+    // })
+    // if (loginApiKey || serviceAccountApiKey) {
+    //   LocalStore.clearStore()
+    // }
   }
   return (
     <button
