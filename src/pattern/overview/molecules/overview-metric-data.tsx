@@ -16,7 +16,7 @@ const OverviewMetricData: FC<IDashboardMetricCardProps> = ({
         <p className='text-[hsl(216,26%,30%,1)] text-24 font-semibold font-raleway flex items-center gap-[2px]'>
           {metricValue}
         </p>
-        <DashboardMetricPercentage metricPercentage={`${metricPercentage}`} />
+        {/* <DashboardMetricPercentage metricPercentage={`${metricPercentage}`} /> */}
       </div>
     </div>
   )

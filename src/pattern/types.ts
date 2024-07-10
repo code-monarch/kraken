@@ -53,7 +53,7 @@ export interface ITransactionsTableHeaderProps {
   setStartDate: Dispatch<SetStateAction<string>>
   endDate: string,
   setEndDate: Dispatch<SetStateAction<string>>
-  transactionType: 'all' | 'Trade' | 'Withdrawal' | 'Swap' | 'Deposit' | undefined
+  transactionType: 'all' | 'Withdrawal' | 'Cashout' | 'Deposit' | undefined
   setTransactionType: Dispatch<
     SetStateAction<
      'all' | 'Trade' | 'Withdrawal' | 'Swap' | 'Deposit' | undefined

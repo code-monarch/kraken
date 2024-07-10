@@ -34,7 +34,6 @@ export const sms2FaApiSlice = baseApiSlice.injectEndpoints({
           "Content-Type": "application/json",
         },
         body: tokenDetails,
-        keepUnusedDataFor: 5,
       }),
     }),
   }),

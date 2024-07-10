@@ -46,7 +46,6 @@ export const addUserApiSlice = baseApiSlice.injectEndpoints({
           "Content-Type": "application/json",
         },
         body: addUserDetails,
-        keepUnusedDataFor: 5,
       }),
       invalidatesTags: ["getUser"],
     }),

@@ -4,7 +4,7 @@ import DashboardMetricPercentage, {
   IDashboardMetricValueProps,
 } from '../atoms/dashboard-metric-percentage'
 import { Label } from '@/components/ui/label'
-import { DOLLAR_CURRENCY_SYMBOL, NAIRA_CURRENCY_SYMBOL } from '@/lib/constants'
+import { NAIRA_CURRENCY_SYMBOL } from '@/lib/constants'
 import { formatNumber } from '@/lib/helper/format-number'
 import Hidden from '../molecules/data-display/hidden'
 import { cn } from '@/lib/utils'
@@ -19,6 +19,7 @@ export interface IDashboardMetricCardProps
   hideMetricPercentage?: boolean
   isLoading: boolean // determines whether API call for getting the data is still in-progress
   isNaira?: boolean
+  mantissa?: number
 }
 
 export const DashboardMetricCardStyle = {
@@ -35,6 +36,7 @@ const DashboardMetricCard: FC<IDashboardMetricCardProps> = ({
   hideMetricPercentage = false,
   isLoading,
   isNaira = true,
+  mantissa
 }) => {
   return (
     <>
@@ -68,16 +70,16 @@ const DashboardMetricCard: FC<IDashboardMetricCardProps> = ({
               <Hidden visible={!isAmount}>
                 {formatNumber({
                   number: metricValue,
-                  mantissa: 2,
+                  mantissa: 0,
                 })}
               </Hidden>
             </p>
 
-            <Hidden visible={!hideMetricPercentage}>
+            {/* <Hidden visible={!hideMetricPercentage}>
               <DashboardMetricPercentage
                 metricPercentage={`${metricPercentage}`}
               />
-            </Hidden>
+            </Hidden> */}
           </div>
         </div>
       </Hidden>
