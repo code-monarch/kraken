@@ -1,21 +1,29 @@
+export type intervalType = {
+  value: "lastYear" | "thisYear" | "last90Days" | "last30Days" | "last7Days"
+}
+
 export const overviewChartToggle: {
-  value: string;
   label: string;
+  value: intervalType['value'];
 }[] = [
-  {
-    label: "12 months",
-    value: "12 months",
-  },
-  {
-    label: "30 days",
-    value: "30 days",
-  },
-  {
-    label: "7 days",
-    value: "7 days",
-  },
-  {
-    label: "24 hours",
-    value: "24 hours",
-  },
-];
+    {
+      label: "Last 7 days",
+      value: "last7Days",
+    },
+    {
+      label: "Last 30 days",
+      value: "last30Days",
+    },
+    {
+      label: "Last 90 days",
+      value: "last90Days",
+    },
+    {
+      label: "This year",
+      value: "thisYear",
+    },
+    {
+      label: "Last Year",
+      value: "lastYear",
+    },
+  ];

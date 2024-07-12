@@ -10,8 +10,8 @@ const initialState: Pick<ITransactionsTableHeaderProps, "searchQuery" |
     searchQuery: "",
     status: undefined,
     order: "asc",
-    startDate: "",
-    endDate: "",
+    startDate: new Date(Date.now()),
+    endDate: new Date(Date.now()),
     transactionType: undefined
 };
 

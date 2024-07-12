@@ -206,7 +206,7 @@ const OverviewChart = ({ chartData }: IProps) => {
   ]
 
   return (
-    <div className='h-fit w-full max-w-[1200px]'>
+    <div className='h-fit w-full max-w-full'>
       <Chart
         options={options}
         series={series}
