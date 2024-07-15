@@ -22,14 +22,16 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/redux/store'
 import { formatDateRange } from '@/lib/helper/format-date-range'
 
+let today = new Date();
+
 const OverviewChartSection = () => {
   const [openDateFilter, setOpenDateFilter] = useState<boolean>(false)
 
   const startDateFilter = useSelector(
-    (state: RootState) => state.transactionsFilter.startDate,
+    (state: RootState) => state.transactionsFilter?.startDate ?? today,
   )
   const endDateFilter = useSelector(
-    (state: RootState) => state.transactionsFilter.endDate,
+    (state: RootState) => state.transactionsFilter?.endDate ?? today,
   )
 
   const [interval, setInterval] = useState<intervalType['value']>(
@@ -50,9 +52,6 @@ const OverviewChartSection = () => {
     startDate: formatDateRange(startDateFilter),
     endDate: formatDateRange(endDateFilter),
   })
-  console.log('TRANSACTIONS CHART: ', chartData)
-  console.log('END DATE: ', endDateFilter)
-  console.log('START DATE: ', startDateFilter)
   return (
     <div className='w-full flex flex-col items-start gap-y-5'>
       <div className='w-full h-[32px] flex items-center justify-between'>
