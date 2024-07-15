@@ -23,7 +23,7 @@ export const getTransactionMatrixChartApiSlice = baseApiSlice.injectEndpoints({
             ITransactionMatrixPayload
         >({
             query: ({ interval, startDate, endDate }) => ({
-                url: `/transactions/admin/matrix/chart?interval=${interval}${startDate ? `?q=${startDate}` : ''}${endDate ? `?q=${endDate}` : ''}`,
+                url: `/transactions/admin/matrix/chart?interval=${interval}${startDate ? `?startDate=${startDate}` : ''}${endDate ? `?endDate=${endDate}` : ''}`,
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
