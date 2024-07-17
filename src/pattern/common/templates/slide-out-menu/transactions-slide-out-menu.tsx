@@ -47,7 +47,7 @@ const TransactionsSlideOutMenu = create(({ transactionId }: IProps) => {
   const tranxId = searchParams.get(TRANSACTION_ID)
 
   // Get single Transaction API query
-  const { data, isLoading, error, isError, isSuccess, isFetching } =
+  const { data, isLoading, isFetching, error, isError, isSuccess } =
     useGetSingleTransactionsQuery({ transactionId: transactionId })
   console.log('TRANSACTION: ', data)
 
@@ -125,9 +125,15 @@ const TransactionsSlideOutMenu = create(({ transactionId }: IProps) => {
             <Hidden visible={isLoading}>
               <TransactionsSlideOutMenuSkeleton />
             </Hidden>
+            {/* Display skeleton when loading content */}
+            <Hidden visible={isError && !isFetching && !isLoading}>
+              <h3 className='text-foreground text-24 font-raleway'>
+                No Record Found
+              </h3>
+            </Hidden>
 
             {/* Display content when data is loaded */}
-            <Hidden visible={!isLoading}>
+            <Hidden visible={!isLoading && !isFetching && !error}>
               <div
                 className={cn(
                   'w-full mt-[72px] px-[24px] pt-[24px] font-raleway space-y-[16px]',
@@ -218,7 +224,7 @@ const TransactionsSlideOutMenu = create(({ transactionId }: IProps) => {
                         imageUrl={data?.data?.metadata?.customer?.imageUrl}
                         ImageFallback={agentInitials}
                         name={`${data?.data?.metadata?.agent?.firstname} ${data?.data?.metadata?.agent?.lastname}`}
-                        number={data?.data?.metadata?.agent.phoneNumber!}
+                        number={data?.data?.metadata?.agent?.phoneNumber as string}
                       />
                     </div>
                   </Hidden>

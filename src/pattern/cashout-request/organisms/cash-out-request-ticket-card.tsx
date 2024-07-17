@@ -6,7 +6,6 @@ import Hidden from '@/pattern/common/molecules/data-display/hidden'
 import { Label } from '@/components/ui/label'
 import { formatNumber } from '@/lib/helper/format-number'
 import Image from 'next/image'
-import { StaticImport } from 'next/dist/shared/lib/get-img-props'
 import { ICashoutRequest } from '@/redux/services/transactions/get-cashout-requests.api-slice'
 import { format } from 'date-fns'
 

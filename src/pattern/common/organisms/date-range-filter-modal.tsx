@@ -11,8 +11,6 @@ export const DateRangeFilterModal = create(() => {
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
 
-  // console.log("date: ", date);
-
   // Save state of the selected date ranges whenever the useer changes their selection
   useEffect(() => {
     setStartDate(date?.from ? formatDateRange(date?.from) : "");

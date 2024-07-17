@@ -1,6 +1,8 @@
 import { ITransactionsTableHeaderProps } from "@/pattern/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+let today = new Date();
+
 const initialState: Pick<ITransactionsTableHeaderProps, "searchQuery" |
     "status"
     | "order"
@@ -10,8 +12,8 @@ const initialState: Pick<ITransactionsTableHeaderProps, "searchQuery" |
     searchQuery: "",
     status: undefined,
     order: "asc",
-    startDate: "",
-    endDate: "",
+    startDate: today,
+    endDate: today,
     transactionType: undefined
 };
 

@@ -57,10 +57,10 @@ const UserDetailsTemplate = () => {
       icon: UserDetailsTabIcon,
       content: (
         <UserDetailsTabContent
-          email={data?.data.email ?? 'Email'}
-          address={data?.data.address ?? 'Address'}
-          name={`${data?.data.firstname} ${data?.data.lastname}`}
-          phoneNumber={data?.data.phoneNumber!}
+          email={data?.data?.email ?? 'Email'}
+          address={data?.data?.address ?? 'Address'}
+          name={`${data?.data?.firstname} ${data?.data?.lastname}`}
+          phoneNumber={data?.data?.phoneNumber as string}
         />
       ),
     },
@@ -105,13 +105,13 @@ const UserDetailsTemplate = () => {
         {!isLoading && isSuccess && (
           <div>
             <PilgrimDetailsPageHeader
-              email={data?.data.email ?? 'User Email'}
-              firstName={data?.data.firstname ?? 'Firstname'}
-              lastName={data?.data.lastname ?? 'Lastname'}
-              phoneNumber={data?.data.phoneNumber ?? 'PhoneNumber'}
-              userImg={data?.data.imageUrl}
-              status={data?.data.status ?? 'Status'}
-              userType={data?.data.userType! ?? 'UserType'}
+              email={data?.data?.email ?? 'User Email'}
+              firstName={data?.data?.firstname ?? 'Firstname'}
+              lastName={data?.data?.lastname ?? 'Lastname'}
+              phoneNumber={data?.data?.phoneNumber ?? 'PhoneNumber'}
+              userImg={data?.data?.imageUrl}
+              status={data?.data?.status ?? 'Status'}
+              userType={data?.data?.userType! ?? 'UserType'}
               id={`${id}`}
             />
 
