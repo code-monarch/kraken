@@ -155,13 +155,13 @@ const CashoutSlideOutMenu = create(({ transactionId }: IProps) => {
                         </SlideOutDivider>
                         <AgentDetailsCard
                           ImageFallback='JA'
-                          name={`${data?.data.transaction.metadata.agent.firstname} ${data?.data.transaction.metadata.agent.lastname}`}
+                          name={`${data?.data?.transaction?.metadata?.agent?.firstname} ${data?.data?.transaction?.metadata?.agent?.lastname}`}
                           number={
-                            data?.data.transaction.metadata.agent.phoneNumber ??
+                            data?.data?.transaction?.metadata?.agent?.phoneNumber ??
                             '08166687292'
                           }
                           imageUrl={
-                            data?.data.transaction.metadata.agent.imageUrl ??
+                            data?.data?.transaction?.metadata?.agent?.imageUrl ??
                             'https://ummrah-images.s3.us-east-1.amazonaws.com/1718735160802-Dave.jpg'
                           }
                         />

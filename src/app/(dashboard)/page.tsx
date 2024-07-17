@@ -26,10 +26,10 @@ const OverviewPage = () => {
   useEffect(() => {
     dispatch(
       setAdminInfo({
-        firstname: data?.data.firstname,
-        lastname: data?.data.lastname,
-        email: data?.data.email,
-        phoneNumber: data?.data.phoneNumber,
+        firstname: data?.data?.firstname,
+        lastname: data?.data?.lastname,
+        email: data?.data?.email,
+        phoneNumber: data?.data?.phoneNumber,
       }),
     );
   }, [dispatch, data, adminRole]);

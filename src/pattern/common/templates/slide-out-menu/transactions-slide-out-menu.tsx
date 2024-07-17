@@ -224,7 +224,7 @@ const TransactionsSlideOutMenu = create(({ transactionId }: IProps) => {
                         imageUrl={data?.data?.metadata?.customer?.imageUrl}
                         ImageFallback={agentInitials}
                         name={`${data?.data?.metadata?.agent?.firstname} ${data?.data?.metadata?.agent?.lastname}`}
-                        number={data?.data?.metadata?.agent.phoneNumber!}
+                        number={data?.data?.metadata?.agent?.phoneNumber as string}
                       />
                     </div>
                   </Hidden>
