@@ -6,7 +6,7 @@ export const formatNumber = ({
   average = false,
   mantissa = 0,
 }: IFormatNumberProps) => {
-  const formattedNumber = numbro(number)?.format({
+  const formattedNumber = numbro(number ?? 0).format({
     spaceSeparated: false,
     thousandSeparated: true,
     average: average,
