@@ -47,16 +47,16 @@ export interface ITransactionsTableHeaderProps {
   setStatus: Dispatch<
     SetStateAction<'all' | 'COMPLETED' | 'PENDING' | 'FAILED' | undefined>
   >
-  order: 'asc' | 'desc' 
+  order: 'asc' | 'desc'
   setOrder: Dispatch<SetStateAction<'asc' | 'desc'>>,
-  startDate: string,
-  setStartDate: Dispatch<SetStateAction<string>>
-  endDate: string,
-  setEndDate: Dispatch<SetStateAction<string>>
+  startDate: Date | string,
+  setStartDate: Dispatch<SetStateAction<Date | string>>
+  endDate: Date | string,
+  setEndDate: Dispatch<SetStateAction<Date | string>>
   transactionType: 'all' | 'Withdrawal' | 'Cashout' | 'Deposit' | undefined
   setTransactionType: Dispatch<
     SetStateAction<
-     'all' | 'Trade' | 'Withdrawal' | 'Swap' | 'Deposit' | undefined
+      'all' | 'Trade' | 'Withdrawal' | 'Swap' | 'Deposit' | undefined
     >
   >
   totalTransations: number

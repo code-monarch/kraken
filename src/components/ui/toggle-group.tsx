@@ -46,8 +46,7 @@ const ToggleGroupItem = React.forwardRef<
           variant: context.variant || variant,
         }),
         className,
-        "inline-flex items-center justify-center rounded-md border px-2.5 py-0.5 text-xs text-center font-semibold whitespace-nowrap transition-colors focus:outline-none border-transparent bg-accent text-accent-foreground"
-        // "min-w-[77px] max-w-[105px] h-[32px] py-[8px] px-[16px] inline-flex items-center justify-center rounded-[6px] text-sm font-bold whitespace-nowrap transition-colors bg-transparent hover:bg-accent text-[--coolgrey-foreground] focus:outline-none focus:ring-1 focus:ring-[var(--ring-primary)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--ring-primary)] disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-success-200 data-[state=on]:text-primary border border-input"
+        "inline-flex items-center justify-center rounded-md border px-2.5 py-0.5 text-xs text-center capitalize font-semibold whitespace-nowrap transition-colors focus:outline-none border-transparent bg-accent text-accent-foreground"
       )}
       {...props}
     >

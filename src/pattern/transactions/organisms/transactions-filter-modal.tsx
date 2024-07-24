@@ -70,8 +70,8 @@ export const TransactionsFilterModal = create(() => {
   const [transactionType, setTransactionType] = useState<
     ITransactionsTableHeaderProps['transactionType']
   >(transactionTypeFilter)
-  const [startDate, setStartDate] = useState<string>(startDateFilter)
-  const [endDate, setEndDate] = useState<string>(endDateFilter)
+  const [startDate, setStartDate] = useState<Date | string>(startDateFilter)
+  const [endDate, setEndDate] = useState<Date | string>(endDateFilter)
   const [dateRange, setDateRange] = useState<string>('')
 
   const handleTransactionTypeChange = (value: string) => {
@@ -95,8 +95,8 @@ export const TransactionsFilterModal = create(() => {
 
   const handleSaveFilterSettings = () => {
     dispatch(setOrderFilter(order))
-    dispatch(setStartDateFilter(startDate))
-    dispatch(setEndDateFilter(endDate))
+    dispatch(setStartDateFilter(startDate as string))
+    dispatch(setEndDateFilter(endDate as string))
     dispatch(setTransactionTypeFilter(transactionType))
     dispatch(setStatusFilter("all"))
     if (searchQueryFilter) {
@@ -110,8 +110,8 @@ export const TransactionsFilterModal = create(() => {
   const resetValues = () => {
     dispatch(setStatusFilter())
     dispatch(setOrderFilter('asc'))
-    dispatch(setStartDateFilter(''))
-    dispatch(setEndDateFilter(''))
+    dispatch(setStartDateFilter(new Date(Date.now())))
+    dispatch(setEndDateFilter(new Date(Date.now())))
   }
   return (
     <Dialog open={visible} onOpenChange={handleCloseModal}>

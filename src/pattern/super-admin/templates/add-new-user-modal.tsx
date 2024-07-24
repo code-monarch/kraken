@@ -73,10 +73,10 @@ const AddNewUserModal = create(() => {
 
   const onSubmit: SubmitHandler<any> = (data) => {
     addUser({
-      email: data.email,
-      firstname: data.firstname,
-      lastname: data.lastname,
-      phoneNumber: data.phoneNumber,
+      email: data?.email,
+      firstname: data?.firstname,
+      lastname: data?.lastname,
+      phoneNumber: data?.phoneNumber,
       userType: userType,
     })
       .unwrap()

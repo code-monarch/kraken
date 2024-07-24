@@ -1,4 +1,5 @@
 import { LOGIN_API_KEY, SERVICE_ACCOUNT_API_KEY } from '@/lib/constants'
+import { intervalType } from '@/lib/data'
 import { baseApiSlice } from '@/redux/api/base-api'
 import { IChartResponse } from '@/redux/types'
 
@@ -10,7 +11,7 @@ export interface ITransactionMatrixChartResponse {
 }
 
 interface ITransactionMatrixPayload {
-    interval: "weekly" | "monthly" | "yearly"
+    interval: intervalType['value']
     startDate?: string // e.g. 2024-05-31T01:31:21.761Z
     endDate?: string // e.g. 2024-05-31T01:31:21.761Z
 }
@@ -22,7 +23,7 @@ export const getTransactionMatrixChartApiSlice = baseApiSlice.injectEndpoints({
             ITransactionMatrixPayload
         >({
             query: ({ interval, startDate, endDate }) => ({
-                url: `/transactions/admin/matrix/chart?interval=${interval}${startDate ? `?q=${startDate}` : ''}${endDate ? `?q=${endDate}` : ''}`,
+                url: `/transactions/admin/matrix/chart?interval=${interval}${startDate ? `?startDate=${startDate}` : ''}${endDate ? `?endDate=${endDate}` : ''}`,
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

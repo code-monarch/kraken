@@ -51,8 +51,8 @@ const TransactionsTableTemplate = () => {
       value: status === 'all' ? null : status,
     },
     type: transactionType === 'all' ? null : transactionType,
-    startDate: startDate,
-    endDate: endDate,
+    startDate: startDate as string,
+    endDate: endDate as string,
   })
 
   useEffect(() => {
