@@ -2,10 +2,14 @@ import React from 'react'
 import UserDetailWidget from '../atoms/user-detail-widget'
 
 interface IProps {
-  email: string;
-  address: string;
-  name: string;
-  phoneNumber: string;
+  email: string
+  address: string
+  name: string
+  phoneNumber: string
+  accountName: string
+  accountNumber: string
+  bank: string
+  cashoutReward: string | number
 }
 
 const UserDetailsTabContent = ({email, address, name, phoneNumber}: IProps) => {

@@ -60,7 +60,7 @@ export interface ITransactionsPayload {
   pageSize?: number
   page?: number
   searchQuery?: string // search query
-  filterby?: { label: 'status'; value: 'COMPLETED' | 'PENDING' | 'FAILED' | null | undefined }
+  status?: 'COMPLETED' | 'PENDING' | 'FAILED' | null | undefined
   type?: "Withdrawal" | "Cashout" | "Deposit" | null | undefined
   startDate?: string
   endDate?: string
@@ -70,8 +70,8 @@ export const getTransactionsApiSlice = baseApiSlice.injectEndpoints({
   endpoints: builder => ({
     getTransactions: builder.query<ITransactionsResponse, ITransactionsPayload>(
       {
-        query: ({ pageSize, page, searchQuery, filterby, type, startDate, endDate }) => ({
-          url: `transactions/admin?page=${page}&limit=${pageSize}${filterby && filterby.value ? `&filterby=${filterby.label}=${filterby.value}` : ''}${type ?? ''}${searchQuery ? `&searchQuery=${searchQuery}` : ''}${startDate ? `&startDate=${startDate}` : ''}${endDate ? `&endDate=${endDate}` : ''}`,
+        query: ({ pageSize, page, searchQuery, status, type, startDate, endDate }) => ({
+          url: `transactions/admin?page=${page}&limit=${pageSize}${status ? `&filterby=status=${status}` : ''}${type ? `&filterby=type=${type}` : ''}${searchQuery ? `&searchQuery=${searchQuery}` : ''}${startDate ? `&startDate=${startDate}` : ''}${endDate ? `&endDate=${endDate}` : ''}`,
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

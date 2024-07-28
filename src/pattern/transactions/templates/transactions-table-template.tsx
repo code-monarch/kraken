@@ -5,7 +5,7 @@ import { PaginationState } from '@tanstack/react-table'
 import TransactionsTableTemplateHeader from '../organisms/transactions-table-template-header'
 import {
   Transaction,
-  useGetTransactionsQuery
+  useGetTransactionsQuery,
 } from '@/redux/services/transactions/get-transactions.api-slice'
 import { RootState } from '@/redux/store'
 import { useSelector } from 'react-redux'
@@ -46,10 +46,7 @@ const TransactionsTableTemplate = () => {
     page: pagination.pageIndex + 1,
     pageSize: pagination.pageSize,
     searchQuery: searchQuery,
-    filterby: {
-      label: 'status',
-      value: status === 'all' ? null : status,
-    },
+    status: status === 'all' ? null : status,
     type: transactionType === 'all' ? null : transactionType,
     startDate: startDate as string,
     endDate: endDate as string,
