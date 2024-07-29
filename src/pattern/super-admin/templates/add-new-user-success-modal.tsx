@@ -1,24 +1,29 @@
-"use client";
-import React from "react";
-import { create, useModal } from "@ebay/nice-modal-react";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+'use client'
+import React from 'react'
+import { create, useModal } from '@ebay/nice-modal-react'
+import { Dialog, DialogContent } from '@/components/ui/dialog'
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import VerifyStatusHeaderIcon from "../../common/atoms/icons/verify-status-header-icon";
-import { Button } from "@/components/ui/button";
+} from '@/components/ui/card'
+import VerifyStatusHeaderIcon from '../../common/atoms/icons/verify-status-header-icon'
+import { Button } from '@/components/ui/button'
 
-const AddNewUserSuccessModal = create(() => {
-  const { resolve, remove, visible } = useModal();
+interface IProps {
+  title?: string
+  message?: string
+}
+
+const AddNewUserSuccessModal = create(({ title, message }: IProps) => {
+  const { resolve, remove, visible } = useModal()
 
   const handleCloseModal = () => {
-    resolve({ resolved: true });
-    remove();
-  };
+    resolve({ resolved: true })
+    remove()
+  }
   return (
     <Dialog open={visible} onOpenChange={handleCloseModal}>
       <DialogContent className='w-fit h-fit p-0 outline-none border-none shadow-none'>
@@ -27,7 +32,7 @@ const AddNewUserSuccessModal = create(() => {
           <CardHeader className='w-full flex flex-col items-start gap-y-5'>
             <VerifyStatusHeaderIcon />
             <CardTitle className='text-[1.125rem] text-foreground font-semibold'>
-              User Added Successfully
+              {title ?? 'User Added Successfully'}
             </CardTitle>
           </CardHeader>
 
@@ -48,7 +53,7 @@ const AddNewUserSuccessModal = create(() => {
         </Card>
       </DialogContent>
     </Dialog>
-  );
-});
+  )
+})
 
-export default AddNewUserSuccessModal;
+export default AddNewUserSuccessModal
