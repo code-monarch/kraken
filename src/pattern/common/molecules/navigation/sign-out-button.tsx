@@ -42,13 +42,18 @@ const SignOutButton = () => {
         }
       })
 
-    // const loginApiKey = LocalStore.getItem({ key: LOGIN_API_KEY })
-    // const serviceAccountApiKey = LocalStore.getItem({
-    //   key: SERVICE_ACCOUNT_API_KEY,
-    // })
-    // if (loginApiKey || serviceAccountApiKey) {
-    //   LocalStore.clearStore()
-    // }
+    const loginApiKey = LocalStore.getItem({ key: LOGIN_API_KEY })
+    const serviceAccountApiKey = LocalStore.getItem({
+      key: SERVICE_ACCOUNT_API_KEY,
+    })
+    if (!loginApiKey || !serviceAccountApiKey) {
+      LocalStore.clearStore()
+      replace(`${AUTH_PATHS.login}`)
+    }
+    if (loginApiKey || serviceAccountApiKey) {
+      LocalStore.clearStore()
+      replace(`${AUTH_PATHS.login}`)
+    }
   }
   return (
     <button
