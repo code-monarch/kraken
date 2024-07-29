@@ -48,6 +48,7 @@ const baseQueryWithReauth: BaseQueryFn<
   unknown,
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
+  // const router = useRouter()
   // wait until the mutex is available without locking it
   await mutex.waitForUnlock()
   let result = await baseQuery(args, api, extraOptions)
@@ -59,9 +60,9 @@ const baseQueryWithReauth: BaseQueryFn<
 
     // Reload app.
     // The Application AuthGuard will change the user's route to the login seeing that they are no API keys available anymore
-    // if (typeof window !== "undefined") {
-    //   window.location.reload();
-    // }
+    if (typeof window !== 'undefined') {
+      window.location.reload()
+    }
   }
   return result
 }
@@ -69,7 +70,17 @@ const baseQueryWithReauth: BaseQueryFn<
 export const baseApiSlice = createApi({
   reducerPath: 'baseApi',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ["getUser", "getAdmin", "getProfile", "getTransactions", "getSingleTransactions", "getTransactionMatrix", "getTransactionMatrixAlltime", "getCashoutRequests", "getTransactionMatrixChart"],
+  tagTypes: [
+    'getUser',
+    'getAdmin',
+    'getProfile',
+    'getTransactions',
+    'getSingleTransactions',
+    'getTransactionMatrix',
+    'getTransactionMatrixAlltime',
+    'getCashoutRequests',
+    'getTransactionMatrixChart',
+  ],
   refetchOnReconnect: true,
   // keepUnusedDataFor: 30,
   refetchOnMountOrArgChange: true,
