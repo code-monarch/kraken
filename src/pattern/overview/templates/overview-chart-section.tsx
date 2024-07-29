@@ -49,8 +49,8 @@ const OverviewChartSection = () => {
     isFetching,
   } = useGetTransactionMatrixChartQuery({
     interval: interval,
-    startDate: formatDateRange(startDateFilter),
-    endDate: formatDateRange(endDateFilter),
+    startDate: formatDateRange(startDateFilter ?? ""),
+    endDate: formatDateRange(endDateFilter ?? ""),
   })
   return (
     <div className='w-full flex flex-col items-start gap-y-5'>

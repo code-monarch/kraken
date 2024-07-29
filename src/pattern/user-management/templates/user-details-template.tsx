@@ -1,7 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import userImg from '@/public/images/user-img-lg.png'
 import { PilgrimDetailsPageHeader } from '../organisms/pilgrim-details-page-header'
 import { UserTransactionsTabIcon } from '@/pattern/common/atoms/icons/user-transactions-tab-icon'
 import { VerificationStatusTabIcon } from '@/pattern/common/atoms/icons/verification-status-tab-icon'
@@ -27,7 +26,13 @@ const UserDetailsTemplate = () => {
   // Get search param
   const id = searchParams.get('userId')
 
-  const { data, isLoading, isSuccess, isError, error } = useGetSingleUserQuery({
+  const {
+    data: userDetailsData,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetSingleUserQuery({
     id: `${id}`,
   })
 
@@ -57,10 +62,14 @@ const UserDetailsTemplate = () => {
       icon: UserDetailsTabIcon,
       content: (
         <UserDetailsTabContent
-          email={data?.data?.email ?? 'Email'}
-          address={data?.data?.address ?? 'Address'}
-          name={`${data?.data?.firstname} ${data?.data?.lastname}`}
-          phoneNumber={data?.data?.phoneNumber as string}
+          email={userDetailsData?.data?.email ?? 'Email'}
+          address={userDetailsData?.data?.address ?? 'Address'}
+          name={`${userDetailsData?.data?.firstname} ${userDetailsData?.data?.lastname}`}
+          phoneNumber={userDetailsData?.data?.phoneNumber as string}
+          accountName='John Doe'
+          accountNumber='000111000111'
+          bank='GT bank'
+          cashoutReward= {10000}
         />
       ),
     },
@@ -76,8 +85,8 @@ const UserDetailsTemplate = () => {
       icon: VerificationStatusTabIcon,
       content: (
         <VerificationStatusTabContent
-          isVerified={data?.data.isVerified!}
-          nationalId={data?.data.nin!}
+          isVerified={userDetailsData?.data.isVerified!}
+          nationalId={userDetailsData?.data.nin!}
         />
       ),
     },
@@ -105,13 +114,13 @@ const UserDetailsTemplate = () => {
         {!isLoading && isSuccess && (
           <div>
             <PilgrimDetailsPageHeader
-              email={data?.data?.email ?? 'User Email'}
-              firstName={data?.data?.firstname ?? 'Firstname'}
-              lastName={data?.data?.lastname ?? 'Lastname'}
-              phoneNumber={data?.data?.phoneNumber ?? 'PhoneNumber'}
-              userImg={data?.data?.imageUrl}
-              status={data?.data?.status ?? 'Status'}
-              userType={data?.data?.userType! ?? 'UserType'}
+              email={userDetailsData?.data?.email ?? 'User Email'}
+              firstName={userDetailsData?.data?.firstname ?? 'Firstname'}
+              lastName={userDetailsData?.data?.lastname ?? 'Lastname'}
+              phoneNumber={userDetailsData?.data?.phoneNumber ?? 'PhoneNumber'}
+              userImg={userDetailsData?.data?.imageUrl}
+              status={userDetailsData?.data?.status ?? 'Status'}
+              userType={userDetailsData?.data?.userType! ?? 'UserType'}
               id={`${id}`}
             />
 
