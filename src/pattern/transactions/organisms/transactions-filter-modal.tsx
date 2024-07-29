@@ -67,10 +67,14 @@ export const TransactionsFilterModal = create(() => {
 
   const [order, setOrder] =
     useState<ITransactionsTableHeaderProps['order']>('asc')
+    
   const [transactionType, setTransactionType] = useState<
     ITransactionsTableHeaderProps['transactionType']
   >(transactionTypeFilter)
-  const [startDate, setStartDate] = useState<Date | string>(startDateFilter)
+
+  const [startDate, setStartDate] = useState<Date | string>(
+    startDateFilter,
+  )
   const [endDate, setEndDate] = useState<Date | string>(endDateFilter)
   const [dateRange, setDateRange] = useState<string>('')
 
@@ -98,7 +102,7 @@ export const TransactionsFilterModal = create(() => {
     dispatch(setStartDateFilter(startDate as string))
     dispatch(setEndDateFilter(endDate as string))
     dispatch(setTransactionTypeFilter(transactionType))
-    dispatch(setStatusFilter("all"))
+    dispatch(setStatusFilter('all'))
     if (searchQueryFilter) {
       dispatch(setSearchQueryFilter(''))
     }
@@ -110,8 +114,9 @@ export const TransactionsFilterModal = create(() => {
   const resetValues = () => {
     dispatch(setStatusFilter())
     dispatch(setOrderFilter('asc'))
-    dispatch(setStartDateFilter(new Date(Date.now())))
-    dispatch(setEndDateFilter(new Date(Date.now())))
+    setStartDate('')
+    setEndDate('')
+    setDateRange("")
   }
   return (
     <Dialog open={visible} onOpenChange={handleCloseModal}>
