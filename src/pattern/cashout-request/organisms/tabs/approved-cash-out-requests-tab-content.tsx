@@ -3,6 +3,9 @@ import React from 'react'
 import CashOutRequestTicketCard from '../cash-out-request-ticket-card'
 import PulsePlaceholder from '@/pattern/common/atoms/icons/pulse-placeholder-icon'
 import { IGetCashoutRequestsResponse } from '@/redux/services/transactions/get-cashout-requests.api-slice'
+import CashoutCardsSkeleton from '@/pattern/common/molecules/skeletons/cashout-cards-skeleton'
+import NoDataWidget from '@/pattern/common/molecules/data-display/no-data-widget'
+import ErrorMessageWidget from '@/pattern/common/molecules/data-display/error-message-widget'
 
 interface IProps {
   data: IGetCashoutRequestsResponse
@@ -28,24 +31,17 @@ const ApprovedCashOutRequestTabContent = ({
         data?.data.contents.map((data, idx) => (
           <CashOutRequestTicketCard key={idx} data={data} />
         ))}
-      {(isLoading || isFetching) && <PulsePlaceholder />}
+
+      {isLoading || (isFetching && <CashoutCardsSkeleton />)}
 
       {/* Display Message when data is empty */}
       {!isLoading &&
         !isFetching &&
         isSuccess &&
-        data?.data.contents.length === 0 && (
-          <div className='w-full flex items-center justify-center min-h-[100px]'>
-            No data found
-          </div>
-        )}
+        data?.data.contents.length === 0 && <NoDataWidget />}
 
       {/* Else render error message */}
-      {!isLoading && !isFetching && isError && (
-        <div className='w-full flex items-center justify-center min-h-[100px] text-destructive'>
-          An error occured while trying to fetch the data
-        </div>
-      )}
+      {!isLoading && !isFetching && isError && <ErrorMessageWidget />}
     </div>
     // </CashOutRequestTabLayout>
   )

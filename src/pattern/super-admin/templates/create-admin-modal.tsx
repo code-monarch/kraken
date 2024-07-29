@@ -41,6 +41,8 @@ interface RoleOption {
 
 const CreateAdminFormSchema = Yup.object().shape({
   firstname: Yup.string().required('First name is Required'),
+  lastname: Yup.string().required('Last name is Required'),
+  phoneNumber: Yup.string().required('Phone number is Required'),
   roleIds: Yup.array()
     .of(Yup.string().required('Role is Required'))
     .min(1, 'At least one role is required')
@@ -73,6 +75,8 @@ const CreateAdminModal = create(() => {
 
   const defaultValues = {
     firstname: '',
+    lastname: '',
+    phoneNumber: '',
     email: '',
     password: '',
     roleIds: [],
@@ -98,6 +102,8 @@ const CreateAdminModal = create(() => {
   const onSubmit: SubmitHandler<ICreateAdminPayload> = data => {
     createAdmin({
       firstname: data?.firstname,
+      lastname: data?.lastname,
+      phoneNumber: data?.phoneNumber,
       email: data?.email,
       password: data?.password,
       roleIds: selectedRoles?.map(role => role.value),
@@ -105,7 +111,9 @@ const CreateAdminModal = create(() => {
       .unwrap()
       .then(res => {
         handleCloseModal()
-        show(AddNewUserSuccessModal)
+        show(AddNewUserSuccessModal, {
+          title: res?.responseMessage ?? 'Admin account created successfully',
+        })
       })
       .catch(err => {
         handleCloseModal()
@@ -154,7 +162,22 @@ const CreateAdminModal = create(() => {
                     placeholder='Jon'
                     className='min-w-full pl-2'
                   />
+                  {/* Last Name */}
+                  <FormInput
+                    label='Last Name'
+                    name='lastname'
+                    error={errors['firstname']}
+                    placeholder='Jon'
+                    className='min-w-full pl-2'
+                  />
                 </div>
+
+                {/* Phone number */}
+                <PhoneNumberInput
+                  label='Phone Number'
+                  name='phoneNumber'
+                  error={errors['phoneNumber']}
+                />
 
                 {/* Email Input */}
                 <EmailInput
