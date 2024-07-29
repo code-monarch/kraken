@@ -7,8 +7,12 @@ import SendMessageBtnIcon from '../../common/atoms/icons/send-message-btn-icon'
 import { show } from '@ebay/nice-modal-react'
 import AddNewUserModal from '../templates/add-new-user-modal'
 import SendMessageModal from '../templates/send-message-modal'
+import CreateAdminModal from '../templates/create-admin-modal'
 
 const SuperAdminUserManagementPageHeader = () => {
+  const handleCreateAdmin = () => {
+    show(CreateAdminModal)
+  }
   const handleAddUser = () => {
     show(AddNewUserModal)
   }
@@ -23,6 +27,16 @@ const SuperAdminUserManagementPageHeader = () => {
       />
 
       <div className='h-[52px] flex items-center gap-4'>
+        {/* Create Admin Modal Trigger */}
+        <ButtonWithIcon
+          prefixIcon={<AddUserBtnIcon color='hsla(40,96%,53%,1)' />}
+          size='sm'
+          className='w-[158px] h-full bg-warning-100 text-[1.125rem] text-warning hover:bg-warning-100 rounded-[6px]'
+          onClick={handleCreateAdmin}
+        >
+          Create admin
+        </ButtonWithIcon>
+
         {/* Add User Modal Trigger */}
         <ButtonWithIcon
           prefixIcon={<AddUserBtnIcon />}
