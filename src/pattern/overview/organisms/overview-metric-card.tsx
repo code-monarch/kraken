@@ -36,7 +36,7 @@ const OverviewMetricCard = () => {
   ]
   return (
     <div className='h-full bg-white space-y-[20px] pt-4 px-5 pb-6 border border-border rounded-[12px]'>
-      <Hidden visible={(!isFetching && isSuccess) || isError}>
+      {/* <Hidden visible={(!isFetching && isSuccess) || isError}> */}
         {overviewMetric.map(
           ({ metric, metricPercentage, metricValue }, idx) => (
             <OverviewMetricData
@@ -48,10 +48,10 @@ const OverviewMetricCard = () => {
             />
           ),
         )}
-      </Hidden>
-      <Hidden visible={isLoading || isFetching}>
+      {/* </Hidden> */}
+      {/* <Hidden visible={isLoading || isFetching}>
         <PulsePlaceholder />
-      </Hidden>
+      </Hidden> */}
     </div>
   )
 }

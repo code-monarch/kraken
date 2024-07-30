@@ -25,7 +25,7 @@ const AccountSettingsTab = () => {
       <div className="my-3">
         <ChangePasswordSection />
       </div>
-      <Separator />
+      {/* <Separator />
 
       <div className="my-3">
         <CurrencyConversionSection />
@@ -34,7 +34,7 @@ const AccountSettingsTab = () => {
 
       <div className="my-3">
         <CurrentLanguageSection />
-      </div>
+      </div> */}
     </div>
   );
 };
