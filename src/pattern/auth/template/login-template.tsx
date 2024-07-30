@@ -66,7 +66,6 @@ const LoginTemplate = () => {
   const onSubmit: SubmitHandler<
     Omit<ILoginPayload, 'serviceAccountApiKey'>
   > = data => {
-
     serviceAccountLogin({
       clientId: `${process.env.NEXT_PUBLIC_CLIENT_ID}`,
       clientSecret: `${process.env.NEXT_PUBLIC_CLIENT_SECRET}`,
