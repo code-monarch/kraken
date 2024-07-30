@@ -12,8 +12,8 @@ export interface ITransactionMatrixChartResponse {
 
 interface ITransactionMatrixPayload {
     interval: intervalType['value']
-    startDate?: string // e.g. 2024-05-31T01:31:21.761Z
-    endDate?: string // e.g. 2024-05-31T01:31:21.761Z
+    startDate?: string // e.g. 2024-05-31
+    endDate?: string // e.g. 2024-05-31
 }
 
 export const getTransactionMatrixChartApiSlice = baseApiSlice.injectEndpoints({

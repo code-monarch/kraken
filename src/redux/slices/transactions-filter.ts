@@ -1,5 +1,9 @@
+import { formatDate } from "@/lib/helper/format-date";
 import { ITransactionsTableHeaderProps } from "@/pattern/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+const defaultStartDate = new Date(0)
+const currentDate = new Date()
 
 const initialState: Pick<ITransactionsTableHeaderProps, "searchQuery" |
     "status"
@@ -10,8 +14,8 @@ const initialState: Pick<ITransactionsTableHeaderProps, "searchQuery" |
     searchQuery: "",
     status: undefined,
     order: "asc",
-    startDate: '',
-    endDate: '',
+    startDate: formatDate(`${defaultStartDate}`),
+    endDate: formatDate(`${currentDate}`),
     transactionType: undefined
 };
 
