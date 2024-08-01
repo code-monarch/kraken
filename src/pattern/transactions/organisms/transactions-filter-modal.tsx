@@ -46,6 +46,10 @@ const TransactionTypeFilterSetting: IListType[] = [
     label: 'Cashout',
     value: 'cashout',
   },
+  {
+    label: 'Disbursement',
+    value: 'disbursement',
+  },
 ]
 
 export const TransactionsFilterModal = create(() => {

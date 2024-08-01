@@ -2,8 +2,11 @@ import { formatDate } from "@/lib/helper/format-date";
 import { ITransactionsTableHeaderProps } from "@/pattern/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const defaultStartDate = new Date(0)
-const currentDate = new Date()
+// Get the current date
+const currentDate = new Date();
+
+// Defaults to First day of current month
+const defaultStartDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
 
 const initialState: Pick<ITransactionsTableHeaderProps, "searchQuery" |
     "status"

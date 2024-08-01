@@ -34,14 +34,14 @@ const RecentTransactionsHeader = () => {
           <Badge variant='accent'>{transactions} transactions</Badge>
         </div>
         <div className='flex items-center gap-3'>
-          <ButtonWithIcon
+          {/* <ButtonWithIcon
             variant='outlinePrimary'
             prefixIcon={<ExcelIcon />}
             size='sm'
             className='w-[127px] h-[44px] text-base'
           >
             Export
-          </ButtonWithIcon>
+          </ButtonWithIcon> */}
           <ButtonWithIcon
             suffixIcon={<ViewAllCaretIcon />}
             size='sm'
