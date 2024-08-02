@@ -43,6 +43,13 @@ const LoginFormSchema = Yup.object().shape({
 })
 
 const LoginTemplate = () => {
+  // Defaults to First day of current month
+  const defaultStartDate = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    1,
+  )
+
   // Service Account Login
   const [serviceAccountLogin, { isLoading: loadingServiceAccountLogin }] =
     useServiceAccountLoginMutation()
