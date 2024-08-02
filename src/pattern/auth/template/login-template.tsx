@@ -26,6 +26,14 @@ import {
 } from '@/redux/slices/user-slice'
 import { show } from '@ebay/nice-modal-react'
 import { ErrorModal } from '@/pattern/common/organisms/error-modal'
+import {
+  setEndDateFilter,
+  setStartDateFilter,
+} from '@/redux/slices/transactions-filter'
+import { formatDate } from '@/lib/helper/format-date'
+
+// Get the current date
+const currentDate = new Date()
 
 const LoginFormSchema = Yup.object().shape({
   email: Yup.string()
