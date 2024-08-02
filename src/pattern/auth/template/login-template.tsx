@@ -103,6 +103,8 @@ const LoginTemplate = () => {
             dispatch(setAdminId(res.data.id))
             dispatch(setAdminRole(res.data.userType))
             dispatch(setEmail(res.data.email))
+            dispatch(setStartDateFilter(formatDate(`${defaultStartDate}`)))
+            dispatch(setEndDateFilter(formatDate(`${currentDate}`)))
             storeLoginCredentials({
               apiKey: res.data.apiKey,
               adminId: res.data.id,
