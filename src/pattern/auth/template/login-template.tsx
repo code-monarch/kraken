@@ -26,6 +26,14 @@ import {
 } from '@/redux/slices/user-slice'
 import { show } from '@ebay/nice-modal-react'
 import { ErrorModal } from '@/pattern/common/organisms/error-modal'
+import {
+  setEndDateFilter,
+  setStartDateFilter,
+} from '@/redux/slices/transactions-filter'
+import { formatDate } from '@/lib/helper/format-date'
+
+// Get the current date
+const currentDate = new Date()
 
 const LoginFormSchema = Yup.object().shape({
   email: Yup.string()
@@ -35,6 +43,13 @@ const LoginFormSchema = Yup.object().shape({
 })
 
 const LoginTemplate = () => {
+  // Defaults to First day of current month
+  const defaultStartDate = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    1,
+  )
+
   // Service Account Login
   const [serviceAccountLogin, { isLoading: loadingServiceAccountLogin }] =
     useServiceAccountLoginMutation()
@@ -88,6 +103,8 @@ const LoginTemplate = () => {
             dispatch(setAdminId(res.data.id))
             dispatch(setAdminRole(res.data.userType))
             dispatch(setEmail(res.data.email))
+            dispatch(setStartDateFilter(formatDate(`${defaultStartDate}`)))
+            dispatch(setEndDateFilter(formatDate(`${currentDate}`)))
             storeLoginCredentials({
               apiKey: res.data.apiKey,
               adminId: res.data.id,
