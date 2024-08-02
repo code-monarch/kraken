@@ -10,11 +10,11 @@ const TransactionFeesBannerSkeleton = ({
 }: HTMLAttributes<HTMLDivElement>) => {
   return (
     <div
-      className={cn('bg-[#fff] h-[184px] w-full flex flex-col gap-2')}
+      className={cn('bg-[#fff] h-[184p] w-full flex flex-col gap-2')}
       {...props}
     >
-      <Skeleton className='h-[76px] w-[100px] rounded-sm' />
-      <Skeleton className='h-[108px] w-full rounded-sm' />
+      <Skeleton className='h-4 w-[100px] rounded-sm' />
+      <Skeleton className='h-6 w-full rounded-sm' />
     </div>
   )
 }

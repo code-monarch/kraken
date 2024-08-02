@@ -6,6 +6,9 @@ import { Separator } from '@/components/ui/separator'
 import { show } from '@ebay/nice-modal-react'
 import SetTransactionFeesModal from '../templates/set-transaction-fees-modal'
 import FeeWidget from '../molecules/fee-widget'
+import { useGetTransactionFeesQuery } from '@/redux/services/transactions/transaction-fess.api-slice'
+import Hidden from '@/pattern/common/molecules/data-display/hidden'
+import TransactionFeesBannerSkeleton from '@/pattern/common/molecules/skeletons/transaction-fees-banner-skeleton'
 
 interface ITransactionFeesBannerProps {
   depositFees: string
@@ -18,6 +21,8 @@ const TransactionFeesBanner: FC<ITransactionFeesBannerProps> = ({
   withdrawalFees,
   cashoutRewards,
 }) => {
+  const { data, isLoading, isFetching, isSuccess, isError } =
+    useGetTransactionFeesQuery()
 
   const handleUpdateFees = () => {
     show(SetTransactionFeesModal)
@@ -45,14 +50,40 @@ const TransactionFeesBanner: FC<ITransactionFeesBannerProps> = ({
 
       {/* Content */}
       <div className='w-full h-[108px] grid grid-cols-3 gap-5 py-5'>
-        {/* Deposit Fees */}
-        <FeeWidget label='Deposit Fees' value={depositFees} />
+        <Hidden visible={!isLoading}>
+          {/* Deposit Fees */}
+          {/* <FeeWidget
+            // isLoading={true}
+            label='Deposit Fees'
+            value={depositFees}
+          /> */}
 
-        {/* Withdrawal Fees */}
-        <FeeWidget label='Withdrawal Fees' value={withdrawalFees} />
+          {/* Withdrawal Fees */}
+          {/* <FeeWidget
+            // isLoading={true}
+            label='Withdrawal Fees'
+            value={withdrawalFees}
+          /> */}
 
-        {/* Cashout Rewards */}
-        <FeeWidget label='Cashout Rewards' value={cashoutRewards} />
+          {/* Cashout Rewards */}
+          {/* <FeeWidget
+            // isLoading={true}
+            label='Cashout Rewards'
+            value={cashoutRewards}
+          /> */}
+          {data?.data.map((fee, i) => (
+            <FeeWidget
+            key={i}
+            label={fee.description}
+            value={fee.amount}
+          />
+          ))}
+        </Hidden>
+        <Hidden visible={isLoading}>
+          {new Array(3).fill(3).map((item, idx) => (
+            <TransactionFeesBannerSkeleton key={idx} />
+          ))}
+        </Hidden>
       </div>
     </div>
   )

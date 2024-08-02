@@ -43,7 +43,7 @@ export const fundDisbursementWalletApiSlice = baseApiSlice.injectEndpoints({
       IFundDisbursementWalletPayload
     >({
       query: payload => ({
-        url: `/transactions/admin/wallets/agent/fund`,
+        url: `transactions/admin/wallets/agent/fund`,
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

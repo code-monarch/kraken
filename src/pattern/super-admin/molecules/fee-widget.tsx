@@ -3,7 +3,7 @@ import React, { FC } from "react";
 
 interface IFeeWidgetProps {
   label: string;
-  value: string;
+  value: number;
 }
 
 const FeeWidget: FC<IFeeWidgetProps> = ({ label, value }) => {
