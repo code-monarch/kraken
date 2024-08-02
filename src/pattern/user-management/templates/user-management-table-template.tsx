@@ -115,14 +115,14 @@ const UserManagementTableTemplate = () => {
         <div className='flex items-center gap-2'>
           <h3 className='text-[1.125rem] font-semibold'>User List</h3>
         </div>
-        <ButtonWithIcon
+        {/* <ButtonWithIcon
           variant='outlinePrimary'
           prefixIcon={<ExcelIcon />}
           size='sm'
           className='w-[127px] h-[44px] text-base'
         >
           Export
-        </ButtonWithIcon>
+        </ButtonWithIcon> */}
       </div>
 
       {/* Bottom */}

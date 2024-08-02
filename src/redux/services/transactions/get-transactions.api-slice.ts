@@ -71,7 +71,7 @@ export const getTransactionsApiSlice = baseApiSlice.injectEndpoints({
     getTransactions: builder.query<ITransactionsResponse, ITransactionsPayload>(
       {
         query: ({ pageSize, page, searchQuery, status, type, startDate, endDate }) => ({
-          url: `transactions/admin?page=${page}&limit=${pageSize}${status ? `&filterby=status=${status}` : ''},${type ? `type=${type}` : ''}${searchQuery ? `&searchQuery=${searchQuery}` : ''}${startDate ? `&startDate=${startDate}` : ''}${endDate ? `&endDate=${endDate}` : ''}`,
+          url: `transactions/admin?page=${page}&limit=${pageSize}${status ? `&filterby=status=${status}` : ''}${type ? `,type=${type}` : ''}${searchQuery ? `&searchQuery=${searchQuery}` : ''}${startDate ? `&startDate=${startDate}` : ''}${endDate ? `&endDate=${endDate}` : ''}`,
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
