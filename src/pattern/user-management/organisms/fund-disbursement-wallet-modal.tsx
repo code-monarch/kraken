@@ -184,7 +184,6 @@ export const FundDisbursementWalletModal = create(({ agentId }: IProps) => {
                       loading={isLoading}
                       disabled={!isDirty}
                       type='submit'
-                      // onClick={handleSubmit(onSubmit)}
                     >
                       Fund Wallet
                     </LoadingButton>
