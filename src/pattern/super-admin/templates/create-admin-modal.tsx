@@ -10,7 +10,6 @@ import {
 } from '@/components/ui/card'
 import { create, show, useModal } from '@ebay/nice-modal-react'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
-import SelectInput from '../../common/molecules/inputs/select-input'
 import FormInput from '../../common/molecules/inputs/form-input'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'

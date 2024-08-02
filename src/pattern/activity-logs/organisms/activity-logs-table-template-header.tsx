@@ -55,14 +55,14 @@ const ActivityLogsTableTemplateHeader = ({
           <h3 className="text-[1.125rem] font-semibold">Activity List</h3>
           <Badge variant="accent">{totalActivities  ?? 0} activities</Badge>
         </div>
-        <ButtonWithIcon
+        {/* <ButtonWithIcon
           variant="outlinePrimary"
           prefixIcon={<ExcelIcon />}
           size="sm"
           className="w-[127px] h-[44px] text-base"
         >
           Export
-        </ButtonWithIcon>
+        </ButtonWithIcon> */}
       </div>
       {/* Bottom */}
       <div className="w-full h-[76px] bg-inherit flex items-center justify-between py-[26px]">

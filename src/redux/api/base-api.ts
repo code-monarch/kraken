@@ -5,12 +5,8 @@ import {
   createApi,
   fetchBaseQuery,
 } from '@reduxjs/toolkit/query/react'
-import { Mutex } from 'async-mutex'
 import { LOGIN_API_KEY, SERVICE_ACCOUNT_API_KEY } from '@/lib/constants'
 import LocalStore from '@/lib/helper/storage-manager'
-
-// Instantiate a mutex instance
-const mutex = new Mutex()
 
 // Define custom headers
 const headers = new Headers()
@@ -48,9 +44,6 @@ const baseQueryWithReauth: BaseQueryFn<
   unknown,
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
-  // const router = useRouter()
-  // wait until the mutex is available without locking it
-  await mutex.waitForUnlock()
   let result = await baseQuery(args, api, extraOptions)
 
   if (result.error && result?.error?.status === 426) {

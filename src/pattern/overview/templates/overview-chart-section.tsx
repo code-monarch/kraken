@@ -28,10 +28,10 @@ const OverviewChartSection = () => {
   const [openDateFilter, setOpenDateFilter] = useState<boolean>(false)
 
   const startDateFilter = useSelector(
-    (state: RootState) => state.transactionsFilter?.startDate ?? today,
+    (state: RootState) => state.transactionsFilter?.startDate,
   )
   const endDateFilter = useSelector(
-    (state: RootState) => state.transactionsFilter?.endDate ?? today,
+    (state: RootState) => state.transactionsFilter?.endDate,
   )
 
   const [interval, setInterval] = useState<intervalType['value']>(

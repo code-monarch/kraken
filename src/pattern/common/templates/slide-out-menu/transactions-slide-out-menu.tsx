@@ -145,7 +145,7 @@ const TransactionsSlideOutMenu = create(({ transactionId }: IProps) => {
 
                   <div className='w-full flex flex-col items-center space-y-[4px]'>
                     {/* Amount */}
-                    <h3 className='text-foreground text-24 font-raleway font-semibold'>
+                    <h3 className='flex-wrap max-w-xs text-foreground text-24 font-raleway font-semibold'>
                       {data?.data?.order_amount}{' '}
                       <span>{data?.data?.currency}</span>
                     </h3>

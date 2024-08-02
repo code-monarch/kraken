@@ -65,7 +65,7 @@ const OverviewChart = ({ chartData }: IProps) => {
       show: false,
     },
     xaxis: {
-      type: 'datetime',
+      type: 'category',
       categories: chartData?.xAxis ?? [],
       position: 'bottom',
       labels: {
@@ -87,13 +87,13 @@ const OverviewChart = ({ chartData }: IProps) => {
         offsetY: 0,
         format: undefined,
         formatter: undefined,
-        datetimeUTC: true,
-        datetimeFormatter: {
-          year: 'yyyy',
-          month: "MMM 'yy",
-          day: 'dd MMM',
-          hour: 'HH:mm',
-        },
+        // datetimeUTC: true,
+        // datetimeFormatter: {
+        //   year: 'yyyy',
+        //   month: "MMM 'yy",
+        //   day: 'dd MMM',
+        //   hour: 'HH:mm',
+        // },
       },
       axisBorder: {
         show: false,

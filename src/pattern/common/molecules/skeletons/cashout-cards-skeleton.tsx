@@ -1,6 +1,6 @@
 'use client'
-import { Skeleton } from '@/components/ui/skeleton'
 import React, { HTMLAttributes } from 'react'
+import { Skeleton } from '@/components/ui/skeleton'
 
 const CashoutCardsSkeleton = ({
   className,
