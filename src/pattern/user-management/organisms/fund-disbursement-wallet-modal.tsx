@@ -36,6 +36,10 @@ const DISBURSEMENT_TYPES = [
   { label: 'Credit', value: 'credit' },
   { label: 'Liquidate', value: 'liquidate' },
 ]
+const CURRENCY_TYPES = [
+  { label: 'Naira', value: 'NGN' },
+  { label: 'SAR', value: 'SAR' },
+]
 
 const FundDisbursementWalletFormSchema = Yup.object().shape({
   type: Yup.string()
@@ -43,6 +47,9 @@ const FundDisbursementWalletFormSchema = Yup.object().shape({
       ['credit', 'liquidate'],
       'Invalid type. Allowed values are credit or liquidate.',
     )
+    .required('Disbursement type is Required'),
+  currency: Yup.string()
+    .oneOf(['NGN', 'SAR'], 'Invalid type. Allowed values are SAR or NGN.')
     .required('Disbursement type is Required'),
   amount: Yup.number().required('Enter an amount'),
 })
@@ -60,17 +67,13 @@ export const FundDisbursementWalletModal = create(({ agentId }: IProps) => {
     remove()
   }
 
-  const defaultValues: Omit<
-    IFundDisbursementWalletPayload,
-    'currency' | 'userid'
-  > = {
-    type: '' as any,
+  const defaultValues = {
+    // type: '' as any,
+    // currency: '' as any,
     amount: 0,
   }
 
-  const methods = useForm<
-    Omit<IFundDisbursementWalletPayload, 'currency' | 'userid'>
-  >({
+  const methods = useForm<Omit<IFundDisbursementWalletPayload, 'userid'>>({
     mode: 'onChange',
     resolver: yupResolver(FundDisbursementWalletFormSchema),
     reValidateMode: 'onChange',
@@ -83,16 +86,15 @@ export const FundDisbursementWalletModal = create(({ agentId }: IProps) => {
     formState: { errors, isDirty },
   } = methods
 
-  // const [addUser, { isLoading, isSuccess, isError }] = useAddUserMutation()
   const [fundWallet, { isLoading, isSuccess, isError }] =
     useFundDisbursementWalletMutation()
 
   const onSubmit: SubmitHandler<
-    Omit<IFundDisbursementWalletPayload, 'currency' | 'userid'>
+    Omit<IFundDisbursementWalletPayload, 'userid'>
   > = data => {
     fundWallet({
       userid: agentId,
-      currency: 'NGN',
+      currency: data.currency,
       amount: data.amount,
       type: data.type,
     })
@@ -101,6 +103,7 @@ export const FundDisbursementWalletModal = create(({ agentId }: IProps) => {
         show(SuccessModal, {
           message: res?.responseMessage ?? 'Fund successful',
         })
+        handleCloseModal()
       })
       .catch(err => {
         show(ErrorModal, {
@@ -108,8 +111,8 @@ export const FundDisbursementWalletModal = create(({ agentId }: IProps) => {
             err?.data.responseMessage ??
             'Something went wrong, please try again',
         })
+        handleCloseModal()
       })
-    console.log('DATA: ', data)
   }
 
   return (
@@ -134,23 +137,19 @@ export const FundDisbursementWalletModal = create(({ agentId }: IProps) => {
               {/* Content */}
               <CardContent className='w-full space-y-[16px] mb-[8px]'>
                 {/* Disbursement type: Credit | Liquidate */}
-                <Controller
+                <SelectInput
+                  label='Type'
                   name='type'
-                  control={methods.control}
-                  render={({ field: { value, name, onChange, onBlur } }) => (
-                    <FieldSet>
-                      <SelectInput
-                        label='Type'
-                        name={name}
-                        options={DISBURSEMENT_TYPES}
-                        placeholder='Select disbursement type'
-                        value={value}
-                        setValue={onChange}
-                        onBlur={onBlur}
-                      />
-                      <InputErrorMessage name={`${name}`} />
-                    </FieldSet>
-                  )}
+                  options={DISBURSEMENT_TYPES}
+                  placeholder='Select disbursement type'
+                />
+
+                {/* Currency */}
+                <SelectInput
+                  name='currency'
+                  label='Currency'
+                  options={CURRENCY_TYPES}
+                  placeholder='Select a currency'
                 />
 
                 {/* Amount */}

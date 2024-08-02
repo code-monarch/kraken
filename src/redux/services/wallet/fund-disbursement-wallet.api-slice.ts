@@ -32,7 +32,7 @@ export interface IFundDisbursementWalletResponse {
 
 export interface IFundDisbursementWalletPayload {
   userid: string
-  currency: string // e.g. "NGN",
+  currency: 'NGN' | 'SAR'
   amount: number
   type: 'credit' | 'liquidate'
 }
