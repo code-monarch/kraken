@@ -22,16 +22,30 @@ import {
 } from '@/redux/services/transactions/transaction-fess.api-slice'
 import { SuccessModal } from '@/pattern/common/organisms/success-modal'
 import { ErrorModal } from '@/pattern/common/organisms/error-modal'
+import {
+  useGetExchangeRatesQuery,
+  useUpdateExchangeRatesMutation,
+} from '@/redux/services/exchange-rates.api-slice.ts/exchange-rates.api-slice'
+import FormInput from '@/pattern/common/molecules/inputs/form-input'
+
+interface IUpdateRateFormValues {
+  ask: number
+  bid: number
+}
+
+interface IProps {
+  id: string
+  ask: number
+  bid: number
+}
 
 const SetTransactionFeesFormSchema = Yup.object().shape({
-  [IUpdateTransactionFeesEnum.DEPOSIT_FEE]: Yup.number(),
-  [IUpdateTransactionFeesEnum.WITHDRAWAL_FEE]: Yup.number(),
-  [IUpdateTransactionFeesEnum.CASHOUT_REWARD]: Yup.number(),
+  ask: Yup.number().required('Ask rate is Required'),
+  bid: Yup.number().required('Bid rate is Required'),
 })
 
-const SetTransactionFeesModal = create(() => {
-  const { data } = useGetTransactionFeesQuery()
-
+const UpdateExchangeRateModal = create(({ id, ask, bid }: IProps) => {
+  //   const { data } = useGetExchangeRatesQuery()
   const { resolve, remove, visible } = useModal()
 
   const handleCloseModal = () => {
@@ -39,24 +53,20 @@ const SetTransactionFeesModal = create(() => {
     remove()
   }
 
-  const defaultValues = useMemo(
-    () => ({
-      [IUpdateTransactionFeesEnum.CASHOUT_REWARD]:
-        data?.data?.find(
-          re => re.id === IUpdateTransactionFeesEnum.CASHOUT_REWARD,
-        )?.amount ?? 0.0,
-      [IUpdateTransactionFeesEnum.DEPOSIT_FEE]:
-        data?.data?.find(re => re.id === IUpdateTransactionFeesEnum.DEPOSIT_FEE)
-          ?.amount ?? 0.0,
-      [IUpdateTransactionFeesEnum.WITHDRAWAL_FEE]:
-        data?.data?.find(
-          re => re.id === IUpdateTransactionFeesEnum.WITHDRAWAL_FEE,
-        )?.amount ?? 0.0,
-    }),
-    [data],
-  )
+  //   const defaultValues = useMemo(
+  //     () => ({
+  //       ask: data?.data?.find(re => re.id === id)?.ask ?? 0.0,
+  //       bid: data?.data?.find(re => re.id === id)?.bid ?? 0.0,
+  //     }),
+  //     [data],
+  //   )
 
-  const methods = useForm<IUpdateTransactionFeesPayload>({
+  const defaultValues = {
+    ask: ask,
+    bid: bid,
+  }
+
+  const methods = useForm<IUpdateRateFormValues>({
     mode: 'onChange',
     resolver: yupResolver(SetTransactionFeesFormSchema),
     reValidateMode: 'onChange',
@@ -69,22 +79,19 @@ const SetTransactionFeesModal = create(() => {
     formState: { errors, isDirty },
   } = methods
 
-  const [updateFees, { isLoading, isSuccess }] =
-    useUpdateTransactionFeesMutation()
+  const [updateExchangeRate, { isLoading, isSuccess }] =
+    useUpdateExchangeRatesMutation()
 
-  const onSubmit: SubmitHandler<IUpdateTransactionFeesPayload> = data => {
-    updateFees({
-      [IUpdateTransactionFeesEnum.CASHOUT_REWARD]:
-        data['74c0ef8d-b551-49c7-99cd-37c16ba7cb6a'],
-      [IUpdateTransactionFeesEnum.DEPOSIT_FEE]:
-        data['ef986bae-b0a5-4c81-b970-e5d6041fefc1'],
-      [IUpdateTransactionFeesEnum.WITHDRAWAL_FEE]:
-        data['a160651d-6abd-4a06-a5af-1ccc54f2c585'],
+  const onSubmit: SubmitHandler<IUpdateRateFormValues> = data => {
+    updateExchangeRate({
+      ask: data.ask,
+      bid: data.bid,
+      id: id,
     })
       .unwrap()
       .then(res => {
         show(SuccessModal, {
-          message: res?.responseMessage ?? 'Fund successful',
+          message: res?.responseMessage ?? 'Exchage Rate successfully updated',
         })
         handleCloseModal()
       })
@@ -115,28 +122,22 @@ const SetTransactionFeesModal = create(() => {
 
               {/* Content */}
               <CardContent className='space-y-[16px] mb-[8px]'>
-                {/* Deposit Fees */}
-                <PercentInput
-                  label='Deposit Fees'
-                  name={IUpdateTransactionFeesEnum.DEPOSIT_FEE}
-                  placeholder='10'
-                  error={errors[IUpdateTransactionFeesEnum.DEPOSIT_FEE]}
+                {/* Ask Rate */}
+                <FormInput
+                  label='Ask Rate'
+                  name='ask'
+                  error={errors['ask']}
+                  // placeholder='Jon'
+                  className='min-w-full pl-2'
                 />
 
-                {/* Withdrawal Fees */}
-                <PercentInput
-                  label='Withdrawal Fees'
-                  name={IUpdateTransactionFeesEnum.WITHDRAWAL_FEE}
-                  placeholder='10'
-                  error={errors[IUpdateTransactionFeesEnum.WITHDRAWAL_FEE]}
-                />
-
-                {/* Cashout Rewards */}
-                <PercentInput
-                  label='Cashout Rewards'
-                  name={IUpdateTransactionFeesEnum.CASHOUT_REWARD}
-                  placeholder='10'
-                  error={errors[IUpdateTransactionFeesEnum.CASHOUT_REWARD]}
+                {/* Bid Rate */}
+                <FormInput
+                  label='Bid Rate'
+                  name='bid'
+                  error={errors['bid']}
+                  // placeholder='Jon'
+                  className='min-w-full pl-2'
                 />
               </CardContent>
 
@@ -161,7 +162,7 @@ const SetTransactionFeesModal = create(() => {
                       disabled={!isDirty}
                       type='submit'
                     >
-                      Update Fees
+                      Update Exchange Rate
                     </LoadingButton>
                   </div>
                 </div>
@@ -174,4 +175,4 @@ const SetTransactionFeesModal = create(() => {
   )
 })
 
-export default SetTransactionFeesModal
+export default UpdateExchangeRateModal

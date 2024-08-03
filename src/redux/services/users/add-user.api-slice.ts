@@ -33,7 +33,7 @@ export interface IAddUserPayload {
   phoneNumber: string;
   lastname: string;
   firstname: string;
-  userType: string;
+  userType: "AGENT" | "USER";
 }
 
 export const addUserApiSlice = baseApiSlice.injectEndpoints({

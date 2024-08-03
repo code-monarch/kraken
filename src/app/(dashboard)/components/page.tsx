@@ -32,7 +32,7 @@ import ConfirmApprovalModal from '@/pattern/cashout-request/organisms/confirm-ap
 import { ApprovalSuccessfulModal } from '@/pattern/cashout-request/organisms/approval-successful-modal'
 import { DeclineRequestModal } from '@/pattern/cashout-request/organisms/decline-request-modal'
 import { RequestDeclinedModal } from '@/pattern/cashout-request/organisms/request-declined-modal'
-import CashoutSlideOutMenu from '@/pattern/cashout-request/templates/cahsout-slideout-menu'
+import CashoutSlideOutMenu from '@/pattern/cashout-request/templates/cashout-slideout-menu'
 
 export default function ComponentsPage() {
   const WishlistFormSchema = Yup.object().shape({
@@ -51,8 +51,7 @@ export default function ComponentsPage() {
     formState: { errors },
   } = methods
 
-  const onSubmit = () => {
-  }
+  const onSubmit = () => {}
 
   const showTransactionSheet = () => {
     show(TransactionsSlideOutMenu)

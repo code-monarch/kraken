@@ -32,7 +32,7 @@ export interface IFundDisbursementWalletResponse {
 
 export interface IFundDisbursementWalletPayload {
   userid: string
-  currency: 'NGN' | "SAR" // e.g. "NGN",
+  currency: 'NGN' | 'SAR'
   amount: number
   type: 'credit' | 'liquidate'
 }
@@ -43,7 +43,7 @@ export const fundDisbursementWalletApiSlice = baseApiSlice.injectEndpoints({
       IFundDisbursementWalletPayload
     >({
       query: payload => ({
-        url: `/transactions/admin/wallets/agent/fund`,
+        url: `transactions/admin/wallets/agent/fund`,
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

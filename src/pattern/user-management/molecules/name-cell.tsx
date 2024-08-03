@@ -16,7 +16,7 @@ const NameCell = ({ name, image, phoneNumber }: IProps) => {
       {image ? (
         <Image
           alt='User Image'
-          src={`https://${image}`}
+          src={image.startsWith('https://') ? image : `https://${image}`}
           width={40}
           height={40}
           className='object-cover bg-slate-100 w-[40px] h-[40px] rounded-full '

@@ -8,6 +8,7 @@ import { formatNumber } from '@/lib/helper/format-number'
 import Image from 'next/image'
 import { ICashoutRequest } from '@/redux/services/transactions/get-cashout-requests.api-slice'
 import { format } from 'date-fns'
+import { IMAGE_FALLBACK_PLACEHOLDER } from '@/lib/constants'
 
 export interface ICashOutRequestTicketCardProps
   extends HTMLAttributes<HTMLDivElement> {
@@ -87,7 +88,7 @@ const CashOutRequestTicketCard: FC<ICashOutRequestTicketCardProps> = ({
               alt='User avatar'
               src={
                 data?.transaction.metadata.agent.imageUrl ??
-                'https://ummrah-images.s3.us-east-1.amazonaws.com/1718735160802-Dave.jpg'
+                IMAGE_FALLBACK_PLACEHOLDER
               }
               width={24}
               height={24}

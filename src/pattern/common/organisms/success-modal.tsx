@@ -45,7 +45,7 @@ export const SuccessModal = create(({ message }: IProps) => {
 
           {/* Footer */}
           <CardFooter className="w-full flex items-center justify-between gap-3">
-            <Button size="sm" variant="outline" onClick={handleCloseModal}>
+            <Button size="sm" variant="default" onClick={handleCloseModal}>
               Close
             </Button>
           </CardFooter>

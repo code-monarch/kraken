@@ -15,14 +15,11 @@ import FormInput from '@/pattern/common/molecules/inputs/form-input'
 import SelectInput from '@/pattern/common/molecules/inputs/select-input'
 import { create, show, useModal } from '@ebay/nice-modal-react'
 import {
-  Controller,
   FormProvider,
   SubmitHandler,
   useForm,
 } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { FieldSet } from '@/pattern/common/molecules/inputs/fieldset'
-import InputErrorMessage from '@/pattern/common/molecules/feedback/input-error-message'
 import {
   IFundDisbursementWalletPayload,
   useFundDisbursementWalletMutation,
@@ -91,7 +88,7 @@ export const FundDisbursementWalletModal = create(({ agentId }: IProps) => {
   > = data => {
     fundWallet({
       userid: agentId,
-      currency: 'NGN',
+      currency: data.currency,
       amount: data.amount,
       type: data.type,
     })
@@ -100,6 +97,7 @@ export const FundDisbursementWalletModal = create(({ agentId }: IProps) => {
         show(SuccessModal, {
           message: res?.responseMessage ?? 'Fund successful',
         })
+        handleCloseModal()
       })
       .catch(err => {
         show(ErrorModal, {
@@ -107,8 +105,8 @@ export const FundDisbursementWalletModal = create(({ agentId }: IProps) => {
             err?.data.responseMessage ??
             'Something went wrong, please try again',
         })
+        handleCloseModal()
       })
-    console.log('DATA: ', data)
   }
 
   return (
@@ -132,44 +130,20 @@ export const FundDisbursementWalletModal = create(({ agentId }: IProps) => {
             >
               {/* Content */}
               <CardContent className='w-full space-y-[16px] mb-[8px]'>
-                {/* Disbursement type input */}
-                <Controller
+                {/* Disbursement type Input */}
+                <SelectInput
+                  label='Type'
                   name='type'
-                  control={methods.control}
-                  render={({ field: { value, name, onChange, onBlur } }) => (
-                    <FieldSet>
-                      <SelectInput
-                        label='Type'
-                        name={name}
-                        options={DISBURSEMENT_TYPES}
-                        placeholder='Select disbursement type'
-                        value={value}
-                        setValue={onChange}
-                        onBlur={onBlur}
-                      />
-                      <InputErrorMessage name={`${name}`} />
-                    </FieldSet>
-                  )}
+                  options={DISBURSEMENT_TYPES}
+                  placeholder='Select disbursement type'
                 />
 
-                {/* currency input */}
-                <Controller
+                {/* Currency */}
+                <SelectInput
                   name='currency'
-                  control={methods.control}
-                  render={({ field: { value, name, onChange, onBlur } }) => (
-                    <FieldSet>
-                      <SelectInput
-                        label='Currency'
-                        name={name}
-                        options={CURRENCY_TYPES}
-                        placeholder='Select currency'
-                        value={value}
-                        setValue={onChange}
-                        onBlur={onBlur}
-                      />
-                      <InputErrorMessage name={`${name}`} />
-                    </FieldSet>
-                  )}
+                  label='Currency'
+                  options={CURRENCY_TYPES}
+                  placeholder='Select a currency'
                 />
 
                 {/* Amount */}
@@ -203,7 +177,6 @@ export const FundDisbursementWalletModal = create(({ agentId }: IProps) => {
                       loading={isLoading}
                       disabled={!isDirty}
                       type='submit'
-                      // onClick={handleSubmit(onSubmit)}
                     >
                       Fund Wallet
                     </LoadingButton>

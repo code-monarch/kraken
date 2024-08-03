@@ -127,7 +127,7 @@ export function AllUsersTable<TData, TValue>({
           {!isLoading && data?.length === 0 && (
             <TableRow>
               <TableCell colSpan={columns.length} className='h-24 text-center'>
-                No Record Found.
+                No Record Found
               </TableCell>
             </TableRow>
           )}
