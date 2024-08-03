@@ -20,16 +20,12 @@ interface ISelectInputProps
     VariantProps<typeof inputVariants> {
   options: { label: string; value: string }[]
   label: string
-  // value: string
-  // setValue: (value: string) => void
 }
 
 const SelectInput: FC<ISelectInputProps> = ({
   options,
   label,
   placeholder,
-  // value,
-  // setValue,
   name,
 }) => {
   const { control } = useFormContext()
