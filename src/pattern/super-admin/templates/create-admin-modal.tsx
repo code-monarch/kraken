@@ -168,7 +168,7 @@ const CreateAdminModal = create(() => {
                     label='Last Name'
                     name='lastname'
                     error={errors['firstname']}
-                    placeholder='Jon'
+                    placeholder='Doe'
                     className='min-w-full pl-2'
                   />
                 </div>

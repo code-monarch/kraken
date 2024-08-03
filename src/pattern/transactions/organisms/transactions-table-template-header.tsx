@@ -9,16 +9,31 @@ import { show } from '@ebay/nice-modal-react'
 import TransactionsTableViewFilter from '../molecules/transactions-table-view-filters'
 import { TransactionsFilterModal } from './transactions-filter-modal'
 import { ITransactionsTableHeaderProps } from '@/pattern/types'
-import {
-  setSearchQueryFilter,
-  setStartDateFilter,
-} from '@/redux/slices/transactions-filter'
+import { setSearchQueryFilter } from '@/redux/slices/transactions-filter'
 import { useDispatch } from 'react-redux'
+import { useGetUsersMetricsForExportQuery } from '@/redux/services/users/user-metrics.api-alice'
+import { useExportToCsv } from '@/lib/hooks/useExportToCsv'
 
 interface IProps
   extends Pick<ITransactionsTableHeaderProps, 'totalTransations'> {}
 
 const TransactionsTableTemplateHeader: FC<IProps> = ({ totalTransations }) => {
+  const {
+    data: exportData,
+    isLoading: loadingExportData,
+    isError: errorLoadingExportData,
+    isFetching: fetchingExportData,
+  } = useGetUsersMetricsForExportQuery({})
+
+  const [exportFile] = useExportToCsv({
+    dataToExport: exportData?.data,
+    fileName: 'UmmrahCash Transaction',
+  })
+
+  const handleExportFile = () => {
+    exportFile()
+  }
+
   const dispatch = useDispatch()
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -39,15 +54,20 @@ const TransactionsTableTemplateHeader: FC<IProps> = ({ totalTransations }) => {
           <h3 className='text-[1.125rem] font-semibold'>Transactions</h3>
           <Badge variant='accent'>{totalTransations ?? 0} transactions</Badge>
         </div>
-        {/* <ButtonWithIcon
+        <ButtonWithIcon
           variant='outlinePrimary'
           prefixIcon={<ExcelIcon />}
           size='sm'
           className='w-[127px] h-[44px] text-base'
+          disabled={
+            loadingExportData || errorLoadingExportData || fetchingExportData
+          }
+          onClick={handleExportFile}
         >
           Export
-        </ButtonWithIcon> */}
+        </ButtonWithIcon>
       </div>
+
       {/* Bottom */}
       <div className='w-full h-[76px] bg-inherit flex items-center justify-between py-[26px]'>
         {/* View all Filter Button */}

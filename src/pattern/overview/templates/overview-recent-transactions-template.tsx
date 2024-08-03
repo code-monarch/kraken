@@ -18,7 +18,7 @@ const OverviewRecentTransactionsTemplate = () => {
 
   return (
     <div className='w-full bg-card'>
-      <RecentTransactionsHeader />
+      <RecentTransactionsHeader totalTransactions={data?.data?.contents?.length ?? 0} />
       <RecentTransactionsTable
         data={data?.data?.contents as Transaction[]}
         isLoading={isLoading}
