@@ -74,6 +74,7 @@ export const baseApiSlice = createApi({
     'getCashoutRequests',
     'getTransactionMatrixChart',
     'getTransactionFees',
+    'getExchangeRates',
   ],
   refetchOnReconnect: true,
   // keepUnusedDataFor: 30,
