@@ -19,6 +19,7 @@ import { DeleteAccountModal } from '../organisms/delete-account-modal'
 import { IUser } from '@/redux/services/users/user.api-slice'
 import ViewUserDetailsBtn from '../atoms/view-user-details-btn'
 import FundDisbursementWalletModal from '../organisms/fund-disbursement-wallet-modal'
+import { IMAGE_FALLBACK_PLACEHOLDER } from '@/lib/constants'
 
 export const UserTableColumns: ColumnDef<IUser>[] = [
   {
@@ -58,11 +59,12 @@ export const UserTableColumns: ColumnDef<IUser>[] = [
     accessorFn: row => `${row.firstname} ${row.phoneNumber}`,
     cell: ({ row }) => {
       const name = `${row.original.firstname} ${row.original.lastname}`
+      const image = row.original.imageUrl
       return (
         <NameCell
           name={name}
           phoneNumber={row.original.phoneNumber}
-          image={row.original.imageUrl}
+          image={image ? image : IMAGE_FALLBACK_PLACEHOLDER}
         />
       )
     },

@@ -24,6 +24,7 @@ import { RequestDeclinedModal } from '../organisms/request-declined-modal'
 import { DeclineRequestModal } from '../organisms/decline-request-modal'
 import { formatNumber } from '@/lib/helper/format-number'
 import TransactionsSlideOutMenuSkeleton from '@/pattern/common/molecules/skeletons/transactions-slide-out-menu-skeleton'
+import { IMAGE_FALLBACK_PLACEHOLDER } from '@/lib/constants'
 
 interface IProps {
   transactionId: string
@@ -84,7 +85,7 @@ const CashoutSlideOutMenu = create(({ transactionId }: IProps) => {
             </SheetHeader>
             {/* Display skeleton when loading content */}
             {isLoading && <TransactionsSlideOutMenuSkeleton />}
-            
+
             {isSuccess && !isLoading && (
               <div className='w-full mt-[72px] px-[24px] pt-[24px] font-raleway space-y-[16px]'>
                 <div className='px-4 space-y-[16px]'>
@@ -157,12 +158,11 @@ const CashoutSlideOutMenu = create(({ transactionId }: IProps) => {
                           ImageFallback='JA'
                           name={`${data?.data?.transaction?.metadata?.agent?.firstname} ${data?.data?.transaction?.metadata?.agent?.lastname}`}
                           number={
-                            data?.data?.transaction?.metadata?.agent?.phoneNumber ??
-                            '08166687292'
+                            data?.data?.transaction?.metadata?.agent
+                              ?.phoneNumber ?? '08166687292'
                           }
                           imageUrl={
-                            data?.data?.transaction?.metadata?.agent?.imageUrl ??
-                            'https://ummrah-images.s3.us-east-1.amazonaws.com/1718735160802-Dave.jpg'
+                            data?.data?.transaction?.metadata?.agent?.imageUrl ?? IMAGE_FALLBACK_PLACEHOLDER
                           }
                         />
 
