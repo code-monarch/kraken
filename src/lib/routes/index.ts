@@ -10,6 +10,7 @@ export const DASHBOARD_PATHS = {
   userManagement: "/user-management",
   cashOutRequest: "/cash-out-requests",
   transactions: "/transactions",
+  exchangeRates: "/exchange-rates",
   settings: "/settings",
   activityLogs: "/activity-logs",
 };
