@@ -92,7 +92,18 @@ export const usersMetricsApiSlice = baseApiSlice.injectEndpoints({
         providesTags: ["getUser"],
       }
     ),
+    getUsersMetricsForExport: builder.query<Pick<IGetUsersMetricsResponse, "data">, Partial<IUserMetricsQuery>>(
+      {
+        query: () => ({
+          url: `settings/admin/user-metrics?exports=true`,
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }),
+      }
+    ),
   }),
 });
 
-export const { useGetUsersMetricsQuery } = usersMetricsApiSlice;
+export const { useGetUsersMetricsQuery, useGetUsersMetricsForExportQuery } = usersMetricsApiSlice;

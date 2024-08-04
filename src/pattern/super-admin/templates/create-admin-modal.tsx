@@ -27,6 +27,8 @@ import { useGetRolesQuery } from '@/redux/services/auth/admin-roles.api-slice'
 import PasswordInput from '@/pattern/common/molecules/inputs/password-input'
 import Select, { MultiValue } from 'react-select'
 import InputErrorMessage from '@/pattern/common/molecules/feedback/input-error-message'
+import { FieldSet } from '@/pattern/common/molecules/inputs/fieldset'
+import { Label } from '@/components/ui/label'
 
 const USER_TYPES = [
   { label: 'Agent', value: 'AGENT' },
@@ -148,7 +150,7 @@ const CreateAdminModal = create(() => {
             >
               <CardHeader>
                 <CardTitle className='text-[1.125rem] font-semibold font-raleway'>
-                  Add New User
+                  Create a new Admin
                 </CardTitle>
               </CardHeader>
               <CardContent className='w-full flex flex-col gap-y-4'>
@@ -166,7 +168,7 @@ const CreateAdminModal = create(() => {
                     label='Last Name'
                     name='lastname'
                     error={errors['firstname']}
-                    placeholder='Jon'
+                    placeholder='Doe'
                     className='min-w-full pl-2'
                   />
                 </div>
@@ -193,19 +195,22 @@ const CreateAdminModal = create(() => {
                 />
 
                 {/* Admin Roles Select Input */}
-                <Select
-                  name='roleIds'
-                  className='w-full'
-                  options={roles?.data?.roles?.map(role => ({
-                    value: role._id,
-                    label: role.name,
-                  }))}
-                  // onMenuScrollToBottom={loadMoreOptions}
-                  isLoading={isRolesLoading || isRolesFetching}
-                  isMulti={true}
-                  onChange={handleRoleChange}
-                />
-                {errors.roleIds && <InputErrorMessage name='roleIds' />}
+                <FieldSet>
+                  <Label>Admin Role(s)</Label>
+                  <Select
+                    name='roleIds'
+                    className='h-full w-full bg-[hsla(0,0%,100%,1)] font-medium text-base placeholder:text-[hsla(213,27%,84%,1)]  hover:border-primary focus:border-primary focus:ring-[3px] focus:ring-[var(--ring-primary)] transition-colors border border-[hsla(213,27%,84%,1)] rounded-[6px]'
+                    options={roles?.data?.roles?.map(role => ({
+                      value: role._id,
+                      label: role.name,
+                    }))}
+                    isLoading={isRolesLoading || isRolesFetching}
+                    isMulti={true}
+                    placeholder='Select admin role(s)'
+                    onChange={handleRoleChange}
+                  />
+                  {errors.roleIds && <InputErrorMessage name='roleIds' />}
+                </FieldSet>
               </CardContent>
 
               <CardFooter>

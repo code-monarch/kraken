@@ -61,8 +61,8 @@ const UserCashOutRequestTabContent = ({ userId }: IProps) => {
         {(isLoading || isFetching) && <PulsePlaceholder />}
 
         {!isLoading && !isFetching && isSuccess && (
-          <div className='w-full flex items-center justify-center min-h-[100px]'>
-            {data?.data.contents.length === 0 ? 'No data found' : null}
+          <div className='w-full flex items-center justify-center min-h-[100px] font-medium'>
+            {data?.data.contents.length === 0 ? 'No Record found' : null}
           </div>
         )}
 

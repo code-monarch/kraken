@@ -11,6 +11,7 @@ import { ActivityLogsNavIcon } from '../atoms/icons/sidebar-nav/activity-logs-na
 import SignOutButton from '../molecules/navigation/sign-out-button'
 import { CashOutRequestNavIcon } from '../atoms/icons/sidebar-nav/cash-out-request-nav-icon'
 import CashOutRequestCountWidget from '@/pattern/cashout-request/atoms/cash-out-request-count-widget'
+import { ExchangeRateNavIcon } from '../atoms/icons/sidebar-nav/exchange-rate-nav-icon'
 
 const navigation: {
   name: string
@@ -36,6 +37,11 @@ const navigation: {
     name: 'Transactions',
     href: `${DASHBOARD_PATHS.transactions}`,
     icon: <TransactionsNavIcon />,
+  },
+  {
+    name: 'Exchange Rates',
+    href: `${DASHBOARD_PATHS.exchangeRates}`,
+    icon: <ExchangeRateNavIcon />,
   },
   {
     name: 'Settings',

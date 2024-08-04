@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import * as Yup from 'yup'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -14,17 +14,12 @@ import LoadingButton from '@/pattern/common/molecules/controls/loading-button'
 import FormInput from '@/pattern/common/molecules/inputs/form-input'
 import SelectInput from '@/pattern/common/molecules/inputs/select-input'
 import { create, show, useModal } from '@ebay/nice-modal-react'
-import * as Yup from 'yup'
 import {
-  Controller,
   FormProvider,
   SubmitHandler,
   useForm,
 } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useAddUserMutation } from '@/redux/services/users/add-user.api-slice'
-import { FieldSet } from '@/pattern/common/molecules/inputs/fieldset'
-import InputErrorMessage from '@/pattern/common/molecules/feedback/input-error-message'
 import {
   IFundDisbursementWalletPayload,
   useFundDisbursementWalletMutation,
@@ -37,6 +32,11 @@ const DISBURSEMENT_TYPES = [
   { label: 'Liquidate', value: 'liquidate' },
 ]
 
+const CURRENCY_TYPES = [
+  { label: 'SAR', value: 'SAR' },
+  { label: 'NGN', value: 'NGN' },
+]
+
 const FundDisbursementWalletFormSchema = Yup.object().shape({
   type: Yup.string()
     .oneOf(
@@ -44,6 +44,9 @@ const FundDisbursementWalletFormSchema = Yup.object().shape({
       'Invalid type. Allowed values are credit or liquidate.',
     )
     .required('Disbursement type is Required'),
+  currency: Yup.string()
+    .oneOf(['SAR', 'NGN'], 'Invalid currency. Allowed values are SAR or NGN.')
+    .required('currency is Required'),
   amount: Yup.number().required('Enter an amount'),
 })
 
@@ -53,24 +56,19 @@ interface IProps {
 
 export const FundDisbursementWalletModal = create(({ agentId }: IProps) => {
   const { resolve, remove, visible } = useModal()
-  const [type, setType] = useState<'credit' | 'liquidate'>('credit')
 
   const handleCloseModal = () => {
     resolve({ resolved: true })
     remove()
   }
 
-  const defaultValues: Omit<
-    IFundDisbursementWalletPayload,
-    'currency' | 'userid'
-  > = {
+  const defaultValues: Omit<IFundDisbursementWalletPayload, 'userid'> = {
     type: '' as any,
+    currency: '' as any,
     amount: 0,
   }
 
-  const methods = useForm<
-    Omit<IFundDisbursementWalletPayload, 'currency' | 'userid'>
-  >({
+  const methods = useForm<Omit<IFundDisbursementWalletPayload, 'userid'>>({
     mode: 'onChange',
     resolver: yupResolver(FundDisbursementWalletFormSchema),
     reValidateMode: 'onChange',
@@ -83,16 +81,14 @@ export const FundDisbursementWalletModal = create(({ agentId }: IProps) => {
     formState: { errors, isDirty },
   } = methods
 
-  // const [addUser, { isLoading, isSuccess, isError }] = useAddUserMutation()
-  const [fundWallet, { isLoading, isSuccess, isError }] =
-    useFundDisbursementWalletMutation()
+  const [fundWallet, { isLoading }] = useFundDisbursementWalletMutation()
 
   const onSubmit: SubmitHandler<
-    Omit<IFundDisbursementWalletPayload, 'currency' | 'userid'>
+    Omit<IFundDisbursementWalletPayload, 'userid'>
   > = data => {
     fundWallet({
       userid: agentId,
-      currency: 'NGN',
+      currency: data.currency,
       amount: data.amount,
       type: data.type,
     })
@@ -101,6 +97,7 @@ export const FundDisbursementWalletModal = create(({ agentId }: IProps) => {
         show(SuccessModal, {
           message: res?.responseMessage ?? 'Fund successful',
         })
+        handleCloseModal()
       })
       .catch(err => {
         show(ErrorModal, {
@@ -108,8 +105,8 @@ export const FundDisbursementWalletModal = create(({ agentId }: IProps) => {
             err?.data.responseMessage ??
             'Something went wrong, please try again',
         })
+        handleCloseModal()
       })
-    console.log('DATA: ', data)
   }
 
   return (
@@ -133,24 +130,20 @@ export const FundDisbursementWalletModal = create(({ agentId }: IProps) => {
             >
               {/* Content */}
               <CardContent className='w-full space-y-[16px] mb-[8px]'>
-                {/* Disbursement type: Credit | Liquidate */}
-                <Controller
+                {/* Disbursement type Input */}
+                <SelectInput
+                  label='Type'
                   name='type'
-                  control={methods.control}
-                  render={({ field: { value, name, onChange, onBlur } }) => (
-                    <FieldSet>
-                      <SelectInput
-                        label='Type'
-                        name={name}
-                        options={DISBURSEMENT_TYPES}
-                        placeholder='Select disbursement type'
-                        value={value}
-                        setValue={onChange}
-                        onBlur={onBlur}
-                      />
-                      <InputErrorMessage name={`${name}`} />
-                    </FieldSet>
-                  )}
+                  options={DISBURSEMENT_TYPES}
+                  placeholder='Select disbursement type'
+                />
+
+                {/* Currency */}
+                <SelectInput
+                  name='currency'
+                  label='Currency'
+                  options={CURRENCY_TYPES}
+                  placeholder='Select a currency'
                 />
 
                 {/* Amount */}

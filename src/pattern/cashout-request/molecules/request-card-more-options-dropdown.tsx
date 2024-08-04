@@ -10,7 +10,7 @@ import {
 import RequestCardMoreButton from '../atoms/request-card-more-button'
 import { show } from '@ebay/nice-modal-react'
 import { DeclineRequestModal } from '../organisms/decline-request-modal'
-import CashoutSlideOutMenu from '../templates/cahsout-slideout-menu'
+import CashoutSlideOutMenu from '../templates/cashout-slideout-menu'
 import Hidden from '@/pattern/common/molecules/data-display/hidden'
 import { useGetSingleCashoutRequestQuery } from '@/redux/services/transactions/get-cashout-requests.api-slice'
 import ConfirmApprovalModal from '../organisms/confirm-approval-modal'

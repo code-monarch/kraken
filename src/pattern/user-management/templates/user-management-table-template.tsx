@@ -1,68 +1,91 @@
-"use client";
-import React, { useEffect, useMemo, useState } from "react";
-import ButtonWithIcon from "@/pattern/common/molecules/controls/button-with-icon";
-import { ExcelIcon } from "@/pattern/common/atoms/icons/excel-icon";
-import SearchInput from "@/pattern/common/molecules/inputs/search-input";
-import FilterIcon from "@/pattern/common/atoms/icons/filter-icon";
-import { show } from "@ebay/nice-modal-react";
-import { UserManagementTableSearchFilterModal } from "../organisms/user-management-table-search-filter-modal";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { UserManagementTable } from "../organisms/user-management-table";
-import { PaginationState } from "@tanstack/react-table";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { useGetUsersMetricsQuery } from "@/redux/services/users/user-metrics.api-alice";
-import useDebounce from "@/lib/hooks/useDebounce";
-import { IUser } from "@/redux/services/users/user.api-slice";
+'use client'
+import React, { useEffect, useMemo, useState } from 'react'
+import ButtonWithIcon from '@/pattern/common/molecules/controls/button-with-icon'
+import { ExcelIcon } from '@/pattern/common/atoms/icons/excel-icon'
+import SearchInput from '@/pattern/common/molecules/inputs/search-input'
+import FilterIcon from '@/pattern/common/atoms/icons/filter-icon'
+import { show } from '@ebay/nice-modal-react'
+import { UserManagementTableSearchFilterModal } from '../organisms/user-management-table-search-filter-modal'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { UserManagementTable } from '../organisms/user-management-table'
+import { PaginationState } from '@tanstack/react-table'
+import { Badge } from '@/components/ui/badge'
+import { Separator } from '@/components/ui/separator'
+import {
+  useGetUsersMetricsForExportQuery,
+  useGetUsersMetricsQuery,
+} from '@/redux/services/users/user-metrics.api-alice'
+import useDebounce from '@/lib/hooks/useDebounce'
+import { IUser } from '@/redux/services/users/user.api-slice'
+import { useExportToCsv } from '@/lib/hooks/useExportToCsv'
 
 const UserManagementTableTemplate = () => {
-  const [tabValue, setTabValue] = useState("all");
+  const [tabValue, setTabValue] = useState('all')
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 10,
-  });
+  })
 
-  const [pageCount, setPageCount] = useState<number>(1);
-  const [status, setStatus] = useState<string>("");
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [role, setRole] = useState<string>("");
-  const [order, setOrder] = useState<string>("");
-  const [startDate, setStartDate] = useState<string>("");
-  const [endDate, setEndDate] = useState<string>("");
+  const [pageCount, setPageCount] = useState<number>(1)
+  const [status, setStatus] = useState<string>('')
+  const [searchQuery, setSearchQuery] = useState<string>('')
+  const [role, setRole] = useState<string>('')
+  const [order, setOrder] = useState<string>('')
+  const [startDate, setStartDate] = useState<string>('')
+  const [endDate, setEndDate] = useState<string>('')
 
-  const debouncedSearchQuery = useDebounce(searchQuery, 2000);
+  const {
+    data: exportData,
+    isLoading: loadingExportData,
+    isError: errorLoadingExportData,
+    isFetching: fetchingExportData,
+  } = useGetUsersMetricsForExportQuery({})
 
-  const { data: userMetricsData, isLoading, isSuccess, isFetching, isError } =
-    useGetUsersMetricsQuery({
-      page: pagination.pageIndex + 1,
-      pageSize: pagination.pageSize,
-      status: status,
-      userType: role,
-      startDate: startDate,
-      endDate: endDate,
-      q: searchQuery,
-    });
+  const [exportFile] = useExportToCsv({
+    dataToExport: exportData?.data,
+    fileName: 'UmmrahCash Admin Activity logs',
+  })
 
-    console.log('USER METRICS DATA: ', userMetricsData)
+  const handleExportFile = () => {
+    exportFile()
+  }
+
+  const {
+    data: userMetricsData,
+    isLoading,
+    isSuccess,
+    isFetching,
+    isError,
+  } = useGetUsersMetricsQuery({
+    page: pagination.pageIndex + 1,
+    pageSize: pagination.pageSize,
+    status: status,
+    userType: role,
+    startDate: startDate,
+    endDate: endDate,
+    q: searchQuery,
+  })
+
+  console.log('USER METRICS DATA: ', userMetricsData)
 
   useEffect(() => {
     if (userMetricsData && userMetricsData.data) {
       setPageCount(userMetricsData.data.pagination?.totalPages)
     }
-  }, [userMetricsData]);
+  }, [userMetricsData])
 
   const handleShowSearchFilterModal = async () => {
     const result: any = await show(UserManagementTableSearchFilterModal, {
       tab: tabValue,
-    });
+    })
     if (result.resolved) {
-      setStatus(result.userStatus);
-      setRole(result.userRole === "all" ? "" : result.userRole);
-      setOrder(result.order);
-      setStartDate(result.startDate);
-      setEndDate(result.endDate);
+      setStatus(result.userStatus)
+      setRole(result.userRole === 'all' ? '' : result.userRole)
+      setOrder(result.order)
+      setStartDate(result.startDate)
+      setEndDate(result.endDate)
     }
-  };
+  }
 
   /* This either returns the fetched users array 
   as it is or an alphabeticaaly sorted array based 
@@ -84,29 +107,29 @@ const UserManagementTableTemplate = () => {
   }, [order, userMetricsData])
 
   // This filters through the sorted state of the data and returns only users with user type of "USER"
-  const allUsers = sortedData?.filter((item) => item.userType === "USER");
+  const allUsers = sortedData?.filter(item => item.userType === 'USER')
 
   // This filters through the sorted state of the data and returns only users with user type of "AGENT"
-  const allAgents = sortedData?.filter((item) => item.userType === "AGENT");
+  const allAgents = sortedData?.filter(item => item.userType === 'AGENT')
 
   useEffect(() => {
-    if (tabValue === "user") {
-      setRole("USER");
-    } else if (tabValue === "agent") {
-      setRole("AGENT");
-    } else if (tabValue === "all") {
-      setRole("");
+    if (tabValue === 'user') {
+      setRole('USER')
+    } else if (tabValue === 'agent') {
+      setRole('AGENT')
+    } else if (tabValue === 'all') {
+      setRole('')
     }
-  }, [tabValue]);
+  }, [tabValue])
 
-  const isFilterActive = !(status || role || startDate || endDate || order);
+  const isFilterActive = !(status || role || startDate || endDate || order)
   const clearFilters = () => {
-    setStatus("");
-    setRole("");
-    setStartDate("");
-    setEndDate("");
-    setOrder("");
-  };
+    setStatus('')
+    setRole('')
+    setStartDate('')
+    setEndDate('')
+    setOrder('')
+  }
 
   return (
     <div className='w-full h-fit bg-card px-6 overflow-auto'>
@@ -115,14 +138,18 @@ const UserManagementTableTemplate = () => {
         <div className='flex items-center gap-2'>
           <h3 className='text-[1.125rem] font-semibold'>User List</h3>
         </div>
-        {/* <ButtonWithIcon
+        <ButtonWithIcon
           variant='outlinePrimary'
           prefixIcon={<ExcelIcon />}
           size='sm'
           className='w-[127px] h-[44px] text-base'
+          disabled={
+            loadingExportData || errorLoadingExportData || fetchingExportData
+          }
+          onClick={handleExportFile}
         >
           Export
-        </ButtonWithIcon> */}
+        </ButtonWithIcon>
       </div>
 
       {/* Bottom */}
@@ -256,6 +283,6 @@ const UserManagementTableTemplate = () => {
       </div>
     </div>
   )
-};
+}
 
-export default UserManagementTableTemplate;
+export default UserManagementTableTemplate

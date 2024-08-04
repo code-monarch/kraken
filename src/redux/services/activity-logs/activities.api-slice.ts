@@ -56,6 +56,16 @@ export const activitiesApiSlice = baseApiSlice.injectEndpoints({
       }),
     }),
 
+    getActivitiesForExport: builder.query<Pick<IActivitiesResponse, "data">, Partial<IQuery>>({
+      query: () => ({
+        url: `settings/admin/get-activities?exports=true`,
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }),
+    }),
+
     deleteActivities: builder.mutation<IDeleteActivitiesRes, void>({
       query: () => ({
         url: `settings/admin/activities`,
@@ -68,5 +78,5 @@ export const activitiesApiSlice = baseApiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetActivitiesQuery, useDeleteActivitiesMutation } =
+export const { useGetActivitiesQuery, useGetActivitiesForExportQuery, useDeleteActivitiesMutation } =
   activitiesApiSlice;
