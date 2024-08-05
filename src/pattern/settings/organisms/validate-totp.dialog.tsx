@@ -89,7 +89,6 @@ const ValidateTotpDialog = create(() => {
           duration: 8000,
           cancel: {
             label: 'Cancel',
-            onClick: () => console.log('Cancel!'),
           },
         })
       })

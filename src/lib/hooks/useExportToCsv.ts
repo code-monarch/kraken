@@ -34,18 +34,14 @@ export const useExportToCsv = ({ dataToExport, fileName }: IProps) => {
                             duration: 5000,
                             cancel: {
                                 label: 'Close',
-                                onClick: () => console.log('Close!'),
                             },
                         })
                     }
                 }, 2000); // Simulates a 2-second delay
             });
-
-            console.log("Export successful: ", result);
             return result;
         }
         catch (error) {
-            console.log(`Error:  ${error}`);
             return `Error:  ${error}`;
         }
     }

@@ -107,7 +107,6 @@ const AddMessageRecipientWidget: FC<IAddMessageRecipientWidgetProps> = ({
           duration: 8000,
           cancel: {
             label: "Close",
-            onClick: () => console.log("Close!"),
           },
         });
       });

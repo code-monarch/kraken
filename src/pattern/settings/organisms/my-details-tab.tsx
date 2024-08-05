@@ -62,8 +62,6 @@ const MyDetailsTab = () => {
     reset,
   } = methods
 
-  console.log('getValues', getValues)
-
   const [updateAdmin, { isLoading, isSuccess, isError }] =
     useUpdateAdminMutation()
   const [updateProfilePhoto, { isLoading: isProfilePhotoLoading }] =
@@ -101,13 +99,10 @@ const MyDetailsTab = () => {
           duration: 8000,
           cancel: {
             label: 'Close',
-            onClick: () => console.log('Close!'),
           },
         })
       })
   }
-
-  console.log('selected file: ', selectedFile)
 
   return (
     <div>

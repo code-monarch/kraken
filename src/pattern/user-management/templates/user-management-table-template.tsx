@@ -15,7 +15,6 @@ import {
   useGetUsersMetricsForExportQuery,
   useGetUsersMetricsQuery,
 } from '@/redux/services/users/user-metrics.api-alice'
-import useDebounce from '@/lib/hooks/useDebounce'
 import { IUser } from '@/redux/services/users/user.api-slice'
 import { useExportToCsv } from '@/lib/hooks/useExportToCsv'
 
@@ -65,8 +64,6 @@ const UserManagementTableTemplate = () => {
     endDate: endDate,
     q: searchQuery,
   })
-
-  console.log('USER METRICS DATA: ', userMetricsData)
 
   useEffect(() => {
     if (userMetricsData && userMetricsData.data) {

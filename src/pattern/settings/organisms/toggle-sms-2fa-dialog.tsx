@@ -63,14 +63,12 @@ const ToggleSms2FaDialog = create(() => {
     genrateCode()
       .unwrap()
       .then(res => {
-        console.log(res)
         handleCloseModal()
         show(ConfirmSms2FaDialog)
       })
       .catch(err => {
         handleCloseModal()
         show(ErrorModal, { message: 'Something went wrong, please try again' })
-        console.log(`${err.error || err?.data?.message || err}`)
       })
   }
   return (

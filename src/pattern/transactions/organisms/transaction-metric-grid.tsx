@@ -8,8 +8,6 @@ const TransactionMetricGrid = () => {
   const { data, isLoading, isError, isSuccess, isFetching } =
     useGetTransactionMatrixAlltimeQuery()
 
-    console.log('TRANSACTION MATRIX: ', data)
-
   return (
     <div className='w-full grid grid-cols-3 gap-5'>
       {/* Total Transactions */}

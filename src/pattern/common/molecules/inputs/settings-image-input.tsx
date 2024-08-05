@@ -49,10 +49,8 @@ const SettingsImageInput: FC<IProps> = ({
 
       reader.onload = function (event: any) {
         const base64String = event.target.result;
-        // setImageSrc(base64String);
         props.setSelectedFile(base64String);
         setIsFilePicked(true);
-        console.log("Base64 encoded image:", base64String);
       };
 
       reader.readAsDataURL(file);

@@ -60,7 +60,6 @@ const ConfirmEmailTemplate = () => {
           duration: 8000,
           cancel: {
             label: "Ok",
-            onClick: () => console.log("Ok!"),
           },
         });
 
@@ -74,7 +73,6 @@ const ConfirmEmailTemplate = () => {
           duration: 8000,
           cancel: {
             label: "Close",
-            onClick: () => console.log("Close!"),
           },
         });
       });

@@ -35,4 +35,3 @@ export { formatDateTime };
 
 // Example usage:
 const dateString = "2024-05-09T01:08:33.271Z";
-console.log(formatDateTime(dateString)); // Output: "9/5/2024 | 1:08 am"

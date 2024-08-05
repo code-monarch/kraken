@@ -74,12 +74,11 @@ const ChangePasswordSection = () => {
             duration: 8000,
             cancel: {
               label: "Close",
-              onClick: () => console.log("Close!"),
             },
           });
-          // show(SuccessModal, {
-          //   message: `Password changed successfully. Please wait, you're being redirected to the login page to sign in with your new password`,
-          // });
+          show(SuccessModal, {
+            message: `Password changed successfully. Please wait, you're being redirected to the login page to sign in with your new password`,
+          });
 
           // A 7-second delay before resolving
           setTimeout(() => {
@@ -91,7 +90,6 @@ const ChangePasswordSection = () => {
         });
       })
       .catch((err) => {
-        console.log(changePasswordError);
         if (
           changePasswordError &&
           "status" in changePasswordError &&
@@ -99,7 +97,6 @@ const ChangePasswordSection = () => {
         ) {
           show(PasswordErrorModal);
         }
-        console.log(`${err.error || err?.data?.message}`);
       });
   };
 

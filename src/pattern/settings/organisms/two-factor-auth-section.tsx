@@ -49,7 +49,6 @@ const TwoFactorAuthSection = () => {
           duration: 8000,
           cancel: {
             label: 'Cancel',
-            onClick: () => console.log('Cancel!'),
           },
         })
       })

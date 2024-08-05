@@ -140,7 +140,6 @@ const LoginTemplate = () => {
                 duration: 8000,
                 cancel: {
                   label: 'Close',
-                  onClick: () => console.log('Close!'),
                 },
               })
             }
@@ -156,7 +155,6 @@ const LoginTemplate = () => {
           duration: 8000,
           cancel: {
             label: 'Close',
-            onClick: () => console.log('CLose!'),
           },
         })
       })

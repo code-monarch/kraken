@@ -70,7 +70,6 @@ const CreateNewPasswordTemplate = () => {
           duration: 8000,
           cancel: {
             label: "Ok",
-            onClick: () => console.log("Cancel!"),
           },
         });
 
@@ -82,7 +81,6 @@ const CreateNewPasswordTemplate = () => {
           duration: 8000,
           cancel: {
             label: "Close",
-            onClick: () => console.log("Close!"),
           },
         });
       });

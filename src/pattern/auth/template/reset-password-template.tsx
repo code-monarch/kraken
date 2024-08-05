@@ -53,7 +53,6 @@ const ResetPasswordTemplate = () => {
     })
       .unwrap()
       .then((res) => {
-        console.log(res.responseMessage);
         LocalStore.setItem({ key: CONFIRM_EMAIL, value: "true" }) // set confitmEmail localStorage variable to true. Used to conditionally render the content of the next page
 
         // Go to next page
@@ -65,7 +64,6 @@ const ResetPasswordTemplate = () => {
           duration: 8000,
           cancel: {
             label: 'Cancel',
-            onClick: () => console.log('Cancel!'),
           },
         })
       })

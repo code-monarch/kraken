@@ -39,14 +39,12 @@ export const DeleteActivityModal = create(({ id, userID }: IProps) => {
     })
       .unwrap()
       .then((res) => {
-        console.log("deleted successfuly");
         handleCloseModal();
         show(SuccessModal, { message: "Activity deleted successfully" });
       })
       .catch((err) => {
         handleCloseModal();
         show(ErrorModal, { message: "Someting went wrong, please try again" });
-        console.log(`${err.error || err?.data?.message || err}`);
       });
   };
 

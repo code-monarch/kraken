@@ -9,8 +9,6 @@ interface IProps {
 }
 
 const NameCell = ({ name, image, phoneNumber }: IProps) => {
-  console.log('NAME IMAGE: ', image)
-  console.log('TYPEOF NAME IMAGE: ', typeof image)
   return (
     <div className='flex items-center gap-2'>
       {image ? (
