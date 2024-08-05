@@ -65,7 +65,7 @@ export const activitiesApiSlice = baseApiSlice.injectEndpoints({
       }),
     }),
 
-    getActivitiesForExport: builder.query<Pick<IActivitiesResponse, "data">, Partial<IQuery>>({
+    getActivitiesForExport: builder.query<Pick<IActivitiesForExportResponse, "data">, Partial<IQuery>>({
       query: () => ({
         url: `settings/admin/get-activities?exports=true`,
         method: "GET",
