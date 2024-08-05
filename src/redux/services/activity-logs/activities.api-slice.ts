@@ -25,6 +25,15 @@ export interface IActivitiesResponse {
     };
   };
 }
+export interface IActivitiesForExportResponse {
+  error: boolean;
+  responseCode: string;
+  responseMessage: string;
+  data: {
+    count: number;
+    results: IActivity[];
+  };
+}
 
 export interface IDeleteActivitiesRes {
   error: boolean;
@@ -56,7 +65,7 @@ export const activitiesApiSlice = baseApiSlice.injectEndpoints({
       }),
     }),
 
-    getActivitiesForExport: builder.query<Pick<IActivitiesResponse, "data">, Partial<IQuery>>({
+    getActivitiesForExport: builder.query<Pick<IActivitiesForExportResponse, "data">, Partial<IQuery>>({
       query: () => ({
         url: `settings/admin/get-activities?exports=true`,
         method: "GET",

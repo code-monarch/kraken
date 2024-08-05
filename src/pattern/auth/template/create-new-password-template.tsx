@@ -65,26 +65,26 @@ const CreateNewPasswordTemplate = () => {
     })
       .unwrap()
       .then((res) => {
-        toast.success("Successfull", {
-          description: `${res?.responseMessage ?? "Your password has been successfully reset"}`,
+        toast.success('Successfull', {
+          description: `${res?.responseMessage ?? 'Your password has been successfully reset'}`,
           duration: 8000,
           cancel: {
-            label: "Ok",
-            onClick: () => console.log("Cancel!"),
+            onClick: () => {},
+            label: 'Ok',
           },
-        });
+        })
 
         push("login");
       })
       .catch((err) => {
-        toast.error("Unexpected error", {
-          description: `${err?.data?.responseMessage ?? "Password reset error"}`,
+        toast.error('Unexpected error', {
+          description: `${err?.data?.responseMessage ?? 'Password reset error'}`,
           duration: 8000,
           cancel: {
-            label: "Close",
-            onClick: () => console.log("Close!"),
+            onClick: () => {},
+            label: 'Close',
           },
-        });
+        })
       });
   };
   return (

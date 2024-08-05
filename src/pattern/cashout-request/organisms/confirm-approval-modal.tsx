@@ -52,13 +52,12 @@ const ConfirmApprovalModal = create(
           handleCloseModal()
         })
         .catch(err => {
-          console.log(err)
           toast.error('Unexpected error', {
             description: `${err?.data.responseMessage ?? 'An error occurred'}`,
             duration: 8000,
             cancel: {
+              onClick: () => {},
               label: 'Close',
-              onClick: () => console.log('Close!'),
             },
           })
         })

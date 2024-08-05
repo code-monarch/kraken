@@ -13,6 +13,7 @@ import { setSearchQueryFilter } from '@/redux/slices/transactions-filter'
 import { useDispatch } from 'react-redux'
 import { useGetUsersMetricsForExportQuery } from '@/redux/services/users/user-metrics.api-alice'
 import { useExportToCsv } from '@/lib/hooks/useExportToCsv'
+import { toast } from 'sonner'
 
 interface IProps
   extends Pick<ITransactionsTableHeaderProps, 'totalTransations'> {}
@@ -26,12 +27,24 @@ const TransactionsTableTemplateHeader: FC<IProps> = ({ totalTransations }) => {
   } = useGetUsersMetricsForExportQuery({})
 
   const [exportFile] = useExportToCsv({
-    dataToExport: exportData?.data,
-    fileName: 'UmmrahCash Transaction',
+    dataToExport: exportData?.data?.results,
+    fileName: 'UmrahCash Transactions Report',
   })
 
   const handleExportFile = () => {
-    exportFile()
+    if (exportData?.data?.results) {
+      exportFile()
+    } else {
+      toast.error('Could not export', {
+        description: `${'No data available for export'}`,
+        id: 'error-exporting',
+        duration: 5000,
+        cancel: {
+          onClick: () => {},
+          label: 'Close',
+        },
+      })
+    }
   }
 
   const dispatch = useDispatch()

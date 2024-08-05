@@ -25,3 +25,5 @@ export const PENDING_ICON_COLOUR = '#FAAD14'
 export const FAILED_ICON_COLOUR = '#D62E4A'
 export const IMAGE_FALLBACK_PLACEHOLDER =
   'https://ummrah-images.s3.us-east-1.amazonaws.com/1718735160802-Dave.jpg'
+
+export const NETWORK_ERROR_MESSAGE = "Something went wrong, kindly confirm you are still connected to the internet or refresh this page"

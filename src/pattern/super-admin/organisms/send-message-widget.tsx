@@ -59,8 +59,6 @@ const SendMessageWidget: FC<ISendMessageWidgetProps> = ({
     watch,
   } = methods;
 
-  console.log("FORM ERRORR: ", errors);
-
   const goToNextStep = () => {
     submitHandler();
   };

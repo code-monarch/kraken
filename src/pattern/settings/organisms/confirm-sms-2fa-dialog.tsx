@@ -64,8 +64,6 @@ const ConfirmSms2FaDialog = create(() => {
     formState: { errors, isDirty },
   } = methods
 
-  console.log('FORM ERRORR: ', errors)
-
   const [confirmSms2Fa, { isLoading, isSuccess, isError }] =
     useConfirmSms2FaMutation()
 
@@ -76,7 +74,6 @@ const ConfirmSms2FaDialog = create(() => {
       .unwrap()
       .then(res => {
         if (!sms2Fa) {
-          console.log(res)
           handleCloseModal()
           show(MFACompleteDialog, {
             message: 'Two Factor Authenticator Enabled',
@@ -96,7 +93,6 @@ const ConfirmSms2FaDialog = create(() => {
       })
       .catch(err => {
         show(ErrorModal, { message: 'Something went wrong, please try again' })
-        console.log(`${err.error || err?.data?.message || err}`)
       })
   }
 
