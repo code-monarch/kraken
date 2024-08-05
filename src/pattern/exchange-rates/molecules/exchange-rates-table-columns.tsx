@@ -15,6 +15,7 @@ import { show } from '@ebay/nice-modal-react'
 import { IExchangeRate } from '@/redux/services/exchange-rates.api-slice.ts/exchange-rates.api-slice'
 import { formatNumber } from '@/lib/helper/format-number'
 import UpdateExchangeRateModal from '../organisms/update-exchange-rate-modal'
+import { DeleteExchangeRateModal } from '../organisms/delete-exchange-rate-modal'
 
 export const ExchangeRatesTableColumns: ColumnDef<IExchangeRate>[] = [
   {
@@ -116,11 +117,22 @@ export const ExchangeRatesTableColumns: ColumnDef<IExchangeRate>[] = [
                 show(UpdateExchangeRateModal, {
                   id: row.original.id as string,
                   ask: row.original.ask ?? 0,
-                  bid: row.original.bid ?? 0
+                  bid: row.original.bid ?? 0,
                 })
               }}
             >
               Update Rate
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              className='text-[#d62f4b]'
+              onClick={() => {
+                show(DeleteExchangeRateModal, {
+                  rateId: row.original.id,
+                })
+              }}
+            >
+              Delete
             </DropdownMenuItem>
             <DropdownMenuSeparator />
           </DropdownMenuContent>

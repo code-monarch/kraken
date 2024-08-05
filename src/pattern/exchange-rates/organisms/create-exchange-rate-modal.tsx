@@ -15,26 +15,27 @@ import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SuccessModal } from '@/pattern/common/organisms/success-modal'
 import { ErrorModal } from '@/pattern/common/organisms/error-modal'
-import { useUpdateExchangeRatesMutation } from '@/redux/services/exchange-rates.api-slice.ts/exchange-rates.api-slice'
+import {
+  ICreateExchangeRatePayload,
+  useCreateExchangeRateMutation,
+} from '@/redux/services/exchange-rates.api-slice.ts/exchange-rates.api-slice'
 import FormInput from '@/pattern/common/molecules/inputs/form-input'
+import SelectInput from '@/pattern/common/molecules/inputs/select-input'
 
-interface IUpdateRateFormValues {
-  ask: number
-  bid: number
-}
-
-interface IProps {
-  id: string
-  ask: number
-  bid: number
-}
+const CURRENCY_TYPES = [
+  { label: 'NGN', value: 'NGN' },
+  { label: 'SAR', value: 'SAR' },
+  { label: 'USD', value: 'USD' },
+]
 
 const SetTransactionFeesFormSchema = Yup.object().shape({
+  base_currency: Yup.string().required('Base currency is Required'),
+  target_currency: Yup.string().required('Target currency is Required'),
   ask: Yup.number().required('Ask rate is Required'),
   bid: Yup.number().required('Bid rate is Required'),
 })
 
-const UpdateExchangeRateModal = create(({ id, ask, bid }: IProps) => {
+const CreateExchangeRateModal = create(() => {
   const { resolve, remove, visible } = useModal()
 
   const handleCloseModal = () => {
@@ -43,11 +44,13 @@ const UpdateExchangeRateModal = create(({ id, ask, bid }: IProps) => {
   }
 
   const defaultValues = {
-    ask: ask,
-    bid: bid,
+    base_currency: '',
+    target_currency: '',
+    // ask: 0,
+    // bid: 0,
   }
 
-  const methods = useForm<IUpdateRateFormValues>({
+  const methods = useForm<ICreateExchangeRatePayload>({
     mode: 'onChange',
     resolver: yupResolver(SetTransactionFeesFormSchema),
     reValidateMode: 'onChange',
@@ -60,14 +63,15 @@ const UpdateExchangeRateModal = create(({ id, ask, bid }: IProps) => {
     formState: { errors, isDirty },
   } = methods
 
-  const [updateExchangeRate, { isLoading, isSuccess }] =
-    useUpdateExchangeRatesMutation()
+  const [createExchangeRate, { isLoading, isSuccess }] =
+    useCreateExchangeRateMutation()
 
-  const onSubmit: SubmitHandler<IUpdateRateFormValues> = data => {
-    updateExchangeRate({
+  const onSubmit: SubmitHandler<ICreateExchangeRatePayload> = data => {
+    createExchangeRate({
+      base_currency: data.base_currency,
+      target_currency: data.target_currency,
       ask: data.ask,
       bid: data.bid,
-      id: id,
     })
       .unwrap()
       .then(res => {
@@ -97,12 +101,28 @@ const UpdateExchangeRateModal = create(({ id, ask, bid }: IProps) => {
             >
               <CardHeader>
                 <CardTitle className='text-[1.125rem] font-semibold font-raleway'>
-                  Update Exchange Rate
+                  Set Exchange Rate
                 </CardTitle>
               </CardHeader>
 
               {/* Content */}
               <CardContent className='space-y-[16px] mb-[8px]'>
+                {/* Base Currency Input */}
+                <SelectInput
+                  name='base_currency'
+                  label='Base Currency'
+                  options={CURRENCY_TYPES}
+                  placeholder='Select base currency'
+                />
+
+                {/* Target Currency Input */}
+                <SelectInput
+                  name='target_currency'
+                  label='Target Currency'
+                  options={CURRENCY_TYPES}
+                  placeholder='Select target currency'
+                />
+
                 {/* Ask Rate */}
                 <FormInput
                   label='Ask Rate'
@@ -143,7 +163,7 @@ const UpdateExchangeRateModal = create(({ id, ask, bid }: IProps) => {
                       disabled={!isDirty}
                       type='submit'
                     >
-                      Update Exchange Rate
+                      Create Exchange Rate
                     </LoadingButton>
                   </div>
                 </div>
@@ -156,4 +176,4 @@ const UpdateExchangeRateModal = create(({ id, ask, bid }: IProps) => {
   )
 })
 
-export default UpdateExchangeRateModal
+export default CreateExchangeRateModal
