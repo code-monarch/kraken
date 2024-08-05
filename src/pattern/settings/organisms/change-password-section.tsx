@@ -68,14 +68,15 @@ const ChangePasswordSection = () => {
       .then((res) => {
         return new Promise((resolve) => {
           reset();
-          toast.success("Successful", {
+          toast.success('Successful', {
             description:
               "Password changed successfully. Please wait, you're being redirected to the login page to sign in with your new password",
             duration: 8000,
             cancel: {
-              label: "Close",
+              onClick: () => {},
+              label: 'Close',
             },
-          });
+          })
           show(SuccessModal, {
             message: `Password changed successfully. Please wait, you're being redirected to the login page to sign in with your new password`,
           });

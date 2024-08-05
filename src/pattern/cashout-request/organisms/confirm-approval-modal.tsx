@@ -56,6 +56,7 @@ const ConfirmApprovalModal = create(
             description: `${err?.data.responseMessage ?? 'An error occurred'}`,
             duration: 8000,
             cancel: {
+              onClick: () => {},
               label: 'Close',
             },
           })

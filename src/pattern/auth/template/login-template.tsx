@@ -139,6 +139,7 @@ const LoginTemplate = () => {
                 }`,
                 duration: 8000,
                 cancel: {
+                  onClick: () => {},
                   label: 'Close',
                 },
               })
@@ -154,6 +155,7 @@ const LoginTemplate = () => {
           }`,
           duration: 8000,
           cancel: {
+            onClick: () => {},
             label: 'Close',
           },
         })

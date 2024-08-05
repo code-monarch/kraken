@@ -59,10 +59,11 @@ const ResetPasswordTemplate = () => {
         push("confirm-email")
       }).catch((err) => {
         // display error message
-        toast.error("Unexpected error", {
-          description: `${err?.data?.responseMessage ?? "Password reset request error"}`,
+        toast.error('Unexpected error', {
+          description: `${err?.data?.responseMessage ?? 'Password reset request error'}`,
           duration: 8000,
           cancel: {
+            onClick: () => {},
             label: 'Cancel',
           },
         })

@@ -98,6 +98,7 @@ const MyDetailsTab = () => {
           }`,
           duration: 8000,
           cancel: {
+            onClick: () => {},
             label: 'Close',
           },
         })

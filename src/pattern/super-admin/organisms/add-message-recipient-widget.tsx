@@ -102,13 +102,14 @@ const AddMessageRecipientWidget: FC<IAddMessageRecipientWidgetProps> = ({
         submitHandler();
       })
       .catch((err) => {
-        toast.error("Unexpected error", {
-          description: `${err?.data?.responseMessage ?? "Something went wrong"}`,
+        toast.error('Unexpected error', {
+          description: `${err?.data?.responseMessage ?? 'Something went wrong'}`,
           duration: 8000,
           cancel: {
-            label: "Close",
+            onClick: () => {},
+            label: 'Close',
           },
-        });
+        })
       });
   };
 

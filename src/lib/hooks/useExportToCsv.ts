@@ -33,6 +33,7 @@ export const useExportToCsv = ({ dataToExport, fileName }: IProps) => {
                             id: 'error-exporting',
                             duration: 5000,
                             cancel: {
+                                onClick: () => { },
                                 label: 'Close',
                             },
                         })

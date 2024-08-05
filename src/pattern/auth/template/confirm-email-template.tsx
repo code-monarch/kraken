@@ -55,26 +55,28 @@ const ConfirmEmailTemplate = () => {
       .unwrap()
       .then((res) => {
         // display Success message
-        toast.success("Successfull", {
-          description: `${res?.responseMessage ?? "A password reset link has been sent to your email address"}`,
+        toast.success('Successfull', {
+          description: `${res?.responseMessage ?? 'A password reset link has been sent to your email address'}`,
           duration: 8000,
           cancel: {
-            label: "Ok",
+            onClick: () => {},
+            label: 'Ok',
           },
-        });
+        })
 
         // route to confirm Email page
         push("confirm-email");
       })
       .catch((err) => {
         // display error message
-        toast.error("Unexpected error", {
-          description: `${err?.data?.responseMessage ?? "Password reset request error"}`,
+        toast.error('Unexpected error', {
+          description: `${err?.data?.responseMessage ?? 'Password reset request error'}`,
           duration: 8000,
           cancel: {
-            label: "Close",
+            onClick: () => {},
+            label: 'Close',
           },
-        });
+        })
       });
     start();
   }, [push, reset, resetPasswordRequest, start, emailToConfirm]);
