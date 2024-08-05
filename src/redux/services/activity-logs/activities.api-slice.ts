@@ -25,6 +25,15 @@ export interface IActivitiesResponse {
     };
   };
 }
+export interface IActivitiesForExportResponse {
+  error: boolean;
+  responseCode: string;
+  responseMessage: string;
+  data: {
+    count: number;
+    results: IActivity[];
+  };
+}
 
 export interface IDeleteActivitiesRes {
   error: boolean;

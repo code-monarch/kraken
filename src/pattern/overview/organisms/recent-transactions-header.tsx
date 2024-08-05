@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import { DASHBOARD_PATHS } from '@/lib/routes'
 import { useGetUsersMetricsForExportQuery } from '@/redux/services/users/user-metrics.api-alice'
 import { useExportToCsv } from '@/lib/hooks/useExportToCsv'
+import { toast } from 'sonner'
 
 interface IProps {
   totalTransactions: number
@@ -28,13 +29,24 @@ const RecentTransactionsHeader = ({ totalTransactions }: IProps) => {
   } = useGetUsersMetricsForExportQuery({})
 
     const [exportFile] = useExportToCsv({
-      dataToExport: exportData?.data,
-      fileName: 'UmmrahCash Admin Activity logs',
+      dataToExport: exportData?.data?.results,
+      fileName: 'UmrahCash Transactions Report',
     })
 
-    const handleExportFile = () => {
+  const handleExportFile = () => {
+    if (exportData?.data?.results) {
       exportFile()
+    } else {
+      toast.error('Could not export', {
+        description: `${'No data available for export'}`,
+        id: 'error-exporting',
+        duration: 5000,
+        cancel: {
+          label: 'Close',
+        },
+      })
     }
+  }
 
   return (
     <div className='w-full px-6'>

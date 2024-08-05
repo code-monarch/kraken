@@ -1,6 +1,6 @@
 'use client'
 import LocalStore from '@/lib/helper/storage-manager'
-import { LOGIN_API_KEY, SERVICE_ACCOUNT_API_KEY } from '@/lib/constants'
+import { LOGIN_API_KEY, NETWORK_ERROR_MESSAGE, SERVICE_ACCOUNT_API_KEY } from '@/lib/constants'
 import LogoutIcon from '../../atoms/icons/logout-icon'
 import { useLogoutMutation } from '@/redux/services/auth/logout.api-slice'
 import { useRouter } from 'next/navigation'
@@ -23,8 +23,7 @@ const SignOutButton = () => {
       .catch(error => {
         if ('error' in error && error?.error === 'TypeError: Failed to fetch') {
           show(ErrorModal, {
-            message:
-              'Something went wrong, please check your network and try again',
+            message: `${NETWORK_ERROR_MESSAGE}`,
           })
         } else {
           // display error message

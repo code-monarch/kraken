@@ -16,6 +16,7 @@ import { ErrorModal } from '@/pattern/common/organisms/error-modal'
 import { useSearchParams } from 'next/navigation'
 import ErrorFallback from '@/pattern/common/atoms/error-fallback'
 import UserCashOutRequestTabContent from '../organisms/user-cashout-request-tab-content'
+import { NETWORK_ERROR_MESSAGE } from '@/lib/constants'
 
 const ERROR_MESSAGE =
   'we encountered an error while getting the information of this user. kindly refresh this page and try again.'
@@ -44,8 +45,7 @@ const UserDetailsTemplate = () => {
       error?.error === 'TypeError: Failed to fetch'
     ) {
       show(ErrorModal, {
-        message:
-          'Something went wrong, please check your network and try again',
+        message: `${NETWORK_ERROR_MESSAGE}`,
       })
     } else {
       isError &&

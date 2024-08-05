@@ -17,6 +17,7 @@ import {
 } from '@/redux/services/users/user-metrics.api-alice'
 import { IUser } from '@/redux/services/users/user.api-slice'
 import { useExportToCsv } from '@/lib/hooks/useExportToCsv'
+import { toast } from 'sonner'
 
 const UserManagementTableTemplate = () => {
   const [tabValue, setTabValue] = useState('all')
@@ -41,12 +42,23 @@ const UserManagementTableTemplate = () => {
   } = useGetUsersMetricsForExportQuery({})
 
   const [exportFile] = useExportToCsv({
-    dataToExport: exportData?.data,
-    fileName: 'UmmrahCash Admin Activity logs',
+    dataToExport: exportData?.data?.results,
+    fileName: 'UmrahCash Users Report',
   })
 
   const handleExportFile = () => {
-    exportFile()
+    if (exportData?.data?.results) {
+      exportFile()
+    } else {
+      toast.error('Could not export', {
+        description: `${'No data available for export'}`,
+        id: 'error-exporting',
+        duration: 5000,
+        cancel: {
+          label: 'Close',
+        },
+      })
+    }
   }
 
   const {
@@ -139,7 +151,7 @@ const UserManagementTableTemplate = () => {
           variant='outlinePrimary'
           prefixIcon={<ExcelIcon />}
           size='sm'
-          className='w-[127px] h-[44px] text-base'
+          className='w-[127px] h-[44px] text-base disabled:cursor-not-allowed'
           disabled={
             loadingExportData || errorLoadingExportData || fetchingExportData
           }

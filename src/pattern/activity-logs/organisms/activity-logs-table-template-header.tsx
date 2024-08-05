@@ -45,12 +45,23 @@ const ActivityLogsTableTemplateHeader = ({
   } = useGetActivitiesForExportQuery({})
 
   const [exportFile] = useExportToCsv({
-    dataToExport: exportData?.data,
-    fileName: 'UmmrahCash Admin Activity logs',
+    dataToExport: exportData?.data?.results,
+    fileName: 'UmrahCash Admin Activity logs',
   })
 
   const handleExportFile = () => {
-    exportFile()
+    if (exportData?.data?.results) {
+      exportFile()
+    } else {
+      toast.error('Could not export', {
+        description: `${'No data available for export'}`,
+        id: 'error-exporting',
+        duration: 5000,
+        cancel: {
+          label: 'Close',
+        },
+      })
+    }
   }
 
   const handleShowSearchFilterModal = async () => {
