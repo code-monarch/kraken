@@ -25,6 +25,15 @@ export interface IActivitiesResponse {
     };
   };
 }
+export interface IActivitiesForExportResponse {
+  error: boolean;
+  responseCode: string;
+  responseMessage: string;
+  data: {
+    count: number;
+    results: IActivity[];
+  };
+}
 
 export interface IDeleteActivitiesRes {
   error: boolean;
@@ -56,6 +65,16 @@ export const activitiesApiSlice = baseApiSlice.injectEndpoints({
       }),
     }),
 
+    getActivitiesForExport: builder.query<Pick<IActivitiesForExportResponse, "data">, Partial<IQuery>>({
+      query: () => ({
+        url: `settings/admin/get-activities?exports=true`,
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }),
+    }),
+
     deleteActivities: builder.mutation<IDeleteActivitiesRes, void>({
       query: () => ({
         url: `settings/admin/activities`,
@@ -68,5 +87,5 @@ export const activitiesApiSlice = baseApiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetActivitiesQuery, useDeleteActivitiesMutation } =
+export const { useGetActivitiesQuery, useGetActivitiesForExportQuery, useDeleteActivitiesMutation } =
   activitiesApiSlice;

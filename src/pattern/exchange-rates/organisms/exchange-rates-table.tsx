@@ -24,6 +24,7 @@ import { ErrorModal } from '@/pattern/common/organisms/error-modal'
 import TableSkeleton from '@/pattern/common/molecules/skeletons/table-skeleton'
 import Hidden from '@/pattern/common/molecules/data-display/hidden'
 import { IExchangeRate } from '@/redux/services/exchange-rates.api-slice.ts/exchange-rates.api-slice'
+import { NETWORK_ERROR_MESSAGE } from '@/lib/constants'
 
 const columns = ExchangeRatesTableColumns
 
@@ -60,8 +61,7 @@ export const ExchangeRatesTable = ({
       error?.error === 'TypeError: Failed to fetch'
     ) {
       show(ErrorModal, {
-        message:
-          'Something went wrong, please check your network and try again',
+        message: `${NETWORK_ERROR_MESSAGE}`,
       })
     }
   }, [error, isError])

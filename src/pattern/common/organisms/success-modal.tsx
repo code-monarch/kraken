@@ -10,7 +10,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { DeleteAccountHeaderIcon } from "@/pattern/common/atoms/icons/delete-account-header-icon";
 
 interface IProps {
   message: string;
@@ -30,7 +29,6 @@ export const SuccessModal = create(({ message }: IProps) => {
         <Card className="w-[400px] h-fit p-6">
           {/* Header */}
           <CardHeader className="w-full flex flex-col items-start gap-y-5">
-            {/* <DeleteAccountHeaderIcon /> */}
             <CardTitle className="text-[1.125rem] text-foreground font-semibold">
               Message
             </CardTitle>

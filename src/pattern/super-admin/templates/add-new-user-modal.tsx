@@ -121,8 +121,6 @@ const AddNewUserModal = create(() => {
                   label='User Type'
                   options={USER_TYPES}
                   placeholder='Select a user type'
-                  // value={userType}
-                  // setValue={setUserType}
                 />
 
                 <div className='w-full flex items-start gap-4'>

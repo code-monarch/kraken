@@ -10,10 +10,6 @@ interface IStepperProps {
 const Stepper: FC<IStepperProps> = ({ currentStep, numberOfSteps }) => {
   const isFinalStep = (index: number) => index === numberOfSteps - 1;
 
-  console.log("CURRENT STEP: ", currentStep);
-  console.log("NUMBER OF STEPS: ", numberOfSteps);
-  console.log("CURRENT STEP PLUS ONE: ", currentStep + 1);
-
   return (
     <div className='w-full flex items-center justify-center pt-6'>
       {Array.from({ length: numberOfSteps }).map((_, index) => (

@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import * as Yup from 'yup'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -14,17 +14,12 @@ import LoadingButton from '@/pattern/common/molecules/controls/loading-button'
 import FormInput from '@/pattern/common/molecules/inputs/form-input'
 import SelectInput from '@/pattern/common/molecules/inputs/select-input'
 import { create, show, useModal } from '@ebay/nice-modal-react'
-import * as Yup from 'yup'
 import {
-  Controller,
   FormProvider,
   SubmitHandler,
   useForm,
 } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useAddUserMutation } from '@/redux/services/users/add-user.api-slice'
-import { FieldSet } from '@/pattern/common/molecules/inputs/fieldset'
-import InputErrorMessage from '@/pattern/common/molecules/feedback/input-error-message'
 import {
   IFundDisbursementWalletPayload,
   useFundDisbursementWalletMutation,
@@ -36,9 +31,10 @@ const DISBURSEMENT_TYPES = [
   { label: 'Credit', value: 'credit' },
   { label: 'Liquidate', value: 'liquidate' },
 ]
+
 const CURRENCY_TYPES = [
-  { label: 'Naira', value: 'NGN' },
   { label: 'SAR', value: 'SAR' },
+  { label: 'NGN', value: 'NGN' },
 ]
 
 const FundDisbursementWalletFormSchema = Yup.object().shape({
@@ -49,8 +45,8 @@ const FundDisbursementWalletFormSchema = Yup.object().shape({
     )
     .required('Disbursement type is Required'),
   currency: Yup.string()
-    .oneOf(['NGN', 'SAR'], 'Invalid type. Allowed values are SAR or NGN.')
-    .required('Disbursement type is Required'),
+    .oneOf(['SAR', 'NGN'], 'Invalid currency. Allowed values are SAR or NGN.')
+    .required('currency is Required'),
   amount: Yup.number().required('Enter an amount'),
 })
 
@@ -60,16 +56,15 @@ interface IProps {
 
 export const FundDisbursementWalletModal = create(({ agentId }: IProps) => {
   const { resolve, remove, visible } = useModal()
-  const [type, setType] = useState<'credit' | 'liquidate'>('credit')
 
   const handleCloseModal = () => {
     resolve({ resolved: true })
     remove()
   }
 
-  const defaultValues = {
-    // type: '' as any,
-    // currency: '' as any,
+  const defaultValues: Omit<IFundDisbursementWalletPayload, 'userid'> = {
+    type: '' as any,
+    currency: '' as any,
     amount: 0,
   }
 
@@ -86,8 +81,7 @@ export const FundDisbursementWalletModal = create(({ agentId }: IProps) => {
     formState: { errors, isDirty },
   } = methods
 
-  const [fundWallet, { isLoading, isSuccess, isError }] =
-    useFundDisbursementWalletMutation()
+  const [fundWallet, { isLoading }] = useFundDisbursementWalletMutation()
 
   const onSubmit: SubmitHandler<
     Omit<IFundDisbursementWalletPayload, 'userid'>
@@ -136,7 +130,7 @@ export const FundDisbursementWalletModal = create(({ agentId }: IProps) => {
             >
               {/* Content */}
               <CardContent className='w-full space-y-[16px] mb-[8px]'>
-                {/* Disbursement type: Credit | Liquidate */}
+                {/* Disbursement type Input */}
                 <SelectInput
                   label='Type'
                   name='type'

@@ -1,6 +1,6 @@
 'use client'
 import React, { Suspense } from 'react'
-import CashOutRequestPageTemplate from '@/pattern/cashout-request/templates/cash-out-request-page-template'
+import CashOutRequestPageTemplate from '@/pattern/cashout-request/templates/cashout-request-page-template'
 import PulsePlaceholder from '@/pattern/common/atoms/icons/pulse-placeholder-icon'
 
 // This component passed as a fallback to the Suspense boundary

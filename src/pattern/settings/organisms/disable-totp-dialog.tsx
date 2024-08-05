@@ -88,8 +88,8 @@ const DisableTotpDialog = create(() => {
           }`,
           duration: 8000,
           cancel: {
+            onClick: () => {},
             label: 'Cancel',
-            onClick: () => console.log('Cancel!'),
           },
         })
       })

@@ -12,7 +12,8 @@ const Chart = dynamic(() => import('react-apexcharts'), {
 export const OVERVIEW_CHART_LEGEND = [
   { label: 'Deposit', color: '#CBD5E1' },
   { label: 'Withdrawal', color: '#39CD86' },
-  { label: 'Cashout', color: '#08C168' },
+  { label: 'Cashout', color: '#0e7c47' },
+  { label: 'Disbursement', color: '#1f74ea' },
 ]
 
 interface IProps {
@@ -180,7 +181,7 @@ const OverviewChart = ({ chartData }: IProps) => {
         enabled: false,
       },
     },
-    colors: ['#08C168', '#39CD86', '#E2E8F0'],
+    colors: ['#CBD5E1', '#39CD86', '#0e7c47', '#1f74ea'],
     dataLabels: {
       enabled: false,
     },
@@ -202,6 +203,10 @@ const OverviewChart = ({ chartData }: IProps) => {
     {
       name: 'Cashout',
       data: chartData?.yAxis?.[2]?.data ?? [],
+    },
+    {
+      name: 'Disbursement',
+      data: chartData?.yAxis?.[3]?.data ?? [],
     },
   ]
 

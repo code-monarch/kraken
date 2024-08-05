@@ -83,7 +83,7 @@ export const ActivityLogsColumns: ColumnDef<IActivity>[] = [
             >
               View Details
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
+            {/* <DropdownMenuSeparator />
             <DropdownMenuItem
               className="text-destructive"
               onClick={() =>
@@ -94,7 +94,7 @@ export const ActivityLogsColumns: ColumnDef<IActivity>[] = [
               }
             >
               Delete
-            </DropdownMenuItem>
+            </DropdownMenuItem> */}
           </DropdownMenuContent>
         </DropdownMenu>
       );

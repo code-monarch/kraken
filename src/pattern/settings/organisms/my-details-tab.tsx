@@ -1,9 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import PersonalInfo from '../molecules/personal-info'
 import YourPhotoText from '../molecules/your-photo-text'
 import SettingsImageInput from '@/pattern/common/molecules/inputs/settings-image-input'
-import userImg from '@/public/images/user-img.png'
 import { Separator } from '@/components/ui/separator'
 import { Label } from '@/components/ui/label'
 import EmailInput from '@/pattern/common/molecules/inputs/email-input'
@@ -16,7 +15,6 @@ import {
 } from '@/redux/services/admin/admin.api-slice'
 import { show } from '@ebay/nice-modal-react'
 import { SuccessModal } from '@/pattern/common/organisms/success-modal'
-import { ErrorModal } from '@/pattern/common/organisms/error-modal'
 import LoadingButton from '@/pattern/common/molecules/controls/loading-button'
 import { toast } from 'sonner'
 import { useUpdateProfilePhotoMutation } from '@/redux/services/admin/update-profile-photo.api-slice'
@@ -59,11 +57,10 @@ const MyDetailsTab = () => {
 
   const {
     handleSubmit,
-    formState: { errors, isDirty },
+    formState: { isDirty },
     getValues,
+    reset,
   } = methods
-
-  console.log('getValues', getValues)
 
   const [updateAdmin, { isLoading, isSuccess, isError }] =
     useUpdateAdminMutation()
@@ -101,21 +98,25 @@ const MyDetailsTab = () => {
           }`,
           duration: 8000,
           cancel: {
+            onClick: () => {},
             label: 'Close',
-            onClick: () => console.log('Close!'),
           },
         })
       })
   }
-
-  console.log('selected file: ', selectedFile)
 
   return (
     <div>
       <div className='flex items-center justify-between my-4 '>
         <PersonalInfo />
         <div className='flex items-center gap-3'>
-          <Button variant='outline' size='sm' className='w-fit'>
+          <Button
+            variant='outline'
+            size='sm'
+            disabled={!isDirty}
+            onClick={() => reset()}
+            className='w-fit'
+          >
             Cancel
           </Button>
 
@@ -124,7 +125,7 @@ const MyDetailsTab = () => {
             type='submit'
             onClick={handleSubmit(onSubmit)}
             size='sm'
-            className='w-fit'
+            className='w-fit disabled:cursor-not-allowed'
             disabled={!isDirty && !isBase64(selectedFile)}
           >
             Save

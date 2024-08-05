@@ -53,19 +53,18 @@ const ResetPasswordTemplate = () => {
     })
       .unwrap()
       .then((res) => {
-        console.log(res.responseMessage);
         LocalStore.setItem({ key: CONFIRM_EMAIL, value: "true" }) // set confitmEmail localStorage variable to true. Used to conditionally render the content of the next page
 
         // Go to next page
         push("confirm-email")
       }).catch((err) => {
         // display error message
-        toast.error("Unexpected error", {
-          description: `${err?.data?.responseMessage ?? "Password reset request error"}`,
+        toast.error('Unexpected error', {
+          description: `${err?.data?.responseMessage ?? 'Password reset request error'}`,
           duration: 8000,
           cancel: {
+            onClick: () => {},
             label: 'Cancel',
-            onClick: () => console.log('Cancel!'),
           },
         })
       })

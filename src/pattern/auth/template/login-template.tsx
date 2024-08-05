@@ -31,6 +31,7 @@ import {
   setStartDateFilter,
 } from '@/redux/slices/transactions-filter'
 import { formatDate } from '@/lib/helper/format-date'
+import { NETWORK_ERROR_MESSAGE } from '@/lib/constants'
 
 // Get the current date
 const currentDate = new Date()
@@ -127,8 +128,7 @@ const LoginTemplate = () => {
               error?.error === 'TypeError: Failed to fetch'
             ) {
               show(ErrorModal, {
-                message:
-                  'Something went wrong, please check your network and try again',
+                message: `${NETWORK_ERROR_MESSAGE}`,
               })
             } else {
               // display error message
@@ -139,8 +139,8 @@ const LoginTemplate = () => {
                 }`,
                 duration: 8000,
                 cancel: {
+                  onClick: () => {},
                   label: 'Close',
-                  onClick: () => console.log('Close!'),
                 },
               })
             }
@@ -155,8 +155,8 @@ const LoginTemplate = () => {
           }`,
           duration: 8000,
           cancel: {
+            onClick: () => {},
             label: 'Close',
-            onClick: () => console.log('CLose!'),
           },
         })
       })

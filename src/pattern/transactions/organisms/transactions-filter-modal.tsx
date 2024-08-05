@@ -82,7 +82,7 @@ export const TransactionsFilterModal = create(() => {
   const [endDate, setEndDate] = useState<Date | string>(endDateFilter)
   const [dateRange, setDateRange] = useState<string>('')
 
-  const handleTransactionTypeChange = (value: string) => {
+  const handleChangeTransactionType = (value: string) => {
     setTransactionType(
       value as ITransactionsTableHeaderProps['transactionType'],
     )
@@ -171,7 +171,7 @@ export const TransactionsFilterModal = create(() => {
                   type='single'
                   value={transactionType}
                   defaultValue='all'
-                  onValueChange={value => handleTransactionTypeChange(value)}
+                  onValueChange={value => handleChangeTransactionType(value)}
                 >
                   {TransactionTypeFilterSetting.map(({ value, label }) => (
                     <ToggleGroupItem

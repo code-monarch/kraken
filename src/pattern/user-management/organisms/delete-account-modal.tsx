@@ -54,7 +54,6 @@ export const DeleteAccountModal = create(({ userId, name }: IProps) => {
       .catch((err) => {
         handleCloseModal();
         show(ErrorModal, { message: "Something went wrong, please try again" });
-        console.log(err?.data?.responseMessage);
       });
   };
 

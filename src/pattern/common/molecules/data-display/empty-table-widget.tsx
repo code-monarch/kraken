@@ -14,7 +14,7 @@ const EmptyTableWidget: FC<IProps> = ({ message, columns }) => {
       <br />
       <br />
       <br />
-      {message ?? <span>No Record Found.</span>}
+      {message ?? <span>No Record Found</span>}
       <br />
       <br />
       <br />

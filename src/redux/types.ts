@@ -19,6 +19,10 @@ export interface IChartResponse {
         {
             name: "Cashout",
             data: Array<number>
+        },
+        {
+            name: "Disbursement ",
+            data: Array<number>
         }
     ]
 }

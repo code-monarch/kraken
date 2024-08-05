@@ -26,12 +26,12 @@ const SuperAdminUserManagementPageHeader = () => {
         pageDescription='Manage and oversee user accounts with ease.'
       />
 
-      <div className='h-[52px] flex items-center gap-4'>
+      <div className='h-[48px] flex items-center gap-4'>
         {/* Create Admin Modal Trigger */}
         <ButtonWithIcon
           prefixIcon={<AddUserBtnIcon color='hsla(40,96%,53%,1)' />}
           size='sm'
-          className='w-[158px] h-full bg-warning-100 text-[1.125rem] text-warning hover:bg-warning-100 rounded-[6px]'
+          className='w-[158px] h-full bg-warning-100 text-base text-warning hover:bg-warning-100 rounded-[6px] shadow-sm'
           onClick={handleCreateAdmin}
         >
           Create admin
@@ -41,7 +41,7 @@ const SuperAdminUserManagementPageHeader = () => {
         <ButtonWithIcon
           prefixIcon={<AddUserBtnIcon />}
           size='sm'
-          className='w-[158px] h-full bg-[hsla(151,100%,96%,1)] text-[1.125rem] text-primary hover:bg-[hsla(151,100%,96%,1)] rounded-[6px]'
+          className='w-[158px] h-full bg-[hsla(151,100%,96%,1)] text-base text-primary hover:bg-[hsla(151,100%,96%,1)] rounded-[6px] shadow-sm'
           onClick={handleAddUser}
         >
           Add user
@@ -52,7 +52,7 @@ const SuperAdminUserManagementPageHeader = () => {
           prefixIcon={<SendMessageBtnIcon />}
           variant='secondary'
           size='sm'
-          className='w-[210px] h-full bg-[hsla(215,100%,94%,1)] text-[1.125rem] text-secondary hover:bg-[hsla(215,100%,94%,1)] rounded-[6px]'
+          className='w-[210px] h-full bg-[hsla(215,100%,94%,1)] text-base text-secondary hover:bg-[hsla(215,100%,94%,1)] rounded-[6px] shadow-sm'
           onClick={handleSendMessage}
         >
           Send message

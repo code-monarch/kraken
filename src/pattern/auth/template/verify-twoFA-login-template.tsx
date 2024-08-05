@@ -73,8 +73,6 @@ const VerifyTwoFALoginTemplate = () => {
     formState: { errors, isDirty },
   } = methods
 
-  console.log('FORM ERRORS: ', errors)
-
   const onSubmit: SubmitHandler<
     Pick<ITwoFALoginPayload, 'password'>
   > = data => {
@@ -105,7 +103,6 @@ const VerifyTwoFALoginTemplate = () => {
         })
       })
       .catch(err => {
-        console.log(`${err.error || err?.data?.message || err}`)
         // display error message
         toast.error('Unexpected error', {
           description: `${
@@ -114,8 +111,8 @@ const VerifyTwoFALoginTemplate = () => {
           }`,
           duration: 8000,
           cancel: {
+            onClick: () => {},
             label: 'Close',
-            onClick: () => console.log('Close!'),
           },
         })
       })

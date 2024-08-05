@@ -8,7 +8,7 @@ import { useGetAdminProfileQuery } from '@/redux/services/admin/admin.api-slice'
 
 const Topbar = () => {
   // Get Admin API query
-  const { data, isLoading } = useGetAdminProfileQuery()
+  const { data } = useGetAdminProfileQuery()
 
   const initials = getInitials(`${data?.data.firstname} ${data?.data.lastname}`)
 

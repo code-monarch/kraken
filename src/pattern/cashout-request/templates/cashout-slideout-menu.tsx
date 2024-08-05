@@ -9,7 +9,6 @@ import {
 } from '@/components/ui/sheet'
 import { create, show, useModal } from '@ebay/nice-modal-react'
 import { ScrollArea } from '@/components/ui/scroll-area'
-// import SlideOutDivider from '../../molecules/data-display/slide-out-divider'
 import { Badge } from '@/components/ui/badge'
 import SlideOutCahsoutDetailsWidget from '../organisms/slideout-cashout-details-widget'
 import SlideOutDivider from '@/pattern/common/molecules/data-display/slide-out-divider'
@@ -25,12 +24,21 @@ import { DeclineRequestModal } from '../organisms/decline-request-modal'
 import { formatNumber } from '@/lib/helper/format-number'
 import TransactionsSlideOutMenuSkeleton from '@/pattern/common/molecules/skeletons/transactions-slide-out-menu-skeleton'
 import { IMAGE_FALLBACK_PLACEHOLDER } from '@/lib/constants'
+import { useGetAdminProfileQuery } from '@/redux/services/admin/admin.api-slice'
+import { getInitials } from '@/lib/helper/get-initials'
 
 interface IProps {
   transactionId: string
 }
 
 const CashoutSlideOutMenu = create(({ transactionId }: IProps) => {
+  // Get Admin API query
+  const { data: adminProfileInfo } = useGetAdminProfileQuery()
+
+  const initials = getInitials(
+    `${adminProfileInfo?.data.firstname} ${adminProfileInfo?.data.lastname}`,
+  )
+
   const { data, isLoading, isSuccess, isError } =
     useGetSingleCashoutRequestQuery({
       id: transactionId,
@@ -40,7 +48,7 @@ const CashoutSlideOutMenu = create(({ transactionId }: IProps) => {
   const [scrollHeight, setScrollHeight] = useState(window.innerHeight - 30)
 
   useEffect(() => {
-    function handleResize() {
+    const handleResize = () => {
       setScrollHeight(window.innerHeight - 30)
     }
 
@@ -155,14 +163,15 @@ const CashoutSlideOutMenu = create(({ transactionId }: IProps) => {
                           </Badge>
                         </SlideOutDivider>
                         <AgentDetailsCard
-                          ImageFallback='JA'
+                          ImageFallback={initials}
                           name={`${data?.data?.transaction?.metadata?.agent?.firstname} ${data?.data?.transaction?.metadata?.agent?.lastname}`}
                           number={
                             data?.data?.transaction?.metadata?.agent
                               ?.phoneNumber ?? '08166687292'
                           }
                           imageUrl={
-                            data?.data?.transaction?.metadata?.agent?.imageUrl ?? IMAGE_FALLBACK_PLACEHOLDER
+                            data?.data?.transaction?.metadata?.agent
+                              ?.imageUrl ?? IMAGE_FALLBACK_PLACEHOLDER
                           }
                         />
 
