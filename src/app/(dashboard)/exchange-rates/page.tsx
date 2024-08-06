@@ -1,15 +1,12 @@
 'use client'
 import React from 'react'
-import PageHeader from '@/pattern/common/molecules/data-display/page-header'
 import ExchangeRatesTableTemplate from '@/pattern/exchange-rates/templates/exchange-rates-table-template'
+import ExchangeRatesPageHeader from '@/pattern/exchange-rates/molecules/exchange-rates-page-header'
 
 const ExchangeRatesPage = () => {
   return (
     <>
-      <PageHeader
-        pageTitle='Exchange Rates'
-        pageDescription='Manage and oversee all exchange rates'
-      />
+      <ExchangeRatesPageHeader />
 
       <ExchangeRatesTableTemplate />
     </>

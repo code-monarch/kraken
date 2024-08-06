@@ -18,7 +18,7 @@ export interface IExchangeRatesResponse {
   data: IExchangeRate[]
 }
 
-export interface IUpdateExchangeRatesResponse {
+export interface ICreateExchangeRateResponse {
   error: boolean
   responseCode: string
   responseMessage: string
@@ -33,10 +33,25 @@ export interface IUpdateExchangeRatesResponse {
   }
 }
 
+export interface IDeleteExchangeRateResponse {
+  error: boolean
+  responseCode: string
+  responseMessage: string
+}
+
 export interface IUpdateExchangeRatePayload {
   ask: number
   bid: number
   id: string
+}
+export interface IDeleteExchangeRatePayload {
+  id: string
+}
+export interface ICreateExchangeRatePayload {
+  base_currency: string
+  target_currency: string
+  ask: number
+  bid: number
 }
 
 export const exchangeRatesApiSlice = baseApiSlice.injectEndpoints({
@@ -62,7 +77,7 @@ export const exchangeRatesApiSlice = baseApiSlice.injectEndpoints({
     }),
 
     updateExchangeRates: builder.mutation<
-      IUpdateExchangeRatesResponse,
+      ICreateExchangeRateResponse,
       IUpdateExchangeRatePayload
     >({
       query: ({ id, ...props }) => ({
@@ -75,8 +90,42 @@ export const exchangeRatesApiSlice = baseApiSlice.injectEndpoints({
       }),
       invalidatesTags: ['getExchangeRates'],
     }),
+
+    createExchangeRate: builder.mutation<
+      ICreateExchangeRateResponse,
+      ICreateExchangeRatePayload
+    >({
+      query: payload => ({
+        url: `transactions/admin/exchange-rates`,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: payload,
+      }),
+      invalidatesTags: ['getExchangeRates'],
+    }),
+
+    deleteExchangeRate: builder.mutation<
+      IDeleteExchangeRateResponse,
+      IDeleteExchangeRatePayload
+    >({
+      query: ({ id }) => ({
+        url: `transactions/admin/exchange-rates/${id}`,
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        // body: payload,
+      }),
+      invalidatesTags: ['getExchangeRates'],
+    }),
   }),
 })
 
-export const { useGetExchangeRatesQuery, useUpdateExchangeRatesMutation } =
-  exchangeRatesApiSlice
+export const {
+  useGetExchangeRatesQuery,
+  useUpdateExchangeRatesMutation,
+  useCreateExchangeRateMutation,
+  useDeleteExchangeRateMutation,
+} = exchangeRatesApiSlice
