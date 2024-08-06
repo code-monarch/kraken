@@ -40,12 +40,12 @@ const QRVerificationCodeInput: FC<ICustomInputProps> = ({
               className={cn("pl-3", className)}
               {...props}
             />
-            <span
+            {/* <span
               onClick={() => {}}
               className='absolute top-[15px] right-[12px] text-[#08C168] underline font-semibold text-sm cursor-pointer'
             >
               Get code
-            </span>
+            </span> */}
           </div>
           <InputErrorMessage name={`${name}`} />
           <div className='flex items-center gap-2 !mb-4'>
