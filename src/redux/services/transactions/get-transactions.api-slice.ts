@@ -1,7 +1,7 @@
 import { LOGIN_API_KEY, SERVICE_ACCOUNT_API_KEY } from '@/lib/constants'
 import { baseApiSlice } from '@/redux/api/base-api'
 
-type Metadata = {
+export type TransactionMetadata = {
   lastname: string,
   firstname: string,
   phoneNumber: string,
@@ -23,8 +23,8 @@ export type Transaction = {
   currency: string // e.g. "USD",
   status: "COMPLETED" | "PENDING" | "FAILED",
   metadata: {
-    agent: Metadata
-    customer: Metadata
+    agent: TransactionMetadata
+    customer: TransactionMetadata
   },
   createdAt: string // e.g. 2024-05-31T01:31:21.761Z,
   updatedAt: string // e.g. 2024-05-31T01:31:21.761Z,
@@ -61,7 +61,7 @@ export interface ITransactionsPayload {
   page?: number
   searchQuery?: string // search query
   status?: 'COMPLETED' | 'PENDING' | 'FAILED' | null | undefined
-  type?: "Withdrawal" | "Cashout" | "Deposit" | null | undefined
+  type?: "Withdrawal" | "Cashout" | "Deposit" | "Disbursement" | null | undefined
   startDate?: string
   endDate?: string
 }

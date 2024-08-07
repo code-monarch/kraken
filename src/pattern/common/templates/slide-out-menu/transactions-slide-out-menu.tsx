@@ -80,6 +80,10 @@ const TransactionsSlideOutMenu = create(({ transactionId }: IProps) => {
     `${transactionData?.data?.metadata?.customer?.firstname} ${transactionData?.data?.metadata?.customer?.firstname}`,
   )
 
+  const customerName = `${transactionData?.data?.metadata?.customer?.firstname} ${transactionData?.data?.metadata?.customer?.lastname}`
+
+  const agentName = `${transactionData?.data?.metadata?.agent?.firstname} ${transactionData?.data?.metadata?.agent?.lastname}`
+
   const handleCloseModal = () => {
     resolve({ resolved: true })
     remove()
@@ -128,9 +132,10 @@ const TransactionsSlideOutMenu = create(({ transactionId }: IProps) => {
               </SheetHeader>
 
               {/* Display skeleton when loading content */}
-              <Hidden visible={isLoading}>
+              <Hidden visible={isLoading || isFetching}>
                 <TransactionsSlideOutMenuSkeleton />
               </Hidden>
+
               {/* Display skeleton when loading content */}
               <Hidden visible={isError && !isFetching && !isLoading}>
                 <h3 className='text-foreground text-24 font-raleway'>
@@ -150,21 +155,23 @@ const TransactionsSlideOutMenu = create(({ transactionId }: IProps) => {
                     <TransactionSlideOutMenuIcon color={iconColour} />
 
                     <div className='w-full flex flex-col items-center space-y-[4px]'>
+
                       {/* Amount */}
-                      <h3 className='flex-wrap max-w-xs text-foreground text-center text-24 font-raleway font-semibold'>
-                        {transactionData?.data?.order_amount}{' '}
-                        <span>{transactionData?.data?.currency}</span>
+                      <h3 className='flex-wrap w-xs whitespace- text-foreground text-center text-24 font-raleway font-semibold'>
+                        {transactionData?.data?.order_amount}{" "}
+                        {transactionData?.data?.currency}
                       </h3>
+
                       {/* Status */}
                       <h4
                         className={cn(
                           'text-base font-semibold capitalize',
                           transactionData?.data?.status === 'COMPLETED' &&
-                            'text-primary',
+                          'text-primary',
                           transactionData?.data?.status === 'FAILED' &&
-                            'text-destructive',
+                          'text-destructive',
                           transactionData?.data?.status === 'PENDING' &&
-                            'text-[#FAAD14]',
+                          'text-[#FAAD14]',
                         )}
                       >
                         {`${transactionData?.data?.status}!` ?? null}
@@ -173,9 +180,11 @@ const TransactionsSlideOutMenu = create(({ transactionId }: IProps) => {
                   </div>
 
                   <div className='px-4 space-y-[16px]'>
+
                     {/* Transaction Details */}
                     <SlideOutTransactionDetailsWidget
-                      amount={`${transactionData?.data?.order_amount} ${transactionData?.data?.currency}`}
+                      amount={`${transactionData?.data?.order_amount}`}
+                      currency={transactionData?.data?.metadata?.currency as string}
                       date={formatDateTime(
                         transactionData?.data?.createdAt as string,
                       )}
@@ -208,10 +217,10 @@ const TransactionsSlideOutMenu = create(({ transactionId }: IProps) => {
                             transactionData?.data?.metadata?.customer?.imageUrl
                           }
                           ImageFallback={customerInitials}
-                          name={`${transactionData?.data?.metadata?.customer?.firstname} ${transactionData?.data?.metadata?.customer?.lastname}`}
+                          name={customerName ?? `${transactionData?.data?.metadata?.customer?.email}`}
                           number={
                             transactionData?.data?.metadata?.customer
-                              ?.phoneNumber!
+                              ?.phoneNumber as string
                           }
                         />
                       </div>
@@ -220,7 +229,7 @@ const TransactionsSlideOutMenu = create(({ transactionId }: IProps) => {
                     {/* Agent details */}
                     <Hidden
                       visible={
-                        transactionData?.data?.metadata?.customer ? true : false
+                        transactionData?.data?.metadata?.agent ? true : false
                       }
                     >
                       <div className='w-full h-[192px] space-y-[30px] py-4'>
@@ -234,10 +243,10 @@ const TransactionsSlideOutMenu = create(({ transactionId }: IProps) => {
                         </SlideOutDivider>
                         <UserDetailCard
                           imageUrl={
-                            transactionData?.data?.metadata?.customer?.imageUrl
+                            transactionData?.data?.metadata?.agent?.imageUrl
                           }
                           ImageFallback={agentInitials}
-                          name={`${transactionData?.data?.metadata?.agent?.firstname} ${transactionData?.data?.metadata?.agent?.lastname}`}
+                          name={agentName ?? `${transactionData?.data?.metadata?.agent?.email}`}
                           number={
                             transactionData?.data?.metadata?.agent
                               ?.phoneNumber as string

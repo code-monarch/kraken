@@ -123,20 +123,20 @@ const SetTransactionFeesModal = create(() => {
                   error={errors[IUpdateTransactionFeesEnum.DEPOSIT_FEE]}
                 />
 
-                {/* Withdrawal Fees */}
-                <PercentInput
-                  label='Withdrawal Fees'
-                  name={IUpdateTransactionFeesEnum.WITHDRAWAL_FEE}
-                  placeholder='10'
-                  error={errors[IUpdateTransactionFeesEnum.WITHDRAWAL_FEE]}
-                />
-
                 {/* Cashout Rewards */}
                 <PercentInput
                   label='Cashout Rewards'
                   name={IUpdateTransactionFeesEnum.CASHOUT_REWARD}
                   placeholder='10'
                   error={errors[IUpdateTransactionFeesEnum.CASHOUT_REWARD]}
+                />
+
+                {/* Withdrawal Fees */}
+                <PercentInput
+                  label='Withdrawal Fees'
+                  name={IUpdateTransactionFeesEnum.WITHDRAWAL_FEE}
+                  placeholder='10'
+                  error={errors[IUpdateTransactionFeesEnum.WITHDRAWAL_FEE]}
                 />
               </CardContent>
 

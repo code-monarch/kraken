@@ -20,7 +20,7 @@ const TableSkeleton = ({
       {array.map((item, idx) => (
         <div
           key={idx}
-          className='w-full h-[15px] flex items-center justify-between gap-4'
+          className='w-full h-[10px] flex items-center justify-between gap-6'
         >
           <Skeleton className='h-full w-[320px] rounded-sm' />
           <Skeleton className='h-full w-[120px] rounded-sm' />

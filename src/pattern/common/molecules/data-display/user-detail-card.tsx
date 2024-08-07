@@ -33,13 +33,12 @@ const UserDetailCard: FC<IUserDetailCardProps> = ({
         <div className='w-full max-w-[175px] flex flex-col items-start gap-y-1'>
           {/* Pilgrim Name */}
           <h3 className='text-card-foreground text-sm font-semibold font-raleway'>
-            {name ?? "Pilgrim Name"}
+            {name ?? "No name"}
           </h3>
 
           {/* Pilgrim Number */}
           <p className='text-accent-foreground text-raleway text-xs'>
-            {" "}
-            {number ?? "Phone number"}
+            {number ?? "No phone number"}
           </p>
         </div>
       </div>
