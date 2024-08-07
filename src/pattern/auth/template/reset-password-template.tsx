@@ -48,12 +48,13 @@ const ResetPasswordTemplate = () => {
 
   const onSubmit: SubmitHandler<IResetPasswordRequestPayload> = (data) => {
     LocalStore.setItem({ key: EMAIL_TO_CONFIRM, value: data.email })
+    
     resetPasswordRequest({
       email: data.email,
     })
       .unwrap()
       .then((res) => {
-        LocalStore.setItem({ key: CONFIRM_EMAIL, value: "true" }) // set confitmEmail localStorage variable to true. Used to conditionally render the content of the next page
+        LocalStore.setItem({ key: CONFIRM_EMAIL, value: "true" }) // set confirmEmail localStorage variable to true. Used to conditionally render the content of the next page
 
         // Go to next page
         push("confirm-email")

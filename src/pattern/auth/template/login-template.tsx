@@ -187,7 +187,7 @@ const LoginTemplate = () => {
             {/* Controls */}
             <div className='w-full space-y-[28px]'>
               <div className='w-full flex items-center justify-end'>
-                <LinkButton onClick={() => push(`${AUTH_PATHS.resetPassword}`)}>
+                <LinkButton type='button' onClick={() => push(`${AUTH_PATHS.resetPassword}`)}>
                   Forgot Password
                 </LinkButton>
               </div>
