@@ -32,7 +32,7 @@ const UserDetailCard: FC<IUserDetailCardProps> = ({
         </Avatar>
         <div className='w-full max-w-[175px] flex flex-col items-start gap-y-1'>
           {/* Pilgrim Name */}
-          <h3 className='text-card-foreground text-sm font-semibold font-raleway'>
+          <h3 className='max-w-[300px] whitespace-pre-wrap text-card-foreground text-sm font-semibold font-raleway'>
             {name ?? "No name"}
           </h3>
 

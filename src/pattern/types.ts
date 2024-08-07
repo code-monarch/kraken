@@ -59,5 +59,5 @@ export interface ITransactionsTableHeaderProps {
       'all' | 'Trade' | 'Withdrawal' | 'Swap' | 'Deposit' | undefined
     >
   >
-  totalTransations: number
+  totalTransactions: number
 }
