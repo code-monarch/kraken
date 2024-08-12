@@ -154,6 +154,7 @@ const LoginTemplate = () => {
             'We encountered an error while trying to log you in'
           }`,
           duration: 8000,
+          id: "login-error",
           cancel: {
             onClick: () => {},
             label: 'Close',

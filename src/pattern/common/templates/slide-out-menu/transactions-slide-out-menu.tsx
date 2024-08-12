@@ -194,7 +194,7 @@ const TransactionsSlideOutMenu = create(({ transactionId }: IProps) => {
                         mantissa: 2,
                       })} ${transactionData?.data?.currency}`}
                       transactionId={`${transactionData?.data?.id}`}
-                      transationType={`${transactionData?.data?.type}`}
+                      transactionType={`${transactionData?.data?.type}`}
                     />
 
                     {/* Pilgrim details */}
