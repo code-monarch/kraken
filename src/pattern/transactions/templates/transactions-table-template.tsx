@@ -52,8 +52,11 @@ const TransactionsTableTemplate = () => {
     endDate: endDate as string,
   })
 
+  console.log("LOADING TRANSACTIONS: ", isLoading)
+  console.log("FETCHING TRANSACTIONS: ", isFetching)
+
   useEffect(() => {
-    if (transactions && transactions.data) {
+    if (transactions && transactions?.data) {
       setPageCount(transactions?.data?.paginate?.totalPages)
     }
   }, [transactions])
@@ -61,7 +64,7 @@ const TransactionsTableTemplate = () => {
   return (
     <div className='w-full bg-card'>
       <TransactionsTableTemplateHeader
-        totalTransations={transactions?.data?.paginate?.totalResults!}
+        totalTransactions={transactions?.data?.paginate?.totalResults as number}
       />
       <TransactionsTable
         data={transactions?.data?.contents as Transaction[]}

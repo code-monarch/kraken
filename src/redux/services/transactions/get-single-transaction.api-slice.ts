@@ -16,6 +16,7 @@ type SingleTransaction = {
     metadata: {
         channel: string,
         currency: "SAR" | "NGN",
+        exchange_amount: string,
         rate: number,
         agent: TransactionMetadata,
         customer: TransactionMetadata

@@ -28,6 +28,7 @@ import { TransactionSlideOutMenuIcon } from '../../atoms/icons/transaction-slide
 import Hidden from '../../molecules/data-display/hidden'
 import TransactionsSlideOutMenuSkeleton from '../../molecules/skeletons/transactions-slide-out-menu-skeleton'
 import { getInitials } from '@/lib/helper/get-initials'
+import { formatCurrencyAmount } from '@/lib/helper/format-currency'
 
 interface IProps {
   transactionId: string
@@ -158,8 +159,8 @@ const TransactionsSlideOutMenu = create(({ transactionId }: IProps) => {
 
                       {/* Amount */}
                       <h3 className='flex-wrap w-xs whitespace- text-foreground text-center text-24 font-raleway font-semibold'>
-                        {transactionData?.data?.order_amount}{" "}
-                        {transactionData?.data?.currency}
+                        {formatCurrencyAmount({ amount: String(transactionData?.data?.order_amount), currency: transactionData?.data?.currency })}
+
                       </h3>
 
                       {/* Status */}
@@ -183,7 +184,7 @@ const TransactionsSlideOutMenu = create(({ transactionId }: IProps) => {
 
                     {/* Transaction Details */}
                     <SlideOutTransactionDetailsWidget
-                      amount={`${transactionData?.data?.order_amount}`}
+                      amount={`${transactionData?.data?.metadata?.exchange_amount}`}
                       currency={transactionData?.data?.metadata?.currency as string}
                       date={formatDateTime(
                         transactionData?.data?.createdAt as string,

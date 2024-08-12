@@ -11,43 +11,19 @@ import { TransactionsFilterModal } from './transactions-filter-modal'
 import { ITransactionsTableHeaderProps } from '@/pattern/types'
 import { setSearchQueryFilter } from '@/redux/slices/transactions-filter'
 import { useDispatch } from 'react-redux'
-import { useGetUsersMetricsForExportQuery } from '@/redux/services/users/user-metrics.api-alice'
-import { useExportToCsv } from '@/lib/hooks/useExportToCsv'
-import { toast } from 'sonner'
+import ExportTransactionsModal from './export-transactions-modal'
 
 interface IProps
-  extends Pick<ITransactionsTableHeaderProps, 'totalTransations'> {}
+  extends Pick<ITransactionsTableHeaderProps, 'totalTransactions'> { }
 
-const TransactionsTableTemplateHeader: FC<IProps> = ({ totalTransations }) => {
-  const {
-    data: exportData,
-    isLoading: loadingExportData,
-    isError: errorLoadingExportData,
-    isFetching: fetchingExportData,
-  } = useGetUsersMetricsForExportQuery({})
+const TransactionsTableTemplateHeader: FC<IProps> = ({ totalTransactions }) => {
+  const dispatch = useDispatch()
 
-  const [exportFile] = useExportToCsv({
-    dataToExport: exportData?.data?.results,
-    fileName: 'UmrahCash Transactions Report',
-  })
-
-  const handleExportFile = () => {
-    if (exportData?.data?.results) {
-      exportFile()
-    } else {
-      toast.error('Could not export', {
-        description: `${'No data available for export'}`,
-        id: 'error-exporting',
-        duration: 5000,
-        cancel: {
-          onClick: () => {},
-          label: 'Close',
-        },
-      })
-    }
+  // Opens Export modal when triggered
+  const handleShowExportTransactionsModal = () => {
+    show(ExportTransactionsModal)
   }
 
-  const dispatch = useDispatch()
   const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
@@ -65,17 +41,14 @@ const TransactionsTableTemplateHeader: FC<IProps> = ({ totalTransations }) => {
       <div className='w-full h-[76px] bg-inherit flex items-center justify-between py-[26px]'>
         <div className='flex items-center gap-2'>
           <h3 className='text-[1.125rem] font-semibold'>Transactions</h3>
-          <Badge variant='accent'>{totalTransations ?? 0} transactions</Badge>
+          <Badge variant='accent'>{totalTransactions ?? 0} transactions</Badge>
         </div>
         <ButtonWithIcon
           variant='outlinePrimary'
           prefixIcon={<ExcelIcon />}
           size='sm'
           className='w-[127px] h-[44px] text-base'
-          disabled={
-            loadingExportData || errorLoadingExportData || fetchingExportData
-          }
-          onClick={handleExportFile}
+          onClick={handleShowExportTransactionsModal}
         >
           Export
         </ButtonWithIcon>
