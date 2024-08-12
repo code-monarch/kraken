@@ -23,3 +23,20 @@ export const formatCurrency = ({
 
   return formattedCurrency;
 };
+
+export const formatCurrencyAmount = ({
+  amount,
+  mantissa = 0,
+  currency = "NGN"
+}: IFormatCurrencyProps): string => {
+
+  const amountFloat = parseFloat(amount)
+  const formattedAmount = new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: currency,
+    maximumSignificantDigits: 5,
+    maximumFractionDigits: mantissa
+  }).format(amountFloat)
+
+  return formattedAmount;
+}

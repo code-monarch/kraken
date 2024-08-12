@@ -1,5 +1,5 @@
 {
   "NEXT_PUBLIC_CLIENT_ID": "frontend-website",
   "NEXT_PUBLIC_CLIENT_SECRET": "a6805281c286a6d1541092884565174b",
-  "NEXT_PUBLIC_BASE_URL": "https://staging.api.umrahcash.com/"
+  "NEXT_PUBLIC_BASE_URL": "https://api.umrahcash.com/"
 }

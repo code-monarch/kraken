@@ -3,21 +3,23 @@ import React, { FC } from 'react'
 import SlideOutDivider from '../molecules/data-display/slide-out-divider'
 import { Badge } from '@/components/ui/badge'
 import { Label } from '@/components/ui/label'
-import Divider from '../atoms/icons/divider'
 import { Separator } from '@/components/ui/separator'
+import { formatCurrencyAmount } from '@/lib/helper/format-currency'
 
 interface IProps {
-  amount: string | number
+  amount: string
+  currency: string
   transactionFee: string | number
-  transationType: string
+  transactionType: string
   transactionId: string
   date: string
 }
 
 const SlideOutTransactionDetailsWidget: FC<IProps> = ({
   amount,
+  currency,
   transactionFee,
-  transationType,
+  transactionType,
   transactionId,
   date,
 }) => {
@@ -34,9 +36,9 @@ const SlideOutTransactionDetailsWidget: FC<IProps> = ({
       <div className='w-full flex flex-col space-y-[12px]'>
         {/* Amount */}
         <div className='w-full flex items-start justify-between'>
-          <Label htmlFor='amount'>Amount:</Label>
+          <Label htmlFor='amount'>{`Amount(${currency}):`}</Label>
           <div id='amount' className='text-right'>
-            {amount}
+            {formatCurrencyAmount({ amount: amount, currency: currency })}
           </div>
         </div>
 
@@ -52,7 +54,7 @@ const SlideOutTransactionDetailsWidget: FC<IProps> = ({
         <div className='w-full flex items-start justify-between'>
           <Label htmlFor='type'>Transaction type:</Label>
           <div id='type' className='text-right uppercase'>
-            {transationType}
+            {transactionType}
           </div>
         </div>
 

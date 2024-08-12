@@ -101,7 +101,7 @@ const ConfirmEmailTemplate = () => {
               </p>
             </Hidden>
             <Hidden visible={count === 0}>
-              <LinkButton onClick={handleResendPassword}>
+              <LinkButton onClick={handleResendPassword} type="button">
                 Resend password reset link
               </LinkButton>
             </Hidden>

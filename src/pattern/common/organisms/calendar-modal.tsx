@@ -3,11 +3,7 @@ import React, { useState } from 'react'
 import { Calendar } from '@/components/ui/calendar'
 import { create, useModal } from '@ebay/nice-modal-react'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
-import { useDispatch } from 'react-redux'
-import {
-  setEndDateFilter,
-  setStartDateFilter,
-} from '@/redux/slices/transactions-filter'
+import { currentYear } from '@/lib/utils'
 
 export interface ICalendarModalProps {
   isFilterFor: 'startDate' | 'endDate' // Determines whether Calender is meant to set a START date or END date filter
@@ -33,8 +29,8 @@ const CalendarModal = create(
           <Calendar
             mode='single'
             captionLayout='dropdown-buttons'
-            fromYear={2024}
-            toYear={2027}
+            fromYear={1930}
+            toYear={currentYear}
             selected={isFilterFor === 'startDate' ? startDate : endDate}
             onSelect={value =>
               isFilterFor === 'startDate'
