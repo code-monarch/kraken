@@ -30,12 +30,13 @@ const PercentInput: FC<Omit<ICustomInputProps, "suffixIcon">> = ({
               <Input
                 name={name}
                 value={value}
+                type="number"
                 onChange={onChange}
                 onFocus={() => setIsFocus(true)}
                 onBlur={() => setIsFocus(false)}
                 variant={error ? "error" : "default"}
                 placeholder={placeholder ?? "Type here"}
-                className='min-w-full pl-2'
+                className='min-w-full pl-2 no-increment'
                 {...props}
               />
               <span className='absolute top-[15px] right-[12px]'>

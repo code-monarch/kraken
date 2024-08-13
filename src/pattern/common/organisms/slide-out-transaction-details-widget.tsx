@@ -10,7 +10,7 @@ interface IProps {
   amount: string
   currency: string
   transactionFee: string | number
-  transationType: string
+  transactionType: string
   transactionId: string
   date: string
 }
@@ -19,7 +19,7 @@ const SlideOutTransactionDetailsWidget: FC<IProps> = ({
   amount,
   currency,
   transactionFee,
-  transationType,
+  transactionType,
   transactionId,
   date,
 }) => {
@@ -54,7 +54,7 @@ const SlideOutTransactionDetailsWidget: FC<IProps> = ({
         <div className='w-full flex items-start justify-between'>
           <Label htmlFor='type'>Transaction type:</Label>
           <div id='type' className='text-right uppercase'>
-            {transationType}
+            {transactionType}
           </div>
         </div>
 

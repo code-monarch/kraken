@@ -1,3 +1,4 @@
+import React from 'react'
 import {
   Card,
   CardContent,
@@ -7,31 +8,24 @@ import {
 } from '@/components/ui/card'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { create, show, useModal } from '@ebay/nice-modal-react'
-import React, { useMemo } from 'react'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import PercentInput from '../../common/molecules/inputs/percent-input'
 import { Button } from '@/components/ui/button'
 import LoadingButton from '../../common/molecules/controls/loading-button'
-import * as Yup from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
 import {
-  IUpdateTransactionFeesEnum,
-  IUpdateTransactionFeesPayload,
-  useGetTransactionFeesQuery,
+  ITransactionFeesResponse,
   useUpdateTransactionFeesMutation,
-} from '@/redux/services/transactions/transaction-fess.api-slice'
+} from '@/redux/services/transactions/transaction-fees.api-slice'
 import { SuccessModal } from '@/pattern/common/organisms/success-modal'
 import { ErrorModal } from '@/pattern/common/organisms/error-modal'
+import * as Yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 
-const SetTransactionFeesFormSchema = Yup.object().shape({
-  [IUpdateTransactionFeesEnum.DEPOSIT_FEE]: Yup.number(),
-  [IUpdateTransactionFeesEnum.WITHDRAWAL_FEE]: Yup.number(),
-  [IUpdateTransactionFeesEnum.CASHOUT_REWARD]: Yup.number(),
-})
+interface IProps {
+  fees: ITransactionFeesResponse
+}
 
-const SetTransactionFeesModal = create(() => {
-  const { data } = useGetTransactionFeesQuery()
-
+const SetTransactionFeesModal = create(({ fees }: IProps) => {
   const { resolve, remove, visible } = useModal()
 
   const handleCloseModal = () => {
@@ -39,24 +33,34 @@ const SetTransactionFeesModal = create(() => {
     remove()
   }
 
-  const defaultValues = useMemo(
-    () => ({
-      [IUpdateTransactionFeesEnum.CASHOUT_REWARD]:
-        data?.data?.find(
-          re => re.id === IUpdateTransactionFeesEnum.CASHOUT_REWARD,
-        )?.amount ?? 0.0,
-      [IUpdateTransactionFeesEnum.DEPOSIT_FEE]:
-        data?.data?.find(re => re.id === IUpdateTransactionFeesEnum.DEPOSIT_FEE)
-          ?.amount ?? 0.0,
-      [IUpdateTransactionFeesEnum.WITHDRAWAL_FEE]:
-        data?.data?.find(
-          re => re.id === IUpdateTransactionFeesEnum.WITHDRAWAL_FEE,
-        )?.amount ?? 0.0,
-    }),
-    [data],
-  )
+  // The description you want to match
+  const CASHOUT_REWARD = "Cashout Reward";
+  const DEPOSIT_FEE = "Deposit fee";
+  const WITHDRAWAL_FEE = "Withdrawal fee";
 
-  const methods = useForm<IUpdateTransactionFeesPayload>({
+  // Find the object with the matching description
+  const cashoutRewardItem = fees?.data?.find(fee => fee.description === CASHOUT_REWARD);
+  const depositFeeItem = fees?.data?.find(fee => fee.description === DEPOSIT_FEE);
+  const withdrawalFeeItem = fees?.data?.find(fee => fee.description === WITHDRAWAL_FEE);
+
+  // Get the id if a matching item is found
+  const CashOutRewardId = cashoutRewardItem ? cashoutRewardItem.id : null;
+  const DepositFeeId = depositFeeItem ? depositFeeItem.id : null;
+  const WithdrawalFeeId = withdrawalFeeItem ? withdrawalFeeItem.id : null;
+
+  const SetTransactionFeesFormSchema = Yup.object().shape({
+    [DepositFeeId as string]: Yup.number(),
+    [CashOutRewardId as string]: Yup.number(),
+    [WithdrawalFeeId as string]: Yup.number(),
+  })
+
+  const defaultValues = {
+    [DepositFeeId as string]: depositFeeItem?.amount ?? 0,
+    [CashOutRewardId as string]: cashoutRewardItem?.amount ?? 0,
+    [WithdrawalFeeId as string]: withdrawalFeeItem?.amount ?? 0,
+  }
+
+  const methods = useForm({
     mode: 'onChange',
     resolver: yupResolver(SetTransactionFeesFormSchema),
     reValidateMode: 'onChange',
@@ -69,17 +73,15 @@ const SetTransactionFeesModal = create(() => {
     formState: { errors, isDirty },
   } = methods
 
+  // Update Fees API mutation
   const [updateFees, { isLoading, isSuccess }] =
     useUpdateTransactionFeesMutation()
 
-  const onSubmit: SubmitHandler<IUpdateTransactionFeesPayload> = data => {
+  const onSubmit: SubmitHandler<any> = data => {
     updateFees({
-      [IUpdateTransactionFeesEnum.CASHOUT_REWARD]:
-        data['74c0ef8d-b551-49c7-99cd-37c16ba7cb6a'],
-      [IUpdateTransactionFeesEnum.DEPOSIT_FEE]:
-        data['ef986bae-b0a5-4c81-b970-e5d6041fefc1'],
-      [IUpdateTransactionFeesEnum.WITHDRAWAL_FEE]:
-        data['a160651d-6abd-4a06-a5af-1ccc54f2c585'],
+      [DepositFeeId as string]: data[`${DepositFeeId}`],
+      [CashOutRewardId as string]: data[`${CashOutRewardId}`],
+      [WithdrawalFeeId as string]: data[`${WithdrawalFeeId}`],
     })
       .unwrap()
       .then(res => {
@@ -118,25 +120,25 @@ const SetTransactionFeesModal = create(() => {
                 {/* Deposit Fees */}
                 <PercentInput
                   label='Deposit Fees'
-                  name={IUpdateTransactionFeesEnum.DEPOSIT_FEE}
+                  name={DepositFeeId ?? ""}
                   placeholder='10'
-                  error={errors[IUpdateTransactionFeesEnum.DEPOSIT_FEE]}
+                  error={errors[DepositFeeId ?? ""]}
                 />
 
                 {/* Cashout Rewards */}
                 <PercentInput
                   label='Cashout Rewards'
-                  name={IUpdateTransactionFeesEnum.CASHOUT_REWARD}
+                  name={CashOutRewardId ?? ""}
                   placeholder='10'
-                  error={errors[IUpdateTransactionFeesEnum.CASHOUT_REWARD]}
+                  error={errors[CashOutRewardId ?? ""]}
                 />
 
                 {/* Withdrawal Fees */}
                 <PercentInput
                   label='Withdrawal Fees'
-                  name={IUpdateTransactionFeesEnum.WITHDRAWAL_FEE}
+                  name={WithdrawalFeeId ?? ""}
                   placeholder='10'
-                  error={errors[IUpdateTransactionFeesEnum.WITHDRAWAL_FEE]}
+                  error={errors[WithdrawalFeeId ?? ""]}
                 />
               </CardContent>
 

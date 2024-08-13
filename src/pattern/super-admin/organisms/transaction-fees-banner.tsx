@@ -6,26 +6,16 @@ import { Separator } from '@/components/ui/separator'
 import { show } from '@ebay/nice-modal-react'
 import SetTransactionFeesModal from '../templates/set-transaction-fees-modal'
 import FeeWidget from '../molecules/fee-widget'
-import { useGetTransactionFeesQuery } from '@/redux/services/transactions/transaction-fess.api-slice'
+import { useGetTransactionFeesQuery } from '@/redux/services/transactions/transaction-fees.api-slice'
 import Hidden from '@/pattern/common/molecules/data-display/hidden'
 import TransactionFeesBannerSkeleton from '@/pattern/common/molecules/skeletons/transaction-fees-banner-skeleton'
 
-interface ITransactionFeesBannerProps {
-  depositFees: string
-  withdrawalFees: string
-  cashoutRewards: string
-}
-
-const TransactionFeesBanner: FC<ITransactionFeesBannerProps> = ({
-  depositFees,
-  withdrawalFees,
-  cashoutRewards,
-}) => {
+const TransactionFeesBanner = () => {
   const { data, isLoading, isFetching, isSuccess, isError } =
     useGetTransactionFeesQuery()
 
   const handleUpdateFees = () => {
-    show(SetTransactionFeesModal)
+    show(SetTransactionFeesModal, { fees: data })
   }
   return (
     <div className='w-full h-fit bg-white flex flex-col items-start px-6 rounded-[6px]'>
@@ -51,32 +41,12 @@ const TransactionFeesBanner: FC<ITransactionFeesBannerProps> = ({
       {/* Content */}
       <div className='w-full h-[108px] grid grid-cols-3 gap-5 py-5'>
         <Hidden visible={!isLoading}>
-          {/* Deposit Fees */}
-          {/* <FeeWidget
-            // isLoading={true}
-            label='Deposit Fees'
-            value={depositFees}
-          /> */}
-
-          {/* Withdrawal Fees */}
-          {/* <FeeWidget
-            // isLoading={true}
-            label='Withdrawal Fees'
-            value={withdrawalFees}
-          /> */}
-
-          {/* Cashout Rewards */}
-          {/* <FeeWidget
-            // isLoading={true}
-            label='Cashout Rewards'
-            value={cashoutRewards}
-          /> */}
           {data?.data.map((fee, i) => (
             <FeeWidget
-            key={i}
-            label={fee.description}
-            value={fee.amount}
-          />
+              key={i}
+              label={fee.description}
+              value={fee.amount}
+            />
           ))}
         </Hidden>
         <Hidden visible={isLoading}>
