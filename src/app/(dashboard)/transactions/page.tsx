@@ -38,11 +38,7 @@ const TransactionsPage = () => {
       <TransactionMetricGrid />
       {/* Super Admin Page Header */}
       <Hidden visible={adminRole === 'SUPER_ADMIN'}>
-        <TransactionFeesBanner
-          depositFees='10'
-          withdrawalFees='10'
-          cashoutRewards='0.5'
-        />
+        <TransactionFeesBanner />
       </Hidden>
       <TransactionsTableTemplate />
     </>

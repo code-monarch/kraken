@@ -211,3 +211,16 @@ input:-webkit-autofill:active {
   -moz-appearance: textfield;
   appearance: textfield;
 }
+
+/* Hide the number input increment buttons */
+.no-increment::-webkit-inner-spin-button,
+.no-increment::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.no-increment {
+  /* Firefox */
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
