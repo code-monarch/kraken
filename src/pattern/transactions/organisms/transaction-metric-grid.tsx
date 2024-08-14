@@ -25,6 +25,7 @@ const TransactionMetricGrid = () => {
         metricValue={data?.data?.total_volume as number}
         isAmount={true}
         isLoading={isLoading || isFetching}
+        isNaira={false}
       />
       {/* Average Transaction Amount */}
       <DashboardMetricCard
@@ -33,6 +34,7 @@ const TransactionMetricGrid = () => {
         metricValue={data?.data?.average_tranx as number}
         isAmount={true}
         isLoading={isLoading || isFetching}
+        isNaira={false}
       />
     </div>
   )
