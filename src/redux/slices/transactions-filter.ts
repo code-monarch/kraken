@@ -4,6 +4,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // Get the current date
 const currentDate = new Date();
+const tomorrowDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 1);
 
 // Defaults to First day of current month
 const defaultStartDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
@@ -18,7 +19,7 @@ const initialState: Pick<ITransactionsTableHeaderProps, "searchQuery" |
     status: undefined,
     order: "asc",
     startDate: formatDate(`${defaultStartDate}`),
-    endDate: formatDate(`${currentDate}`),
+    endDate: formatDate(`${tomorrowDate}`),
     transactionType: undefined
 };
 

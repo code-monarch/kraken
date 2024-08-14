@@ -32,9 +32,15 @@ import {
 } from '@/redux/slices/transactions-filter'
 import { formatDate } from '@/lib/helper/format-date'
 import { NETWORK_ERROR_MESSAGE } from '@/lib/constants'
+import { formatDateRange } from '@/lib/helper/format-date-range'
 
 // Get the current date
 const currentDate = new Date()
+const tomorrowDate = new Date(
+  currentDate.getFullYear(),
+  currentDate.getMonth(),
+  currentDate.getDate() + 1,
+)
 
 const LoginFormSchema = Yup.object().shape({
   email: Yup.string()
@@ -104,8 +110,8 @@ const LoginTemplate = () => {
             dispatch(setAdminId(res.data.id))
             dispatch(setAdminRole(res.data.userType))
             dispatch(setEmail(res.data.email))
-            dispatch(setStartDateFilter(formatDate(`${defaultStartDate}`)))
-            dispatch(setEndDateFilter(formatDate(`${currentDate}`)))
+            dispatch(setStartDateFilter(formatDateRange(`${defaultStartDate}`)))
+            dispatch(setEndDateFilter(formatDateRange(`${tomorrowDate}`)))
             storeLoginCredentials({
               apiKey: res.data.apiKey,
               adminId: res.data.id,
@@ -154,7 +160,7 @@ const LoginTemplate = () => {
             'We encountered an error while trying to log you in'
           }`,
           duration: 8000,
-          id: "login-error",
+          id: 'login-error',
           cancel: {
             onClick: () => {},
             label: 'Close',
@@ -188,7 +194,10 @@ const LoginTemplate = () => {
             {/* Controls */}
             <div className='w-full space-y-[28px]'>
               <div className='w-full flex items-center justify-end'>
-                <LinkButton type='button' onClick={() => push(`${AUTH_PATHS.resetPassword}`)}>
+                <LinkButton
+                  type='button'
+                  onClick={() => push(`${AUTH_PATHS.resetPassword}`)}
+                >
                   Forgot Password
                 </LinkButton>
               </div>
