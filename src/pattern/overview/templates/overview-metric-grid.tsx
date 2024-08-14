@@ -31,7 +31,7 @@ const OverviewMetricGrid = () => {
         hideMetricPercentage={true}
         // isAmount={false}
         isLoading={isLoading || isFetching}
-        isNaira={true}
+        isNaira={false}
       />
     </div>
   )
