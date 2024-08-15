@@ -59,6 +59,7 @@ export const getExportTransactionsApiSlice = baseApiSlice.injectEndpoints({
                         'Content-Type': 'application/json',
                     }
                 }),
+                providesTags: ['getTransactionExportData'],
                 transformErrorResponse: (response) => {
                     // Check if original status code === 426 and modify the response as needed
                     if (response.status === 426) {

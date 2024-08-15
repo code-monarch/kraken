@@ -59,7 +59,7 @@ export const getTransactionFeesApiSlice = baseApiSlice.injectEndpoints({
         },
         body: payload,
       }),
-      invalidatesTags: ['getTransactionFees'],
+      invalidatesTags: ['getTransactionFees', 'getTransactionExportData'],
     }),
   }),
 })

@@ -17,6 +17,7 @@ import { useSearchParams } from 'next/navigation'
 import ErrorFallback from '@/pattern/common/atoms/error-fallback'
 import UserCashOutRequestTabContent from '../organisms/user-cashout-request-tab-content'
 import { NETWORK_ERROR_MESSAGE } from '@/lib/constants'
+import { CashOutRequestTabIcon } from '@/pattern/common/atoms/icons/cashout-request-tab-icon'
 
 const ERROR_MESSAGE =
   'we encountered an error while getting the information of this user. kindly refresh this page and try again.'
@@ -62,14 +63,14 @@ const UserDetailsTemplate = () => {
       icon: UserDetailsTabIcon,
       content: (
         <UserDetailsTabContent
-          email={userDetailsData?.data?.email ?? 'Email'}
-          address={userDetailsData?.data?.address ?? 'Address'}
-          name={`${userDetailsData?.data?.firstname} ${userDetailsData?.data?.lastname}`}
-          phoneNumber={userDetailsData?.data?.phoneNumber as string}
-          accountName='John Doe'
-          accountNumber='000111000111'
-          bank='GT bank'
-          cashoutReward= {10000}
+          email={userDetailsData?.data?.email ?? 'Nil'}
+          address={userDetailsData?.data?.address ?? 'Nil'}
+          name={`${userDetailsData?.data?.firstname ?? 'Nil'} ${userDetailsData?.data?.lastname ?? "Nil"}`}
+          phoneNumber={userDetailsData?.data?.phoneNumber ?? 'Nil'}
+          accountName='Nil'
+          accountNumber='Nil'
+          bank='Nil'
+          cashoutReward= {0}
         />
       ),
     },
@@ -85,15 +86,15 @@ const UserDetailsTemplate = () => {
       icon: VerificationStatusTabIcon,
       content: (
         <VerificationStatusTabContent
-          isVerified={userDetailsData?.data.isVerified!}
-          nationalId={userDetailsData?.data.nin!}
+          isVerified={userDetailsData?.data.isVerified ?? false}
+          nationalId={userDetailsData?.data.nin ?? "Nil"}
         />
       ),
     },
     {
       tabName: 'Cash-Out Request',
       value: 'cashout-request',
-      icon: VerificationStatusTabIcon,
+      icon: CashOutRequestTabIcon,
       content: <UserCashOutRequestTabContent userId={id as string} />,
     },
   ]
@@ -114,14 +115,14 @@ const UserDetailsTemplate = () => {
         {!isLoading && isSuccess && (
           <div>
             <PilgrimDetailsPageHeader
-              email={userDetailsData?.data?.email ?? 'User Email'}
-              firstName={userDetailsData?.data?.firstname ?? 'Firstname'}
-              lastName={userDetailsData?.data?.lastname ?? 'Lastname'}
-              phoneNumber={userDetailsData?.data?.phoneNumber ?? 'PhoneNumber'}
-              userImg={userDetailsData?.data?.imageUrl}
-              status={userDetailsData?.data?.status ?? 'Status'}
-              userType={userDetailsData?.data?.userType! ?? 'UserType'}
-              id={`${id}`}
+              email={userDetailsData?.data?.email ?? 'Nil'}
+              firstName={userDetailsData?.data?.firstname ?? 'Nil'}
+              lastName={userDetailsData?.data?.lastname ?? 'Nil'}
+              phoneNumber={userDetailsData?.data?.phoneNumber ?? 'Nil'}
+              userImg={userDetailsData?.data?.imageUrl ?? ""}
+              status={userDetailsData?.data?.status ?? 'Nil'}
+              userType={userDetailsData?.data?.userType! ?? 'Nil'}
+              id={`${id ?? "Nil"}`}
             />
 
             {/* Tabs */}
@@ -148,6 +149,7 @@ const UserDetailsTemplate = () => {
                   </div>
                 ))}
               </TabsList>
+
               {tabs.map(tab => (
                 <TabsContent key={tab.value} value={tab.value} className='px-6'>
                   {tab.content}
