@@ -1,6 +1,32 @@
 import { LOGIN_API_KEY, SERVICE_ACCOUNT_API_KEY } from '@/lib/constants'
 import { baseApiSlice } from '@/redux/api/base-api'
 
+type Transaction = {
+  id: string
+  userid: string
+  description: string
+  type: string
+  reference: string
+  sessionID: string
+  order_amount: number
+  fee: number
+  currency: string
+  status: string
+  metadata: {
+    agent: {
+      lastname: string
+      firstname: string
+      phoneNumber: string
+      address: string
+      id: string
+      email: string
+      imageUrl: string
+    }
+  }
+  createdAt: string
+  updatedAt: string
+}
+
 export interface ICashoutRequest {
   id: string
   userid: string
@@ -15,31 +41,7 @@ export interface ICashoutRequest {
   createdAt: string
   updatedAt: string
   comment: string
-  transaction: {
-    id: string
-    userid: string
-    description: string
-    type: string
-    reference: string
-    sessionID: string
-    order_amount: number
-    fee: number
-    currency: string
-    status: string
-    metadata: {
-      agent: {
-        lastname: string
-        firstname: string
-        phoneNumber: string
-        address: string
-        id: string
-        email: string
-        imageUrl: string
-      }
-    }
-    createdAt: string
-    updatedAt: string
-  }
+  transaction: Transaction
 }
 
 interface ISingleCashoutRequestResponse {
@@ -60,31 +62,7 @@ interface ISingleCashoutRequestResponse {
     createdAt: string
     updatedAt: string
     comment: string
-    transaction: {
-      id: string
-      userid: string
-      description: string
-      type: string
-      reference: string
-      sessionID: string
-      order_amount: number
-      fee: number
-      currency: string
-      status: string
-      metadata: {
-        agent: {
-          lastname: string
-          firstname: string
-          phoneNumber: string
-          address: string
-          id: string
-          email: string
-          imageUrl: string
-        }
-      }
-      createdAt: string
-      updatedAt: string
-    }
+    transaction: Transaction
     wallet: {
       id: string
       userid: string
