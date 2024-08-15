@@ -176,7 +176,7 @@ export const getCashoutRequestsApiSlice = baseApiSlice.injectEndpoints({
           'Content-Type': 'application/json',
         },
       }),
-      invalidatesTags: ['getCashoutRequests', 'getTransactionMatrixChart'],
+      invalidatesTags: ['getCashoutRequests', 'getTransactionMatrixChart', "getTransactionExportData"],
     }),
 
     declineCashoutRequest: builder.mutation<
@@ -190,7 +190,7 @@ export const getCashoutRequestsApiSlice = baseApiSlice.injectEndpoints({
           'Content-Type': 'application/json',
         },
       }),
-      invalidatesTags: ['getCashoutRequests', 'getTransactionMatrixChart'],
+      invalidatesTags: ['getCashoutRequests', 'getTransactionMatrixChart', 'getTransactionExportData'],
     }),
   }),
 })

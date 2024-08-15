@@ -57,6 +57,7 @@ export const fundDisbursementWalletApiSlice = baseApiSlice.injectEndpoints({
         'getTransactionMatrix',
         'getTransactionMatrixAlltime',
         'getCashoutRequests',
+        'getTransactionExportData'
       ],
     }),
   }),
