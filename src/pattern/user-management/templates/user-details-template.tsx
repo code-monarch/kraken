@@ -94,7 +94,7 @@ const UserDetailsTemplate = () => {
     {
       tabName: 'Cash-Out Request',
       value: 'cashout-request',
-      icon: VerificationStatusTabIcon,
+      icon: CashOutRequestTabIcon,
       content: <UserCashOutRequestTabContent userId={id as string} />,
     },
   ]
