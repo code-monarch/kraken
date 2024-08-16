@@ -80,7 +80,7 @@ const ExportTransactionsModal = create(() => {
         }] = useLazyGetExportTransactionsQuery()
 
     const [exportFile] = useExportToCsv({
-        dataToExport: exportData,
+        dataToExport: exportData?.data,
         fileName: `UmrahCash Transactions Report ${exportType === "period" ? setDateRange : null}`,
     })
 
@@ -138,7 +138,7 @@ const ExportTransactionsModal = create(() => {
                     {/* Content */}
                     <CardContent className='space-y-[16px] pt-0 pb-4 px-6'>
                         {/* Display Content if data is available */}
-                        <Hidden visible={!isLoading &&
+                        <Hidden visible={!isLoading && !isFetching &&
                             (isSuccess)}>
                             <div className='space-y-[16px]'>
                                 <label htmlFor='' className='text-sm font-medium'>
