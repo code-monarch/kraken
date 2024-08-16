@@ -9,6 +9,10 @@ import { CashoutSearchFilterModal } from '@/pattern/cashout-request/organisms/ca
 import { useGetUserCashoutRequestsQuery } from '@/redux/services/transactions/get-user-cashout-requests.api-alice'
 import { CashoutPagination } from '@/pattern/cashout-request/organisms/cashout-pagination'
 import { PaginationState } from '@tanstack/react-table'
+import Hidden from '@/pattern/common/molecules/data-display/hidden'
+import CashoutCardsSkeleton from '@/pattern/common/molecules/skeletons/cashout-cards-skeleton'
+import ErrorMessageWidget from '@/pattern/common/molecules/data-display/error-message-widget'
+import NoDataWidget from '@/pattern/common/molecules/data-display/no-data-widget'
 
 interface IProps {
   userId: string
@@ -51,27 +55,25 @@ const UserCashOutRequestTabContent = ({ userId }: IProps) => {
       </div>
 
       <div className='w-full flex items-center flex-wrap gap-5'>
-        {!isLoading &&
-          !isFetching &&
-          isSuccess &&
-          data?.data.contents.map((data, idx) => (
+        <Hidden visible={!isLoading && !isFetching && isSuccess}>
+          {data?.data.contents.map((data, idx) => (
             <CashOutRequestTicketCard key={idx} data={data} />
           ))}
+        </Hidden>
 
-        {(isLoading || isFetching) && <PulsePlaceholder />}
+        <Hidden visible={isLoading || isFetching}>
+          <CashoutCardsSkeleton />
+        </Hidden>
 
-        {!isLoading && !isFetching && isSuccess && (
-          <div className='w-full flex items-center justify-center min-h-[100px] font-medium'>
-            {data?.data.contents.length === 0 ? 'No Record found' : null}
-          </div>
-        )}
+        {/* Display Message when data is empty */}
+        <Hidden visible={!isLoading && !isFetching && isSuccess}>
+          {data?.data.contents.length === 0 ? <NoDataWidget /> : null}
+        </Hidden>
 
         {/* Else render error message */}
-        {!isLoading && !isFetching && isError && (
-          <div className='w-full flex items-center justify-center min-h-[100px] text-destructive'>
-            An error occured while trying to fetch the data
-          </div>
-        )}
+        <Hidden visible={!isLoading && !isFetching && isError}>
+          <ErrorMessageWidget />
+        </Hidden>
       </div>
 
       {!isLoading &&
