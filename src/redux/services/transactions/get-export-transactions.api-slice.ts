@@ -48,9 +48,16 @@ export interface ITransactionsPayload {
     endDate?: string
 }
 
+interface IExportTransactionsResponse {
+    error: boolean,
+    responseCode: string,
+    responseMessage: string,
+    data: Transaction[]
+}
+
 export const getExportTransactionsApiSlice = baseApiSlice.injectEndpoints({
     endpoints: builder => ({
-        getExportTransactions: builder.query<string, ITransactionsPayload>(
+        getExportTransactions: builder.query<IExportTransactionsResponse, ITransactionsPayload>(
             {
                 query: ({ startDate, endDate }) => ({
                     url: `transactions/admin/export-transactions?${startDate ? `startDate=${startDate}` : ''}${endDate ? `&endDate=${endDate}` : ''}`,

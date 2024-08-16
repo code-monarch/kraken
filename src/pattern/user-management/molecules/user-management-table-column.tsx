@@ -139,8 +139,6 @@ export const UserTableColumns: ColumnDef<IUser>[] = [
               </ViewUserDetailsBtn>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-
-            <DropdownMenuItem>Edit</DropdownMenuItem>
             <DropdownMenuSeparator />
 
             {row.original.status !== 'Frozen' &&

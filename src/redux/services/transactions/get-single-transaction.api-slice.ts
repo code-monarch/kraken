@@ -15,7 +15,7 @@ type SingleTransaction = {
     status: 'COMPLETED' | 'PENDING' | 'FAILED',
     metadata: {
         channel: string,
-        currency: "SAR" | "NGN",
+        order_currency: "SAR" | "NGN",
         exchange_amount: string,
         rate: number,
         agent: TransactionMetadata,

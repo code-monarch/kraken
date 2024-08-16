@@ -185,7 +185,7 @@ const TransactionsSlideOutMenu = create(({ transactionId }: IProps) => {
                     {/* Transaction Details */}
                     <SlideOutTransactionDetailsWidget
                       amount={`${transactionData?.data?.metadata?.exchange_amount}`}
-                      currency={transactionData?.data?.metadata?.currency as string}
+                      currency={transactionData?.data?.metadata?.order_currency as string}
                       date={formatDateTime(
                         transactionData?.data?.createdAt as string,
                       )}
