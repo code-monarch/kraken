@@ -7,7 +7,7 @@ const OverviewMetricGrid = () => {
   const { data, isLoading, isFetching } = useGetTransactionMatrixAlltimeQuery()
   return (
     <div className='w-full grid grid-cols-3 gap-5'>
-      {/* Total Users Metric */}
+      {/* Total Balance Metric */}
       <DashboardMetricCard
         metric='Total Balance NGN'
         metricPercentage='10'

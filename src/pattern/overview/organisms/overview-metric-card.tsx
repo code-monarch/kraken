@@ -20,7 +20,7 @@ const OverviewMetricCard = () => {
   const overviewMetric: OverviewMetricType[] = [
     {
       metric: 'Total Users',
-      metricValue: `${data?.data?.users?.total ?? '0'}`,
+      metricValue: `${data?.data?.pagination?.totalResults ?? '0'}`,
       metricPercentage: '0',
     },
     {

@@ -7,7 +7,7 @@ const SuperAdminOverviewMetricGrid = () => {
   const { data, isLoading, isFetching } = useGetTransactionMatrixAlltimeQuery()
   return (
     <div className='w-full grid grid-cols-4 gap-5'>
-      {/* Total Users Metric */}
+      {/* Total Balance Metric */}
       <DashboardMetricCard
         metric='Total Balance NGN'
         metricPercentage='10'
@@ -27,10 +27,10 @@ const SuperAdminOverviewMetricGrid = () => {
       <DashboardMetricCard
         metric='Total Disbursement Balance'
         metricPercentage='10'
-        metricValue={data?.data.balance.disbursement.NGN as number}
+        metricValue={data?.data.balance.disbursement.SAR as number}
         // isAmount={false}
         isLoading={isLoading || isFetching}
-        isNaira={true}
+        isNaira={false}
       />
       {/* Total Admin */}
       <DashboardMetricCard
