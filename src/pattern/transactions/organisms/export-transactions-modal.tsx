@@ -12,7 +12,7 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { Button } from '@/components/ui/button'
 import { IListType } from '@/pattern/types'
 import { useExportToCsv } from '@/lib/hooks/useExportToCsv'
-import { useGetExportTransactionsQuery, useLazyGetExportTransactionsQuery } from '@/redux/services/transactions/get-export-transactions.api-slice'
+import { useLazyGetExportTransactionsQuery } from '@/redux/services/transactions/get-export-transactions.api-slice'
 import LoadingButton from '@/pattern/common/molecules/controls/loading-button'
 import { toast } from 'sonner'
 import Hidden from '@/pattern/common/molecules/data-display/hidden'
@@ -79,12 +79,8 @@ const ExportTransactionsModal = create(() => {
             isFetching,
         }] = useLazyGetExportTransactionsQuery()
 
-    console.log("EXPORT DATA: ", exportData)
-    console.log("IS ERROR: ", error)
-    console.log("ERROR: ", isError)
-
     const [exportFile] = useExportToCsv({
-        dataToExport: error,
+        dataToExport: exportData,
         fileName: `UmrahCash Transactions Report ${exportType === "period" ? setDateRange : null}`,
     })
 
@@ -143,7 +139,7 @@ const ExportTransactionsModal = create(() => {
                     <CardContent className='space-y-[16px] pt-0 pb-4 px-6'>
                         {/* Display Content if data is available */}
                         <Hidden visible={!isLoading &&
-                            (isSuccess || isError)}>
+                            (isSuccess)}>
                             <div className='space-y-[16px]'>
                                 <label htmlFor='' className='text-sm font-medium'>
                                     Export filter:
@@ -189,7 +185,7 @@ const ExportTransactionsModal = create(() => {
                         </Hidden>
 
                         {/* Display error message */}
-                        <Hidden visible={!isLoading && !isFetching && !isError}>
+                        <Hidden visible={!isLoading && !isFetching && isError}>
                             <div className='text-base text-card-foreground'>Error preparing transactions for export</div>
                         </Hidden>
                     </CardContent>
@@ -197,14 +193,14 @@ const ExportTransactionsModal = create(() => {
                     {/* Footer */}
                     <CardFooter className='w-full pb-4 px-6'>
                         {/* Export Button */}
-                        <Hidden visible={!isLoading && !isFetching && isError}>
+                        <Hidden visible={!isLoading && !isFetching && isSuccess}>
                             <LoadingButton
                                 disabled={isDisabled}
                                 onClick={handleExport}>Export</LoadingButton>
                         </Hidden>
 
                         {/* Cancel Button */}
-                        <Hidden visible={(!isLoading || isFetching) && isSuccess}>
+                        <Hidden visible={isLoading || isFetching}>
                             <Button
                                 onClick={handleCloseModal}>Go back</Button>
                         </Hidden>
