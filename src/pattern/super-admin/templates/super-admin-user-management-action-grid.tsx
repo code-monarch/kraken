@@ -17,7 +17,7 @@ const SuperAdminUserManagementActionGrid = () => {
       >
         <UserManagementActionBanner
           title='Create new user'
-          description='Add new users or import from CSV'
+          description='Add new users'
           icon={<CreateNewUserIcon />}
           variant='secondary'
         />
