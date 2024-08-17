@@ -65,6 +65,8 @@ const TransactionsTableTemplate = () => {
     <div className='w-full bg-card'>
       <TransactionsTableTemplateHeader
         totalTransactions={transactions?.data?.paginate?.totalResults as number}
+        setPageCount={setPageCount}
+        setPagination={setPagination}
       />
       <TransactionsTable
         data={transactions?.data?.contents as Transaction[]}

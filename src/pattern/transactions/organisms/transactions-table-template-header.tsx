@@ -1,5 +1,5 @@
 'use client'
-import { FC, useEffect, useState } from 'react'
+import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
 import { Badge } from '@/components/ui/badge'
 import ButtonWithIcon from '@/pattern/common/molecules/controls/button-with-icon'
 import { ExcelIcon } from '@/pattern/common/atoms/icons/excel-icon'
@@ -12,11 +12,16 @@ import { ITransactionsTableHeaderProps } from '@/pattern/types'
 import { setSearchQueryFilter } from '@/redux/slices/transactions-filter'
 import { useDispatch } from 'react-redux'
 import ExportTransactionsModal from './export-transactions-modal'
+import { PaginationState } from '@tanstack/react-table'
 
 interface IProps
-  extends Pick<ITransactionsTableHeaderProps, 'totalTransactions'> { }
+  extends Pick<ITransactionsTableHeaderProps, 'totalTransactions'> {
+  setPageCount: Dispatch<SetStateAction<number>>
+  setPagination: Dispatch<SetStateAction<PaginationState>>
+}
 
-const TransactionsTableTemplateHeader: FC<IProps> = ({ totalTransactions }) => {
+const TransactionsTableTemplateHeader: FC<IProps> = ({ totalTransactions, setPageCount,
+  setPagination }) => {
   const dispatch = useDispatch()
 
   // Opens Export modal when triggered
@@ -29,11 +34,20 @@ const TransactionsTableTemplateHeader: FC<IProps> = ({ totalTransactions }) => {
   useEffect(() => {
     if (searchQuery) {
       dispatch(setSearchQueryFilter(searchQuery))
-    }
-  }, [dispatch, searchQuery])
 
-  const handleShowSearchFilterModal = () => {
-    show(TransactionsFilterModal)
+      // Reset pagination and PageCount
+      setPageCount(1)
+      setPagination({ pageIndex: 0, pageSize: 10 })
+    }
+  }, [dispatch, searchQuery, setPageCount, setPagination])
+
+  const handleShowSearchFilterModal = async () => {
+    const result: any = await show(TransactionsFilterModal)
+    if (result.resolved) {
+      // Reset pagination and PageCount
+      setPageCount(1)
+      setPagination({ pageIndex: 0, pageSize: 10 })
+    }
   }
   return (
     <div className='w-full px-6'>
@@ -57,7 +71,8 @@ const TransactionsTableTemplateHeader: FC<IProps> = ({ totalTransactions }) => {
       {/* Bottom */}
       <div className='w-full h-[76px] bg-inherit flex items-center justify-between py-[26px]'>
         {/* View all Filter Button */}
-        <TransactionsTableViewFilter />
+        <TransactionsTableViewFilter setPageCount={setPageCount}
+          setPagination={setPagination} />
 
         <div className='flex items-center gap-3'>
           {/* Search Input */}

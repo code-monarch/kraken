@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
 import ViewAllCaretIcon from '@/pattern/common/atoms/icons/view-all-caret-icon'
 import ButtonWithIcon from '@/pattern/common/molecules/controls/button-with-icon'
 import {
@@ -15,6 +15,7 @@ import {
   setSearchQueryFilter,
   setStatusFilter,
 } from '@/redux/slices/transactions-filter'
+import { PaginationState } from '@tanstack/react-table'
 
 const statusFilterSetting: IListType[] = [
   {
@@ -35,7 +36,12 @@ const statusFilterSetting: IListType[] = [
   },
 ]
 
-const TransactionsTableViewFilter = () => {
+interface IProps {
+  setPageCount: Dispatch<SetStateAction<number>>
+  setPagination: Dispatch<SetStateAction<PaginationState>>
+}
+
+const TransactionsTableViewFilter: FC<IProps> = ({ setPageCount, setPagination }) => {
   const dispatch = useDispatch()
   const [open, setOpen] = useState(false)
 
@@ -53,8 +59,12 @@ const TransactionsTableViewFilter = () => {
   useEffect(() => {
     if (statusFilter) {
       setStatus(statusFilter)
+
+      // Reset pagination and PageCount
+      setPageCount(1)
+      setPagination({ pageIndex: 0, pageSize: 10 })
     }
-  }, [statusFilter])
+  }, [setPageCount, setPagination, statusFilter])
 
   useEffect(() => {
     if (status) {
