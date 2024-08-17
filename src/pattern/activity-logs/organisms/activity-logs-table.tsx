@@ -16,14 +16,11 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import PulsePlaceholder from '@/pattern/common/atoms/icons/pulse-placeholder-icon'
 import { Pagination } from '@/pattern/common/organisms/table/pagination'
 import {
   ActivityLogsColumns,
-  // IActivity,
 } from '../molecules/activity-logs-table-column'
 import {
-  IActivitiesResponse,
   IActivity,
 } from '@/redux/services/activity-logs/activities.api-slice'
 import ErrorTableWidget from '@/pattern/common/molecules/data-display/error-table-widget'
@@ -99,9 +96,9 @@ export function ActivityLogsTable<TData, TValue>({
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
                     </TableHead>
                   )
                 })}
@@ -112,35 +109,37 @@ export function ActivityLogsTable<TData, TValue>({
           {/* Body */}
           <TableBody>
             {/* Display table rows when data is done loading and the table rows are not empty */}
-            {!isLoading &&
-              !isFetching &&
-              isSuccess &&
-              activityLogsTable.getRowModel().rows?.length &&
-              activityLogsTable.getRowModel().rows.map(row => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
-                >
-                  {row.getVisibleCells().map(cell => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))}
+            <Hidden visible={isSuccess && !isLoading && !isFetching}>
+              {
+                activityLogsTable.getRowModel().rows?.length ?
+                  activityLogsTable.getRowModel().rows.map(row => (
+                    <TableRow
+                      key={row.id}
+                      data-state={row.getIsSelected() && 'selected'}
+                    >
+                      {row.getVisibleCells().map(cell => (
+                        <TableCell key={cell.id}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext(),
+                          )}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  )) : null}
+            </Hidden>
 
             {/* Display Message when data is empty or an error is returned */}
-            {!isLoading && !isFetching && isSuccess && data?.length === 0 ? (
-              <TableRow>
-                <EmptyTableWidget columns={columns} />
-              </TableRow>
-            ) : null}
+            <Hidden visible={!isLoading && !isFetching && isSuccess}>
+              {data?.length === 0 ? (
+                <TableRow>
+                  <EmptyTableWidget columns={columns} />
+                </TableRow>
+              ) : null}
+            </Hidden>
 
             {/* Else render error message */}
-            {!isLoading && !isFetching && isError && (
+            <Hidden visible={!isLoading && !isFetching && isError}>
               <TableRow>
                 <ErrorTableWidget
                   columns={columns}
@@ -152,18 +151,17 @@ export function ActivityLogsTable<TData, TValue>({
                   }
                 />
               </TableRow>
-            )}
+            </Hidden>
           </TableBody>
         </Table>
       </Hidden>
 
       {/* Pagination */}
-      {!isLoading &&
-        !isFetching &&
-        isSuccess &&
-        activityLogsTable.getRowModel().rows?.length && (
+      <Hidden visible={isSuccess && !isLoading && !isFetching}>
+        {activityLogsTable.getRowModel().rows?.length ? (
           <Pagination table={activityLogsTable} className='pr-11' />
-        )}
+        ) : null}
+      </Hidden>
     </>
   )
 }
