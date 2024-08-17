@@ -27,6 +27,8 @@ const UserTransactionsTabContent = () => {
     <div className='w-full bg-card'>
       <TransactionsTableTemplateHeader
         totalTransactions={transactions?.data?.paginate?.totalResults!}
+        setPageCount={setPageCount}
+        setPagination={setPagination}
       />
       <TransactionsTable
         data={transactions?.data?.contents as Transaction[]}

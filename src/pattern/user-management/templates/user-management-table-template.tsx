@@ -165,6 +165,7 @@ const UserManagementTableTemplate = () => {
           <SearchInput
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
+            placeholder='Search name, email or phone number'
           />
 
           {/* Filter Button */}
