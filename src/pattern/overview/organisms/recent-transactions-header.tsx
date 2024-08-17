@@ -6,9 +6,9 @@ import { ExcelIcon } from '@/pattern/common/atoms/icons/excel-icon'
 import ViewAllCaretIcon from '@/pattern/common/atoms/icons/view-all-caret-icon'
 import { useRouter } from 'next/navigation'
 import { DASHBOARD_PATHS } from '@/lib/routes'
-import { useGetUsersMetricsForExportQuery } from '@/redux/services/users/user-metrics.api-alice'
-import { useExportToCsv } from '@/lib/hooks/useExportToCsv'
-import { toast } from 'sonner'
+
+import ExportTransactionsModal from '@/pattern/transactions/organisms/export-transactions-modal'
+import { show } from '@ebay/nice-modal-react'
 
 interface IProps {
   totalTransactions: number
@@ -21,32 +21,9 @@ const RecentTransactionsHeader = ({ totalTransactions }: IProps) => {
     push(`${DASHBOARD_PATHS.transactions}`)
   }
 
-  const {
-    data: exportData,
-    isLoading,
-    isError,
-    isFetching,
-  } = useGetUsersMetricsForExportQuery({})
-
-    const [exportFile] = useExportToCsv({
-      dataToExport: exportData?.data?.results,
-      fileName: 'UmrahCash Transactions Report',
-    })
-
-  const handleExportFile = () => {
-    if (exportData?.data?.results) {
-      exportFile()
-    } else {
-      toast.error('Could not export', {
-        description: `${'No data available for export'}`,
-        id: 'error-exporting',
-        duration: 5000,
-        cancel: {
-          onClick: () => {},
-          label: 'Close',
-        },
-      })
-    }
+  // Opens Export modal when triggered
+  const handleShowExportTransactionsModal = () => {
+    show(ExportTransactionsModal)
   }
 
   return (
@@ -63,8 +40,7 @@ const RecentTransactionsHeader = ({ totalTransactions }: IProps) => {
             prefixIcon={<ExcelIcon />}
             size='sm'
             className='w-[127px] h-[44px] text-base'
-            disabled={isLoading || isFetching || isError}
-            onClick={handleExportFile}
+            onClick={handleShowExportTransactionsModal}
           >
             Export
           </ButtonWithIcon>
