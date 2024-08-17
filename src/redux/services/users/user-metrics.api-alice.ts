@@ -106,4 +106,4 @@ export const usersMetricsApiSlice = baseApiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetUsersMetricsQuery, useGetUsersMetricsForExportQuery } = usersMetricsApiSlice;
+export const { useGetUsersMetricsQuery, useGetUsersMetricsForExportQuery, useLazyGetUsersMetricsForExportQuery } = usersMetricsApiSlice;

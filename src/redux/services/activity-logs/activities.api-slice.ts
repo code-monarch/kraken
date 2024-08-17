@@ -87,5 +87,5 @@ export const activitiesApiSlice = baseApiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetActivitiesQuery, useGetActivitiesForExportQuery, useDeleteActivitiesMutation } =
+export const { useGetActivitiesQuery, useGetActivitiesForExportQuery, useLazyGetActivitiesForExportQuery, useDeleteActivitiesMutation } =
   activitiesApiSlice;

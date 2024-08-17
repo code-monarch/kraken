@@ -2,16 +2,17 @@
 import React, { Dispatch, SetStateAction, useEffect } from 'react'
 import { Badge } from '@/components/ui/badge'
 import ButtonWithIcon from '@/pattern/common/molecules/controls/button-with-icon'
-import { ExcelIcon } from '@/pattern/common/atoms/icons/excel-icon'
 import SearchInput from '@/pattern/common/molecules/inputs/search-input'
 import FilterIcon from '@/pattern/common/atoms/icons/filter-icon'
 import { show } from '@ebay/nice-modal-react'
 import ActivityLogsTableViewFilter from '../molecules/activity-logs-table-view-filters'
 import { ActivityLogsSearchFilterModal } from './activity-logs-search-filter-modal'
 import { useExportToCsv } from '../../../lib/hooks/useExportToCsv'
-import { useGetActivitiesForExportQuery } from '@/redux/services/activity-logs/activities.api-slice'
+import { useGetActivitiesForExportQuery, useLazyGetActivitiesForExportQuery } from '@/redux/services/activity-logs/activities.api-slice'
 import { toast } from 'sonner'
 import { PaginationState } from '@tanstack/react-table'
+import LoadingButton from '@/pattern/common/molecules/controls/loading-button'
+import { ExportButton } from '@/pattern/common/atoms/export-button'
 
 interface IProps {
   filterString: string
@@ -42,12 +43,13 @@ const ActivityLogsTableTemplateHeader = ({
   setPageCount,
   setPagination
 }: IProps) => {
-  const {
+
+  const [exportActivities, {
     data: exportData,
     isLoading,
     isFetching,
     isError,
-  } = useGetActivitiesForExportQuery({})
+  }] = useLazyGetActivitiesForExportQuery()
 
   const [exportFile] = useExportToCsv({
     dataToExport: exportData?.data?.results,
@@ -55,19 +57,19 @@ const ActivityLogsTableTemplateHeader = ({
   })
 
   const handleExportFile = () => {
-    if (exportData?.data?.results) {
-      exportFile()
-    } else {
-      toast.error('Could not export', {
-        description: `${'No data available for export'}`,
-        id: 'error-exporting',
-        duration: 5000,
-        cancel: {
-          onClick: () => { },
-          label: 'Close',
-        },
-      })
-    }
+    exportActivities({}).unwrap().then((res) => {
+      if (exportData?.data?.results) {
+        exportFile()
+      }
+    }).catch(() => toast.error('Could not export', {
+      description: `${'No data available for export'}`,
+      id: 'error-exporting',
+      duration: 5000,
+      cancel: {
+        onClick: () => { },
+        label: 'Close',
+      },
+    }))
   }
 
   useEffect(() => {
@@ -101,16 +103,11 @@ const ActivityLogsTableTemplateHeader = ({
           <h3 className='text-[1.125rem] font-semibold'>Activity List</h3>
           <Badge variant='accent'>{totalActivities ?? 0} activities</Badge>
         </div>
-        <ButtonWithIcon
-          variant='outlinePrimary'
-          prefixIcon={<ExcelIcon />}
-          size='sm'
-          className='w-[127px] h-[44px] text-base cursor-pointer disabled:cursor-not-allowed'
+        <ExportButton
           disabled={isLoading || isFetching || isError}
+          loading={isLoading}
           onClick={handleExportFile}
-        >
-          Export
-        </ButtonWithIcon>
+        />
       </div>
       {/* Bottom */}
       <div className='w-full h-[76px] bg-inherit flex items-center justify-between py-[26px]'>

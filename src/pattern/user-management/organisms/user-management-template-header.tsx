@@ -1,37 +1,35 @@
 import React from 'react'
-import { ExcelIcon } from '@/pattern/common/atoms/icons/excel-icon'
-import ButtonWithIcon from '@/pattern/common/molecules/controls/button-with-icon'
-import { useGetUsersMetricsForExportQuery } from '@/redux/services/users/user-metrics.api-alice'
+import { useLazyGetUsersMetricsForExportQuery } from '@/redux/services/users/user-metrics.api-alice'
 import { useExportToCsv } from '@/lib/hooks/useExportToCsv'
 import { toast } from 'sonner'
+import { ExportButton } from '@/pattern/common/atoms/export-button'
 
 const UserManagementTemplateHeader = () => {
-    const {
+    const [exportUsersData, {
         data: exportData,
-        isLoading: loadingExportData,
-        isError: errorLoadingExportData,
-        isFetching: fetchingExportData,
-    } = useGetUsersMetricsForExportQuery({})
+        isLoading,
+        isError,
+        isFetching,
+    }] = useLazyGetUsersMetricsForExportQuery()
 
     const [exportFile] = useExportToCsv({
         dataToExport: exportData?.data?.results,
         fileName: 'UmrahCash Users Report',
     })
-
     const handleExportFile = () => {
-        if (exportData?.data?.results) {
-            exportFile()
-        } else {
-            toast.error('Could not export', {
-                description: `${'No data available for export'}`,
-                id: 'error-exporting',
-                duration: 5000,
-                cancel: {
-                    onClick: () => { },
-                    label: 'Close',
-                },
-            })
-        }
+        exportUsersData({}).unwrap().then((res) => {
+            if (exportData?.data?.results) {
+                exportFile()
+            }
+        }).catch(() => toast.error('Could not export', {
+            description: `${'No data available for export'}`,
+            id: 'error-exporting',
+            duration: 5000,
+            cancel: {
+                onClick: () => { },
+                label: 'Close',
+            },
+        }))
     }
 
     return (
@@ -39,18 +37,11 @@ const UserManagementTemplateHeader = () => {
             <div className='flex items-center gap-2'>
                 <h3 className='text-[1.125rem] font-semibold'>User List</h3>
             </div>
-            <ButtonWithIcon
-                variant='outlinePrimary'
-                prefixIcon={<ExcelIcon />}
-                size='sm'
-                className='w-[127px] h-[44px] text-base disabled:cursor-not-allowed'
-                disabled={
-                    loadingExportData || errorLoadingExportData || fetchingExportData
-                }
+            <ExportButton
+                disabled={isLoading || isFetching || isError}
+                loading={isLoading}
                 onClick={handleExportFile}
-            >
-                Export
-            </ButtonWithIcon>
+            />
         </div>
     )
 }
