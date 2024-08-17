@@ -16,8 +16,19 @@ import { ErrorModal } from '@/pattern/common/organisms/error-modal'
 import { useSearchParams } from 'next/navigation'
 import ErrorFallback from '@/pattern/common/atoms/error-fallback'
 import UserCashOutRequestTabContent from '../organisms/user-cashout-request-tab-content'
-import { NETWORK_ERROR_MESSAGE } from '@/lib/constants'
+import {
+  IMAGE_FALLBACK_PLACEHOLDER,
+  NETWORK_ERROR_MESSAGE,
+} from '@/lib/constants'
 import { CashOutRequestTabIcon } from '@/pattern/common/atoms/icons/cashout-request-tab-icon'
+import { useGetAgentShopStatusQuery } from '@/redux/services/users/change-verification-status.api-slice'
+
+interface ITab {
+  tabName: string
+  value: string
+  icon: any
+  content: any
+}
 
 const ERROR_MESSAGE =
   'we encountered an error while getting the information of this user. kindly refresh this page and try again.'
@@ -35,6 +46,10 @@ const UserDetailsTemplate = () => {
     isError,
     error,
   } = useGetSingleUserQuery({
+    id: `${id}`,
+  })
+
+  const { data: agentShopDetails } = useGetAgentShopStatusQuery({
     id: `${id}`,
   })
 
@@ -56,7 +71,7 @@ const UserDetailsTemplate = () => {
     }
   }, [error, isError])
 
-  const tabs = [
+  const tabs: ITab[] = [
     {
       tabName: 'User Details',
       value: 'details',
@@ -65,12 +80,12 @@ const UserDetailsTemplate = () => {
         <UserDetailsTabContent
           email={userDetailsData?.data?.email ?? 'Nil'}
           address={userDetailsData?.data?.address ?? 'Nil'}
-          name={`${userDetailsData?.data?.firstname ?? 'Nil'} ${userDetailsData?.data?.lastname ?? "Nil"}`}
+          name={`${userDetailsData?.data?.firstname ?? 'Nil'} ${userDetailsData?.data?.lastname ?? 'Nil'}`}
           phoneNumber={userDetailsData?.data?.phoneNumber ?? 'Nil'}
           accountName='Nil'
           accountNumber='Nil'
           bank='Nil'
-          cashoutReward= {0}
+          cashoutReward={0}
         />
       ),
     },
@@ -80,14 +95,16 @@ const UserDetailsTemplate = () => {
       icon: UserTransactionsTabIcon,
       content: <UserTransactionsTabContent />,
     },
-    {
+    userDetailsData?.data?.userType === 'AGENT' && {
       tabName: 'Verification Status',
       value: 'verification-status',
       icon: VerificationStatusTabIcon,
       content: (
         <VerificationStatusTabContent
-          isVerified={userDetailsData?.data.isVerified ?? false}
-          nationalId={userDetailsData?.data.nin ?? "Nil"}
+          kycVerification={userDetailsData?.data.kycVerification ?? 'Nil'}
+          nationalId={userDetailsData?.data.nin ?? 'Nil'}
+          agentShopStatus={agentShopDetails?.data.status ?? 'Nil'}
+          userId={id ?? ''}
         />
       ),
     },
@@ -97,9 +114,10 @@ const UserDetailsTemplate = () => {
       icon: CashOutRequestTabIcon,
       content: <UserCashOutRequestTabContent userId={id as string} />,
     },
-  ]
+  ].filter((tab): tab is ITab => tab !== false && tab !== null)
 
   const [tabValue, setTabValue] = useState(tabs[0].value)
+  const userImage = userDetailsData?.data.imageUrl ?? IMAGE_FALLBACK_PLACEHOLDER
 
   return (
     <div className='w-full h-full'>
@@ -119,10 +137,14 @@ const UserDetailsTemplate = () => {
               firstName={userDetailsData?.data?.firstname ?? 'Nil'}
               lastName={userDetailsData?.data?.lastname ?? 'Nil'}
               phoneNumber={userDetailsData?.data?.phoneNumber ?? 'Nil'}
-              userImg={userDetailsData?.data?.imageUrl ?? ""}
+              userImg={
+                userImage?.startsWith('https://')
+                  ? userImage
+                  : `https://${userImage}`
+              }
               status={userDetailsData?.data?.status ?? 'Nil'}
               userType={userDetailsData?.data?.userType! ?? 'Nil'}
-              id={`${id ?? "Nil"}`}
+              id={`${id ?? 'Nil'}`}
             />
 
             {/* Tabs */}

@@ -32,7 +32,7 @@ export const PilgrimBioData: FC<IPilgrimBioDataProps> = ({
       <div className='relative w-[96px] h-[96px] rounded-full'>
         {/* User Avatar */}
         {userImg ? (
-          <Image alt='profile picture' src={userImg} width={96} height={96} />
+          <Image alt='profile picture' src={userImg} width={96} height={96} className='rounded-full w-[96px] h-[96px]' />
         ) : (
           <span className='bg-slate-300 w-[96px] h-[96px] rounded-full'></span>
         )}
