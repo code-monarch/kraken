@@ -1,23 +1,21 @@
 'use client'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ButtonWithIcon from '@/pattern/common/molecules/controls/button-with-icon'
-import { ExcelIcon } from '@/pattern/common/atoms/icons/excel-icon'
 import SearchInput from '@/pattern/common/molecules/inputs/search-input'
 import FilterIcon from '@/pattern/common/atoms/icons/filter-icon'
 import { show } from '@ebay/nice-modal-react'
 import { UserManagementTableSearchFilterModal } from '../organisms/user-management-table-search-filter-modal'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { UserManagementTable } from '../organisms/user-management-table'
 import { PaginationState } from '@tanstack/react-table'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import {
-  useGetUsersMetricsForExportQuery,
   useGetUsersMetricsQuery,
 } from '@/redux/services/users/user-metrics.api-alice'
-import { IUser } from '@/redux/services/users/user.api-slice'
-import { useExportToCsv } from '@/lib/hooks/useExportToCsv'
-import { toast } from 'sonner'
+import AllUsersTab from '../organisms/tabs/all-users-tab'
+import UsersTab from '../organisms/tabs/users-tab'
+import AgentsTab from '../organisms/tabs/agents-tab'
+import UserManagementTemplateHeader from '../organisms/user-management-template-header'
 
 const UserManagementTableTemplate = () => {
   const [tabValue, setTabValue] = useState('all')
@@ -26,141 +24,44 @@ const UserManagementTableTemplate = () => {
     pageSize: 10,
   })
 
-  const [pageCount, setPageCount] = useState<number>(1)
   const [status, setStatus] = useState<string>('')
   const [searchQuery, setSearchQuery] = useState<string>('')
-  const [role, setRole] = useState<string>('')
   const [order, setOrder] = useState<string>('')
   const [startDate, setStartDate] = useState<string>('')
   const [endDate, setEndDate] = useState<string>('')
 
   const {
-    data: exportData,
-    isLoading: loadingExportData,
-    isError: errorLoadingExportData,
-    isFetching: fetchingExportData,
-  } = useGetUsersMetricsForExportQuery({})
-
-  const [exportFile] = useExportToCsv({
-    dataToExport: exportData?.data?.results,
-    fileName: 'UmrahCash Users Report',
-  })
-
-  const handleExportFile = () => {
-    if (exportData?.data?.results) {
-      exportFile()
-    } else {
-      toast.error('Could not export', {
-        description: `${'No data available for export'}`,
-        id: 'error-exporting',
-        duration: 5000,
-        cancel: {
-          onClick: () => {},
-          label: 'Close',
-        },
-      })
-    }
-  }
-
-  const {
-    data: userMetricsData,
-    isLoading,
-    isSuccess,
-    isFetching,
-    isError,
+    data: userMetricsData
   } = useGetUsersMetricsQuery({
     page: pagination.pageIndex + 1,
     pageSize: pagination.pageSize,
     status: status,
-    userType: role,
     startDate: startDate,
     endDate: endDate,
     q: searchQuery,
   })
 
-  useEffect(() => {
-    if (userMetricsData && userMetricsData.data) {
-      setPageCount(userMetricsData.data.pagination?.totalPages)
-    }
-  }, [userMetricsData])
-
   const handleShowSearchFilterModal = async () => {
-    const result: any = await show(UserManagementTableSearchFilterModal, {
-      tab: tabValue,
-    })
+    const result: any = await show(UserManagementTableSearchFilterModal)
     if (result.resolved) {
       setStatus(result.userStatus)
-      setRole(result.userRole === 'all' ? '' : result.userRole)
       setOrder(result.order)
       setStartDate(result.startDate)
       setEndDate(result.endDate)
     }
   }
 
-  /* This either returns the fetched users array 
-  as it is or an alphabeticaaly sorted array based 
-  on the sorting order that was selected */
-  const sortedData = useMemo(() => {
-    let result = userMetricsData?.data.results
-
-    if (userMetricsData?.data.results && order === 'descending') {
-      result = [...userMetricsData?.data.results].sort((a, b) => {
-        return b.firstname.localeCompare(a.firstname)
-      })
-    } else if (userMetricsData?.data.results && order === 'ascending') {
-      result = [...userMetricsData?.data.results].sort((a, b) => {
-        return a.firstname.localeCompare(b.firstname)
-      })
-    }
-
-    return result
-  }, [order, userMetricsData])
-
-  // This filters through the sorted state of the data and returns only users with user type of "USER"
-  const allUsers = sortedData?.filter(item => item.userType === 'USER')
-
-  // This filters through the sorted state of the data and returns only users with user type of "AGENT"
-  const allAgents = sortedData?.filter(item => item.userType === 'AGENT')
-
   useEffect(() => {
-    if (tabValue === 'user') {
-      setRole('USER')
-    } else if (tabValue === 'agent') {
-      setRole('AGENT')
-    } else if (tabValue === 'all') {
-      setRole('')
+    if (searchQuery) {
+      // Reset pagination and PageCount
+      setPagination({ pageIndex: 0, pageSize: 10 })
     }
-  }, [tabValue])
-
-  const isFilterActive = !(status || role || startDate || endDate || order)
-  const clearFilters = () => {
-    setStatus('')
-    setRole('')
-    setStartDate('')
-    setEndDate('')
-    setOrder('')
-  }
+  }, [searchQuery, setPagination])
 
   return (
     <div className='w-full h-fit bg-card px-6 overflow-auto'>
       {/* Top */}
-      <div className='w-full h-[76px] bg-inherit flex items-center justify-between py-[26px]'>
-        <div className='flex items-center gap-2'>
-          <h3 className='text-[1.125rem] font-semibold'>User List</h3>
-        </div>
-        <ButtonWithIcon
-          variant='outlinePrimary'
-          prefixIcon={<ExcelIcon />}
-          size='sm'
-          className='w-[127px] h-[44px] text-base disabled:cursor-not-allowed'
-          disabled={
-            loadingExportData || errorLoadingExportData || fetchingExportData
-          }
-          onClick={handleExportFile}
-        >
-          Export
-        </ButtonWithIcon>
-      </div>
+      <UserManagementTemplateHeader />
 
       {/* Bottom */}
       <div className='!relative w-full h-fit bg-inherit flex items-center py-[26px] overflow-auto'>
@@ -224,57 +125,49 @@ const UserManagementTableTemplate = () => {
               />
             </div>
           </TabsList>
+
           <TabsContent value='all'>
-            <UserManagementTable
-              data={sortedData as IUser[]}
-              isLoading={isLoading}
-              isError={isError}
-              isFetching={isFetching}
-              isSuccess={isSuccess}
-              pageCount={pageCount}
-              pagination={pagination}
-              setPagination={setPagination}
+            <AllUsersTab
+              status={status}
+              startDate={startDate}
+              endDate={endDate}
+              searchQuery={searchQuery}
+              order={order}
             />
           </TabsContent>
 
           {/* Users */}
           <TabsContent value='user'>
-            <UserManagementTable
-              data={allUsers as IUser[]}
-              isLoading={isLoading}
-              isError={isError}
-              isFetching={isFetching}
-              isSuccess={isSuccess}
-              pageCount={pageCount}
-              pagination={pagination}
-              setPagination={setPagination}
+            <UsersTab
+              status={status}
+              startDate={startDate}
+              endDate={endDate}
+              searchQuery={searchQuery}
+              order={order}
             />
           </TabsContent>
 
           {/* Agents */}
           <TabsContent value='agent'>
-            <UserManagementTable
-              data={allAgents as IUser[]}
-              isLoading={isLoading}
-              isError={isError}
-              isFetching={isFetching}
-              isSuccess={isSuccess}
-              pageCount={pageCount}
-              pagination={pagination}
-              setPagination={setPagination}
+            <AgentsTab
+              status={status}
+              startDate={startDate}
+              endDate={endDate}
+              searchQuery={searchQuery}
+              order={order}
             />
           </TabsContent>
         </Tabs>
         {/* Tabs End */}
 
+        {/* Search Input and Filter */}
         <div className='absolute top-[30px] right-0 w-fit flex items-center gap-3'>
-          {/* Search Input */}
           <SearchInput
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
           />
 
-          {/* Table search Filter Button */}
+          {/* Filter Button */}
           <ButtonWithIcon
             prefixIcon={<FilterIcon />}
             variant='outline'
@@ -284,11 +177,6 @@ const UserManagementTableTemplate = () => {
           >
             Filters
           </ButtonWithIcon>
-          {/* <Hidden visible={!isFilterActive}>
-            <span onClick={clearFilters} className="text-destructive flex items-center whitespace-nowrap text-sm font-medium cursor-pointer border rounded-md p-1">
-              <Cross2Icon color="red" /> Clear filters
-            </span>
-          </Hidden> */}
         </div>
       </div>
     </div>

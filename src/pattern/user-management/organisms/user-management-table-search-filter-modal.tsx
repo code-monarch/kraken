@@ -14,37 +14,34 @@ import { Separator } from '@/components/ui/separator'
 import SheetCloseIcon from '@/pattern/common/atoms/icons/sheet-close-icon'
 import DateInput from '@/pattern/common/molecules/inputs/date-input'
 import { LinkButton } from '@/pattern/common/molecules/controls/link-button'
-import { IListType } from '@/pattern/types'
-import { Badge } from '@/components/ui/badge'
+import { Badge, BadgeProps } from '@/components/ui/badge'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { DateRangeFilterModal } from '@/pattern/common/organisms/date-range-filter-modal'
-import Hidden from '@/pattern/common/molecules/data-display/hidden'
 import { OrderFilterSelectInput } from '@/pattern/common/molecules/inputs/order-filter-select-input'
 
-const rolesFilterSetting: IListType[] = [
-  {
-    label: 'All',
-    value: 'all',
-  },
-  {
-    label: 'User',
-    value: 'USER',
-  },
-  {
-    label: 'Agent',
-    value: 'AGENT',
-  },
-]
-
-interface IProps {
-  tab?: string
+type StatusType= {
+  value: string;
+  variant: BadgeProps["variant"]
 }
 
+const statusTypes: StatusType[] = [
+  {
+    value: 'Active',
+    variant: 'active',
+  },
+  {
+    value: 'Inactive',
+    variant: 'inactive',
+  },
+  {
+    value: 'Frozen',
+    variant: 'flagged',
+  }
+]
+
 export const UserManagementTableSearchFilterModal = create(
-  ({ tab }: IProps) => {
+  () => {
     const [userStatus, setUserStatus] = useState<string>('')
-    const [userRole, setUserRole] = useState<string>('')
-    // const [registeredOn, setRegisteredOn] = useState<string>("");
     const [startDate, setStartDate] = useState<string>('')
     const [endDate, setEndDate] = useState<string>('')
     const [order, setOrder] = useState<'asc' | 'desc'>('asc')
@@ -65,7 +62,6 @@ export const UserManagementTableSearchFilterModal = create(
       resolve({
         resolved: true,
         userStatus,
-        userRole,
         startDate,
         endDate,
         order,
@@ -79,7 +75,6 @@ export const UserManagementTableSearchFilterModal = create(
 
     const isButtonDisabled = !(
       userStatus ||
-      userRole ||
       startDate ||
       endDate ||
       order
@@ -87,7 +82,6 @@ export const UserManagementTableSearchFilterModal = create(
 
     const resetValues = () => {
       setUserStatus('')
-      setUserRole('')
       setStartDate('')
       setEndDate('')
       setOrder('asc')
@@ -119,99 +113,56 @@ export const UserManagementTableSearchFilterModal = create(
             </CardHeader>
 
             {/* Content */}
-            <CardContent className='pt-0 pb-[23px]'>
+            <CardContent className='pt-0'>
               <div className='w-full space-y-[16px] px-6 pt-2 mb-4'>
                 <OrderFilterSelectInput order={order} setOrder={setOrder} />
               </div>
               <Separator />
-
-              <Hidden visible={tab === 'all'}>
-                {/* Roles Filters */}
-                <div className='space-y-[16px] pt-4 px-6 mb-4'>
-                  <label htmlFor='' className='text-sm font-medium'>
-                    Roles
-                  </label>
-                  <div className='w-full max-w-full flex items-center gap-2 flex-wrap'>
-                    <ToggleGroup
-                      type='single'
-                      value={userRole}
-                      onValueChange={setUserRole}
-                    >
-                      {rolesFilterSetting.map(({ value, label }) => (
-                        <ToggleGroupItem
-                          key={value}
-                          value={value}
-                          aria-label={value}
-                        >
-                          {label}
-                        </ToggleGroupItem>
-                      ))}
-                    </ToggleGroup>
-                  </div>
-                </div>
-                <Separator />
-              </Hidden>
 
               {/* Transaction type Filters */}
               <div className='space-y-[16px] py-4 px-6'>
                 <label htmlFor='' className='text-sm font-medium'>
                   Status
                 </label>
-                <div className='w-full flex items-center gap-2'>
+                <div className='w-full'>
                   <ToggleGroup
                     type='single'
                     value={userStatus}
                     onValueChange={setUserStatus}
+                    className='w-full items-center justify-start gap-x-3'
                   >
-                    <ToggleGroupItem
-                      value='Active'
-                      aria-label='Active'
-                      className='!bg-transparent data-[state=on]:!bg-success-200 data-[state=on]:!text-primary'
-                    >
-                      <Badge variant='active' className='h-[24px]'>
-                        Active
-                      </Badge>
-                    </ToggleGroupItem>
-                    <ToggleGroupItem
-                      value='Inactive'
-                      aria-label='Inactive'
-                      className='!bg-transparent data-[state=on]:!bg-success-200 data-[state=on]:!text-primary'
-                    >
-                      <Badge variant='inactive' className='h-[24px]'>
-                        Inactive
-                      </Badge>
-                    </ToggleGroupItem>
-                    <ToggleGroupItem
-                      value='Frozen'
-                      aria-label='Frozen'
-                      className='!bg-transparent data-[state=on]:!bg-success-200 data-[state=on]:!text-primary'
-                    >
-                      <Badge variant='flagged' className='h-[24px]'>
-                        Frozen
-                      </Badge>
-                    </ToggleGroupItem>
+                    {statusTypes.map(({ value, variant }, idx) => (
+                      <ToggleGroupItem
+                        key={idx}
+                        value={value}
+                        aria-label={value}
+                        className='!bg-transparent h-fit min-w-fit !p-0'
+                      >
+                        <Badge variant={variant} className='h-[24px]'>
+                          {value}
+                        </Badge>
+                      </ToggleGroupItem>
+                    ))}
                   </ToggleGroup>
                 </div>
               </div>
               <Separator />
 
               {/* Registered On */}
-              <div className='w-full space-y-[16px] px-6 pt-4 mb-4'>
-                <div className='space-y-[16px]'>
-                  <DateInput
-                    name='registration-date'
-                    label='Registered On'
-                    placeholder='Select a date range'
-                    onClick={showDateRangeFilterModal}
-                    value={dateRange}
-                  />
-                </div>
+              <div className='w-full space-y-[16px] px-6 pt-4'>
+                <DateInput
+                  name='registration-date'
+                  label='Registered On'
+                  placeholder='Select a date range'
+                  onClick={showDateRangeFilterModal}
+                  value={dateRange}
+                  className='w-full'
+                />
               </div>
-              <Separator />
             </CardContent>
 
             {/* Footer */}
-            <CardFooter className='w-full pb-4 px-6'>
+            <CardFooter className='w-full pb-4 px-5'>
               <Button
                 disabled={isButtonDisabled}
                 onClick={handleSaveFilterSettings}
