@@ -5,10 +5,8 @@ import ActivityLogsTableTemplateHeader from "../organisms/activity-logs-table-te
 import { ActivityLogsTable } from "../organisms/activity-logs-table";
 import {
   ActivityLogsColumns,
-  // IActivity,
 } from "../molecules/activity-logs-table-column";
 import { useGetActivitiesQuery } from "@/redux/services/activity-logs/activities.api-slice";
-import { DateRange } from "react-day-picker";
 import useDebounce from "@/lib/hooks/useDebounce";
 
 const ActivityLogsTableTemplate = () => {
@@ -47,11 +45,11 @@ const ActivityLogsTableTemplate = () => {
   const sortedData = useMemo(() => {
     let result = data?.data.result;
 
-    if (data?.data.result && order === "descending") {
+    if (data?.data.result && order === "desc") {
       result = [...data?.data.result].sort((a, b) => {
         return b.type.localeCompare(a.type);
       });
-    } else if (data?.data.result && order === "ascending") {
+    } else if (data?.data.result && order === "asc") {
       result = [...data?.data.result].sort((a, b) => {
         return a.type.localeCompare(b.type);
       });
@@ -73,6 +71,8 @@ const ActivityLogsTableTemplate = () => {
         totalActivities={data?.data.pagination.totalResults!}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
+        setPageCount={setPageCount}
+        setPagination={setPagination}
       />
       <ActivityLogsTable
         columns={ActivityLogsColumns}

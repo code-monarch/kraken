@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { Dispatch, SetStateAction, useEffect } from 'react'
 import { Badge } from '@/components/ui/badge'
 import ButtonWithIcon from '@/pattern/common/molecules/controls/button-with-icon'
 import { ExcelIcon } from '@/pattern/common/atoms/icons/excel-icon'
@@ -11,6 +11,7 @@ import { ActivityLogsSearchFilterModal } from './activity-logs-search-filter-mod
 import { useExportToCsv } from '../../../lib/hooks/useExportToCsv'
 import { useGetActivitiesForExportQuery } from '@/redux/services/activity-logs/activities.api-slice'
 import { toast } from 'sonner'
+import { PaginationState } from '@tanstack/react-table'
 
 interface IProps {
   filterString: string
@@ -23,6 +24,8 @@ interface IProps {
   totalActivities: number
   searchQuery: string
   setSearchQuery: (value: string) => void
+  setPageCount: Dispatch<SetStateAction<number>>
+  setPagination: Dispatch<SetStateAction<PaginationState>>
 }
 
 const ActivityLogsTableTemplateHeader = ({
@@ -36,6 +39,8 @@ const ActivityLogsTableTemplateHeader = ({
   totalActivities,
   searchQuery,
   setSearchQuery,
+  setPageCount,
+  setPagination
 }: IProps) => {
   const {
     data: exportData,
@@ -58,12 +63,20 @@ const ActivityLogsTableTemplateHeader = ({
         id: 'error-exporting',
         duration: 5000,
         cancel: {
-          onClick: () => {},
+          onClick: () => { },
           label: 'Close',
         },
       })
     }
   }
+
+  useEffect(() => {
+    if (searchQuery) {
+      // Reset pagination and PageCount
+      setPageCount(1)
+      setPagination({ pageIndex: 0, pageSize: 10 })
+    }
+  }, [searchQuery, setPageCount, setPagination])
 
   const handleShowSearchFilterModal = async () => {
     const result: any = await show(ActivityLogsSearchFilterModal)
@@ -73,6 +86,10 @@ const ActivityLogsTableTemplateHeader = ({
       setActivityType(result.activityType)
       setActivityStatus(result.activityStatus)
       setOrder(result.order)
+
+      // Reset pagination and PageCount
+      setPageCount(1)
+      setPagination({ pageIndex: 0, pageSize: 10 })
     }
   }
 
