@@ -62,7 +62,7 @@ const ActivityLogsTableTemplateHeader = ({
         exportFile()
       }
     }).catch(() => toast.error('Could not export', {
-      description: `${'No data available for export'}`,
+      description: `${'Error getting export data'}`,
       id: 'error-exporting',
       duration: 5000,
       cancel: {
@@ -104,8 +104,8 @@ const ActivityLogsTableTemplateHeader = ({
           <Badge variant='accent'>{totalActivities ?? 0} activities</Badge>
         </div>
         <ExportButton
-          disabled={isLoading || isFetching || isError}
           loading={isLoading}
+          disabled={isLoading || isFetching}
           onClick={handleExportFile}
         />
       </div>

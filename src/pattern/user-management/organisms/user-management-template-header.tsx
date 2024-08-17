@@ -8,7 +8,6 @@ const UserManagementTemplateHeader = () => {
     const [exportUsersData, {
         data: exportData,
         isLoading,
-        isError,
         isFetching,
     }] = useLazyGetUsersMetricsForExportQuery()
 
@@ -22,7 +21,7 @@ const UserManagementTemplateHeader = () => {
                 exportFile()
             }
         }).catch(() => toast.error('Could not export', {
-            description: `${'No data available for export'}`,
+            description: `${'Error getting export data'}`,
             id: 'error-exporting',
             duration: 5000,
             cancel: {
@@ -38,8 +37,8 @@ const UserManagementTemplateHeader = () => {
                 <h3 className='text-[1.125rem] font-semibold'>User List</h3>
             </div>
             <ExportButton
-                disabled={isLoading || isFetching || isError}
-                loading={isLoading}
+                loading={isLoading || isFetching}
+                disabled={isLoading || isFetching}
                 onClick={handleExportFile}
             />
         </div>

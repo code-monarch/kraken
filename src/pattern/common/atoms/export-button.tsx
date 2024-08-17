@@ -5,17 +5,17 @@ import { cn } from '@/lib/utils'
 
 interface IExportButtonProps {
     className?: string,
-    disabled: boolean,
+    disabled?: boolean,
     loading: boolean,
     onClick: () => void
 }
 
-export const ExportButton: FC<IExportButtonProps> = ({ className, disabled, loading, onClick }) => {
+export const ExportButton: FC<IExportButtonProps> = ({ className, disabled = false, loading, onClick }) => {
     return (
         <>
             <LoadingButton
                 type="button"
-                variant='outlinePrimary'
+                variant={loading ? "default" : 'outlinePrimary'}
                 size='sm'
                 className={cn('w-[127px] h-[44px] flex items-center cursor-pointer disabled:cursor-not-allowed', className)}
                 disabled={disabled}
