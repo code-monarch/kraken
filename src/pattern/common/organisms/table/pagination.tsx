@@ -39,11 +39,10 @@ export function Pagination<TData>({
           Array.from({ length: pageCount }).map((_, index) => (
             <Button
               key={index}
-              className={`${
-                table.getState().pagination.pageIndex === index
+              className={`${table.getState().pagination.pageIndex === index
                   ? 'text-primary'
                   : 'text-[#1d2939]'
-              } min-w-fit min-h-fit w-fit text-sm  py-2.5 px-4 rounded-none`}
+                } min-w-fit min-h-fit w-fit text-sm  py-2.5 px-4 rounded-none`}
               variant='outline'
               size='sm'
               onClick={() => {
@@ -59,11 +58,10 @@ export function Pagination<TData>({
             {[...Array(3)].map((_, index) => (
               <Button
                 key={index}
-                className={`${
-                  table.getState().pagination.pageIndex === index
+                className={`${table.getState().pagination.pageIndex === index
                     ? 'text-primary'
                     : 'text-[#1d2939]'
-                } min-w-fit min-h-fit w-fit text-sm  py-2.5 px-4 rounded-none`}
+                  } min-w-fit min-h-fit w-fit text-sm  py-2.5 px-4 rounded-none`}
                 variant='outline'
                 size='sm'
                 onClick={() => {
@@ -91,7 +89,7 @@ export function Pagination<TData>({
 
             <span className='text-primary font-medium border h-[32px h-full py-2.5 px-4 w-[80px] text-center min-w-fit min-h-fit text-sm rounded-none'>
               {table.getState().pagination.pageIndex > 2 &&
-              table.getState().pagination.pageIndex < pageCount - 3
+                table.getState().pagination.pageIndex < pageCount - 3
                 ? table.getState().pagination.pageIndex + 1
                 : '...'}
             </span>
@@ -99,12 +97,11 @@ export function Pagination<TData>({
             {[...Array(3)].map((_, index) => (
               <Button
                 key={index + pageCount - 2}
-                className={`${
-                  table.getState().pagination.pageIndex ===
-                  pageCount - 3 + index
+                className={`${table.getState().pagination.pageIndex ===
+                    pageCount - 3 + index
                     ? 'text-primary'
                     : 'text-[#1d2939]'
-                } min-w-fit min-h-fit w-fit text-sm  py-2.5 px-4 rounded-none`}
+                  } min-w-fit min-h-fit w-fit text-sm  py-2.5 px-4 rounded-none`}
                 variant='outline'
                 size='sm'
                 onClick={() => {
