@@ -3,13 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700"
+      href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,500;1,500&display=swap"
       rel="stylesheet"
-      type="text/css"
     />
+
     <style>
-      @import url(https://fonts.googleapis.com/css?family=Raleway:400,500,600,700);
+      @import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,500;1,500&display=swap");
       body {
         font-family: Raleway, sans-serif;
         font-size: 16px;
@@ -43,9 +45,10 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       }
       .header {
+        background-color: #fff;
         padding: 20px 40px;
         text-align: center;
-        background-color: #fff;
+        border-bottom: 1px solid #ced6de;
       }
       .main {
         background-color: #ffffff;
@@ -54,6 +57,14 @@
         color: #2a2e33;
         padding: 40px;
       }
+      .email-name {
+        color: #2a2e33;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 16px;
+        margin-bottom: 32px;
+      }
       .salute-text {
         color: #2a2e33;
         font-family: Raleway;
@@ -61,25 +72,68 @@
         font-style: normal;
         font-weight: 600;
         line-height: 160%;
-        padding-bottom: 32px;
+        margin-bottom: 16px;
       }
-      .button {
-        width: 105px;
+      .transaction-details-header {
+        color: #2a2e33;
+        font-family: Raleway;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 160%;
+        margin: 16px 0;
+      }
+      .content-table {
+        width: 100%;
+        max-width: 342px;
+        border-collapse: collapse;
+        margin-bottom: 32px;
+      }
+      .content-table th,
+      .content-table td {
+        padding: 10px;
+        text-align: left;
+      }
+      .reset-code-container {
+        background: #f5fffa;
+        max-width: 193px;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         gap: 8px;
-        background-color: #08c168;
-        color: #fff;
-        font-weight: 500;
-        padding: 16px 32px;
-        margin: 32px 0;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        border-radius: 6px;
-        text-decoration: none;
+        color: #2a2e33;
+        font-family: Raleway;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 160%;
+        letter-spacing: 3px;
+        padding: 12px 24px;
+        margin: 16px 0;
       }
-      .button:hover {
-        background-color: #068b4b;
+      .reset-code-instruction {
+        margin-bottom: 32px;
+      }
+      .warning {
+        background: #fff1f0;
+        color: #2a2e33;
+        max-width: 480px;
+        display: flex;
+        justify-content: start;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 8px 16px 8px 8px;
+        margin-bottom: 32px;
+        border-radius: 8px 0px 0px 8px;
+      }
+      .warning span {
+        font-size: 13px;
+        color: #2a2e33;
+      }
+      .value {
+        color: #2a2e33;
+        font-weight: 600;
       }
       .best-regards {
         margin-top: 32px;
@@ -96,11 +150,13 @@
         text-align: center;
       }
       .social-icons {
-        margin: 0 auto 16px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
+        text-align: center;
+        margin-top: 16px;
+        margin-bottom: 16px;
+      }
+      .social {
+        margin-right: 10px;
+        text-decoration: none;
       }
       .copyright-text {
         font-size: 12px;
@@ -121,37 +177,60 @@
       <table class="content" role="presentation">
         <tr>
           <td class="header">
-            <img
+              <img
               src="https://ummrah-images.s3.amazonaws.com/assets/UmrahCash-logo.png"
               alt="Umrah-Cash-Logo"
             />
           </td>
         </tr>
-        <tr>
-          <td>
-            <img
-              src="https://ummrah-images.s3.amazonaws.com/assets/welcome-image.png"
-              alt="welcome-image"
-            />
-          </td>
-        </tr>
         <tr class="main">
           <td class="main-body">
+            <p class="email-name">Transaction Summary</p>
             <p class="salute-text">Hi [Recipient Name],</p>
             <p class="welcome-text">
-              Welcome to UmrahCash! We are thrilled to have you with us.
+              Here are the details of your recent transaction
             </p>
-            <p class="welcome-text">
-              With UmrahCash, you can easily and safely exchange your local
-              currency for Saudi Riyals. To get started, you can:
+
+            <p class="transaction-details-header">Transaction Details</p>
+
+            <!-- Transaction details -->
+            <table class="content-table">
+              <!-- <tr>
+                <th>Transaction ID</th>
+                <th>Value</th>
+              </tr> -->
+              <tr>
+                <td>Transaction ID</td>
+                <td class="value">value</td>
+              </tr>
+              <tr>
+                <td>Date</td>
+                <td class="value">Value</td>
+              </tr>
+              <tr>
+                <td>Amount</td>
+                <td class="value">Value</td>
+              </tr>
+              <tr>
+                <td>Type</td>
+                <td class="value">Value</td>
+              </tr>
+              <tr>
+                <td>Status</td>
+                <td class="value">Value</td>
+              </tr>
+            </table>
+
+            <p class="warning">
+              <img
+                src="https://i.ibb.co/mDx91Rk/warning-icon.png"
+                alt="warning-icon"
+              />
+              <span
+                >If you did not authorize this transaction, please contact us
+                immediately.</span
+              >
             </p>
-            <ul>
-              <li>Complete your profile</li>
-              <li>Add funds to your wallet</li>
-              <li>Explore our services</li>
-            </ul>
-            <!-- Get Started Button -->
-            <a href="#" class="button">Get Started</a>
 
             <p>
               For further enquiries, please contact our customer support through
@@ -172,14 +251,17 @@
         <!-- Footer -->
         <tr>
           <td class="footer">
-            <div class="social-icons">
+            <p class="social-icons">
               <!-- X social -->
-              <a href="https://x.com" target="_blank">
-                <img src="https://ummrah-images.s3.amazonaws.com/assets/x-icon.png" alt="x-icon" />
+              <a href="https://x.com" target="_blank" class="social">
+                <img
+                  src="https://ummrah-images.s3.amazonaws.com/assets/x-icon.png"
+                  alt="x-icon"
+                />
               </a>
 
               <!-- Facebook -->
-              <a href="https://facebook.com" target="_blank">
+              <a href="https://facebook.com" target="_blank" class="social">
                 <img
                   src="https://ummrah-images.s3.amazonaws.com/assets/facebook-icon.png"
                   alt="facebook-icon"
@@ -187,7 +269,7 @@
               </a>
 
               <!-- LinkedIn -->
-              <a href="https://linkedin.com" target="_blank">
+              <a href="https://linkedin.com" target="_blank" class="social">
                 <img
                   src="https://ummrah-images.s3.amazonaws.com/assets/linkedin.png"
                   alt="linked-In-icon"
@@ -201,15 +283,17 @@
                   alt="mail-icon"
                 />
               </a>
-            </div>
-            <div class="social-icons">
+            </p>
+
+            <p class="social-icons">
               <!-- App store -->
-              <a href="https://x.com" target="_blank">
+              <a href="https://x.com" target="_blank" class="social">
                 <img
                   src="https://ummrah-images.s3.amazonaws.com/assets/download-on-app-store-badge.png"
                   alt="mobile-app-store-badge"
                 />
               </a>
+
               <!-- Google play store -->
               <a href="https://x.com" target="_blank">
                 <img
@@ -217,9 +301,9 @@
                   alt="google-play-store-badge"
                 />
               </a>
-            </div>
+            </p>
             <p class="copyright-text">
-              &copy; 2024 Company Name. All rights reserved.
+              &copy; 2024 UmrahCash. All rights reserved.
             </p>
             <p class="copyright-text">
               1234 Street Address, City, State, 12345
